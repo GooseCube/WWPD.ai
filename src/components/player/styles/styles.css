@@ -1,0 +1,92 @@
+/* New Sprite Animation Movements */
+
+.sprite-container {
+  height: 100%;
+  width: 100%;
+}
+
+.sprite-arrow {
+  display: none;
+  position: absolute;
+  top: -25px;
+  left: 4px;
+  width: 8px;
+  height: 6px;
+  background: url(/src/assets/arrow.png) no-repeat no-repeat;
+}
+
+.sprite-shadow {
+  background: url(/src/assets/shadow.png) no-repeat no-repeat;
+}
+
+.sprite-name-container {
+  position: absolute;
+  top: -20px;
+  left: -16px;
+  font-size: 7px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: #333;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* See Also: styles/Sprite styled-components */
+.sprite {
+  width: 32px; /* width of individual sprite sheet column */
+  height: 32px; /* height of individual sprite sheet row */
+  overflow: hidden;
+  transition: transform 0.4s ease;
+  zoom: 1.25; 
+}
+
+/* Sprite Animation Frames */
+.stand-down {
+  background-position: 0px 0px; /* first frame of the first row */
+}
+
+.walk-down-1 {
+  background-position: -32px 0px; /* second frame of the first row */
+}
+
+.walk-down-2 {
+  background-position: -64px 0px; /* third frame of the first row */
+}
+
+.stand-left {
+  background-position: 0px -32px; /* first frame of the second row */
+}
+
+.walk-left-1 {
+  background-position: -32px -32px; /* second frame of the second row */
+}
+
+.walk-left-2 {
+  background-position: -64px -32px; /* third frame of the second row */
+}
+
+.stand-right {
+  background-position: 0px -64px; /* first frame of the third row */
+}
+
+.walk-right-1 {
+  background-position: -32px -64px; /* second frame of the third row */
+}
+
+.walk-right-2 {
+  background-position: -64px -64px; /* third frame of the third row */
+}
+
+.stand-up {
+  background-position: 0px -96px; /* first frame of the fourth row */
+}
+
+.walk-up-1 {
+  background-position: -32px -96px; /* second frame of the fourth row */
+}
+
+.walk-up-2 {
+  background-position: -64px -96px; /* third frame of the fourth row */
+}

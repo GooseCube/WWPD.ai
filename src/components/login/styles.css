@@ -1,0 +1,38 @@
+.outer-form-container {
+  margin: 3em auto;
+  padding: 0.5em;
+  background-image: url("../../assets/login/gooseCube.jpg");
+  background-position: center;
+  height: 90vh;
+}
+
+.form-container {
+  margin: 0 auto;
+  padding: 1em;
+  border: 1px solid white;
+  border-radius: 16px;
+  color: white;
+  max-width: 40em;
+}
+
+.perspective-image-steven {
+  width: 15%;
+  height: 28%;
+  position: absolute; /* Position the image */
+  top: 55%; /* vertically align */
+  left: 59%; /* horizontally align */
+  transform: translate(-45%, -50%) perspective(1000px) rotateY(45deg); /* Apply layered perspective */
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+.perspective-image-goose-cube-logo {
+  width: 10%;
+  height: 25%;
+  position: absolute;
+  top: 65%; /* vertically align */
+  left: 8%; /* horizontally align */
+  transform: translate(-45%, -50%) perspective(1000px) rotateY(45deg); /* Apply layered perspective */
+  border-radius: 10px;
+  opacity: 0.8;
+}

@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* :root is used for Global CSS Variables */
+:root {
+  --background: black; /* Global Color Scheme: background-color: var(--background) */
+}
+
+body {
+  margin: 0;
+  background-color: var(--background);
+}
+
+.app-container {
+  position: relative;
+  height: 100vh;
+  background-image: url("./assets/newMap.png");
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+}

@@ -1,0 +1,21 @@
+.sidebar-container {
+  display: relative;
+  height: 100vh;
+  color: white;
+  /* padding: 1em; */
+  background-color: #242424;
+  border-bottom-right-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.btn-close {
+  background-color: white;
+  width: 8px;
+  height: 8px;
+  border-radius: 16px;
+}
+
+.arrow-button {
+  position: absolute;
+  background-color: black;
+}

@@ -19,7 +19,8 @@ async function mixtralAPI(prompt) {
         },
       }
     );
-    pushNewMessage(prompt, filterMistralResponse(prompt, response.data));
+    return filterMistralResponse(prompt, response.data);
+    // pushNewMessage(prompt, filterMistralResponse(prompt, response.data));
   } catch (error) {
     console.error(
       `Error: unable to fetch prompt: "${prompt}" from the Mixtral API Server`,

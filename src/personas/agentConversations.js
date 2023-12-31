@@ -11,7 +11,6 @@
  * - final response/outcome
  */
 
-
 /**
  * @TODO Create a Function in player animation modules:
  * - The primary agent, the 'moment' motivator, should find each player {x, y} and
@@ -20,41 +19,45 @@
  *   next until all agents in the game have been given the context and question.
  */
 
+import personas from "./personas";
+import { townSquare } from "./moments";
 
-/**
- * - Moment: a moment is an action you would like the model to take. It
- *    should include some context about the action and a question related
- *    to the given context to resolve the requested moment.
- * - Context: Give the model some context surrounding the 'moment' you would like to see
- * - Question: Give the model a question to spark a response using the provided context
- * @param {string} context
- * @param {string} question
- * @returns the concatenated string used to begin the moment conversation
- */
-const momentPrompt = function combineInstructionContextQuestion(
-  agent,
-  context,
-  question
-) {
-  const instruction = "Answer the question using the given context below.";
-  return `${instruction} Context: ${context} Question: ${question}`;
+// Kick start the 'moment' using primaryAgent and initial prompt
+const primaryAgentPrompt = (primaryAgent, moment) => {
+  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality}  Question: ${moment.question}`;
 };
 
-/**
- * After the primaryAgent has been given a response 'moment' they will pass
- * on this information to each of the agents in the game and wait for a
- * response.
- * @param {player persona} primaryAgent 
- * @param {player persona} agent 
- * @param {string} moment 
- * @returns 
- */
-const nudgeAgent = function askEachAgentToEvaluateMoment(
-  primaryAgent,
-  agent,
-  moment
-) {
+const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
   const instruction = `Your name is ${agent.name} and you are ${agent.personality}. You have been greeted by ${primaryAgent.name} and will use the given context in your response to ${primaryAgent.name}.`;
   const context = `${primaryAgent.name} has an idea that they would like you to be a part of. Review the idea and offer some advice. You can participate or decline to participate in the idea. Your advice should be at least two sentences and you will tell ${primaryAgent.name} if you want to be a part of their idea.`;
+  const idea = `Idea: ${primaryAgentIdea}`;
   return `${instruction} Context: ${context} Idea: ${moment}`;
+};
+
+// Function to start a conversation
+export const startConversation = async (primaryAgent, moment = townSquare) => {
+  // Initialize the conversation with the prompt
+  let conversation = primaryAgent.name + ": ";
+  let primaryAgentIdea = await mixtralAPI(
+    primaryAgentPrompt(primaryAgent, moment.initialPrompt)
+  );
+  conversation += `${primaryAgentIdea}\n`;
+
+  // Loop through the personas and have each one respond to the prompt
+  personas.forEach(async (persona) => {
+    // Generate a response based on the persona's personality
+    let response = await mixtralAPI(
+      getFeedback(primaryAgent, persona, primaryAgentIdea)
+    );
+
+    // Add the response to the conversation
+    conversation += `${persona.name}\n ${response}\n`;
+  });
+
+  // Then, add the final 'townSquare moment' prompt using the primaryAgentIdea, new instructions/context/ and responses from each agent
+
+  console.log("CONVERSATION\n", conversation);
+
+  // Return the conversation
+  return conversation;
 };

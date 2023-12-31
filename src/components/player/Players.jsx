@@ -13,6 +13,11 @@ function Players() {
     player.playerControlled = true;
   };
 
+  /**
+   * @TODO need to push() updates for players to Firebase 
+   * @param {number} index 
+   * @param {object} newPlayer 
+   */
   const setPlayer = (index, newPlayer) => {
     setPlayers((players) =>
       players.map((player, i) => (i === index ? newPlayer : player))

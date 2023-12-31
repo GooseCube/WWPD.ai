@@ -6,14 +6,6 @@
 }
 
 /* See Also: styles/Sprite styled-components */
-.sprite {
-  /* position: relative; */
-  width: 32px; /* width of individual sprite sheet column */
-  height: 32px; /* height of individual sprite sheet row */
-  transition: top 0.2s ease, left 0.2s ease;
-  zoom: 1.25;
-}
-
 .sprite:hover {
   transform: scale(1.1);
   transition: all 0.3s ease;

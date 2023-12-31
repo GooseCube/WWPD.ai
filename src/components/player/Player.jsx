@@ -5,7 +5,7 @@ import { handlePlayerMoveEvent } from "./modules/keyPressListener";
 import "./styles/styles.css";
 import { Sprite } from "./styles/Sprite";
 
-function Player({ player, setPlayer }) {
+function Player({ player, setPlayer, changePlayerControlled }) {
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (player.playerControlled) {
@@ -22,18 +22,39 @@ function Player({ player, setPlayer }) {
   }, [player]);
 
   return (
-    <div
-      className="sprite-container"
-      style={{ left: player.x, top: player.y }}>
+    <div className="sprite-container" style={{ left: player.x, top: player.y }}>
       <Sprite
         player={player}
         className={`sprite grid-cell ${
           player.frame === 0
             ? `stand-${player.direction}`
             : `walk-${player.direction}-${player.frame}`
-        }`}></Sprite>
+        }`}
+        onClick={() => changePlayerControlled(player)}></Sprite>
+        <div className="sprite-arrow"></div>
+      {/* <div
+        className={`sprite-arrow ${
+          player.playerControlled ? "" : "hidden"
+        }`}></div> */}
+      <div className="sprite-shadow"></div>
+      <div className="sprite-name-container">{player.name}</div>
     </div>
   );
+
+  // return (
+  //   <div
+  //     className="sprite-container"
+  //     style={{ left: player.x, top: player.y }}>
+  //     <Sprite
+  //       player={player}
+  //       className={`sprite grid-cell ${
+  //         player.frame === 0
+  //           ? `stand-${player.direction}`
+  //           : `walk-${player.direction}-${player.frame}`
+  //       }`}
+  //       onClick={() => changePlayerControlled(player)}></Sprite>
+  //   </div>
+  // );
 }
 
 export default Player;

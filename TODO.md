@@ -1,6 +1,6 @@
 ## Switch Huggingface API Token for Goose Cube
 
-Create an account with Huggingface using goosecube1@gmail.com. Create an API Key and change current VITE_HUGGINGFACE_API_TOKEN in the `.env` file.
+Create an account with Huggingface using goosecube1@gmail.com. Create an API Key and change current VITE_HUGGINGFACE_API_TOKEN in the `.env` file. Currently using Adams Huggingface API Token.
 
 ## Translator Component
 
@@ -20,7 +20,7 @@ Once a component fulfills style requirements, begin re-write of CSS styles to St
 
 ## Sprite Character Animation
 
-When releasing the arrow key the sprite character continues to move in the given arrow direction. Eliminate the additional arrow key direction movement.
+When releasing the arrow key the sprite character continues to move in the given arrow direction. Eliminate the additional arrow key direction movement which is the 'rapid fire of the arrow key event while holding a direction'. Using setTimeout() is not usually recommended but for this game it may be a simple implementation that resolves the issue.
 
 ## ElevenLabs Text to Speech
 
@@ -39,3 +39,15 @@ Create an account with EmailJS using goosecube1@gmail.com. Create an API Key and
 ## Update :root Global Color Scheme
 
 Choose the global color schemes and add them to the [Primary Index CSS Styles File](./src/index.css) in the `:root{}` class
+
+## Add and Remove Sprite Characters
+
+Add a function to select and add or remove a sprite character from the game. This function event should be triggered from the sidebar. Each sprite character should use the second column and first row for the profile picture (facing down) and their full name should be displayed either above or below the character.
+
+## Create or Modify Sprite Character Persona
+
+User should have the ability to create their own sprite character persona: {name, personality}. This will require a new input interface or modification of the current MessageInterface allowing the input to push() a new Firebase instance of a sprite character persona.
+
+## Move /personas/personas.js to Firebase
+
+The default personas should persist in the Firebase DB. All new persona characters should be pushed to Firebase.

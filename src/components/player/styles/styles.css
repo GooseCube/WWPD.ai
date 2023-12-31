@@ -10,13 +10,20 @@
   position: absolute;
   top: -25px;
   left: 4px;
-  width: 8px;
-  height: 6px;
-  background: url(/src/assets/arrow.png) no-repeat no-repeat;
+  width: 20px;
+  height: 20px;
+  /* background: url(/src/assets/arrow.png) no-repeat no-repeat; */
+  background: url(../../../assets/arrow.png) no-repeat no-repeat;
 }
 
 .sprite-shadow {
-  background: url(/src/assets/shadow.png) no-repeat no-repeat;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: url(../../../assets/shadow.png) no-repeat no-repeat;
+  background-size: contain;
 }
 
 .sprite-name-container {
@@ -38,7 +45,7 @@
   width: 32px; /* width of individual sprite sheet column */
   height: 32px; /* height of individual sprite sheet row */
   overflow: hidden;
-  transition: transform 0.4s ease;
+  transition: top 0.2s ease, left 0.2s ease;
   zoom: 1.25; 
 }
 

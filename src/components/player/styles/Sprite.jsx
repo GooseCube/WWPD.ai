@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { calculateLeftX, calculateTopY } from "../modules/keyPressListener";
+import isPropValid from "@emotion/is-prop-valid";
 
-/**
- * Styled Component allows the sprite character to change based on selection
- */
-export const Sprite = styled.div`
-  transform: ${({ player }) =>
-    `translate3d(${calculateLeftX(player.x)}, ${calculateTopY(player.y)}, 0)`};
+export const Sprite = styled.div.withConfig({
+  shouldForwardProp: (prop) => isPropValid(prop) && prop !== "player",
+})`
+  position: absolute;
+  left: ${({ player }) => calculateLeftX(player.x)};
+  top: ${({ player }) => calculateTopY(player.y)};
   background-image: ${({ player }) =>
     `url(src/assets/characters/${player.name}.png)`};
   &.grid-cell {

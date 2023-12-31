@@ -1,6 +1,7 @@
 export const personas = {
   abigail: {
-    name: "Abigail_Chen",
+    name: "Abigail",
+    sprite: "Abigail_Chen.png",
     personality:
       "Abigail is a detail-oriented and analytical thinker. She is always looking for the most efficient solution to a problem.",
     x: 18,
@@ -11,7 +12,8 @@ export const personas = {
     playerControlled: true,
   },
   arthur: {
-    name: "Arthur_Burton",
+    name: "Arthur",
+    sprite: "Arthur_Burton.png",
     personality:
       "Arthur is a creative and innovative thinker. He is always looking for new ways to approach problems.",
     x: 10,
@@ -22,7 +24,8 @@ export const personas = {
     playerControlled: false,
   },
   carlos: {
-    name: "Carlos_Gomez",
+    name: "Carlos",
+    sprite: "Carlos_Gomez.png",
     personality:
       "Carlos is a logical and methodical thinker. He likes to break down problems into smaller parts and solve them step by step.",
     x: 11,
@@ -33,7 +36,8 @@ export const personas = {
     playerControlled: false,
   },
   carmen: {
-    name: "Carmen_Ortiz",
+    name: "Carmen",
+    sprite: "Carmen_Ortiz.png",
     personality:
       "Carmen is a practical and pragmatic thinker. She prefers straightforward solutions that are easy to implement.",
     x: 14,
@@ -44,7 +48,8 @@ export const personas = {
     playerControlled: false,
   },
   francisco: {
-    name: "Francisco_Lopez",
+    name: "Francisco",
+    sprite: "Francisco_Lopez.png",
     personality:
       "Francisco is a strategic and big-picture thinker. He likes to consider all possible outcomes before making a decision.",
     x: 9,
@@ -55,7 +60,8 @@ export const personas = {
     playerControlled: false,
   },
   isabella: {
-    name: "Isabella_Rodriguez",
+    name: "Isabella",
+    sprite: "Isabella_Rodriguez.png",
     personality:
       "Isabella is a critical and questioning thinker. She is not afraid to challenge assumptions and think outside the box.",
     x: 28,
@@ -66,7 +72,8 @@ export const personas = {
     playerControlled: false,
   },
   mei: {
-    name: "Mei_Lin",
+    name: "Mei",
+    sprite: "Mei_Lin.png",
     personality:
       "Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines.",
     x: 17,
@@ -77,7 +84,8 @@ export const personas = {
     playerControlled: false,
   },
   yuriko: {
-    name: "Yuriko_Yamamoto",
+    name: "Yuriko",
+    sprite: "Yuriko_Yamamoto.png",
     personality:
       "Yuriko is a flexible and adaptable thinker. He is comfortable with ambiguity and can easily adjust his approach based on new information.",
     x: 10,

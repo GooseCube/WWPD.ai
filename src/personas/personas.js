@@ -10,10 +10,10 @@ export const personas = {
     uid: "1",
     playerControlled: true,
   },
-  adam: {
-    name: "Adam_Smith",
+  arthur: {
+    name: "Arthur_Burton",
     personality:
-      "Adam is a creative and innovative thinker. He is always looking for new ways to approach problems.",
+      "Arthur is a creative and innovative thinker. He is always looking for new ways to approach problems.",
     x: 10,
     y: 7,
     direction: "down",
@@ -21,10 +21,10 @@ export const personas = {
     uid: "2",
     playerControlled: false,
   },
-  arthur: {
-    name: "Arthur_Burton",
+  carlos: {
+    name: "Carlos_Gomez",
     personality:
-      "Arthur is a logical and methodical thinker. He likes to break down problems into smaller parts and solve them step by step.",
+      "Carlos is a logical and methodical thinker. He likes to break down problems into smaller parts and solve them step by step.",
     x: 11,
     y: 10,
     direction: "down",
@@ -36,7 +36,7 @@ export const personas = {
     name: "Carmen_Ortiz",
     personality:
       "Carmen is a practical and pragmatic thinker. She prefers straightforward solutions that are easy to implement.",
-    x: 16,
+    x: 14,
     y: 10,
     direction: "down",
     frame: 0,
@@ -54,10 +54,10 @@ export const personas = {
     uid: "5",
     playerControlled: false,
   },
-  jane: {
-    name: "Jane_Moreno",
+  isabella: {
+    name: "Isabella_Rodriguez",
     personality:
-      "Jane is a critical and questioning thinker. She is not afraid to challenge assumptions and think outside the box.",
+      "Isabella is a critical and questioning thinker. She is not afraid to challenge assumptions and think outside the box.",
     x: 12,
     y: 10,
     direction: "down",
@@ -65,10 +65,10 @@ export const personas = {
     uid: "6",
     playerControlled: false,
   },
-  john: {
-    name: "John_Lin",
+  mei: {
+    name: "Mei_Lin",
     personality:
-      "John is a systematic and organized thinker. He likes to follow established procedures and guidelines.",
+      "Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines.",
     x: 10,
     y: 12,
     direction: "down",
@@ -76,11 +76,11 @@ export const personas = {
     uid: "7",
     playerControlled: false,
   },
-  sam: {
-    name: "Sam_Moore",
+  yuriko: {
+    name: "Yuriko_Yamamoto",
     personality:
-      "Sam is a flexible and adaptable thinker. He is comfortable with ambiguity and can easily adjust his approach based on new information.",
-    x: 9,
+      "Yuriko is a flexible and adaptable thinker. He is comfortable with ambiguity and can easily adjust his approach based on new information.",
+    x: 10,
     y: 7,
     direction: "down",
     frame: 0,

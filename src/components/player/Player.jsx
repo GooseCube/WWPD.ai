@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { handlePlayerMoveEvent } from "./keyPressListener";
+import { handlePlayerMoveEvent } from "./modules/keyPressListener";
 
 // Sprite Styles
 import "./styles/styles.css";

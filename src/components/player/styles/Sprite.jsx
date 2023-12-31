@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { calculateLeftX, calculateTopY } from "../keyPressListener";
+import { calculateLeftX, calculateTopY } from "../modules/keyPressListener";
 
 /**
  * Styled Component allows the sprite character to change based on selection

@@ -1,10 +1,11 @@
-import { validateGridCollision } from "./modules/gridCollisionDetection";
+import { validateGridCollision } from "./gridCollisionDetection";
 
 export const handlePlayerMoveEvent = (player, setPlayer, direction) => {
+  const NUMBER_OF_SPRITE_COLUMNS = 3;
   let newX = player.x;
   let newY = player.y;
   let newDirection = player.direction;
-  let newFrame = (player.frame + 1) % 3; // Cycle through frames 0, 1, 2
+  let newFrame = (player.frame + 1) % NUMBER_OF_SPRITE_COLUMNS; // Cycle through sprite frames 0, 1, 2
   switch (direction) {
     case "ArrowUp":
       newY -= 1;
@@ -38,9 +39,9 @@ export const handlePlayerMoveEvent = (player, setPlayer, direction) => {
   console.log(position);
 };
 export const calculateLeftX = (x) => {
-  return 32 * x + "px";
+  return 16 * x + "px";
 };
 
 export const calculateTopY = (y) => {
-  return 32 * y + "px";
+  return 16 * y + "px";
 };

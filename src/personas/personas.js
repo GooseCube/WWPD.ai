@@ -58,7 +58,7 @@ export const personas = {
     name: "Isabella_Rodriguez",
     personality:
       "Isabella is a critical and questioning thinker. She is not afraid to challenge assumptions and think outside the box.",
-    x: 20,
+    x: 28,
     y: 18,
     direction: "down",
     frame: 0,

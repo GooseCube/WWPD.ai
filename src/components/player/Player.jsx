@@ -30,31 +30,13 @@ function Player({ player, setPlayer, changePlayerControlled }) {
             ? `stand-${player.direction}`
             : `walk-${player.direction}-${player.frame}`
         }`}
-        onClick={() => changePlayerControlled(player)}></Sprite>
-        <div className="sprite-arrow"></div>
-      {/* <div
-        className={`sprite-arrow ${
-          player.playerControlled ? "" : "hidden"
-        }`}></div> */}
+        onClick={() => changePlayerControlled(player)}>
+        {player.playerControlled ? <div className="sprite-arrow"></div> : ""}
+        <div className="sprite-name-container">{player.name}</div>
+      </Sprite>
       <div className="sprite-shadow"></div>
-      <div className="sprite-name-container">{player.name}</div>
     </div>
   );
-
-  // return (
-  //   <div
-  //     className="sprite-container"
-  //     style={{ left: player.x, top: player.y }}>
-  //     <Sprite
-  //       player={player}
-  //       className={`sprite grid-cell ${
-  //         player.frame === 0
-  //           ? `stand-${player.direction}`
-  //           : `walk-${player.direction}-${player.frame}`
-  //       }`}
-  //       onClick={() => changePlayerControlled(player)}></Sprite>
-  //   </div>
-  // );
 }
 
 export default Player;

@@ -1,4 +1,8 @@
 /* Sidebar Main Component */
+.app-icon-img {
+  width: 2em;
+}
+
 .sidebar-container {
   display: relative;
   height: 100vh;

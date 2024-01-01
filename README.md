@@ -53,3 +53,7 @@ yarn
 # run the program
 yarn dev
 ```
+
+## Resource Citations
+
+The sidebar icons have been sourced from: [VectorStock: Generative AI Vector Set](https://www.vectorstock.com/royalty-free-vector/generative-ai-artificial-intelligence-icon-set-vector-47405050)

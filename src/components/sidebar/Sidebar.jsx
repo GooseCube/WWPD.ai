@@ -5,12 +5,16 @@ import {
   ChevronDoubleLeft,
   ChatLeftDotsFill,
 } from "react-bootstrap-icons";
+
+// Custom Components
 import DropdownSelection from "./sub-components/DropdownSelection";
+import ButtonSelection from "./sub-components/ButtonSelection";
 
 // CSS Styles for Sidebar
-import essay from "../../assets/sidebar/essay.png";
-import message from "../../assets/sidebar/message.png";
-import image from "../../assets/sidebar/image.png"
+import app_icon from "../../assets/sidebar/app_icon.png";
+import ai from "../../assets/sidebar/ai.png";
+import idea from "../../assets/sidebar/idea.png";
+import image from "../../assets/sidebar/image.png";
 import "./styles/styles.css";
 
 function Sidebar({ showInterface, setShowInterface }) {
@@ -30,31 +34,26 @@ function Sidebar({ showInterface, setShowInterface }) {
         show={show}
         onHide={() => setShow(!show)}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Generative Agents</Offcanvas.Title>
+          <Offcanvas.Title>
+            <Image className="app-icon-img" src={app_icon} /> Generative Agents
+          </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="d-flex flex-column ">
-          <div
-            className="sidebar-button mb-3"
-            onClick={() => setShowInterface(!showInterface)}>
-            <Image
-              className="sidebar-img"
-              src={message}
-              alt="idea selector"
-            />{" "}
-            Interface
-          </div>
-          <DropdownSelection essay={essay}/>
-          <div
-            className="sidebar-button mb-3"
-            // onClick={() => setShowInterface(!showInterface)}
-            >
-            <Image
-              className="sidebar-img"
-              src={image}
-              alt="idea selector"
-            />{" "}
-            Image
-          </div>
+          <ButtonSelection
+            buttonText="Interface"
+            image={ai}
+            altText="input interface button"
+            useStateParam={showInterface}
+            handleStateEvent={setShowInterface}
+          />
+          <DropdownSelection image={idea} />
+          <ButtonSelection
+            buttonText="Image"
+            image={image}
+            altText="open image viewer"
+            // useStateParam={}
+            // handleStateEvent={}
+          />
         </Offcanvas.Body>
       </Offcanvas>
     </>

@@ -5,10 +5,12 @@ import {
   ChevronDoubleLeft,
   ChatLeftDotsFill,
 } from "react-bootstrap-icons";
+import DropdownSelection from "./sub-components/DropdownSelection";
 
 // CSS Styles for Sidebar
 import essay from "../../assets/sidebar/essay.png";
 import message from "../../assets/sidebar/message.png";
+import image from "../../assets/sidebar/image.png"
 import "./styles/styles.css";
 
 function Sidebar({ showInterface, setShowInterface }) {
@@ -41,9 +43,17 @@ function Sidebar({ showInterface, setShowInterface }) {
             />{" "}
             Interface
           </div>
-          <div className="sidebar-button mb-3">
-            <Image className="sidebar-img" src={essay} alt="idea selector" />{" "}
-            Moment
+          <DropdownSelection essay={essay}/>
+          <div
+            className="sidebar-button mb-3"
+            // onClick={() => setShowInterface(!showInterface)}
+            >
+            <Image
+              className="sidebar-img"
+              src={image}
+              alt="idea selector"
+            />{" "}
+            Image
           </div>
         </Offcanvas.Body>
       </Offcanvas>

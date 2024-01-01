@@ -2,7 +2,6 @@
   display: relative;
   height: 100vh;
   color: white;
-  /* padding: 1em; */
   background-color: #242424;
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
@@ -18,4 +17,28 @@
 .arrow-button {
   position: absolute;
   background-color: black;
+}
+
+/* Sidebar Button & Images */
+
+.sidebar-button {
+  padding: 0.25em;
+  /* background-color: #8b8b8b; */
+  background-color: #e9e9e9;
+  color: black;
+  border-radius: 10px;
+  width: 8em;
+}
+
+.sidebar-button:hover {
+  background-color: #939393;
+  color: #e9e9e9;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.sidebar-img {
+  margin-left: 0.25em;
+  width: 28px;
+  height: 33px;
 }

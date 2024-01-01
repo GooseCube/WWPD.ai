@@ -6,10 +6,16 @@
  */
 export const townSquare = {
   initialPrompt: {
-    title: "Town Square Talk",
+    title: "Town Square Brainstorming",
     instruction: "Answer the question using the given context and personality.",
     context: `You would like to give a talk at the next community meeting. 
       Create several topics and give a short paragraph that explains the topic.`,
     question: `What will your talk be about? Answer:`,
+  },
+  finalPrompt: {
+    title: "Town Square Talk",
+    instruction:
+      "Answser the question using the given context and personality.",
+    context: `Given the following topics, choose one topic and write a short essay that introduces the topic, includes a thesis with at least three arguments and a conclusion.`,
   },
 };

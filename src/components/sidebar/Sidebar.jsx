@@ -3,10 +3,12 @@ import { Button, Image, Offcanvas } from "react-bootstrap";
 import {
   ChevronDoubleRight,
   ChevronDoubleLeft,
-  ChatLeftDotsFill,
 } from "react-bootstrap-icons";
 
-// Custom Components
+// Outside Component Imports
+import { startConversation } from "../../personas/agentConversations";
+
+// Custom Sidebar Components
 import DropdownSelection from "./sub-components/DropdownSelection";
 import ButtonSelection from "./sub-components/ButtonSelection";
 

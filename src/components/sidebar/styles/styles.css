@@ -3,20 +3,21 @@
   width: 2em;
 }
 
-.sidebar-container {
+.offcanvas-container {
   display: relative;
   height: 100vh;
-  color: white;
+  color: #e9e9e9;
   background-color: #242424;
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
 }
 
 .btn-close {
-  background-color: white;
+  background-color: #e9e9e9;
   width: 8px;
   height: 8px;
   border-radius: 16px;
+  transition: all 0.3s ease;
 }
 
 .arrow-button {
@@ -42,6 +43,10 @@
 
 .sidebar-img {
   margin-left: 0.25em;
-  width: 28px;
+  width: 30px;
   height: 33px;
+}
+
+.dropdown-toggle-btn {
+  height: 27px;
 }

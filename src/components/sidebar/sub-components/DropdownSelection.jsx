@@ -8,7 +8,7 @@ function DropdownSelection({ image, dropdownItems, dropdownEvent }) {
       <div className="sidebar-button mb-3">
         <Image className="sidebar-img" src={image} alt="idea selector" /> Moment
         {/* </div> */}
-        <Dropdown.Toggle className="mx-1" split variant="primary" id="dropdown-custom-2" />
+        <Dropdown.Toggle className="dropdown-toggle-btn mx-1" split variant="primary" />
         <Dropdown.Menu className="super-colors">
           <Dropdown.Item eventKey="1" active>
             Town Square Talk

@@ -15,13 +15,14 @@ import app_icon from "../../assets/sidebar/app_icon.png";
 import ai from "../../assets/sidebar/ai.png";
 import idea from "../../assets/sidebar/idea.png";
 import image from "../../assets/sidebar/image.png";
+import video from "../../assets/sidebar/video.png"
 import "./styles/styles.css";
 
 function Sidebar({ showInterface, setShowInterface }) {
   const [show, setShow] = React.useState(false);
 
   return (
-    <>
+    <div className="sidebar-outer-container">
       <Button
         className="arrow-button"
         variant="primary"
@@ -30,7 +31,7 @@ function Sidebar({ showInterface, setShowInterface }) {
       </Button>
 
       <Offcanvas
-        className="sidebar-container"
+        className="offcanvas-container"
         show={show}
         onHide={() => setShow(!show)}>
         <Offcanvas.Header closeButton>
@@ -54,9 +55,16 @@ function Sidebar({ showInterface, setShowInterface }) {
             // useStateParam={}
             // handleStateEvent={}
           />
+          <ButtonSelection
+            buttonText="Video"
+            image={video}
+            altText="open video player"
+            // useStateParam={}
+            // handleStateEvent={}
+          />
         </Offcanvas.Body>
       </Offcanvas>
-    </>
+    </div>
   );
 }
 

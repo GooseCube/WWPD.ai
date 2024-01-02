@@ -10,10 +10,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import SignUp from "./SignUp";
 import { removeAllAgents } from "../../firebase/firebaseDB";
 
-// Background Images top Level Assets
-import PerspectiveImageSteven from "../../assets/login/StevenAbstract.jpg";
-import PerspectiveImageGooseCubeLogo from "../../assets/login/goosecubelogo.png";
-
 // CSS Styles
 import "./styles.css";
 
@@ -50,18 +46,8 @@ function Login({ loggedIn, setLoggedIn }) {
     <SignUp signUp={signUp} setSignUp={setSignUp} />
   ) : (
     <div className="outer-form-container">
-      <img
-        src={PerspectiveImageSteven}
-        alt="Perspective Image"
-        className="perspective-image-steven"
-      />
-      <img
-        src={PerspectiveImageGooseCubeLogo}
-        alt="Perspective Image"
-        className="perspective-image-goose-cube-logo"
-      />
       <Form
-        className="col-6 mt-4 bg-dark bordered form-container"
+        className="col-6 bg-dark bordered form-container"
         onSubmit={handleLogin}>
         <Form.Text className="fs-1 text-light">Login</Form.Text>
         <Form.Group className="mb-3" controlId="formBasicEmail">

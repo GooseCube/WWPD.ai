@@ -4,10 +4,6 @@ import Form from "react-bootstrap/Form";
 import { auth } from "../../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-// Background Images
-import PerspectiveImageSteven from "../../assets/login/StevenAbstract.jpg";
-import PerspectiveImageGooseCubeLogo from "../../assets/login/goosecubelogo.png";
-
 // Login CSS Styles
 import "./styles.css";
 
@@ -34,19 +30,8 @@ function SignUp({ signUp, setSignUp }) {
 
   return (
     <div className="outer-form-container">
-      <img
-        src={PerspectiveImageSteven}
-        alt="Perspective Image"
-        className="perspective-image-steven"
-      />
-      <img
-        src={PerspectiveImageGooseCubeLogo}
-        alt="Perspective Image"
-        className="perspective-image-goose-cube-logo"
-      />
-
       <Form
-        className="col-6 mt-4 bg-dark bordered form-container"
+        className="col-6 bg-dark bordered form-container"
         onSubmit={handleSignUp}>
         <Form.Text className="fs-1 text-light">Sign Up</Form.Text>
         <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import Player from "./Player";
 import { personas } from "../../personas/personas";
 import {
-  initializeAgents,
+  initializeAgent,
   updateExistingAgentData,
+  removeAllAgents,
 } from "../../firebase/firebaseDB";
-import { auth } from "../../firebase/firebaseConfig"
+import { auth } from "../../firebase/firebaseConfig";
 
 function Players() {
   const [players, setPlayers] = useState(Object.values(personas));
-  const [userId, setUserId] = useState(auth.currentUser.uid)
+  const userId = auth.currentUser.uid;
 
   // Init Players in Firebase on mount
   useEffect(() => {
+    removeAllAgents(userId);
     players.forEach((player) => {
-      initializeAgents(player, userId);
+      initializeAgent(player, userId);
     });
   }, []);
 

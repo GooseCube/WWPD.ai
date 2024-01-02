@@ -45,8 +45,7 @@ export const removeAllAgents = async (userId) => {
 };
 
 // Initialize All Agents in Game
-export const initializeAgents = async (agent, userId) => {
-  await removeAllAgents(userId);
+export const initializeAgent = async (agent, userId) => {
   agent.uid = uuidv4();
   const agentsRef = ref(database, `users/${userId}/agents`);
   const newAgentRef = push(agentsRef);

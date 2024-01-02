@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import Player from "./Player";
 import { personas } from "../../personas/personas";
 import {
-  updateAgentData,
+  initializeAgents,
   updateExistingAgentData,
 } from "../../firebase/firebaseDB";
+import { auth } from "../../firebase/firebaseConfig"
 
 function Players() {
   const [players, setPlayers] = useState(Object.values(personas));
+  const [userId, setUserId] = useState(auth.currentUser.uid)
 
   // Init Players in Firebase on mount
   useEffect(() => {
     players.forEach((player) => {
-      updateAgentData(player);
+      initializeAgents(player, userId);
     });
   }, []);
 
@@ -33,7 +35,7 @@ function Players() {
     setPlayers((players) =>
       players.map((player, i) => {
         if (i === index) {
-          updateExistingAgentData(newPlayer); // push player changes to Firebase
+          updateExistingAgentData(newPlayer, userId); // push player changes to Firebase
           return newPlayer;
         } else {
           return player;

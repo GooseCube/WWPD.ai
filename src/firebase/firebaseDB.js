@@ -1,5 +1,5 @@
-import { getDatabase, remove, ref, push, set } from "firebase/database";
-import { database, auth, userId } from "./firebaseConfig";
+import { remove, ref, push, set } from "firebase/database";
+import { database, auth } from "./firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -21,7 +21,7 @@ export const pushNewMessage = async function addNewMessageToFirebaseDB(
     timestamp: Date.now(),
   };
 
-  // const userId = auth.currentUser.uid;
+  const userId = auth.currentUser.uid;
   const messagesRef = ref(database, `users/${userId}/messages`);
   const newMessageRef = push(messagesRef);
 
@@ -34,8 +34,7 @@ export const pushNewMessage = async function addNewMessageToFirebaseDB(
 };
 
 // Remove all Player/Agents data
-export const removeAllAgents = async () => {
-  const database = getDatabase();
+export const removeAllAgents = async (userId) => {
   const agentsRef = ref(database, `users/${userId}/agents`);
   try {
     await remove(agentsRef);
@@ -46,11 +45,11 @@ export const removeAllAgents = async () => {
 };
 
 // Initialize All Agents in Game
-export const updateAgentData = async (agent) => {
+export const initializeAgents = async (agent, userId) => {
+  await removeAllAgents(userId);
   agent.uid = uuidv4();
-  // const userId = auth.currentUser.uid;
-  const agentRef = ref(database, `users/${userId}/agents`);
-  const newAgentRef = push(agentRef);
+  const agentsRef = ref(database, `users/${userId}/agents`);
+  const newAgentRef = push(agentsRef);
   try {
     await set(newAgentRef, agent);
     console.log("New Agent Pushed to Firebase: ", agent);
@@ -60,7 +59,7 @@ export const updateAgentData = async (agent) => {
 };
 
 // Update Agent Data
-export const updateExistingAgentData = async (agent) => {
+export const updateExistingAgentData = async (agent, userId) => {
   console.log("Agent Data: ", agent);
   // const userId = auth.currentUser.uid;
   const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);

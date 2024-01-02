@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Button, Image, Offcanvas } from "react-bootstrap";
 import {
   ChevronDoubleRight,
@@ -7,6 +7,7 @@ import {
 
 // Outside Component Imports
 import { startConversation } from "../../personas/agentConversations";
+import { AuthContext } from "../../firebase/AuthProvider"
 
 // Custom Sidebar Components
 import DropdownSelection from "./sub-components/DropdownSelection";
@@ -21,11 +22,12 @@ import video from "../../assets/sidebar/video.png"
 import "./styles/styles.css";
 
 function Sidebar({ showInterface, setShowInterface }) {
+  const { agents } = useContext(AuthContext)
   const [show, setShow] = React.useState(false);
 
-  const handleMomentConversation = (event, momentTitle) => {
+  const handleMomentConversation = (event) => {
     event.preventDefault();
-    startConversation(momentTitle);
+    startConversation(agents);
   }
 
   return (

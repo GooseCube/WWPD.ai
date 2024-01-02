@@ -1,4 +1,4 @@
-import { remove, ref, push, set } from "firebase/database";
+import { update, remove, ref, push, set } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
@@ -59,7 +59,6 @@ export const initializeAgent = async (agent, userId) => {
 
 // Update Agent Data
 export const updateExistingAgentData = async (agent, userId) => {
-  console.log("Agent Data: ", agent);
   // const userId = auth.currentUser.uid;
   const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);
   try {

@@ -20,12 +20,12 @@
  */
 
 import { pushNewMessage } from "../firebase/firebaseDB";
-import { personas } from "./personas";
 import { townSquare } from "./moments";
+import mixtralAPI from "../modelAPI/mixtralAPI";
 
 // Kick start the 'moment' using primaryAgent and initial prompt
 const primaryAgentPrompt = (primaryAgent, moment) => {
-  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality}  Question: ${moment.question}`
+  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality}  Question: ${moment.question}`;
 };
 
 const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
@@ -36,23 +36,24 @@ const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
 };
 
 // Function to start a conversation
-export const startConversation = async (primaryAgent, moment = townSquare) => {
-  // Initialize the conversation with the prompt
+export const startConversation = async (agents) => {
+  let primaryAgent = agents.find((agent) => agent.playerControlled === true);
+
   let conversation = primaryAgent.name + ": ";
   let primaryAgentIdea = await mixtralAPI(
-    primaryAgentPrompt(primaryAgent, moment.initialPrompt)
+    primaryAgentPrompt(primaryAgent, townSquare)
   );
   conversation += `${primaryAgentIdea}\n`;
 
   // Loop through the personas and have each one respond to the prompt
-  personas.forEach(async (persona) => {
+  agents.forEach(async (agent) => {
     // Generate a response based on the persona's personality
     let response = await mixtralAPI(
-      getFeedback(primaryAgent, persona, primaryAgentIdea)
+      getFeedback(primaryAgent, agent, primaryAgentIdea)
     );
 
     // Add the response to the conversation
-    conversation += `${persona.name}\n ${response}\n`;
+    conversation += `${agent.name}: ${response}\n`;
   });
 
   // Then, add the final 'townSquare moment' prompt using the primaryAgentIdea, new instructions/context/ and responses from each agent

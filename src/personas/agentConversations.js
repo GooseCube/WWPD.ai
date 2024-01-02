@@ -19,12 +19,13 @@
  *   next until all agents in the game have been given the context and question.
  */
 
-import personas from "./personas";
+import { pushNewMessage } from "../firebase/firebaseDB";
+import { personas } from "./personas";
 import { townSquare } from "./moments";
 
 // Kick start the 'moment' using primaryAgent and initial prompt
 const primaryAgentPrompt = (primaryAgent, moment) => {
-  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality}  Question: ${moment.question}`;
+  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality}  Question: ${moment.question}`
 };
 
 const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {

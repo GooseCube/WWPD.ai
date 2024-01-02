@@ -8,7 +8,21 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showInterface, setShowInterface] = useState(false);
 
-  return (
+  // return (
+  //   <div className="app-container">
+  //     <Sidebar
+  //       showInterface={showInterface}
+  //       setShowInterface={setShowInterface}
+  //     />
+  //     <MessageInterface
+  //       showInterface={showInterface}
+  //       setShowInterface={setShowInterface}
+  //     />
+  //     <Players />
+  //   </div>
+  // );
+
+  return loggedIn ? (
     <div className="app-container">
       <Sidebar
         showInterface={showInterface}
@@ -20,23 +34,9 @@ function App() {
       />
       <Players />
     </div>
+  ) : (
+    <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
   );
-
-  // return loggedIn ? (
-  //   <div className="app-container">
-  //     <Sidebar
-  //       showInterface={showInterface}
-  //       setShowInterface={setShowInterface}
-  //     />
-  //     <MessageInterface
-  //       showInterface={showInterface}
-  //       setShowInterface={setShowInterface}
-  //     />
-  //     <Player />
-  //   </div>
-  // ) : (
-  //   <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-  // );
 }
 
 export default App;

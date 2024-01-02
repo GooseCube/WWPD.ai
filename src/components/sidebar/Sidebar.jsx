@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Image, Offcanvas } from "react-bootstrap";
 import {
   ChevronDoubleRight,
@@ -22,6 +22,11 @@ import "./styles/styles.css";
 
 function Sidebar({ showInterface, setShowInterface }) {
   const [show, setShow] = React.useState(false);
+
+  const handleMomentConversation = (event, momentTitle) => {
+    event.preventDefault();
+    startConversation(momentTitle);
+  }
 
   return (
     <div className="sidebar-outer-container">
@@ -49,7 +54,10 @@ function Sidebar({ showInterface, setShowInterface }) {
             useStateParam={showInterface}
             handleStateEvent={setShowInterface}
           />
-          <DropdownSelection image={idea} />
+          <DropdownSelection image={idea} 
+            dropdownItems=""
+            dropdownEvent={handleMomentConversation}
+          />
           <ButtonSelection
             buttonText="Image"
             image={image}

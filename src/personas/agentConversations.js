@@ -32,7 +32,7 @@ const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
   const instruction = `Your name is ${agent.name} and you are ${agent.personality}. You have been greeted by ${primaryAgent.name} and will use the given context in your response to ${primaryAgent.name}.`;
   const context = `${primaryAgent.name} has an idea that they would like you to be a part of. Review the idea and offer some advice. You can participate or decline to participate in the idea. Your advice should be at least two sentences and you will tell ${primaryAgent.name} if you want to be a part of their idea.`;
   const idea = `Idea: ${primaryAgentIdea}`;
-  return `${instruction} Context: ${context} Idea: ${moment}`;
+  return `${instruction} Context: ${context} Idea: ${idea}`;
 };
 
 // Function to start a conversation

@@ -10,7 +10,7 @@ function DropdownSelection({ image, dropdownItems, dropdownEvent }) {
         {/* </div> */}
         <Dropdown.Toggle className="dropdown-toggle-btn mx-1" split variant="primary" />
         <Dropdown.Menu className="super-colors">
-          <Dropdown.Item eventKey="1" active>
+          <Dropdown.Item eventKey="1" active onClick={(e) => dropdownEvent(e, "town-square")}>
             Town Square Talk
           </Dropdown.Item>
           <Dropdown.Item eventKey="2">Second Moment</Dropdown.Item>

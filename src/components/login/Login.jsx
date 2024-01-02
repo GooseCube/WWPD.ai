@@ -8,6 +8,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 // Local Component
 import SignUp from "./SignUp";
+import { removeAllAgents } from "../../firebase/firebaseDB";
 
 // Background Images top Level Assets
 import PerspectiveImageSteven from "../../assets/login/StevenAbstract.jpg";
@@ -34,8 +35,9 @@ function Login({ loggedIn, setLoggedIn }) {
         email,
         password
       );
-      console.log("LogIn Successful (credentials): ", userCredentials)
+      console.log("LogIn Successful (credentials): ", userCredentials);
       setLoggedIn(!loggedIn);
+      await removeAllAgents();
     } catch (error) {
       alert(
         "The email or password entered does not exist. Try SignUp to login."

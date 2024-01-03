@@ -47,7 +47,3 @@ Add a function to select and add or remove a sprite character from the game. Thi
 ## Create or Modify Sprite Character Persona
 
 User should have the ability to create their own sprite character persona: {name, personality}. This will require a new input interface or modification of the current MessageInterface allowing the input to push() a new Firebase instance of a sprite character persona.
-
-## Move /personas/personas.js to Firebase
-
-The default personas should persist in the Firebase DB. All new persona characters should be pushed to Firebase.

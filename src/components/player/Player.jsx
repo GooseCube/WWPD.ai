@@ -5,11 +5,11 @@ import { handlePlayerMoveEvent } from "./modules/keyPressListener";
 import "./styles/styles.css";
 import { Sprite } from "./styles/Sprite";
 
-function Player({ player, setPlayer, changePlayerControlled }) {
+function Player({ player, changePlayerControlled, userId, database }) {
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (player.playerControlled) {
-        handlePlayerMoveEvent(player, setPlayer, event.key);
+        handlePlayerMoveEvent(player, event.key, userId, database);
       }
     };
 
@@ -19,10 +19,11 @@ function Player({ player, setPlayer, changePlayerControlled }) {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [player]);
+  }, [player, userId, database]);
 
   return (
-    <div className="sprite-container" style={{ left: player.x, top: player.y }}>
+    // <div className="sprite-container" style={{ left: player.x, top: player.y }}>
+    <div className="sprite-container">
       <Sprite
         player={player}
         className={`sprite grid-cell ${

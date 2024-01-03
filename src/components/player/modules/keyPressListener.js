@@ -1,6 +1,7 @@
+import { updateAgent } from "../../../firebase/firebaseDB";
 import { validateGridCollision } from "./gridCollisionDetection";
 
-export const handlePlayerMoveEvent = (player, setPlayer, direction) => {
+export const handlePlayerMoveEvent = (player, direction, userId, database) => {
   const NUMBER_OF_SPRITE_COLUMNS = 3;
   let newX = player.x;
   let newY = player.y;
@@ -26,18 +27,21 @@ export const handlePlayerMoveEvent = (player, setPlayer, direction) => {
   }
 
   if (!validateGridCollision(newX, newY)) {
-    setPlayer({
+    const updatedPlayer = {
       ...player,
       x: newX,
       y: newY,
       direction: newDirection,
       frame: newFrame,
-    });
+    };
+
+    updateAgent(updatedPlayer);
   }
 
   let position = "{" + "x: " + newX + "," + " y: " + newY + "},";
   console.log(position);
 };
+
 export const calculateLeftX = (x) => {
   return 16 * x + "px";
 };

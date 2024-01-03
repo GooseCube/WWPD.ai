@@ -2,6 +2,14 @@
 
 Create an account with Huggingface using goosecube1@gmail.com. Create an API Key and change current VITE_HUGGINGFACE_API_TOKEN in the `.env` file. Currently using Adams Huggingface API Token.
 
+## Update Firebase AuthProvider
+
+Change the method of initialization for all agents and messages from Firebase.
+
+1. For key event agent motion, use local state and not the Firebase context to render agent to the DOM. Create and use a Firebase write() function to update this controlled agent movements.
+2. On exit from the application, remove all agents from the game.
+3. Double check that the Firebase listener for messages is being used correctly.
+
 ## Translator Component
 
 [Use Huggingface Translator Example for React](https://huggingface.co/docs/transformers.js/tutorials/react)

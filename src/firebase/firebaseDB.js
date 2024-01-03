@@ -70,6 +70,7 @@ export const pushNewMessage = async function addNewMessageToFirebaseDB(
     response: response,
     timestamp: Date.now(),
   };
+  console.log("push new message response: ", message.response)
 
   const userId = auth.currentUser.uid;
   const messagesRef = ref(database, `users/${userId}/messages`);

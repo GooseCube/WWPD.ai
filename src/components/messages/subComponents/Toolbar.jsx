@@ -1,4 +1,5 @@
 import {
+  Lightbulb,
   Trash,
   PlayCircle,
   EnvelopeOpen,
@@ -32,17 +33,9 @@ function Toolbar({
   return (
     <div className="toolbar-container">
       <Trash className="toolbar-icon trash" onClick={() => clearMessages()} />
-      {isLoading ? (
-        <Spinner
-          className="spinner spinner-animation"
-          animation="border"
-          variant="primary"
-        />
-      ) : (
-        <EnvelopeOpen className="toolbar-icon envelope" />
-      )}
+      <ChatDots className="toolbar-icon chat" />
+      <Lightbulb className="toolbar-icon lightbulb" />
       <VolumeUpFill className="toolbar-icon speech" />
-      {/* <ChatDots className="toolbar-icon chat" /> */}
       <Keyboard
         className="toolbar-icon keyboard"
         onClick={() => setShowInputArea(!showInputArea)}

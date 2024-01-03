@@ -28,38 +28,52 @@ const primaryAgentPrompt = (primaryAgent, moment) => {
   return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality}  Question: ${moment.question}`;
 };
 
+const primaryAgentFinalPrompt = (primaryAgent, moment, conversation) => {
+  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality} Conversation: ${conversation}`;
+};
+
 const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
   const instruction = `Your name is ${agent.name} and you are ${agent.personality}. You have been greeted by ${primaryAgent.name} and will use the given context in your response to ${primaryAgent.name}.`;
-  const context = `${primaryAgent.name} has an idea that they would like you to be a part of. Review the idea and offer some advice. You can participate or decline to participate in the idea. Your advice should be at least two sentences and you will tell ${primaryAgent.name} if you want to be a part of their idea.`;
+  const context = `${primaryAgent.name} has an idea that they would like you to be a part of. Review the idea and offer some advice. You can participate or decline to participate in the idea. 
+  Your advice should be a few sentences and will end with a period or question mark. Let ${primaryAgent.name} know if you want to be a part of their idea using complete sentences and how you will help if you decide to be part of the idea.`;
   const idea = `Idea: ${primaryAgentIdea}`;
   return `${instruction} Context: ${context} Idea: ${idea}`;
 };
 
-// Function to start a conversation
-export const startConversation = async (agents) => {
+// Function to start a conversation with a focus on the chosen 'moment'
+export const startAgentMoment = async (agents) => {
   let primaryAgent = agents.find((agent) => agent.playerControlled === true);
 
   let conversation = primaryAgent.name + ": ";
   let primaryAgentIdea = await mixtralAPI(
-    primaryAgentPrompt(primaryAgent, townSquare)
+    primaryAgentPrompt(primaryAgent, townSquare.initialPrompt)
   );
   conversation += `${primaryAgentIdea}\n`;
 
-  // Loop through the personas and have each one respond to the prompt
-  agents.forEach(async (agent) => {
-    // Generate a response based on the persona's personality
-    let response = await mixtralAPI(
-      getFeedback(primaryAgent, agent, primaryAgentIdea)
-    );
+  // Use Promise.all with map instead of forEach
+  const responses = await Promise.all(
+    agents.map(async (agent) => {
+      // Generate a response based on the persona's personality
+      if (agent.uid !== primaryAgent.uid) {
+        let response = await mixtralAPI(
+          getFeedback(primaryAgent, agent, primaryAgentIdea)
+        );
 
-    // Add the response to the conversation
-    conversation += `${agent.name}: ${response}\n`;
-  });
+        // Add the response to the conversation
+        return `\n${agent.name}: ${response}\n`;
+      }
+    })
+  );
 
-  // Then, add the final 'townSquare moment' prompt using the primaryAgentIdea, new instructions/context/ and responses from each agent
-
+  // Add all responses to the conversation
+  conversation += responses.join("");
   console.log("CONVERSATION\n", conversation);
 
+
+  const finalResult = await mixtralAPI(primaryAgentFinalPrompt(primaryAgent, townSquare.finalPrompt, conversation));
+
+  console.log("\nFinal Result", finalResult);
+
   // Return the conversation
-  return conversation;
+  // return conversation;
 };

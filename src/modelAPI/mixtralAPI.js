@@ -19,6 +19,7 @@ async function mixtralAPI(prompt) {
         },
       }
     );
+    console.log("Mixtral API Called")
     return filterMistralResponse(prompt, response.data);
     // pushNewMessage(prompt, filterMistralResponse(prompt, response.data));
   } catch (error) {

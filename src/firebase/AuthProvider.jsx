@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, createContext } from "react";
 import { database, auth } from "./firebaseConfig";
 import { ref, onValue } from "firebase/database";
@@ -7,16 +8,18 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [agents, setAgents] = useState([]); // New state for agents
+  const [agents, setAgents] = useState([]);
+  const [userId, setUserId] = useState(null); // New state for userId
 
   useEffect(() => {
-    auth.onAuthStateChanged(setCurrentUser);
+    auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setUserId(user ? user.uid : null); // Set userId when user state changes
+    });
   }, []);
 
   useEffect(() => {
     if (currentUser) {
-      const userId = auth.currentUser.uid;
-
       // Fetch messages from Firebase
       const messagesRef = ref(database, `users/${userId}/messages`);
       const unsubscribeMessages = onValue(messagesRef, (snapshot) => {
@@ -29,27 +32,25 @@ const AuthProvider = ({ children }) => {
       });
 
       // Fetch agents from Firebase
-      const agentsRef = ref(database, `users/${userId}/agents`); // New reference for agents
+      const agentsRef = ref(database, `users/${userId}/agents`);
       const unsubscribeAgents = onValue(agentsRef, (snapshot) => {
-        // New listener for agents
         const data = snapshot.val();
         const list = [];
         for (let id in data) {
           list.push({ id, ...data[id] });
         }
-        setAgents(list); // Set the agents state
+        setAgents(list);
       });
 
       return () => {
         unsubscribeMessages();
-        unsubscribeAgents(); // Unsubscribe from agents when component unmounts
+        unsubscribeAgents();
       };
     }
-  }, [currentUser]);
+  }, [currentUser, userId]); // Add userId as a dependency
 
   return (
-    <AuthContext.Provider value={{ currentUser, messages, agents }}>
-      {" "}
+    <AuthContext.Provider value={{ currentUser, messages, agents, userId }}>
       {children}
     </AuthContext.Provider>
   );

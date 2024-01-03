@@ -6,7 +6,7 @@ import {
 } from "react-bootstrap-icons";
 
 // Outside Component Imports
-import { startConversation } from "../../personas/agentConversations";
+import { startAgentMoment } from "../../personas/agentConversations";
 import { AuthContext } from "../../firebase/AuthProvider"
 
 // Custom Sidebar Components
@@ -27,7 +27,7 @@ function Sidebar({ showInterface, setShowInterface }) {
 
   const handleMomentConversation = (event) => {
     event.preventDefault();
-    startConversation(agents);
+    startAgentMoment(agents);
   }
 
   return (

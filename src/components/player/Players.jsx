@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../firebase/AuthProvider";
 import Player from "./Player";
 import { personas } from "../../personas/personas";
 import {
@@ -6,15 +7,14 @@ import {
   updateExistingAgentData,
   removeAllAgents,
 } from "../../firebase/firebaseDB";
-import { auth } from "../../firebase/firebaseConfig";
 
 function Players() {
   const [players, setPlayers] = useState(Object.values(personas));
-  const userId = auth.currentUser.uid;
+  const { userId } = useContext(AuthContext);
 
   // Init Players in Firebase on mount
   useEffect(() => {
-    removeAllAgents(userId);
+    removeAllAgents(userId); // Remove previous agents from Firebase DB
     players.forEach((player) => {
       initializeAgent(player, userId);
     });

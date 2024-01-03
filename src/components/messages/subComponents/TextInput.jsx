@@ -3,8 +3,13 @@ import mixtralAPI from "../../../modelAPI/mixtralAPI";
 import { pushNewMessage } from "../../../firebase/firebaseDB";
 
 /**
- * Use API call to Model. The API Model response should
- * then update the messages[]
+ * Function allows user to interact (chat) with the ai model.
+ * Each user input creates a user 'prompt' and model 'response' which
+ * is updated to Firebase. These messages trigger an event in Firebase
+ * to update the active listener and display the new message. 
+ * @param {boolean} showInputArea
+ * @param {boolean} isLoading
+ * @returns 
  */
 function TextInput({ showInputArea, isLoading }) {
   const [userPrompt, setUserPrompt] = useState("");

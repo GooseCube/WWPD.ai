@@ -14,7 +14,7 @@ import { personas } from "../personas/personas";
 // Called from AuthProvider | Initialize All Agents in Game
 export const initializeAgents = async (setAgents, setAgentRefs) => {
   const userId = auth.currentUser.uid;
-  const agentsRef = ref(database, `users/${userId}/agents`)
+  const agentsRef = ref(database, `users/${userId}/agents`);
 
   Object.values(personas).map((agent) => {
     const agentId = uuidv4();
@@ -37,9 +37,9 @@ export const initializeAgents = async (setAgents, setAgentRefs) => {
 // Called from /player -> keyPressListener module
 export const updateAgent = async (agent) => {
   const userId = auth.currentUser.uid;
-  const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`)
+  const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);
   update(agentRef, agent);
-}
+};
 
 // Called from AuthProvider
 export const getUserMessages = async (setMessages, setMessageRefs) => {
@@ -70,8 +70,6 @@ export const pushNewMessage = async function addNewMessageToFirebaseDB(
     response: response,
     timestamp: Date.now(),
   };
-  console.log("push new message response: ", message.response)
-
   const userId = auth.currentUser.uid;
   const messagesRef = ref(database, `users/${userId}/messages`);
   const newMessageRef = push(messagesRef);

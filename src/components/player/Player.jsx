@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { handlePlayerMoveEvent } from "./modules/keyPressListener";
 
 // Sprite Styles
 import "./styles/styles.css";
 import { Sprite } from "./styles/Sprite";
 
-function Player({ player, setPlayer, changePlayerControlled }) {
+function Player({ player, changePlayerControlled, setPlayers }) {
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (player.playerControlled) {
-        handlePlayerMoveEvent(player, setPlayer, event.key);
+        handlePlayerMoveEvent(player, event.key, setPlayers);
       }
     };
 
@@ -22,7 +22,8 @@ function Player({ player, setPlayer, changePlayerControlled }) {
   }, [player]);
 
   return (
-    <div className="sprite-container" style={{ left: player.x, top: player.y }}>
+    // <div className="sprite-container" style={{ left: player.x, top: player.y }}>
+    <div className="sprite-container">
       <Sprite
         player={player}
         className={`sprite grid-cell ${

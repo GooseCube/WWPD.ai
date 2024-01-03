@@ -8,7 +8,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 // Local Component
 import SignUp from "./SignUp";
-import { removeAllAgents } from "../../firebase/firebaseDB";
 
 // CSS Styles
 import "./styles.css";
@@ -33,7 +32,6 @@ function Login({ loggedIn, setLoggedIn }) {
       );
       console.log("LogIn Successful (credentials): ", userCredentials);
       setLoggedIn(!loggedIn);
-      await removeAllAgents();
     } catch (error) {
       alert(
         "The email or password entered does not exist. Try SignUp to login."

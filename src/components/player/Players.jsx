@@ -1,23 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../firebase/AuthProvider";
 import Player from "./Player";
-import { personas } from "../../personas/personas";
-import {
-  initializeAgent,
-  updateExistingAgentData,
-  removeAllAgents,
-} from "../../firebase/firebaseDB";
+import { database } from "../../firebase/firebaseConfig";
 
 function Players() {
-  const [players, setPlayers] = useState(Object.values(personas));
-  const { userId } = useContext(AuthContext);
+  const { userId, agents } = useContext(AuthContext);
+  const [players, setPlayers] = useState([]);
 
   // Init Players in Firebase on mount
   useEffect(() => {
-    removeAllAgents(userId); // Remove previous agents from Firebase DB
-    players.forEach((player) => {
-      initializeAgent(player, userId);
-    });
+    setPlayers(agents);
   }, []);
 
   const changePlayerControlled = (player) => {
@@ -28,35 +20,19 @@ function Players() {
     player.playerControlled = true;
   };
 
-  /**
-   * @TODO need to push() updates for players to Firebase
-   * @param {number} index
-   * @param {object} newPlayer
-   */
-  const setPlayer = (index, newPlayer) => {
-    setPlayers((players) =>
-      players.map((player, i) => {
-        if (i === index) {
-          updateExistingAgentData(newPlayer, userId); // push player changes to Firebase
-          return newPlayer;
-        } else {
-          return player;
-        }
-      })
-    );
-  };
-
   return (
-    <div>
-      {players.map((player, index) => (
-        <Player
-          key={player.name}
-          player={player}
-          setPlayer={(newPlayer) => setPlayer(index, newPlayer)}
-          changePlayerControlled={changePlayerControlled}
-        />
-      ))}
-    </div>
+    players && (
+      <div>
+        {players.map((player) => (
+          <Player
+            key={player.uid}
+            player={player}
+            changePlayerControlled={changePlayerControlled}
+            setPlayers={setPlayers}
+          />
+        ))}
+      </div>
+    )
   );
 }
 

@@ -34,12 +34,14 @@ export const initializeAgents = async (setAgents, setAgentRefs) => {
   });
 };
 
+// Called from /player -> keyPressListener module
 export const updateAgent = async (agent) => {
   const userId = auth.currentUser.uid;
   const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`)
   update(agentRef, agent);
 }
 
+// Called from AuthProvider
 export const getUserMessages = async (setMessages, setMessageRefs) => {
   const userId = auth.currentUser.uid;
   const messageRefs = ref(database, `users/${userId}/messages`);

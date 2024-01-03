@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../firebase/AuthProvider";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
@@ -30,15 +30,16 @@ function MessageInterface({ showInterface, setShowInterface }) {
               showInterface={showInterface}
               setShowInterface={setShowInterface}
             />
-            <div className="message-container">
-              {messages &&
-                messages.length > 0 &&
-                messages.map((message, index) => {
+            {messages && (
+              <div className="message-container">
+                {Object.values(messages).map((message, index) => {
                   return <Message message={message} key={index} />;
                 })}
-            </div>
+              </div>
+            )}
+            {/* If the location of TextInput inside the 'interface' div container causes issues, move outside of the div container */}
+            <TextInput showInputArea={showInputArea} isLoading={isLoading} />
           </div>
-          <TextInput showInputArea={showInputArea} isLoading={isLoading} />
         </ResizableBox>
       </Draggable>
     </div>

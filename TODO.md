@@ -55,3 +55,7 @@ Add a function to select and add or remove a sprite character from the game. Thi
 ## Create or Modify Sprite Character Persona
 
 User should have the ability to create their own sprite character persona: {name, personality}. This will require a new input interface or modification of the current MessageInterface allowing the input to push() a new Firebase instance of a sprite character persona.
+
+## Add User Controlled Sprite Persona to Text Input Chat Messaging
+
+When selecting an agent in the game their controlled boolean property is 'true'. This can be used with the text input interface to allow the model to use the agents name and personality when responding to user prompts. Make the changes in /Message.jsx and use modules/newFunction to add functionality as needed.

@@ -44,37 +44,39 @@ const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
 export const startAgentMoment = async (agents) => {
   let primaryAgent = agents.find((agent) => agent.playerControlled === true);
 
-  let conversation = primaryAgent.name + ": ";
-  let primaryAgentIdea = await mixtralAPI(
-    primaryAgentPrompt(primaryAgent, townSquare.initialPrompt)
-  );
-  conversation += `${primaryAgentIdea}\n`;
+  console.log("Primary Agent Is: ", primaryAgent)
 
-  // Use Promise.all with map instead of forEach
-  const responses = await Promise.all(
-    agents.map(async (agent) => {
-      // Generate a response based on the persona's personality
-      if (agent.uid !== primaryAgent.uid) {
-        let response = await mixtralAPI(
-          getFeedback(primaryAgent, agent, primaryAgentIdea)
-        );
+  // let conversation = primaryAgent.name + ": ";
+  // let primaryAgentIdea = await mixtralAPI(
+  //   primaryAgentPrompt(primaryAgent, townSquare.initialPrompt)
+  // );
+  // conversation += `${primaryAgentIdea}\n`;
 
-        // Add the response to the conversation
-        return `\n${agent.name}: ${response}\n`;
-      }
-    })
-  );
+  // // Use Promise.all with map instead of forEach
+  // const responses = await Promise.all(
+  //   agents.map(async (agent) => {
+  //     // Generate a response based on the persona's personality
+  //     if (agent.uid !== primaryAgent.uid) {
+  //       let response = await mixtralAPI(
+  //         getFeedback(primaryAgent, agent, primaryAgentIdea)
+  //       );
 
-  // Add all responses to the conversation
-  conversation += responses.join("");
-  console.log("CONVERSATION\n", conversation);
+  //       // Add the response to the conversation
+  //       return `\n${agent.name}: ${response}\n`;
+  //     }
+  //   })
+  // );
+
+  // // Add all responses to the conversation
+  // conversation += responses.join("");
+  // console.log("CONVERSATION\n", conversation);
 
 
-  const finalResult = await mixtralAPI(primaryAgentFinalPrompt(primaryAgent, townSquare.finalPrompt, conversation));
+  // const finalResult = await mixtralAPI(primaryAgentFinalPrompt(primaryAgent, townSquare.finalPrompt, conversation));
 
-  // console.log("\nFinal Result", finalResult);
+  // // console.log("\nFinal Result", finalResult);
 
-  // Push Moment to Firebase
-  pushNewMoment(townSquare.initialPrompt, conversation )
+  // // Push Moment to Firebase
+  // pushNewMoment(townSquare.initialPrompt, conversation )
 
 };

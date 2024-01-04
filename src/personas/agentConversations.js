@@ -28,8 +28,8 @@ const primaryAgentPrompt = (primaryAgent, moment) => {
   return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality}  Question: ${moment.question}`;
 };
 
-const primaryAgentFinalPrompt = (primaryAgent, moment, conversation) => {
-  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality} Conversation: ${conversation}`;
+const primaryAgentFinalPrompt = (primaryAgent, moment, topic) => {
+  return `Instruction: ${moment.instruction} Context: ${moment.context} Personality: ${primaryAgent.personality} Topic: ${topic}`;
 };
 
 const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
@@ -44,39 +44,41 @@ const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
 export const startAgentMoment = async (agents) => {
   let primaryAgent = agents.find((agent) => agent.playerControlled === true);
 
-  console.log("Primary Agent Is: ", primaryAgent)
+  let conversation = primaryAgent.name + ": ";
+  let primaryAgentIdea = await mixtralAPI(
+    primaryAgentPrompt(primaryAgent, townSquare.initialPrompt)
+  );
+  conversation += `${primaryAgentIdea}\n`;
 
-  // let conversation = primaryAgent.name + ": ";
-  // let primaryAgentIdea = await mixtralAPI(
-  //   primaryAgentPrompt(primaryAgent, townSquare.initialPrompt)
-  // );
-  // conversation += `${primaryAgentIdea}\n`;
+  // Use Promise.all with map instead of forEach
+  const responses = await Promise.all(
+    agents.map(async (agent) => {
+      // Generate a response based on the persona's personality
+      if (agent.uid !== primaryAgent.uid) {
+        let response = await mixtralAPI(
+          getFeedback(primaryAgent, agent, primaryAgentIdea)
+        );
 
-  // // Use Promise.all with map instead of forEach
-  // const responses = await Promise.all(
-  //   agents.map(async (agent) => {
-  //     // Generate a response based on the persona's personality
-  //     if (agent.uid !== primaryAgent.uid) {
-  //       let response = await mixtralAPI(
-  //         getFeedback(primaryAgent, agent, primaryAgentIdea)
-  //       );
+        // Add the response to the conversation
+        return `\n${agent.name}: ${response}\n`;
+      }
+    })
+  );
 
-  //       // Add the response to the conversation
-  //       return `\n${agent.name}: ${response}\n`;
-  //     }
-  //   })
-  // );
+  // Add all responses to the conversation
+  conversation += responses.join("");
 
-  // // Add all responses to the conversation
-  // conversation += responses.join("");
-  // console.log("CONVERSATION\n", conversation);
+  const finalResult = await mixtralAPI(
+    primaryAgentFinalPrompt(
+      primaryAgent,
+      townSquare.finalPrompt,
+      primaryAgentIdea
+    )
+  );
 
+  conversation += `${primaryAgent.name} Presents: ${finalResult}`;
 
-  // const finalResult = await mixtralAPI(primaryAgentFinalPrompt(primaryAgent, townSquare.finalPrompt, conversation));
-
-  // // console.log("\nFinal Result", finalResult);
-
-  // // Push Moment to Firebase
-  // pushNewMoment(townSquare.initialPrompt, conversation )
-
+  // Push Moment to Firebase
+  pushNewMoment(townSquare.initialPrompt, conversation);
+  console.log("Completed Moment: ", conversation);
 };

@@ -9,7 +9,7 @@ export const personas = {
     direction: "down",
     frame: 0,
     uid: "1",
-    playerControlled: false,
+    playerControlled: true,
   },
   arthur: {
     name: "Arthur",

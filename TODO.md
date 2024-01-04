@@ -2,6 +2,14 @@
 
 Create an account with Huggingface using goosecube1@gmail.com. Create an API Key and change current VITE_HUGGINGFACE_API_TOKEN in the `.env` file. Currently using Adams Huggingface API Token.
 
+## Add Sidebar Huggingface API Token Input
+
+In the sidebar, the user should be able to enter an API Key for Huggingface which will be stored in their user account on Firebase.
+
+## Add Dropdown to Select AI Model
+
+A dropdown to select the AI Model to interact with should be added to the sidebar.
+
 ## Update Firebase AuthProvider
 
 Change the method of initialization for all agents and messages from Firebase.

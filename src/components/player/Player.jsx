@@ -5,11 +5,27 @@ import { handlePlayerMoveEvent } from "./modules/keyPressListener";
 import "./styles/styles.css";
 import { Sprite } from "./styles/Sprite";
 
-function Player({ player, changePlayerControlled, setPlayers }) {
+function Player({
+  player,
+  changePlayerControlled,
+  prevPlayerControlled,
+  setPlayers,
+  setAgents,
+}) {
   useEffect(() => {
+    // If playerControlled hasn't changed from false to true, return early
+    if (
+      prevPlayerControlled &&
+      prevPlayerControlled.uid === player.uid &&
+      prevPlayerControlled.playerControlled &&
+      !player.playerControlled
+    ) {
+      return;
+    }
+
     const handleKeyPress = (event) => {
       if (player.playerControlled) {
-        handlePlayerMoveEvent(player, event.key, setPlayers);
+        handlePlayerMoveEvent(player, event.key, setPlayers, setAgents);
       }
     };
 
@@ -19,7 +35,7 @@ function Player({ player, changePlayerControlled, setPlayers }) {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [player]);
+  }, [player, prevPlayerControlled]);
 
   return (
     // <div className="sprite-container" style={{ left: player.x, top: player.y }}>

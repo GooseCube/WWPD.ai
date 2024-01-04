@@ -71,3 +71,7 @@ When selecting an agent in the game their controlled boolean property is 'true'.
 ## Add Prompt isLoading Animation MessageInterface | Toolbar + Message
 
 When a user inputs a prompt, there needs to be a loading animation while the api is responding. Current isLoading and setIsLoading state objects are already available and being passed to the Toolbar.jsx component and a spinnerAnimation component is imported at the top level.
+
+## Remove Players/Player [players, setPlayers] useState() and use the AuthProvided Context
+
+In Players, a local useState() object 'players' & 'setPlayers' is being used. When updating to the context object 'agents' & 'setAgents' the local useState() objects need to be removed and the components need to reflect live changes using the Firebase updated global context. In other words, the current implementation is garbage (my bad).

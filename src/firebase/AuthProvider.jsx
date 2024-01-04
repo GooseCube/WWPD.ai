@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, messages, moments, agents, agentRefs }}>
+    <AuthContext.Provider value={{ user, messages, moments, agents, setAgents }}>
       {children}
     </AuthContext.Provider>
   );

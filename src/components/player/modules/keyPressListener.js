@@ -1,7 +1,7 @@
 import { updateAgent } from "../../../firebase/firebaseDB";
 import { validateGridCollision } from "./gridCollisionDetection";
 
-export const handlePlayerMoveEvent = (player, direction, setPlayers) => {
+export const handlePlayerMoveEvent = (player, direction, setPlayers, setAgents) => {
   const NUMBER_OF_SPRITE_COLUMNS = 3;
   let newX = player.x;
   let newY = player.y;
@@ -35,6 +35,8 @@ export const handlePlayerMoveEvent = (player, direction, setPlayers) => {
       frame: newFrame,
     };
 
+
+    setAgents(prevAgents => prevAgents.map(a => a.uid === player.uid ? updatedPlayer : a))
     setPlayers(prevPlayers => prevPlayers.map(p => p.uid === player.uid ? updatedPlayer : p))
 
     updateAgent(updatedPlayer);

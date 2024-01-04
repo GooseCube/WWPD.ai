@@ -19,10 +19,6 @@ function MessageInterface({ showInterface, setShowInterface }) {
   const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  if (moments) {
-    console.log("MessageInterface Moments: ", moments);
-  }
-
   return showInterface ? (
     <div className="message-interface-container">
       <Draggable handle=".interface">
@@ -53,7 +49,11 @@ function MessageInterface({ showInterface, setShowInterface }) {
               </div>
             )}
             {/* If the location of TextInput inside the 'interface' div container causes issues, move outside of the div container */}
-            <TextInput showInputArea={showInputArea} isLoading={isLoading} setIsLoading={setIsLoading}/>
+            <TextInput
+              showInputArea={showInputArea}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+            />
           </div>
         </ResizableBox>
       </Draggable>

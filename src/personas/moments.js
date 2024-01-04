@@ -16,6 +16,6 @@ export const townSquare = {
     title: "Town Square Talk",
     instruction:
       "Answser the question using the given context, personality and topic.",
-      context: `Given the following topic, choose one topic and write a short essay that introduces the topic, includes a thesis with at least three arguments and a conclusion. Do not return a partial essay. Use up to maximum tokens to create a complete essay in your response.`
+    context: `Given the following topic, choose one topic and write a short essay that introduces the topic, includes a thesis with at least three arguments and a conclusion.`,
   },
 };

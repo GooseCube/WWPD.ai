@@ -15,12 +15,12 @@ import "./styles/styles.css";
 
 function MessageInterface({ showInterface, setShowInterface }) {
   const { messages, moments } = useContext(AuthContext);
-  const [showMessages, setShowMessages] = useState(false);
+  const [showMessages, setShowMessages] = useState(true);
   const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   if (moments) {
-    console.log("MessageInterface Moments: ", moments)
+    console.log("MessageInterface Moments: ", moments);
   }
 
   return showInterface ? (
@@ -29,13 +29,14 @@ function MessageInterface({ showInterface, setShowInterface }) {
         <ResizableBox width={400} height={500} className="resizeable-box">
           <div className="interface">
             <Toolbar
-              messages={messages}
+              showMessages={showMessages}
+              setShowMessages={setShowMessages}
               showInputArea={showInputArea}
               setShowInputArea={setShowInputArea}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
               showInterface={showInterface}
               setShowInterface={setShowInterface}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
             {messages && showMessages && (
               <div className="message-container">
@@ -52,7 +53,7 @@ function MessageInterface({ showInterface, setShowInterface }) {
               </div>
             )}
             {/* If the location of TextInput inside the 'interface' div container causes issues, move outside of the div container */}
-            <TextInput showInputArea={showInputArea} isLoading={isLoading} />
+            <TextInput showInputArea={showInputArea} isLoading={isLoading} setIsLoading={setIsLoading}/>
           </div>
         </ResizableBox>
       </Draggable>

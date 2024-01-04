@@ -63,6 +63,11 @@
   transition: all 0.3s ease;
 }
 
+.delete-message-icon {
+  width: 1.25em;
+  height: 1.25em;
+}
+
 .delete-message-icon:hover {
   color: red;
   transform: scale(1.05);
@@ -74,6 +79,7 @@
 .spinner-animation {
   width: 1.25em;
   height: 1.25em;
+  color: blue;
 }
 
 /* Moment & Message | Sub-Component */
@@ -110,7 +116,7 @@
 
 .input-area {
   width: 100%;
-  height: 7vh;
+  height: 10vh;
   background-color: black;
   color: white;
   border-bottom-left-radius: 16px;

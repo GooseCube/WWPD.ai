@@ -14,13 +14,13 @@ function Message({ id, message }) {
         <Trash
           className="delete-message-icon"
           onClick={() => removeMessage(id)}
-        />{" "}Prompt: {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
-        {message.prompt}
+        />Prompt: {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
+        <pre>{message.prompt}</pre>
       </div>
       <div className="response">
         Response: {new Date(message.timestamp).toLocaleDateString("en-US")}{" "}
         <br />
-        {message.response}
+        <pre>{message.response}</pre>
       </div>
     </div>
   );

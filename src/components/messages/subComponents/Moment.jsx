@@ -21,9 +21,9 @@ function Moment({ id, moment }) {
           onClick={() => removeMoment(id)}
         />{" "}
         Prompt: {new Date(moment.timestamp).toLocaleDateString("en-US")}
-        <pre>{moment.prompt.context}</pre>
-        <pre>{moment.prompt.instruction}</pre>
-        <pre>{moment.prompt.question}</pre>
+        <pre>Context: {moment.prompt.context}</pre>
+        <pre>Instruction: {moment.prompt.instruction}</pre>
+        <pre>Question: {moment.prompt.question}</pre>
       </div>
 
       <div className="response">

@@ -11,17 +11,22 @@ import { pushNewMessage } from "../../../firebase/firebaseDB";
  * @param {boolean} isLoading
  * @returns 
  */
-function TextInput({ showInputArea, isLoading }) {
+function TextInput({ showInputArea, isLoading, setIsLoading }) {
   const [userPrompt, setUserPrompt] = useState("");
 
   const handleInput = async (event) => {
     if (event.key === "Enter") {
       event.preventDefault(); // prevent the addition of a new line in the textarea
+      setIsLoading(true)
       const response = await mixtralAPI(userPrompt);
       if (response) {
         await pushNewMessage(userPrompt, response);
         // Clear the input
         setUserPrompt("");
+        setIsLoading(false)
+      }
+      else {
+        setIsLoading(false)
       }
     }
   };

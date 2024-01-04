@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { getUserMessages, initializeAgents } from "./firebaseDB";
+import { getUserMessages, getUserMoments, initializeAgents } from "./firebaseDB";
 import { auth } from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -9,6 +9,8 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [messageRefs, setMessageRefs] = useState([]);
+  const [moments, setMoments] = useState([]);
+  const [momentRefs, setMomentRefs] = useState([]);
   const [agents, setAgents] = useState([]);
   const [agentRefs, setAgentRefs] = useState([]);
 
@@ -18,6 +20,7 @@ const AuthProvider = ({ children }) => {
       if (user) {
         initializeAgents(setAgents, setAgentRefs);
         getUserMessages(setMessages, setMessageRefs);
+        getUserMoments(setMoments, setMomentRefs);
       }
     });
 
@@ -25,7 +28,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, messages, agents, agentRefs }}>
+    <AuthContext.Provider value={{ user, messages, moments, agents, agentRefs }}>
       {children}
     </AuthContext.Provider>
   );

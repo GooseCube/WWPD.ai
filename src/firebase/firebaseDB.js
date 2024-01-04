@@ -81,3 +81,9 @@ export const pushNewMessage = async function addNewMessageToFirebaseDB(
     console.log("Unable to push new message to Firebase: ", error);
   }
 };
+
+export const removeMessage = async (id) => {
+  const userId = auth.currentUser.uid;
+  const messageRef = ref(database, `users/${userId}/messages/${id}`)
+  await remove(messageRef);
+}

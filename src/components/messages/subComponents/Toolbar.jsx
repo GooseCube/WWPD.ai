@@ -1,12 +1,10 @@
 import {
-  Lightbulb,
-  Trash,
-  PlayCircle,
-  EnvelopeOpen,
-  VolumeUpFill,
-  XCircleFill,
   ChatDots,
   Keyboard,
+  Lightbulb,
+  Trash,
+  VolumeUpFill,
+  XCircleFill,
 } from "react-bootstrap-icons";
 
 // Use animation as:
@@ -19,6 +17,7 @@ import Spinner from "react-bootstrap/Spinner";
  * @returns
  */
 function Toolbar({
+  messages,
   showInputArea,
   setShowInputArea,
   isLoading,
@@ -26,13 +25,8 @@ function Toolbar({
   showInterface,
   setShowInterface,
 }) {
-  const clearMessages = () => {
-    // remove messages
-  };
-
   return (
     <div className="toolbar-container">
-      <Trash className="toolbar-icon trash" onClick={() => clearMessages()} />
       <ChatDots className="toolbar-icon chat" />
       <Lightbulb className="toolbar-icon lightbulb" />
       <VolumeUpFill className="toolbar-icon speech" />

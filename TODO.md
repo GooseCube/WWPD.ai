@@ -59,3 +59,7 @@ User should have the ability to create their own sprite character persona: {name
 ## Add User Controlled Sprite Persona to Text Input Chat Messaging
 
 When selecting an agent in the game their controlled boolean property is 'true'. This can be used with the text input interface to allow the model to use the agents name and personality when responding to user prompts. Make the changes in /Message.jsx and use modules/newFunction to add functionality as needed.
+
+## Add Prompt isLoading Animation MessageInterface | Toolbar + Message
+
+When a user inputs a prompt, there needs to be a loading animation while the api is responding. Current isLoading and setIsLoading state objects are already available and being passed to the Toolbar.jsx component and a spinnerAnimation component is imported at the top level.

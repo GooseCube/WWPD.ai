@@ -63,6 +63,12 @@
   transition: all 0.3s ease;
 }
 
+.delete-message-icon:hover {
+  color: red;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
 /* Toolbar Animation */
 
 .spinner-animation {

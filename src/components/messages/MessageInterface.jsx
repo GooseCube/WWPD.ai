@@ -23,6 +23,7 @@ function MessageInterface({ showInterface, setShowInterface }) {
         <ResizableBox width={400} height={500} className="resizeable-box">
           <div className="interface">
             <Toolbar
+              messages={messages}
               showInputArea={showInputArea}
               setShowInputArea={setShowInputArea}
               isLoading={isLoading}
@@ -32,8 +33,8 @@ function MessageInterface({ showInterface, setShowInterface }) {
             />
             {messages && (
               <div className="message-container">
-                {Object.values(messages).map((message, index) => {
-                  return <Message message={message} key={index} />;
+                {Object.entries(messages).map(([id, message]) => {
+                  return <Message id={id} message={message} key={id} />;
                 })}
               </div>
             )}

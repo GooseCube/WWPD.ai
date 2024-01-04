@@ -7,15 +7,21 @@ import "react-resizable/css/styles.css";
 // Messages Sub-Components
 import Toolbar from "./subComponents/Toolbar";
 import Message from "./subComponents/Message";
+import Moment from "./subComponents/Moment";
 import TextInput from "./subComponents/TextInput";
 
 // Interface Styles
 import "./styles/styles.css";
 
 function MessageInterface({ showInterface, setShowInterface }) {
-  const { messages } = useContext(AuthContext);
+  const { messages, moments } = useContext(AuthContext);
+  const [showMessages, setShowMessages] = useState(false);
   const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  if (moments) {
+    console.log("MessageInterface Moments: ", moments)
+  }
 
   return showInterface ? (
     <div className="message-interface-container">
@@ -31,10 +37,17 @@ function MessageInterface({ showInterface, setShowInterface }) {
               showInterface={showInterface}
               setShowInterface={setShowInterface}
             />
-            {messages && (
+            {messages && showMessages && (
               <div className="message-container">
                 {Object.entries(messages).map(([id, message]) => {
                   return <Message id={id} message={message} key={id} />;
+                })}
+              </div>
+            )}
+            {moments && !showMessages && (
+              <div className="message-container">
+                {Object.entries(moments).map(([id, moment]) => {
+                  return <Moment id={id} moment={moment} key={id} />;
                 })}
               </div>
             )}

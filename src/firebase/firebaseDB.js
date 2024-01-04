@@ -120,14 +120,14 @@ export const getUserMoments = async (setMoments, setMomentRefs) => {
  * @param {string} response
  */
 export const pushNewMoment = async (
-  title,
   prompt,
-  response
+  conversation
 ) => {
+  console.log("Moment Prompt: ", prompt)
+  console.log("Conversation: ", conversation)
   const moment = {
-    title: title,
     prompt: prompt,
-    response: response,
+    response: conversation,
     timestamp: Date.now(),
   };
   const userId = auth.currentUser.uid;

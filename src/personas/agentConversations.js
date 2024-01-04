@@ -19,7 +19,7 @@
  *   next until all agents in the game have been given the context and question.
  */
 
-import { pushNewMessage } from "../firebase/firebaseDB";
+import { pushNewMoment } from "../firebase/firebaseDB";
 import { townSquare } from "./moments";
 import mixtralAPI from "../modelAPI/mixtralAPI";
 
@@ -72,8 +72,9 @@ export const startAgentMoment = async (agents) => {
 
   const finalResult = await mixtralAPI(primaryAgentFinalPrompt(primaryAgent, townSquare.finalPrompt, conversation));
 
-  console.log("\nFinal Result", finalResult);
+  // console.log("\nFinal Result", finalResult);
 
-  // Return the conversation
-  // return conversation;
+  // Push Moment to Firebase
+  pushNewMoment(townSquare.initialPrompt, conversation )
+
 };

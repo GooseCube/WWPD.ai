@@ -76,9 +76,10 @@
   height: 1.25em;
 }
 
-/* Message | Sub-Component */
+/* Moment & Message | Sub-Component */
 
-.message {
+.message,
+.moment {
   padding: 0.25em;
   color: white;
 }
@@ -95,6 +96,14 @@
 
 .response {
   background-color: blue;
+}
+
+.prompt pre, .response pre {
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 /* TextInput | Sub-Component */

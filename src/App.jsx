@@ -1,6 +1,6 @@
 import Login from "./components/login/Login";
 import Sidebar from "./components/sidebar/Sidebar";
-import Agents from "./components/player/Agents";
+import Agents from "./components/agents/Agents";
 import MessageInterface from "./components/messages/MessageInterface";
 import { useState } from "react";
 

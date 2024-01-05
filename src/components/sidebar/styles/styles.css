@@ -25,9 +25,9 @@
   background-color: black;
 }
 
-/* Sidebar Sub Component Button & Images */
+/* Sidebar Sub Components: Button, Images, DropdownItems */
 .sidebar-button {
-  width: 9em;
+  width: 10em;
   padding: 0.25em;
   background-color: #e9e9e9;
   color: black;
@@ -35,8 +35,6 @@
 }
 
 .sidebar-button:hover {
-  background-color: #939393;
-  color: #e9e9e9;
   transform: scale(1.05);
   transition: all 0.3s ease;
 }
@@ -49,4 +47,10 @@
 
 .dropdown-toggle-btn {
   height: 27px;
+  z-index: 3;
+}
+
+.dropdown-items:hover {
+  background-color: blue;
+  color: #e9e9e9;
 }

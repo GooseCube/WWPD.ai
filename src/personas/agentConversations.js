@@ -1,26 +1,12 @@
 /**
- * Functions to create a given 'moment' action which should include:
- * Use the given prompt to spark a conversation which should lead to
- * a conclusion. This could be a TedTalk, a Drawing, or Conversation.
- * All agents should be given the prompt and what they are able to do,
- * such as nothing, observe, take part, ...
- * The final response should be the combination of:
- * - inital prompt
- * - agent in charge of the 'moment'
- * - agents that participated with their input
- * - final response/outcome
- */
-
-/**
- * @TODO Create a Function in player animation modules:
- * - The primary agent, the 'moment' motivator, should find each player {x, y} and
- *   give them the context and question to evaluate when in a given +- proximity.
- *   Once the agent responds with their input, the primary agent will move to the
- *   next until all agents in the game have been given the context and question.
+ * The 'startAgentMoment' function is called from the Sidebar component.
+ * Sidebar uses the 'DropdownSelector' in /Sidebar/sub-components/DropdownSelector 
+ * to display the 'moments' exported from /moments.js
+ * The 'moment' and all 'agents' to be used are imported from Sidebar and 
+ * passed as a parameter to the 'startAgentMoment()' function.
  */
 
 import { pushNewMoment } from "../firebase/firebaseDB";
-import { townSquare } from "./moments";
 import mixtralAPI from "../modelAPI/mixtralAPI";
 
 // Kick start the 'moment' using primaryAgent and initial prompt
@@ -41,12 +27,12 @@ const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
 };
 
 // Function to start a conversation with a focus on the chosen 'moment'
-export const startAgentMoment = async (agents) => {
+export const startAgentMoment = async (agents, moment) => {
   let primaryAgent = agents.find((agent) => agent.playerControlled === true);
 
   let conversation = primaryAgent.name + ": ";
   let primaryAgentIdea = await mixtralAPI(
-    primaryAgentPrompt(primaryAgent, townSquare.initialPrompt)
+    primaryAgentPrompt(primaryAgent, moment.initialPrompt)
   );
   conversation += `${primaryAgentIdea}\n`;
 
@@ -71,7 +57,7 @@ export const startAgentMoment = async (agents) => {
   const finalResult = await mixtralAPI(
     primaryAgentFinalPrompt(
       primaryAgent,
-      townSquare.finalPrompt,
+      moment.finalPrompt,
       primaryAgentIdea
     )
   );
@@ -79,6 +65,6 @@ export const startAgentMoment = async (agents) => {
   conversation += `${primaryAgent.name} Presents: ${finalResult}`;
 
   // Push Moment to Firebase
-  pushNewMoment(townSquare.initialPrompt, conversation);
+  pushNewMoment(moment.initialPrompt, conversation);
   console.log("Completed Moment: ", conversation);
 };

@@ -1,33 +1,38 @@
 import React, { useContext, useEffect } from "react";
 import { Button, Image, Offcanvas } from "react-bootstrap";
-import {
-  ChevronDoubleRight,
-  ChevronDoubleLeft,
-} from "react-bootstrap-icons";
+import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
 
 // Outside Component Imports
+import { AuthContext } from "../../firebase/AuthProvider";
 import { startAgentMoment } from "../../personas/agentConversations";
-import { AuthContext } from "../../firebase/AuthProvider"
+// Import each of the 'moments' and add them to the dropdown item list
+import * as moments from "../../personas/moments";
 
 // Custom Sidebar Components
-import DropdownSelection from "./sub-components/DropdownSelection";
+import DropdownSelector from "./sub-components/DropdownSelection";
 import ButtonSelection from "./sub-components/ButtonSelection";
 
 // CSS Styles for Sidebar
 import app_icon from "../../assets/sidebar/app_icon.png";
 import ai from "../../assets/sidebar/ai.png";
 import idea from "../../assets/sidebar/idea.png";
+import ai_model from "../../assets/sidebar/ai_model.png"
 import image from "../../assets/sidebar/image.png";
-import video from "../../assets/sidebar/video.png"
+import video from "../../assets/sidebar/video.png";
 import "./styles/styles.css";
 
 function Sidebar({ showInterface, setShowInterface }) {
-  const { agents } = useContext(AuthContext)
+  const { agents } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
 
-  const handleMomentConversation = (event) => {
+  const handleMomentConversation = (event, moment) => {
     event.preventDefault();
-    startAgentMoment(agents);
+    startAgentMoment(agents, moment);
+  };
+
+  const handleChangeAiModel = (event, ai_model) => {
+    event.preventDefault();
+    console.log("model chosen: ", ai_model)
   }
 
   return (
@@ -49,6 +54,14 @@ function Sidebar({ showInterface, setShowInterface }) {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="d-flex flex-column ">
+
+          <DropdownSelector
+          className="dropdown-selector"
+            buttonTitle="AI Model"
+            image={ai_model}
+            dropdownEvent={handleChangeAiModel}
+            listItems={[{title: "Mistral"}, {title: "Mixtral"}, {title: "Zephyr"}]}
+          />
           <ButtonSelection
             buttonText="Interface"
             image={ai}
@@ -56,16 +69,11 @@ function Sidebar({ showInterface, setShowInterface }) {
             useStateParam={showInterface}
             handleStateEvent={setShowInterface}
           />
-          <DropdownSelection image={idea} 
-            dropdownItems=""
+          <DropdownSelector
+            buttonTitle="Moment"
+            image={idea}
             dropdownEvent={handleMomentConversation}
-          />
-          <ButtonSelection
-            buttonText="Image"
-            image={image}
-            altText="open image viewer"
-            // useStateParam={}
-            // handleStateEvent={}
+            listItems={Object.values(moments)}
           />
           <ButtonSelection
             buttonText="Video"

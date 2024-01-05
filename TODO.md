@@ -75,3 +75,7 @@ When a user inputs a prompt, there needs to be a loading animation while the api
 ## Remove Players/Player [players, setPlayers] useState() and use the AuthProvided Context
 
 In Players, a local useState() object 'players' & 'setPlayers' is being used. When updating to the context object 'agents' & 'setAgents' the local useState() objects need to be removed and the components need to reflect live changes using the Firebase updated global context. In other words, the current implementation is garbage (my bad).
+
+## Sidebar Dropdown Menu Unexpected Behavior
+
+When selecting a dropdown, like AI Model, the last list item covering the dropdown button below it will have strange behavior. This might be an incorrect implementation of the react-bootstrap Dropdown or the transition() css style.

@@ -5,7 +5,6 @@ import { updateAgent } from "../../firebase/firebaseDB";
 
 function Players() {
   const { agents, setAgents } = useContext(AuthContext);
-  // const [players, setPlayers] = useState([]);
   const [prevPlayerControlled, setPrevPlayerControlled] = useState([]);
 
   const changePlayerControlled = (agent) => {

@@ -14,8 +14,8 @@ import "./styles.css";
 
 /**
  * Uses Firebase to loggin user
- * @param {boolean} loggedIn
- * @param {useState Function} setLoggedIn
+ * @param {useState: boolean} loggedIn
+ * @param {useState: function} setLoggedIn
  */
 function Login({ loggedIn, setLoggedIn }) {
   const [signUp, setSignUp] = useState(false);

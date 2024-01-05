@@ -39,10 +39,7 @@ export const initializeAgents = async (setAgents, setAgentRefs) => {
   });
 };
 
-// Called from /player -> keyPressListener module
-// Agent { x: number, y: number, direction: "", and frame: ""} are modified
-// and require an update to Firebase if other users logged in are to see the
-// reflected changes on their side.
+// Update Firebase agent properties
 export const updateAgent = async (agent) => {
   const userId = auth.currentUser.uid;
   const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);

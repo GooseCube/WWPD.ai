@@ -1,12 +1,12 @@
 /**
  * The 'startAgentMoment' function is called from the Sidebar component.
- * Sidebar uses the 'DropdownSelector' in /Sidebar/sub-components/DropdownSelector 
+ * Sidebar uses the 'DropdownSelector' in /Sidebar/sub-components/DropdownSelector
  * to display the 'moments' exported from /moments.js
- * The 'moment' and all 'agents' to be used are imported from Sidebar and 
+ * The 'moment' and all 'agents' to be used are imported from Sidebar and
  * passed as a parameter to the 'startAgentMoment()' function.
  */
 
-import { pushNewMoment } from "../firebase/firebaseDB";
+import { pushNewMoment, updateAgent } from "../firebase/firebaseDB";
 import mixtralAPI from "../modelAPI/mixtralAPI";
 
 // Kick start the 'moment' using primaryAgent and initial prompt
@@ -28,15 +28,21 @@ const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
 
 // Function to start a conversation with a focus on the chosen 'moment'
 export const startAgentMoment = async (agents, moment) => {
-  let primaryAgent = agents.find((agent) => agent.playerControlled === true);
+  const primaryAgent = agents.find((agent) => agent.playerControlled === true);
 
   let conversation = primaryAgent.name + ": ";
-  let primaryAgentIdea = await mixtralAPI(
+  const primaryAgentIdea = await mixtralAPI(
     primaryAgentPrompt(primaryAgent, moment.initialPrompt)
   );
+
+  try {
+    await updateAgent({ ...primaryAgent, momentResponse: primaryAgentIdea });
+  } catch (error) {
+    console.error("Failed to update primaryAgent moment response", error);
+  }
   conversation += `${primaryAgentIdea}\n`;
 
-  // Use Promise.all with map instead of forEach
+  // Map the agents and get model response for each
   const responses = await Promise.all(
     agents.map(async (agent) => {
       // Generate a response based on the persona's personality
@@ -44,6 +50,13 @@ export const startAgentMoment = async (agents, moment) => {
         let response = await mixtralAPI(
           getFeedback(primaryAgent, agent, primaryAgentIdea)
         );
+
+        // Add the agents response to its Firebase properties
+        try {
+          await updateAgent({ ...agent, momentResponse: response });
+        } catch (error) {
+          console.error("Failed to update agent moment response", error);
+        }
 
         // Add the response to the conversation
         return `\n${agent.name}: ${response}\n`;
@@ -55,11 +68,7 @@ export const startAgentMoment = async (agents, moment) => {
   conversation += responses.join("");
 
   const finalResult = await mixtralAPI(
-    primaryAgentFinalPrompt(
-      primaryAgent,
-      moment.finalPrompt,
-      primaryAgentIdea
-    )
+    primaryAgentFinalPrompt(primaryAgent, moment.finalPrompt, primaryAgentIdea)
   );
 
   conversation += `${primaryAgent.name} Presents: ${finalResult}`;

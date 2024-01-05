@@ -10,6 +10,7 @@ export const personas = {
     frame: 0,
     uid: "1",
     playerControlled: true,
+    momentResponse: "",
   },
   arthur: {
     name: "Arthur",
@@ -22,6 +23,7 @@ export const personas = {
     frame: 0,
     uid: "2",
     playerControlled: false,
+    momentResponse: "",
   },
   carlos: {
     name: "Carlos",
@@ -34,6 +36,7 @@ export const personas = {
     frame: 0,
     uid: "3",
     playerControlled: false,
+    momentResponse: "",
   },
   carmen: {
     name: "Carmen",
@@ -46,6 +49,7 @@ export const personas = {
     frame: 0,
     uid: "4",
     playerControlled: false,
+    momentResponse: "",
   },
   francisco: {
     name: "Francisco",
@@ -58,6 +62,7 @@ export const personas = {
     frame: 0,
     uid: "5",
     playerControlled: false,
+    momentResponse: "",
   },
   isabella: {
     name: "Isabella",
@@ -70,6 +75,7 @@ export const personas = {
     frame: 0,
     uid: "6",
     playerControlled: false,
+    momentResponse: "",
   },
   mei: {
     name: "Mei",
@@ -82,6 +88,7 @@ export const personas = {
     frame: 0,
     uid: "7",
     playerControlled: false,
+    momentResponse: "",
   },
   yuriko: {
     name: "Yuriko",
@@ -94,5 +101,6 @@ export const personas = {
     frame: 0,
     uid: "8",
     playerControlled: false,
+    momentResponse: "",
   },
 };

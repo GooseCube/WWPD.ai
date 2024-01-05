@@ -21,6 +21,7 @@
 }
 
 .sprite-name-container {
+  /* width: 200px; */
   position: absolute;
   bottom: 30px;
   left: -10px;

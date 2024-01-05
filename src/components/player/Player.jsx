@@ -6,26 +6,25 @@ import "./styles/styles.css";
 import { Sprite } from "./styles/Sprite";
 
 function Player({
-  player,
+  agent,
+  setAgents,
   changePlayerControlled,
   prevPlayerControlled,
-  setPlayers,
-  setAgents,
 }) {
   useEffect(() => {
     // If playerControlled hasn't changed from false to true, return early
     if (
       prevPlayerControlled &&
-      prevPlayerControlled.uid === player.uid &&
+      prevPlayerControlled.uid === agent.uid &&
       prevPlayerControlled.playerControlled &&
-      !player.playerControlled
+      !agent.playerControlled
     ) {
       return;
     }
 
     const handleKeyPress = (event) => {
-      if (player.playerControlled) {
-        handlePlayerMoveEvent(player, event.key, setPlayers, setAgents);
+      if (agent.playerControlled) {
+        handlePlayerMoveEvent(agent, setAgents, event.key);
       }
     };
 
@@ -35,21 +34,20 @@ function Player({
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [player, prevPlayerControlled]);
+  }, [agent, prevPlayerControlled]);
 
   return (
-    // <div className="sprite-container" style={{ left: player.x, top: player.y }}>
     <div className="sprite-container">
       <Sprite
-        player={player}
+        player={agent}
         className={`sprite grid-cell ${
-          player.frame === 0
-            ? `stand-${player.direction}`
-            : `walk-${player.direction}-${player.frame}`
+          agent.frame === 0
+            ? `stand-${agent.direction}`
+            : `walk-${agent.direction}-${agent.frame}`
         }`}
-        onClick={() => changePlayerControlled(player)}>
-        {player.playerControlled ? <div className="sprite-arrow"></div> : ""}
-        <div className="sprite-name-container">{player.name}</div>
+        onClick={() => changePlayerControlled(agent)}>
+        {agent.playerControlled ? <div className="sprite-arrow"></div> : ""}
+        <div className="sprite-name-container">{agent.name}</div>
       </Sprite>
       <div className="sprite-shadow"></div>
     </div>

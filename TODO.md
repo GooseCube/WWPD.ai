@@ -10,7 +10,6 @@ In the sidebar, the user should be able to enter an API Key for Huggingface whic
 
 Add model api calls to other huggingface api endpoints (such as: Mistral, Zephyr) and use a global context object to switch the the model used for the MessageInterface.
 
-
 ## Translator Component
 
 [Use Huggingface Translator Example for React](https://huggingface.co/docs/transformers.js/tutorials/react)
@@ -68,3 +67,10 @@ In Players, a local useState() object 'players' & 'setPlayers' is being used. Wh
 ## Sidebar Dropdown Menu Unexpected Behavior
 
 When selecting a dropdown, like AI Model, the last list item covering the dropdown button below it will have strange behavior. This might be an incorrect implementation of the react-bootstrap Dropdown or the transition() css style.
+
+## Add a (?) Help/Info Icon
+
+Add a help icon in the sidebar to give basic information about the functionality of the game:
+
+- When a sprite is selected, the 'moment' will use this sprites peronality to create the selected 'moment'. The message interface prompt (chat) will also use the selected agents personality for prompt responses.
+- What does each sidebar button represent/do?

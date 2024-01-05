@@ -1,12 +1,13 @@
 import { updateAgent } from "../../../firebase/firebaseDB";
 import { validateGridCollision } from "./gridCollisionDetection";
 
-export const handlePlayerMoveEvent = (player, direction, setPlayers, setAgents) => {
+// Arrow Key Events for Player Controlled Agent
+export const handlePlayerMoveEvent = (agent, setAgents, direction) => {
   const NUMBER_OF_SPRITE_COLUMNS = 3;
-  let newX = player.x;
-  let newY = player.y;
-  let newDirection = player.direction;
-  let newFrame = (player.frame + 1) % NUMBER_OF_SPRITE_COLUMNS; // Cycle through sprite frames 0, 1, 2
+  let newX = agent.x;
+  let newY = agent.y;
+  let newDirection = agent.direction;
+  let newFrame = (agent.frame + 1) % NUMBER_OF_SPRITE_COLUMNS; // Cycle through sprite frames 0, 1, 2
   switch (direction) {
     case "ArrowUp":
       newY -= 1;
@@ -27,19 +28,21 @@ export const handlePlayerMoveEvent = (player, direction, setPlayers, setAgents) 
   }
 
   if (!validateGridCollision(newX, newY)) {
-    const updatedPlayer = {
-      ...player,
+    const updatedAgent = {
+      ...agent,
       x: newX,
       y: newY,
       direction: newDirection,
       frame: newFrame,
     };
 
+    // Update Global Context for Agents
+    setAgents((prevAgents) =>
+      prevAgents.map((a) => (a.uid === agent.uid ? updatedAgent : a))
+    );
 
-    setAgents(prevAgents => prevAgents.map(a => a.uid === player.uid ? updatedPlayer : a))
-    setPlayers(prevPlayers => prevPlayers.map(p => p.uid === player.uid ? updatedPlayer : p))
-
-    updateAgent(updatedPlayer);
+    // Update Firebase
+    updateAgent(updatedAgent);
   }
 
   let position = "{" + "x: " + newX + "," + " y: " + newY + "},";

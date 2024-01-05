@@ -1,27 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../firebase/AuthProvider";
 import Player from "./Player";
-import { database } from "../../firebase/firebaseConfig";
 import { updateAgent } from "../../firebase/firebaseDB";
 
 function Players() {
   const { agents, setAgents } = useContext(AuthContext);
-  const [players, setPlayers] = useState([]);
+  // const [players, setPlayers] = useState([]);
   const [prevPlayerControlled, setPrevPlayerControlled] = useState([]);
 
-  // Init Players in Firebase on mount
-  useEffect(() => {
-    setPlayers(agents);
-  }, []);
-
-  const changePlayerControlled = (player) => {
+  const changePlayerControlled = (agent) => {
     setPrevPlayerControlled(() => {
-      return players.find((player) => player.playerControlled === true);
+      return agents.find((agent) => agent.playerControlled === true);
     });
 
-    // Create a new array of players with updated playerControlled status
-    const updatedPlayers = players.map((p) => {
-      if (p.uid === player.uid) {
+    // Create a new array of agents with updated playerControlled status
+    const updatedAgents = agents.map((p) => {
+      if (p.uid === agent.uid) {
         return { ...p, playerControlled: true };
       } else {
         return { ...p, playerControlled: false };
@@ -29,23 +23,20 @@ function Players() {
     });
 
     // update global context state
-    setAgents(updatedPlayers)
+    setAgents(updatedAgents);
 
-    // Update local state
-    setPlayers(updatedPlayers);
-    updateAgent(player);
+    updateAgent(agent);
   };
 
   return (
-    players && (
+    agents && (
       <div>
-        {players.map((player) => (
+        {agents.map((agent) => (
           <Player
-            key={player.uid}
-            player={player}
+            key={agent.uid}
+            agent={agent}
             changePlayerControlled={changePlayerControlled}
             prevPlayerControlled={prevPlayerControlled}
-            setPlayers={setPlayers}
             setAgents={setAgents}
           />
         ))}

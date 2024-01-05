@@ -41,7 +41,7 @@ function Agent({
   return (
     <div className="sprite-container">
       <Sprite
-        player={agent}
+        agent={agent}
         className={`sprite grid-cell ${
           agent.frame === 0
             ? `stand-${agent.direction}`

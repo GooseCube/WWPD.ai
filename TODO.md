@@ -6,17 +6,10 @@ Create an account with Huggingface using goosecube1@gmail.com. Create an API Key
 
 In the sidebar, the user should be able to enter an API Key for Huggingface which will be stored in their user account on Firebase.
 
-## Add Dropdown to Select AI Model
+## Complete the Dropdown to Select AI Model
 
-A dropdown to select the AI Model to interact with should be added to the sidebar.
+Add model api calls to other huggingface api endpoints (such as: Mistral, Zephyr) and use a global context object to switch the the model used for the MessageInterface.
 
-## Update Firebase AuthProvider
-
-Change the method of initialization for all agents and messages from Firebase.
-
-1. For key event agent motion, use local state and not the Firebase context to render agent to the DOM. Create and use a Firebase write() function to update this controlled agent movements.
-2. On exit from the application, remove all agents from the game.
-3. Double check that the Firebase listener for messages is being used correctly.
 
 ## Translator Component
 
@@ -67,10 +60,6 @@ User should have the ability to create their own sprite character persona: {name
 ## Add User Controlled Sprite Persona to Text Input Chat Messaging
 
 When selecting an agent in the game their controlled boolean property is 'true'. This can be used with the text input interface to allow the model to use the agents name and personality when responding to user prompts. Make the changes in /Message.jsx and use modules/newFunction to add functionality as needed.
-
-## Add Prompt isLoading Animation MessageInterface | Toolbar + Message
-
-When a user inputs a prompt, there needs to be a loading animation while the api is responding. Current isLoading and setIsLoading state objects are already available and being passed to the Toolbar.jsx component and a spinnerAnimation component is imported at the top level.
 
 ## Remove Players/Player [players, setPlayers] useState() and use the AuthProvided Context
 

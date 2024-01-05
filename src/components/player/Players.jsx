@@ -1,9 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
+
+// Global Context Provider
 import { AuthContext } from "../../firebase/AuthProvider";
-import Player from "./Player";
+
+// Firebase DB
 import { updateAgent } from "../../firebase/firebaseDB";
 
-function Players() {
+// Sub Component
+import Agent from "./Player";
+
+function Agents() {
   const { agents, setAgents } = useContext(AuthContext);
   const [prevPlayerControlled, setPrevPlayerControlled] = useState([]);
 
@@ -13,17 +19,18 @@ function Players() {
     });
 
     // Create a new array of agents with updated playerControlled status
-    const updatedAgents = agents.map((p) => {
-      if (p.uid === agent.uid) {
-        return { ...p, playerControlled: true };
+    const updatedAgents = agents.map((a) => {
+      if (a.uid === agent.uid) {
+        return { ...a, playerControlled: true };
       } else {
-        return { ...p, playerControlled: false };
+        return { ...a, playerControlled: false };
       }
     });
 
     // update global context state
     setAgents(updatedAgents);
 
+    // Update Firebase
     updateAgent(agent);
   };
 
@@ -31,7 +38,7 @@ function Players() {
     agents && (
       <div>
         {agents.map((agent) => (
-          <Player
+          <Agent
             key={agent.uid}
             agent={agent}
             changePlayerControlled={changePlayerControlled}
@@ -44,4 +51,4 @@ function Players() {
   );
 }
 
-export default Players;
+export default Agents;

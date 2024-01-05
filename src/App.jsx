@@ -1,6 +1,6 @@
 import Login from "./components/login/Login";
 import Sidebar from "./components/sidebar/Sidebar";
-import Players from "./components/player/Players";
+import Agents from "./components/player/Players";
 import MessageInterface from "./components/messages/MessageInterface";
 import { useState } from "react";
 
@@ -32,7 +32,7 @@ function App() {
         showInterface={showInterface}
         setShowInterface={setShowInterface}
       />
-      <Players />
+      <Agents />
     </div>
   ) : (
     <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />

@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
+
+// Local Modules
 import { handlePlayerMoveEvent } from "./modules/keyPressListener";
 
 // Sprite Styles
 import "./styles/styles.css";
 import { Sprite } from "./styles/Sprite";
 
-function Player({
+function Agent({
   agent,
   setAgents,
   changePlayerControlled,
@@ -54,4 +56,4 @@ function Player({
   );
 }
 
-export default Player;
+export default Agent;

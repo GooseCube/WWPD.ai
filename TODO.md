@@ -1,3 +1,7 @@
+## Add Open Source License
+
+Find and add the appropriate open source license to the repo before making it public.
+
 ## Switch Huggingface API Token for Goose Cube
 
 Create an account with Huggingface using goosecube1@gmail.com. Create an API Key and change current VITE_HUGGINGFACE_API_TOKEN in the `.env` file. Currently using Adams Huggingface API Token.

@@ -81,7 +81,7 @@ yarn dev
 
 ## Why Not Python?
 
-The original code base is in Python and most of the programs dealing with AI Models also use Python due to the large number of available libraries that help fine tune the models and allow simple SDK's that create the API calls for you. As we are not trying to fine tune ai models and have found ways of prompting the models to achieve our goal it was unnecessary to bring in the large number of libraries that python often requires.
+The original code base is in Python and most of the programs dealing with AI Models also use Python due to the large number of available libraries that help fine tune the models. As we are not trying to fine tune ai models and have found ways of prompting the models to achieve our goal it was unnecessary to bring in the large number of libraries that python often requires.
 
 As undergrad computer scientists, we wanted to accomplish a little more than the norm. Building this application in React will expand the ai model community to include another arena of brilliant devs that may want to tear this repo apart and make something truly unique. Our hope is that the application is easy to set up and easy to understand.
 

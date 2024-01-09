@@ -5,6 +5,7 @@ import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
 // Sidebar Sub Components
 import DropdownSelector from "./sub-components/DropdownSelection";
 import ButtonSelection from "./sub-components/ButtonSelection";
+import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
 import { AuthContext } from "../../firebase/AuthProvider";
@@ -90,6 +91,7 @@ function Sidebar({ showInterface, setShowInterface }) {
             // useStateParam={}
             // handleStateEvent={}
           />
+          <AgentProfile agents={agents} />
         </Offcanvas.Body>
       </Offcanvas>
     </div>

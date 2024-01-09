@@ -1,6 +1,7 @@
 /* New Sprite Animation Movements */
 
 .sprite-container {
+  position: relative;
   height: 100%;
   width: 100%;
 }
@@ -23,12 +24,12 @@
 /* SpriteTextBubble: Scrolling Text Animations */
 .sprite-text-container {
   /* overflow: hidden; */
-  width: 200px;
   position: absolute;
-  bottom: 30px;
-  left: -10px;
-  font-size: 7px;
+  width: auto;
   padding: 1px 4px;
+  bottom: 30px;
+  /* left: -10px; */
+  font-size: 7px;
   border-radius: 3px;
   background: #333;
   color: white;
@@ -37,22 +38,21 @@
   white-space: nowrap;
 }
 
-@keyframes scroll {
+/* @keyframes scroll {
   0% {
     transform: translateX(100%);
   }
   100% {
     transform: translateX(-100%);
   }
-}
+} */
 
-.scrolling-text {
+/* .scrolling-text {
   position: relative;
   display: inline-block;
   white-space: nowrap;
   animation: scroll 3s linear infinite;
-  /* animation: scroll 100% linear infinite; */
-}
+} */
 
 /* Sprite Animation Frames */
 .stand-down {

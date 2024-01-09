@@ -7,7 +7,8 @@
  */
 
 import { pushNewMoment, updateAgent } from "../firebase/firebaseDB";
-import mixtralAPI from "../modelAPI/mixtralAPI";
+import { fetchModelResponse } from "../modelAPI/fetchModelResponse";
+// import mixtralAPI from "../modelAPI/mixtralAPI";
 
 // Kick start the 'moment' using primaryAgent and initial prompt
 const primaryAgentPrompt = (primaryAgent, moment) => {
@@ -27,11 +28,12 @@ const getFeedback = (primaryAgent, agent, primaryAgentIdea) => {
 };
 
 // Function to start a conversation with a focus on the chosen 'moment'
-export const startAgentMoment = async (agents, moment) => {
+export const startAgentMoment = async (agents, moment, aiModel) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
 
   let conversation = primaryAgent.name + ": ";
-  const primaryAgentIdea = await mixtralAPI(
+  const primaryAgentIdea = await fetchModelResponse(
+    aiModel,
     primaryAgentPrompt(primaryAgent, moment.initialPrompt)
   );
 
@@ -47,7 +49,8 @@ export const startAgentMoment = async (agents, moment) => {
     agents.map(async (agent) => {
       // Generate a response based on the persona's personality
       if (agent.uid !== primaryAgent.uid) {
-        let response = await mixtralAPI(
+        let response = await fetchModelResponse(
+          aiModel,
           getFeedback(primaryAgent, agent, primaryAgentIdea)
         );
 
@@ -67,7 +70,8 @@ export const startAgentMoment = async (agents, moment) => {
   // Add all responses to the conversation
   conversation += responses.join("");
 
-  const finalResult = await mixtralAPI(
+  const finalResult = await fetchModelResponse(
+    aiModel,
     primaryAgentFinalPrompt(primaryAgent, moment.finalPrompt, primaryAgentIdea)
   );
 

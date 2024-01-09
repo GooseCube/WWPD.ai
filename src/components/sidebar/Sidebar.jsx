@@ -30,7 +30,7 @@ function Sidebar({ showInterface, setShowInterface }) {
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = (event, moment) => {
     event.preventDefault();
-    startAgentMoment(agents, moment);
+    startAgentMoment(agents, moment, sidebar.aiModel.title);
   };
 
   // Updates Firebase with the selected ai model name

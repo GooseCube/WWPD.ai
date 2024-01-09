@@ -24,7 +24,7 @@ The `interface` allows you to test out various methods of prompting. When select
 
 The `lightbulb` icon will switch the view to `moments`, allowing an easy method of viewing the entire conversation.
 
-<div style="padding-top: 1em; width: 20em; margin: 0 auto">
+<div style="padding-top: 1em; width: 10em; margin: 0 auto">
   <img src="./src/assets/readme/interface.png" style="width: 100%; height: auto;" />
 </div>
 
@@ -35,7 +35,7 @@ The `lightbulb` icon will switch the view to `moments`, allowing an easy method 
 - Change the Huggingface AI Model: ["Mistral Instruct", "Mixtral", "Zephyr"]
 - View the currently selected agent profile
 
-<div style="width: 20em; margin: 0 auto;">
+<div style="width: 10em; margin: 0 auto;">
   <img src="./src/assets/readme/sidebar.png" style="display: block; margin: auto; width: 100%; height: auto;" />
 </div>
 

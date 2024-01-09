@@ -31,28 +31,13 @@
   /* left: -10px; */
   font-size: 7px;
   border-radius: 3px;
-  background: #333;
+  /* background: #333; */
+  background: blue;
   color: white;
   font-weight: bold;
   text-transform: uppercase;
   /* white-space: nowrap; */
 }
-
-/* @keyframes scroll {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-} */
-
-/* .scrolling-text {
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-  animation: scroll 3s linear infinite;
-} */
 
 /* Sprite Animation Frames */
 .stand-down {
@@ -102,13 +87,3 @@
 .walk-up-2 {
   background-position: -64px -96px; /* third frame of the fourth row */
 }
-
-/* Sprite Shadow causes viewport to increase in size which enables scrollbar */
-/* .sprite-shadow {
-  position: absolute;
-  bottom: -2px;
-  left: 2px;
-  width: 10px;
-  height: 10px;
-  background: url(../../../assets/shadow.png) no-repeat no-repeat;
-} */

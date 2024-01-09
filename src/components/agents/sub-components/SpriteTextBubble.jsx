@@ -22,11 +22,11 @@ function SpriteTextBubble({ agent }) {
   const displayTextMessage = () => {
     if (currentIndex < textArray.length) {
       setTimeout(() => {
-        setCurrentIndex(currentIndex + 1);
+        setCurrentIndex(prevIndex => prevIndex + 1);
         if (currentIndex + 1 >= textArray.length) {
           setDisplayName(true);
         }
-      }, 2000); // Change this value to adjust the time between text changes
+      }, 1000); // Change this value to adjust the time between text changes
     }
   };
 

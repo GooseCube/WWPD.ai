@@ -10,18 +10,22 @@ export const handlePlayerMoveEvent = (agent, setAgents, direction) => {
   let newFrame = (agent.frame + 1) % NUMBER_OF_SPRITE_COLUMNS; // Cycle through sprite frames 0, 1, 2
   switch (direction) {
     case "ArrowUp":
+    case "w":
       newY -= 1;
       newDirection = "up";
       break;
     case "ArrowDown":
+    case "s":
       newY += 1;
       newDirection = "down";
       break;
     case "ArrowLeft":
+    case "a":
       newX -= 1;
       newDirection = "left";
       break;
     case "ArrowRight":
+    case "d":
       newX += 1;
       newDirection = "right";
       break;

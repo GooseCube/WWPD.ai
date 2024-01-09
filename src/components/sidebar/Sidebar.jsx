@@ -91,6 +91,13 @@ function Sidebar({ showInterface, setShowInterface }) {
             // useStateParam={}
             // handleStateEvent={}
           /> */}
+          {/* <ButtonSelection
+            buttonText="Video"
+            image={video}
+            altText="open video viewer"
+            // useStateParam={}
+            // handleStateEvent={}
+          /> */}
           <AgentProfile agents={agents} />
         </Offcanvas.Body>
       </Offcanvas>

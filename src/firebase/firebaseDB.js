@@ -13,8 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 // Personas for each agent, used to create Firebase agents
 import { personas } from "../personas/personas";
 
-
-// ---------- Firebase Agents ------------ 
+// ---------- Firebase Agents ------------
 
 // Called from AuthProvider | Initialize All Agents in Game
 export const initializeAgents = async (setAgents, setAgentRefs) => {
@@ -29,6 +28,14 @@ export const initializeAgents = async (setAgents, setAgentRefs) => {
     set(agentRef, agent);
     setAgents((prev) => [...prev, agent]);
     setAgentRefs((prev) => [...prev, agentRef]);
+
+    // Set up a listener for changes to this agent
+    onValue(agentRef, (snapshot) => {
+      const updatedAgent = snapshot.val();
+      setAgents((prevAgents) => {
+        return prevAgents.map((a) => (a.uid === agent.uid ? updatedAgent : a));
+      });
+    });
   });
 
   // Remove agent from Firebase when user disconnects
@@ -39,17 +46,14 @@ export const initializeAgents = async (setAgents, setAgentRefs) => {
   });
 };
 
-// Called from /player -> keyPressListener module
-// Agent { x: number, y: number, direction: "", and frame: ""} are modified
-// and require an update to Firebase if other users logged in are to see the
-// reflected changes on their side.
+// Update Firebase agent properties
 export const updateAgent = async (agent) => {
   const userId = auth.currentUser.uid;
   const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);
   update(agentRef, agent);
 };
 
-// ---------- Firebase Messages ------------ 
+// ---------- Firebase Messages ------------
 
 // Called from AuthProvider to retrieve user persisted messages
 export const getUserMessages = async (setMessages, setMessageRefs) => {
@@ -71,10 +75,7 @@ export const getUserMessages = async (setMessages, setMessageRefs) => {
  * @param {string} prompt
  * @param {string} response
  */
-export const pushNewMessage = async (
-  prompt,
-  response
-) => {
+export const pushNewMessage = async (prompt, response) => {
   const message = {
     prompt: prompt,
     response: response,
@@ -93,16 +94,16 @@ export const pushNewMessage = async (
 };
 
 /**
- * Given the message id, removes the message from Fireabse 
+ * Given the message id, removes the message from Fireabse
  * @param {number} id of message in Firebase
  */
 export const removeMessage = async (id) => {
   const userId = auth.currentUser.uid;
-  const messageRef = ref(database, `users/${userId}/messages/${id}`)
+  const messageRef = ref(database, `users/${userId}/messages/${id}`);
   await remove(messageRef);
-}
+};
 
-// ---------- Firebase Moments ------------ 
+// ---------- Firebase Moments ------------
 
 // Called from AuthProvider to retrieve user persisted moments
 export const getUserMoments = async (setMoments, setMomentRefs) => {
@@ -119,12 +120,9 @@ export const getUserMoments = async (setMoments, setMomentRefs) => {
  * @param {string} prompt
  * @param {string} response
  */
-export const pushNewMoment = async (
-  prompt,
-  conversation
-) => {
-  console.log("Moment Prompt: ", prompt)
-  console.log("Conversation: ", conversation)
+export const pushNewMoment = async (prompt, conversation) => {
+  console.log("Moment Prompt: ", prompt);
+  console.log("Conversation: ", conversation);
   const moment = {
     prompt: prompt,
     response: conversation,
@@ -144,6 +142,6 @@ export const pushNewMoment = async (
 
 export const removeMoment = async (id) => {
   const userId = auth.currentUser.uid;
-  const momentsRef = ref(database, `users/${userId}/moments/${id}`)
+  const momentsRef = ref(database, `users/${userId}/moments/${id}`);
   await remove(momentsRef);
-}
+};

@@ -20,7 +20,10 @@
   background: url(../../../assets/arrow.png) no-repeat no-repeat;
 }
 
-.sprite-name-container {
+/* SpriteTextBubble: Scrolling Text Animations */
+.sprite-text-container {
+  /* overflow: hidden; */
+  width: 200px;
   position: absolute;
   bottom: 30px;
   left: -10px;
@@ -32,6 +35,23 @@
   font-weight: bold;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.scrolling-text {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll 3s linear infinite;
+  /* animation: scroll 100% linear infinite; */
 }
 
 /* Sprite Animation Frames */

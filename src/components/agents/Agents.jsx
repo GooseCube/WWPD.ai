@@ -7,7 +7,10 @@ import { AuthContext } from "../../firebase/AuthProvider";
 import { updateAgent } from "../../firebase/firebaseDB";
 
 // Sub Component
-import Agent from "./Agent";
+import Agent from "./sub-components/Agent";
+
+// Styles
+import "./styles/styles.css"
 
 function Agents() {
   const { agents, setAgents } = useContext(AuthContext);

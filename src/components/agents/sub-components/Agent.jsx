@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 
+import SpriteTextBubble from "./SpriteTextBubble";
+
 // Local Modules
-import { handlePlayerMoveEvent } from "./modules/keyPressListener";
+import { handlePlayerMoveEvent } from "../modules/keyPressListener";
 
 // Sprite Styles
-import "./styles/styles.css";
-import { Sprite } from "./styles/Sprite";
+import { Sprite } from "../styles/Sprite";
 
 function Agent({
   agent,
@@ -49,7 +50,7 @@ function Agent({
         }`}
         onClick={() => changePlayerControlled(agent)}>
         {agent.playerControlled ? <div className="sprite-arrow"></div> : ""}
-        <div className="sprite-name-container">{agent.name}</div>
+        <SpriteTextBubble agent={agent} />
       </Sprite>
       <div className="sprite-shadow"></div>
     </div>

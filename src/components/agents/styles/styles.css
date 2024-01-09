@@ -23,7 +23,7 @@
 
 /* SpriteTextBubble: Scrolling Text Animations */
 .sprite-text-container {
-  /* overflow: hidden; */
+  overflow: hidden;
   position: absolute;
   width: auto;
   padding: 1px 4px;
@@ -35,7 +35,7 @@
   color: white;
   font-weight: bold;
   text-transform: uppercase;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 /* @keyframes scroll {

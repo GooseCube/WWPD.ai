@@ -26,18 +26,14 @@
 }
 
 /* Sidebar Sub Components: Button, Images, DropdownItems */
-.sidebar-button {
+.sidebar-button,
+.sidebar-dropdown-button {
   width: 10em;
   padding: 0.25em;
   background-color: #e9e9e9;
   color: black;
   border-radius: 10px;
 }
-
-/* .sidebar-button:hover {
-  transform: scale(1.05);
-  transition: all 0.3s ease;
-} */
 
 .sidebar-img {
   margin-left: 0.25em;
@@ -47,7 +43,12 @@
 
 .dropdown-toggle-btn {
   height: 32px;
-  /* z-index: 3; */
+}
+
+.sidebar-button:hover,
+.dropdown-toggle-btn:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease;
 }
 
 .dropdown-items:hover {

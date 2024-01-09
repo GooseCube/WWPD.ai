@@ -2,24 +2,25 @@ import React, { useContext, useEffect } from "react";
 import { Button, Image, Offcanvas } from "react-bootstrap";
 import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
 
-// Outside Component Imports
-import { AuthContext } from "../../firebase/AuthProvider";
-import { startAgentMoment } from "../../personas/agentConversations";
-// Import each of the 'moments' and add them to the dropdown item list
-import * as moments from "../../personas/moments";
-
-// Custom Sidebar Components
+// Sidebar Sub Components
 import DropdownSelector from "./sub-components/DropdownSelection";
 import ButtonSelection from "./sub-components/ButtonSelection";
 
+// Outside Component Imports
+import { AuthContext } from "../../firebase/AuthProvider";
+import { startAgentMoment } from "../../personas/agentConversations";
+import * as moments from "../../personas/moments";
+
 // CSS Styles for Sidebar
+import "./styles/styles.css";
+
+// Asset Images (icons)
 import app_icon from "../../assets/sidebar/app_icon.png";
 import ai from "../../assets/sidebar/ai.png";
 import idea from "../../assets/sidebar/idea.png";
 import ai_model from "../../assets/sidebar/ai_model.png";
 import image from "../../assets/sidebar/image.png";
 import video from "../../assets/sidebar/video.png";
-import "./styles/styles.css";
 
 function Sidebar({ showInterface, setShowInterface }) {
   const { agents } = useContext(AuthContext);

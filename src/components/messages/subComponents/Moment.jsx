@@ -20,7 +20,7 @@ function Moment({ id, moment }) {
           className="delete-message-icon"
           onClick={() => removeMoment(id)}
         />{" "}
-        Prompt: {new Date(moment.timestamp).toLocaleDateString("en-US")}
+        {new Date(moment.timestamp).toLocaleDateString("en-US")}
         <pre>Context: {moment.prompt.context}</pre>
         <pre>Instruction: {moment.prompt.instruction}</pre>
         <pre>Question: {moment.prompt.question}</pre>

@@ -6,10 +6,10 @@ import {
   XCircleFill,
 } from "react-bootstrap-icons";
 
+// On Hover Tooltip Display Message
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
-// Use animation as:
-// onClick={() => setIsLoading(!isLoading)}
+// Load Animation
 import Spinner from "react-bootstrap/Spinner";
 
 /**
@@ -25,7 +25,7 @@ function Toolbar({
   showInterface,
   setShowInterface,
   isLoading,
-  aiModel
+  aiModel,
 }) {
   return (
     <div className="toolbar-container">

@@ -133,10 +133,12 @@
 
 .message-container::-webkit-scrollbar-track {
   background: black;
+  border-radius: 8em;
 }
 
 .message-container::-webkit-scrollbar-thumb {
   background: #555;
+  border-radius: 8em;
 }
 
 .message-container::-webkit-scrollbar-thumb:hover {

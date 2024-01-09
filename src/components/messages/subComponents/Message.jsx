@@ -11,11 +11,12 @@ function Message({ id, message }) {
   return (
     <div key={id} className="message">
       <div className="prompt">
+
         <Trash
           className="delete-message-icon"
           onClick={() => removeMessage(id)}
-        />Prompt: {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
-        <pre>{message.prompt}</pre>
+        /> {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
+        <pre>Prompt: {message.prompt}</pre>
       </div>
       <div className="response">
         Response: {new Date(message.timestamp).toLocaleDateString("en-US")}{" "}

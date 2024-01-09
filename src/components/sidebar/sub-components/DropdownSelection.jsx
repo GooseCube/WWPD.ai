@@ -10,7 +10,7 @@ import { ButtonGroup, Dropdown, Image } from "react-bootstrap";
 function DropdownSelector({ buttonTitle, image, dropdownEvent, listItems }) {
   return (
     <Dropdown as={ButtonGroup}>
-      <div className="sidebar-dropdown-button mb-3 d-flex justify-content-between">
+      <div className="sidebar-dropdown-button mb-3 d-flex">
         <Image
           className="sidebar-img"
           src={image}
@@ -18,7 +18,7 @@ function DropdownSelector({ buttonTitle, image, dropdownEvent, listItems }) {
         />{" "}
         {buttonTitle}
         <Dropdown.Toggle
-          className="dropdown-toggle-btn mx-1"
+          className="dropdown-toggle-btn ms-auto"
           split
           variant="primary"
         />

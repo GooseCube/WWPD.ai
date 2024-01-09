@@ -1,4 +1,11 @@
 /* Sidebar Main Component */
+
+/* Globals */
+.offcanvas-container {
+  --textColor: #e9e9e9;
+  --component-width: 60%;
+}
+
 .app-icon-img {
   width: 2em;
 }
@@ -12,11 +19,15 @@
   border-top-right-radius: 16px;
 }
 
+.offcanvas-body {
+  margin-left: 1em;
+}
+
 .btn-close {
   background-color: #e9e9e9;
-  width: 8px;
-  height: 8px;
-  border-radius: 16px;
+  width: 1em;
+  height: 1em;
+  border-radius: 8em;
   transition: all 0.3s ease;
 }
 
@@ -28,7 +39,8 @@
 /* Sidebar Sub Components: Button, Images, DropdownItems, AgentProfile */
 .sidebar-button,
 .sidebar-dropdown-button {
-  width: 10em;
+  /* width: 12em; */
+  width: var(--component-width);
   padding: 0.25em;
   background-color: #e9e9e9;
   color: black;
@@ -37,6 +49,7 @@
 
 .sidebar-img {
   margin-left: 0.25em;
+  margin-right: 0.50em;
   width: 30px;
   height: 33px;
 }
@@ -59,6 +72,8 @@
 /* Sidebar AgentProfile */
 
 .agent-profile-container {
+  /* width: 12em; */
+  width: var(--component-width);
   margin-top: 2em;
   background-color: #e9e9e9;
   color: black;

@@ -37,11 +37,11 @@ function Sidebar({ showInterface, setShowInterface }) {
   // Updates Firebase with the selected ai model name
   const handleChangeAiModel = (event, ai_model) => {
     event.preventDefault();
-    updateSidebar({aiModel: ai_model})
+    updateSidebar({ aiModel: ai_model });
   };
 
   return (
-    <div className="sidebar-outer-container">
+    <div className="sidebar-outer-container w-25">
       <Button
         className="arrow-button"
         variant="primary"

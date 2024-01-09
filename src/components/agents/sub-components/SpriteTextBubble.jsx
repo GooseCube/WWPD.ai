@@ -1,9 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function SpriteTextBubble({ agent }) {
-  const textRef = useRef(null);
   const [textArray, setTextArray] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayName, setDisplayName] = useState(true);
 
   useEffect(() => {
     if (agent.momentResponse) {
@@ -13,6 +13,9 @@ function SpriteTextBubble({ agent }) {
         chunks.push(words.slice(i, i + 3).join(" "));
       }
       setTextArray(chunks);
+      setDisplayName(false);
+    } else {
+      setDisplayName(true);
     }
   }, [agent.momentResponse]);
 
@@ -20,6 +23,9 @@ function SpriteTextBubble({ agent }) {
     if (currentIndex < textArray.length) {
       setTimeout(() => {
         setCurrentIndex(currentIndex + 1);
+        if (currentIndex + 1 >= textArray.length) {
+          setDisplayName(true);
+        }
       }, 2000); // Change this value to adjust the time between text changes
     }
   };
@@ -28,10 +34,10 @@ function SpriteTextBubble({ agent }) {
     displayTextMessage();
   }, [currentIndex, textArray]);
 
-  return agent.momentResponse ? (
-    <div className="sprite-text-container">{textArray[currentIndex]}</div>
-  ) : (
+  return displayName ? (
     <div className="sprite-text-container">{`${agent.name}`}</div>
+  ) : (
+    <div className="sprite-text-container">{textArray[currentIndex]}</div>
   );
 }
 

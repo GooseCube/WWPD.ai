@@ -14,7 +14,7 @@ import TextInput from "./subComponents/TextInput";
 import "./styles/styles.css";
 
 function MessageInterface({ showInterface, setShowInterface }) {
-  const { messages, moments } = useContext(AuthContext);
+  const { messages, moments, sidebar } = useContext(AuthContext);
   const [showMessages, setShowMessages] = useState(true);
   const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +53,7 @@ function MessageInterface({ showInterface, setShowInterface }) {
               showInputArea={showInputArea}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              sidebar={sidebar}
             />
           </div>
         </ResizableBox>

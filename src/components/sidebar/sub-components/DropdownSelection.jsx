@@ -10,7 +10,7 @@ import { ButtonGroup, Dropdown, Image } from "react-bootstrap";
 function DropdownSelector({ buttonTitle, image, dropdownEvent, listItems }) {
   return (
     <Dropdown as={ButtonGroup}>
-      <div className="sidebar-button mb-3">
+      <div className="sidebar-button mb-3 d-flex justify-content-between">
         <Image
           className="sidebar-img"
           src={image}

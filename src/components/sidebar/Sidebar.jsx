@@ -16,7 +16,7 @@ import ButtonSelection from "./sub-components/ButtonSelection";
 import app_icon from "../../assets/sidebar/app_icon.png";
 import ai from "../../assets/sidebar/ai.png";
 import idea from "../../assets/sidebar/idea.png";
-import ai_model from "../../assets/sidebar/ai_model.png"
+import ai_model from "../../assets/sidebar/ai_model.png";
 import image from "../../assets/sidebar/image.png";
 import video from "../../assets/sidebar/video.png";
 import "./styles/styles.css";
@@ -32,8 +32,8 @@ function Sidebar({ showInterface, setShowInterface }) {
 
   const handleChangeAiModel = (event, ai_model) => {
     event.preventDefault();
-    console.log("model chosen: ", ai_model)
-  }
+    console.log("model chosen: ", ai_model);
+  };
 
   return (
     <div className="sidebar-outer-container">
@@ -54,14 +54,6 @@ function Sidebar({ showInterface, setShowInterface }) {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="d-flex flex-column ">
-
-          <DropdownSelector
-          className="dropdown-selector"
-            buttonTitle="AI Model"
-            image={ai_model}
-            dropdownEvent={handleChangeAiModel}
-            listItems={[{title: "Mistral"}, {title: "Mixtral"}, {title: "Zephyr"}]}
-          />
           <ButtonSelection
             buttonText="Interface"
             image={ai}
@@ -75,10 +67,22 @@ function Sidebar({ showInterface, setShowInterface }) {
             dropdownEvent={handleMomentConversation}
             listItems={Object.values(moments)}
           />
+
+          <DropdownSelector
+            className="dropdown-selector"
+            buttonTitle="AI Model"
+            image={ai_model}
+            dropdownEvent={handleChangeAiModel}
+            listItems={[
+              { title: "Mistral" },
+              { title: "Mixtral" },
+              { title: "Zephyr" },
+            ]}
+          />
           <ButtonSelection
-            buttonText="Video"
-            image={video}
-            altText="open video player"
+            buttonText="Image"
+            image={image}
+            altText="open image view"
             // useStateParam={}
             // handleStateEvent={}
           />

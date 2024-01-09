@@ -74,3 +74,7 @@ Add a help icon in the sidebar to give basic information about the functionality
 
 - When a sprite is selected, the 'moment' will use this sprites peronality to create the selected 'moment'. The message interface prompt (chat) will also use the selected agents personality for prompt responses.
 - What does each sidebar button represent/do?
+
+## Create Personas for Remaining Sprite Characters
+
+Using the /assets/characters sprite animation names, continue the creation of new personas for each name in /personas/personas.js

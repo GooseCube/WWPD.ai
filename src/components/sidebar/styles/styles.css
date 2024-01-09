@@ -34,10 +34,10 @@
   border-radius: 10px;
 }
 
-.sidebar-button:hover {
+/* .sidebar-button:hover {
   transform: scale(1.05);
   transition: all 0.3s ease;
-}
+} */
 
 .sidebar-img {
   margin-left: 0.25em;
@@ -46,8 +46,8 @@
 }
 
 .dropdown-toggle-btn {
-  height: 27px;
-  z-index: 3;
+  height: 32px;
+  /* z-index: 3; */
 }
 
 .dropdown-items:hover {

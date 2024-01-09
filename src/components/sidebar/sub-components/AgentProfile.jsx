@@ -28,10 +28,11 @@ function AgentProfile({ agents }) {
 
   return (
     <div className="agent-profile-container border rounded p-2 col-sm-6">
-      <h2>{agent.name}</h2>
-      {sprite && <img src={sprite} alt={agent.name} />}
-      <p>{agent.personality}</p>
-    </div>
+  <h2>{agent.name}</h2>
+  {sprite && <div className="agent-sprite-image" style={{backgroundImage: `url(${sprite})`, width: '32px', height: '32px'}} />}
+  <p>{agent.personality}</p>
+</div>
+
   );
 }
 

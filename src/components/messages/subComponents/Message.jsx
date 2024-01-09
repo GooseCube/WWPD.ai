@@ -11,16 +11,17 @@ function Message({ id, message }) {
   return (
     <div key={id} className="message">
       <div className="prompt">
-
         <Trash
           className="delete-message-icon"
           onClick={() => removeMessage(id)}
-        /> {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
+        />{" "}
+        {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
         <pre>Prompt: {message.prompt}</pre>
       </div>
-      <div className="response">
-        Response: {new Date(message.timestamp).toLocaleDateString("en-US")}{" "}
-        <br />
+      {/* Dynamic class name using agent NAME allows custom background color styling for each agent message */}
+      <div className={`response ${message.agent.name}`}>
+        {message.agent.name}:{" "}
+        {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
         <pre>{message.response}</pre>
       </div>
     </div>

@@ -73,8 +73,9 @@ export const getUserMessages = async (setMessages) => {
  * @param {string} prompt
  * @param {string} response
  */
-export const pushNewMessage = async (prompt, response) => {
+export const pushNewMessage = async (prompt, response, agent) => {
   const message = {
+    agent: agent,
     prompt: prompt,
     response: response,
     timestamp: Date.now(),

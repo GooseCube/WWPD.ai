@@ -1,9 +1,12 @@
 /* Sidebar Main Component */
 
-/* Globals */
+/* Globals Variables*/
 .offcanvas-container {
-  --textColor: #e9e9e9;
-  --component-width: 60%;
+  --white: #e9e9e9;
+  --blue: blue;
+  --black: black;
+  --grey: #242424;
+  --button-width: 60%;
 }
 
 .app-icon-img {
@@ -13,8 +16,8 @@
 .offcanvas-container {
   display: relative;
   height: 100vh;
-  color: #e9e9e9;
-  background-color: #242424;
+  color: var(--white);
+  background-color: var(--grey);
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -24,7 +27,7 @@
 }
 
 .btn-close {
-  background-color: #e9e9e9;
+  background-color: var(--white);
   width: 1em;
   height: 1em;
   border-radius: 8em;
@@ -33,17 +36,16 @@
 
 .arrow-button {
   position: absolute;
-  background-color: black;
+  background-color: var(--black);
 }
 
 /* Sidebar Sub Components: Button, Images, DropdownItems, AgentProfile */
 .sidebar-button,
 .sidebar-dropdown-button {
-  /* width: 12em; */
-  width: var(--component-width);
+  width: var(--button-width);
   padding: 0.25em;
-  background-color: #e9e9e9;
-  color: black;
+  background-color: var(--white);
+  color: var(--black);
   border-radius: 10px;
 }
 
@@ -65,18 +67,17 @@
 }
 
 .dropdown-items:hover {
-  background-color: blue;
-  color: #e9e9e9;
+  background-color: var(--blue);
+  color: var(--white);
 }
 
 /* Sidebar AgentProfile */
 
 .agent-profile-container {
-  /* width: 12em; */
-  width: var(--component-width);
+  width: var(--button-width);
   margin-top: 2em;
-  background-color: #e9e9e9;
-  color: black;
+  background-color: var(--white);
+  color: var(--black)
 }
 
 .agent-sprite-image {

@@ -25,7 +25,7 @@ The `interface` allows you to test out various methods of prompting. When select
 The `lightbulb` icon will switch the view to `moments`, allowing an easy method of viewing the entire conversation.
 
 <div style="padding-top: 1em; width: 10em; margin: 0 auto">
-  <img src="./src/assets/readme/interface.png" style="width: 75%; height: auto;" />
+  <img src="./src/assets/readme/interface.png" style="width: 55%; height: auto;" />
 </div>
 
 ## Sidebar
@@ -36,7 +36,7 @@ The `lightbulb` icon will switch the view to `moments`, allowing an easy method 
 - View the currently selected agent profile
 
 <div style="width: 10em; margin: 0 auto;">
-  <img src="./src/assets/readme/sidebar.png" style="width: 75%; height: auto;" />
+  <img src="./src/assets/readme/sidebar.png" style="width: 55%; height: auto;" />
 </div>
 
 ## Program Requirements | Environment Variables

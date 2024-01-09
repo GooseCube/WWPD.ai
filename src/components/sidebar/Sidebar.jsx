@@ -54,8 +54,8 @@ function Sidebar({ showInterface, setShowInterface }) {
         show={show}
         onHide={() => setShow(!show)}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>
-            <Image className="app-icon-img" src={app_icon} /> Generative Agents
+          <Offcanvas.Title className="fs-6">
+            <Image className="app-icon-img" src={app_icon} /> Generative Agent Moment Environment
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="d-flex flex-column ">

@@ -78,3 +78,7 @@ Add a help icon in the sidebar to give basic information about the functionality
 ## Create Personas for Remaining Sprite Characters
 
 Using the /assets/characters sprite animation names, continue the creation of new personas for each name in /personas/personas.js
+
+## Sidebar AI Model Selection
+
+Add a Firebase 'sidebar' property. When a component uses an api call to an ai model, this property should allow them to use the currently selected model or circumvent the user selection (such as when creating moments). Ultimately, the user should have some control over the ai model to use which will allow them an opportunity to see the differences to their prompts.

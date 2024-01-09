@@ -106,6 +106,10 @@ export const removeMessage = async (id) => {
 // ---------- Firebase Moments ------------
 
 // Called from AuthProvider to retrieve user persisted moments
+/**
+ * Retrieve the firebase 'moments', if any
+ * @param {useState setter} setMoments 
+ */
 export const getUserMoments = async (setMoments, setMomentRefs) => {
   const userId = auth.currentUser.uid;
   const momentRefs = ref(database, `users/${userId}/moments`);
@@ -117,6 +121,7 @@ export const getUserMoments = async (setMoments, setMomentRefs) => {
 };
 
 /**
+ * Update firebase with a new 'moment' creation
  * @param {string} prompt
  * @param {string} response
  */
@@ -140,8 +145,39 @@ export const pushNewMoment = async (prompt, conversation) => {
   }
 };
 
+/**
+ * Using the specific id for the 'moment', remove it from Firebase 
+ * @param {uuidv4} id 
+ */
 export const removeMoment = async (id) => {
   const userId = auth.currentUser.uid;
   const momentsRef = ref(database, `users/${userId}/moments/${id}`);
   await remove(momentsRef);
+};
+
+// ---------- Firebase Sidebar ------------
+
+/**
+ * Retrieve sidebar properties such as AI Model currently selected 
+ * @param {useState Setter} setSidebar 
+ */
+export const getSidebarProperties = async (setSidebar) => {
+  const userId = auth.currentUser.uid;
+  const sidebarRefs = ref(database, `users/${userId}/sidebar`);
+  onValue(sidebarRefs, (snapshot) => {
+    const sidebar = snapshot.val();
+    setSidebar(sidebar);
+  });
+};
+
+/**
+ * Expects that the sidebar properties are already set when
+ * passed for update. If a property is excluded when passed
+ * then it will be removed on update.
+ * @param {object} sidebar 
+ */
+export const updateSidebar = async (sidebar) => {
+  const userId = auth.currentUser.uid;
+  const sidebarRef = ref(database, `users/${userId}/sidebar`);
+  update(sidebarRef, sidebar);
 };

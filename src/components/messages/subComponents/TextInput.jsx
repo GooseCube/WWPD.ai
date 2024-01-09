@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { pushNewMessage } from "../../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
-// import mixtralAPI from "../../../modelAPI/mixtralAPI";
 
 /**
  * Function allows user to interact (chat) with the ai model.
  * Each user input creates a user 'prompt' and model 'response' which
  * is updated to Firebase. These messages trigger an event in Firebase
- * to update the active listener and display the new message. 
+ * to update the active listener and display the new message.
  * @param {boolean} showInputArea
  * @param {boolean} isLoading
- * @returns 
+ * @returns
  */
 function TextInput({ showInputArea, isLoading, setIsLoading, sidebar }) {
   const [userPrompt, setUserPrompt] = useState("");
@@ -18,17 +17,18 @@ function TextInput({ showInputArea, isLoading, setIsLoading, sidebar }) {
   const handleInput = async (event) => {
     if (event.key === "Enter") {
       event.preventDefault(); // prevent the addition of a new line in the textarea
-      setIsLoading(true)
-      // const response = await mixtralAPI(userPrompt);
-      const response = await fetchModelResponse(sidebar.aiModel.title, userPrompt);
+      setIsLoading(true);
+      const response = await fetchModelResponse(
+        sidebar.aiModel.title,
+        userPrompt
+      );
       if (response) {
         await pushNewMessage(userPrompt, response);
         // Clear the input
         setUserPrompt("");
-        setIsLoading(false)
-      }
-      else {
-        setIsLoading(false)
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
       }
     }
   };

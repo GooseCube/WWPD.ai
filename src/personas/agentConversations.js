@@ -8,7 +8,6 @@
 
 import { pushNewMoment, updateAgent } from "../firebase/firebaseDB";
 import { fetchModelResponse } from "../modelAPI/fetchModelResponse";
-// import mixtralAPI from "../modelAPI/mixtralAPI";
 
 // Kick start the 'moment' using primaryAgent and initial prompt
 const primaryAgentPrompt = (primaryAgent, moment) => {

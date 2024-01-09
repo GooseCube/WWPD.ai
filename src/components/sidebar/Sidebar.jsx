@@ -27,6 +27,7 @@ function Sidebar({ showInterface, setShowInterface }) {
   const { agents, sidebar } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
 
+  // Begin agent conversation given the selected moment name
   const handleMomentConversation = (event, moment) => {
     event.preventDefault();
     startAgentMoment(agents, moment);

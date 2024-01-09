@@ -84,13 +84,13 @@ function Sidebar({ showInterface, setShowInterface }) {
               { title: "Zephyr" },
             ]}
           />
-          <ButtonSelection
+          {/* <ButtonSelection
             buttonText="Image"
             image={image}
             altText="open image view"
             // useStateParam={}
             // handleStateEvent={}
-          />
+          /> */}
           <AgentProfile agents={agents} />
         </Offcanvas.Body>
       </Offcanvas>

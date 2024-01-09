@@ -25,6 +25,7 @@ function Toolbar({
   showInterface,
   setShowInterface,
   isLoading,
+  aiModel
 }) {
   return (
     <div className="toolbar-container">
@@ -76,6 +77,7 @@ function Toolbar({
         overlay={<Tooltip id={"tooltip-top"}>Text2Speech Coming Soon</Tooltip>}>
         <VolumeUpFill className="toolbar-icon speech" />
       </OverlayTrigger>
+      <div className="ai-model-name">{aiModel}</div>
 
       <OverlayTrigger
         placement="top"

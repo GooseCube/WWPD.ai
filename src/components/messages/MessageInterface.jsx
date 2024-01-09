@@ -33,6 +33,7 @@ function MessageInterface({ showInterface, setShowInterface }) {
               setShowInterface={setShowInterface}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              aiModel={sidebar.aiModel.title}
             />
             {messages && showMessages && (
               <div className="message-container">

@@ -2,6 +2,8 @@ export const personas = {
   abigail: {
     name: "Abigail",
     sprite: "Abigail_Chen.png",
+    age: 32,
+    career: "Financial Analyst",
     personality:
       "Abigail is a detail-oriented and analytical thinker. She is always looking for the most efficient solution to a problem.",
     x: 30,
@@ -10,11 +12,13 @@ export const personas = {
     frame: 0,
     uid: "1",
     playerControlled: true,
-    momentResponse: "",
+    momentResponse: null,
   },
   arthur: {
     name: "Arthur",
     sprite: "Arthur_Burton.png",
+    age: 30,
+    career: "Graphic Design",
     personality:
       "Arthur is a creative and innovative thinker. He is always looking for new ways to approach problems.",
     x: 10,
@@ -23,11 +27,13 @@ export const personas = {
     frame: 0,
     uid: "2",
     playerControlled: false,
-    momentResponse: "",
+    momentResponse: null,
   },
   carlos: {
     name: "Carlos",
     sprite: "Carlos_Gomez.png",
+    age: 22,
+    career: "Computer Science",
     personality:
       "Carlos is a logical and methodical thinker. He likes to break down problems into smaller parts and solve them step by step.",
     x: 30,
@@ -36,11 +42,13 @@ export const personas = {
     frame: 0,
     uid: "3",
     playerControlled: false,
-    momentResponse: "",
+    momentResponse: null,
   },
   carmen: {
     name: "Carmen",
     sprite: "Carmen_Ortiz.png",
+    age: 24,
+    career: "Project Management",
     personality:
       "Carmen is a practical and pragmatic thinker. She prefers straightforward solutions that are easy to implement.",
     x: 14,
@@ -49,11 +57,13 @@ export const personas = {
     frame: 0,
     uid: "4",
     playerControlled: false,
-    momentResponse: "",
+    momentResponse: null,
   },
   francisco: {
     name: "Francisco",
     sprite: "Francisco_Lopez.png",
+    age: 27,
+    career: "Consulting",
     personality:
       "Francisco is a strategic and big-picture thinker. He likes to consider all possible outcomes before making a decision.",
     x: 81,
@@ -62,11 +72,13 @@ export const personas = {
     frame: 0,
     uid: "5",
     playerControlled: false,
-    momentResponse: "",
+    momentResponse: null,
   },
   isabella: {
     name: "Isabella",
     sprite: "Isabella_Rodriguez.png",
+    age: 30,
+    career: "Journalist",
     personality:
       "Isabella is a critical and questioning thinker. She is not afraid to challenge assumptions and think outside the box.",
     x: 52,
@@ -75,11 +87,13 @@ export const personas = {
     frame: 0,
     uid: "6",
     playerControlled: false,
-    momentResponse: "",
+    momentResponse: null,
   },
   mei: {
     name: "Mei",
     sprite: "Mei_Lin.png",
+    age: 29,
+    career: "Quality Assurance Manager",
     personality:
       "Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines.",
     x: 57,
@@ -88,11 +102,13 @@ export const personas = {
     frame: 0,
     uid: "7",
     playerControlled: false,
-    momentResponse: "",
+    momentResponse: null,
   },
   yuriko: {
     name: "Yuriko",
     sprite: "Yuriko_Yamamoto.png",
+    age: 35,
+    career: "Marketing",
     personality:
       "Yuriko is a flexible and adaptable thinker. He is comfortable with ambiguity and can easily adjust his approach based on new information.",
     x: 26,
@@ -101,6 +117,6 @@ export const personas = {
     frame: 0,
     uid: "8",
     playerControlled: false,
-    momentResponse: "",
+    momentResponse: null,
   },
 };

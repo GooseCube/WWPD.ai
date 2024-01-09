@@ -44,7 +44,9 @@ function AgentProfile({ agents }) {
           }}
         />
       )}
-      <p>{agent.personality}</p>
+      <p>Age: {agent.age}</p>
+      <p>Career: {agent.career}</p>
+      <p>Profile: {agent.personality}</p>
     </div>
   );
 }

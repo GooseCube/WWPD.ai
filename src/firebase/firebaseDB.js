@@ -16,7 +16,7 @@ import { personas } from "../personas/personas";
 // ---------- Firebase Agents ------------
 
 // Called from AuthProvider | Initialize All Agents in Game
-export const initializeAgents = async (setAgents, setAgentRefs) => {
+export const initializeAgents = async (setAgents) => {
   const userId = auth.currentUser.uid;
   const agentsRef = ref(database, `users/${userId}/agents`);
 
@@ -27,7 +27,6 @@ export const initializeAgents = async (setAgents, setAgentRefs) => {
     const agentRef = ref(database, `users/${userId}/agents/${agentId}`);
     set(agentRef, agent);
     setAgents((prev) => [...prev, agent]);
-    setAgentRefs((prev) => [...prev, agentRef]);
 
     // Set up a listener for changes to this agent
     onValue(agentRef, (snapshot) => {
@@ -56,12 +55,11 @@ export const updateAgent = async (agent) => {
 // ---------- Firebase Messages ------------
 
 // Called from AuthProvider to retrieve user persisted messages
-export const getUserMessages = async (setMessages, setMessageRefs) => {
+export const getUserMessages = async (setMessages) => {
   const userId = auth.currentUser.uid;
   const messageRefs = ref(database, `users/${userId}/messages`);
   onValue(messageRefs, (snapshot) => {
     const messages = snapshot.val();
-    setMessageRefs(messageRefs);
     setMessages(messages);
   });
 };
@@ -105,17 +103,15 @@ export const removeMessage = async (id) => {
 
 // ---------- Firebase Moments ------------
 
-// Called from AuthProvider to retrieve user persisted moments
 /**
  * Retrieve the firebase 'moments', if any
- * @param {useState setter} setMoments 
+ * @param {useState setter} setMoments
  */
-export const getUserMoments = async (setMoments, setMomentRefs) => {
+export const getUserMoments = async (setMoments) => {
   const userId = auth.currentUser.uid;
   const momentRefs = ref(database, `users/${userId}/moments`);
   onValue(momentRefs, (snapshot) => {
     const moments = snapshot.val();
-    setMomentRefs(momentRefs);
     setMoments(moments);
   });
 };
@@ -126,8 +122,6 @@ export const getUserMoments = async (setMoments, setMomentRefs) => {
  * @param {string} response
  */
 export const pushNewMoment = async (prompt, conversation) => {
-  console.log("Moment Prompt: ", prompt);
-  console.log("Conversation: ", conversation);
   const moment = {
     prompt: prompt,
     response: conversation,
@@ -146,8 +140,8 @@ export const pushNewMoment = async (prompt, conversation) => {
 };
 
 /**
- * Using the specific id for the 'moment', remove it from Firebase 
- * @param {uuidv4} id 
+ * Using the specific id for the 'moment', remove it from Firebase
+ * @param {uuidv4} id
  */
 export const removeMoment = async (id) => {
   const userId = auth.currentUser.uid;
@@ -158,15 +152,22 @@ export const removeMoment = async (id) => {
 // ---------- Firebase Sidebar ------------
 
 /**
- * Retrieve sidebar properties such as AI Model currently selected 
- * @param {useState Setter} setSidebar 
+ * Retrieve sidebar properties such as AI Model currently selected
+ * @param {useState Setter} setSidebar
  */
 export const getSidebarProperties = async (setSidebar) => {
   const userId = auth.currentUser.uid;
   const sidebarRefs = ref(database, `users/${userId}/sidebar`);
   onValue(sidebarRefs, (snapshot) => {
-    const sidebar = snapshot.val();
+    let sidebar = snapshot.val();
+    if (!sidebar) {
+      sidebar = {};
+    }
+    if (!sidebar.aiModel) {
+      sidebar.aiModel = "Mixtral";
+    }
     setSidebar(sidebar);
+    console.log("AI Model Set As: ", sidebar);
   });
 };
 
@@ -174,7 +175,7 @@ export const getSidebarProperties = async (setSidebar) => {
  * Expects that the sidebar properties are already set when
  * passed for update. If a property is excluded when passed
  * then it will be removed on update.
- * @param {object} sidebar 
+ * @param {object} sidebar
  */
 export const updateSidebar = async (sidebar) => {
   const userId = auth.currentUser.uid;

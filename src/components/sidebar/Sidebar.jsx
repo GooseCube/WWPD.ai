@@ -21,9 +21,10 @@ import idea from "../../assets/sidebar/idea.png";
 import ai_model from "../../assets/sidebar/ai_model.png";
 import image from "../../assets/sidebar/image.png";
 import video from "../../assets/sidebar/video.png";
+import { updateSidebar } from "../../firebase/firebaseDB";
 
 function Sidebar({ showInterface, setShowInterface }) {
-  const { agents } = useContext(AuthContext);
+  const { agents, sidebar } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
 
   const handleMomentConversation = (event, moment) => {
@@ -31,9 +32,10 @@ function Sidebar({ showInterface, setShowInterface }) {
     startAgentMoment(agents, moment);
   };
 
+  // Updates Firebase with the selected ai model name
   const handleChangeAiModel = (event, ai_model) => {
     event.preventDefault();
-    console.log("model chosen: ", ai_model);
+    updateSidebar({aiModel: ai_model})
   };
 
   return (

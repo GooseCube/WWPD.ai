@@ -1,26 +1,34 @@
 import React, { useState, useEffect, createContext } from "react";
-import { getUserMessages, getUserMoments, initializeAgents } from "./firebaseDB";
+
+// Firebase Initial Configuration
 import { auth } from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+
+// FirebaseDB
+import {
+  getSidebarProperties,
+  getUserMessages,
+  getUserMoments,
+  initializeAgents,
+} from "./firebaseDB";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [messageRefs, setMessageRefs] = useState([]);
-  const [moments, setMoments] = useState([]);
-  const [momentRefs, setMomentRefs] = useState([]);
   const [agents, setAgents] = useState([]);
-  const [agentRefs, setAgentRefs] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [moments, setMoments] = useState([]);
+  const [sidebar, setSidebar] = useState([])
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       if (user) {
-        initializeAgents(setAgents, setAgentRefs);
-        getUserMessages(setMessages, setMessageRefs);
-        getUserMoments(setMoments, setMomentRefs);
+        initializeAgents(setAgents);
+        getUserMessages(setMessages);
+        getUserMoments(setMoments);
+        getSidebarProperties(setSidebar)
       }
     });
 
@@ -28,7 +36,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, messages, moments, agents, setAgents }}>
+    <AuthContext.Provider
+      value={{ user, agents, setAgents, messages, moments, sidebar }}>
       {children}
     </AuthContext.Provider>
   );

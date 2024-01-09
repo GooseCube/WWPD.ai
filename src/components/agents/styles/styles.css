@@ -50,8 +50,8 @@
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  /* animation: scroll 60s linear infinite; */
-  animation: scroll 100% linear infinite;
+  animation: scroll 3s linear infinite;
+  /* animation: scroll 100% linear infinite; */
 }
 
 /* Sprite Animation Frames */

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
 

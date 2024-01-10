@@ -30,6 +30,10 @@
   display: none;
 }
 
+.custom-tooltip .tooltip-inner {
+  background-color: blue;
+}
+
 .arrow-button {
   position: absolute;
   background-color: var(--black);

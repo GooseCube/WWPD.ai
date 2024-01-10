@@ -95,6 +95,6 @@
 .agent-sprite-image {
   transform: scale(1.4);
   margin-bottom: 1em;
-  background-position: 0 0;
+  background-position: -32px 0;
   background-repeat: no-repeat;
 }

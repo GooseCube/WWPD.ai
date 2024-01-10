@@ -23,7 +23,7 @@ When releasing the arrow key the sprite character continues to move in the given
 
 ## Update :root Global Color Scheme
 
-Choose the global color schemes and add them to the [Primary Index CSS Styles File](./src/index.css) in the `:root{}` class
+Choose the global color schemes and add them to the [Primary Index CSS Styles File](./src/index.css) in the `:root{}` class. Each color should be prepended with a `g_` to prevent style collisions where components have implemented a top level global color scheme of their own.
 
 ## Add and Remove Sprite Characters
 
@@ -69,3 +69,7 @@ When the speech icon is clicked (onClick() event), the current message(s) should
 User should have the ability to email a current message using an Email Icon in the MessageInterface Toolbar. OnClick() the current message should be sent to the email address used to login to the application (the email in the Firebase DB)
 
 Create an account with EmailJS using goosecube1@gmail.com. Create an API Key and change the private apiKey, serviceId, and templateId in the `.env` file.
+
+## Sprite Character Card
+
+On hover the sprites character persona card should be displayed.

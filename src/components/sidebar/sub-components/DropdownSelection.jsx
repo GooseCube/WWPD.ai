@@ -1,11 +1,11 @@
 import { ButtonGroup, Dropdown, Image } from "react-bootstrap";
 
 /**
- *
+ * @param {string} buttonTitle, give the dropdown button a title
  * @param {image icon} image
  * @param {handleEventFunction} dropdownEvent, function in Sidebar to handle the onClick event
- * @param {array} listItems, array of objects
- * @returns
+ * @param {array[string]} listItems, array of string objects
+ * @returns a customized dropdown button containing the list items given
  */
 function DropdownSelector({ buttonTitle, image, dropdownEvent, listItems }) {
   return (

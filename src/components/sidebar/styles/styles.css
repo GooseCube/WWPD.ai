@@ -20,27 +20,14 @@
   background-color: var(--grey);
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
-  border: 2px solid white;
-  /* display: flex; */
 }
 
 .offcanvas-body {
-  /* margin-left: 0.5em; */
-  border: 2px solid white;
+  margin-left: 1em;
 }
 
 .btn-close {
   display: none;
-}
-
-.custom-tooltip .tooltip-inner {
-  /* background-color: var(--blue); */
-  background-color: blue;
-}
-
-.sidebar-help-icon:hover {
-  transform: scale(1.25);
-  transition: all 0.3s ease;
 }
 
 .arrow-button {
@@ -60,7 +47,7 @@
 
 .sidebar-img {
   margin-left: 0.25em;
-  margin-right: 0.5em;
+  margin-right: 0.50em;
   width: 30px;
   height: 33px;
 }
@@ -86,7 +73,7 @@
   width: var(--button-width);
   margin-top: 2em;
   background-color: var(--white);
-  color: var(--black);
+  color: var(--black)
 }
 
 .agent-sprite-image {

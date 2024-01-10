@@ -1,11 +1,18 @@
 import Image from "react-bootstrap/Image";
 
-function ButtonSelection({ buttonText, image, altText, useStateParam, handleStateEvent }) {
+function ButtonSelection({
+  buttonText,
+  image,
+  altText,
+  useStateParam,
+  handleStateEvent,
+}) {
   return (
     <div
       className="sidebar-button mb-3"
       onClick={() => handleStateEvent(!useStateParam)}>
-      <Image className="sidebar-btn-img" src={image} alt={altText} /> {buttonText}
+      <Image className="sidebar-btn-img" src={image} alt={altText} />{" "}
+      {buttonText}
     </div>
   );
 }

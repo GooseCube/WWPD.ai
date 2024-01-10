@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
  * Display the current player controlled agents profile:
  * Image, Name, and Personality
  * @param {object} agents
- * @returns the agent profile
+ * @returns the agent persona: {name, age, career, personality}
  */
 function AgentProfile({ agents }) {
   const [sprite, setSprite] = useState(null);

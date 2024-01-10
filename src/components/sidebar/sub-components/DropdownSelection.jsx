@@ -12,7 +12,7 @@ function DropdownSelector({ buttonTitle, image, dropdownEvent, listItems }) {
     <Dropdown as={ButtonGroup}>
       <div className="sidebar-dropdown-button mb-3 d-flex">
         <Image
-          className="sidebar-img"
+          className="sidebar-selector-img"
           src={image}
           alt={`${buttonTitle} selector`}
         />{" "}

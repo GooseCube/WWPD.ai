@@ -5,7 +5,7 @@ function ButtonSelection({ buttonText, image, altText, useStateParam, handleStat
     <div
       className="sidebar-button mb-3"
       onClick={() => handleStateEvent(!useStateParam)}>
-      <Image className="sidebar-img" src={image} alt={altText} /> {buttonText}
+      <Image className="sidebar-btn-img" src={image} alt={altText} /> {buttonText}
     </div>
   );
 }

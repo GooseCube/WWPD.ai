@@ -18,8 +18,10 @@ import "./styles/styles.css";
 
 // Asset Images (icons)
 import ai from "../../assets/sidebar/ai.png";
+import app_icon from "../../assets/sidebar/app_icon.png"
 import idea from "../../assets/sidebar/idea.png";
 import ai_model from "../../assets/sidebar/ai_model.png";
+import essay from "../../assets/sidebar/essay.png"
 import { updateSidebar } from "../../firebase/firebaseDB";
 
 function Sidebar({ showInterface, setShowInterface }) {
@@ -57,7 +59,7 @@ function Sidebar({ showInterface, setShowInterface }) {
         <Offcanvas.Body className="d-flex flex-column">
           <ButtonSelection
             buttonText="Interface"
-            image={ai}
+            image={essay}
             altText="input interface button"
             useStateParam={showInterface}
             handleStateEvent={setShowInterface}
@@ -71,8 +73,8 @@ function Sidebar({ showInterface, setShowInterface }) {
 
           <DropdownSelector
             className="dropdown-selector"
-            buttonTitle="AI Model"
-            image={ai_model}
+            buttonTitle="AI Models"
+            image={app_icon}
             dropdownEvent={handleChangeAiModel}
             listItems={[
               { title: "Mistral" },

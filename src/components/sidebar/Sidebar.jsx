@@ -1,6 +1,16 @@
 import React, { useContext, useEffect } from "react";
-import { Button, Image, Offcanvas } from "react-bootstrap";
-import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
+import {
+  Button,
+  Image,
+  Offcanvas,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
+import {
+  ChevronDoubleRight,
+  ChevronDoubleLeft,
+  QuestionCircle,
+} from "react-bootstrap-icons";
 
 // Sidebar Sub Components
 import DropdownSelector from "./sub-components/DropdownSelection";
@@ -54,8 +64,32 @@ function Sidebar({ showInterface, setShowInterface }) {
         show={show}
         onHide={() => setShow(!show)}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title className="fs-6">
-            <Image className="app-icon-img" src={app_icon} /> Generative Agent Moment Environment
+          <Offcanvas.Title className="w-100 d-flex justify-content-between align-items-center fs-4">
+            <div>
+              <Image className="app-icon-img me-5" src={app_icon} /> G . A . M .
+              E
+            </div>
+
+            <OverlayTrigger
+              placement="right"
+              overlay={
+                <Tooltip id={"tooltip-top"}>
+                  Generative Agent <br />
+                  <p className="border-bottom border-white">Moment Environment</p>
+                  <p className="text-start"><strong>Interface:</strong> open/close the user interface to view messages</p>
+                  <p className="text-start"><strong>Moment:</strong> select a topic to prompt the agents into a discussion</p>
+                  <p className="text-start"><strong>AI Model:</strong> switch the ai model you would like to prompt</p>
+                  <p className="text-start"><strong>Agent Profile:</strong> overview of the agent you have selected</p>
+                </Tooltip>
+              }>
+              <QuestionCircle
+                className="sidebar-help-icon"
+                onClick={() => {
+                  setShowMessages(!showMessages);
+                  setShowInputArea(false);
+                }}
+              />
+            </OverlayTrigger>
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="d-flex flex-column ">

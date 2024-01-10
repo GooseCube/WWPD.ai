@@ -20,15 +20,22 @@
   background-color: var(--grey);
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
+  border: 2px solid white;
+  /* display: flex; */
 }
 
 .offcanvas-body {
-  margin-left: 1em;
+  /* margin-left: 0.5em; */
+  border: 2px solid white;
 }
 
-/* Header Close Button for Sidebar */
 .btn-close {
   display: none;
+}
+
+.custom-tooltip .tooltip-inner {
+  /* background-color: var(--blue); */
+  background-color: blue;
 }
 
 .sidebar-help-icon:hover {

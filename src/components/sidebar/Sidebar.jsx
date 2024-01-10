@@ -65,21 +65,34 @@ function Sidebar({ showInterface, setShowInterface }) {
         onHide={() => setShow(!show)}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className="w-100 d-flex justify-content-between align-items-center fs-4">
-            <div>
-              <Image className="app-icon-img me-5" src={app_icon} /> G . A . M .
-              E
-            </div>
-
+            <Image className="app-icon-img" src={app_icon} />
+            The G . A . M . E
             <OverlayTrigger
               placement="right"
               overlay={
-                <Tooltip id={"tooltip-top"}>
+                <Tooltip id={"tooltip-top"} className="custom-tooltip">
                   Generative Agent <br />
-                  <p className="border-bottom border-white">Moment Environment</p>
-                  <p className="text-start"><strong>Interface:</strong> open/close the user interface to view messages</p>
-                  <p className="text-start"><strong>Moment:</strong> select a topic to prompt the agents into a discussion</p>
-                  <p className="text-start"><strong>AI Model:</strong> switch the ai model you would like to prompt</p>
-                  <p className="text-start"><strong>Agent Profile:</strong> overview of the agent you have selected</p>
+                  <p className="border-bottom border-white">
+                    Moment Environment
+                    {/* Moment Experience */}
+                  </p>
+                  <p className="text-start">
+                    <strong>Interface:</strong> open/close the user interface to
+                    view moments or messages
+                  </p>
+                  <p className="text-start">
+                    <strong>Moment:</strong> select a topic to prompt the agents
+                    into a discussion
+                  </p>
+                  <p className="text-start">
+                    <strong>AI Model:</strong> switch the ai model you would
+                    like to prompt. The ai model takes on the persona of the
+                    agent you have selected.
+                  </p>
+                  <p className="text-start">
+                    <strong>Agent Profile:</strong> overview of the agent
+                    persona you have selected
+                  </p>
                 </Tooltip>
               }>
               <QuestionCircle
@@ -92,7 +105,7 @@ function Sidebar({ showInterface, setShowInterface }) {
             </OverlayTrigger>
           </Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body className="d-flex flex-column ">
+        <Offcanvas.Body className="d-flex flex-column">
           <ButtonSelection
             buttonText="Interface"
             image={ai}

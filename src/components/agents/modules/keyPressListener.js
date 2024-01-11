@@ -1,5 +1,5 @@
 import { updateAgent } from "../../../firebase/firebaseDB";
-import { validateGridCollision } from "./gridCollisionDetection";
+import { validateGridCollision } from "../../../modules/mapGridPositions/gridCollisionDetection";
 
 // Arrow Key Events for Player Controlled Agent
 export const handlePlayerMoveEvent = (agent, setAgents, direction) => {

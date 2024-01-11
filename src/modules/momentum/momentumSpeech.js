@@ -19,6 +19,9 @@ const agentDiscussionPrompt = (primaryAgent, agent, initalIdea) => {
   You are happing to help and will give your advice or perform a task to help make the idea happen. Use those special skills.`;
 };
 
+// Use to prevent the two agents showing discussion text at the same time
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 /**
  * Choose a random agent from the array list and remove that
  * agent from the list.
@@ -60,7 +63,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   // hold inital idea, all agent discussions, and final phase speech
   const conversations = [];
 
-  let primaryAgentInitialIdea = "I'm creating a play about pirates!";
+  let primaryAgentInitialIdea =
+    "I'm creating a play about pirates! Do you think you can help with this?";
   // let primaryAgentInitialIdea = await fetchModelResponse(
   //   aiModel,
   //   initialPrompt
@@ -76,48 +80,57 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   // Create a list of agents (except for primaryAgent)
   let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
 
-  // Choose randome agent from list and remove this agent so they are not
-  // chosen again
-  let agent = getRandomAgent(agentList);
-  let meetingLocation = getRandomMeetingPlace();
+  while (agentList.length > 0) {
+    // Choose random agent from list and remove this agent so they are not
+    // chosen again
+    let agent = getRandomAgent(agentList);
 
-  // Get a path to the chosen designated meeting place
-  // offset the meeting place so agents do not overlap
-  let path = await agentPathfinder(
-    agent,
-    meetingLocation.x - 2,
-    meetingLocation.y - 1
-  );
-  // Filters the path object to container only 'state'
-  let simplifiedPath = path.map((node) => node.state);
-  // Moves the agent using the filtered path array
-  await traverseAgentPath(agent, simplifiedPath, setAgents);
+    // Remove chosen agent from agentList
+    agentList = agentList.filter((a) => a.uid !== agent.uid);
 
-  // Primary agent will not find a path to the meeting place
-  // and traverse to the designated location
-  path = await agentPathfinder(
-    primaryAgent,
-    meetingLocation.x,
-    meetingLocation.y
-  );
-  simplifiedPath = path.map((node) => node.state);
-  await traverseAgentPath(primaryAgent, simplifiedPath, setAgents);
+    // Get a path to the chosen designated meeting place
+    // offset the meeting place so agents do not overlap
+    let path = await agentPathfinder(primaryAgent, agent.x - 2, agent.y - 1);
+    // Filters the path object to container only 'state'
+    let simplifiedPath = path.map((node) => node.state);
+    // Moves the agent using the filtered path array
+    await traverseAgentPath(primaryAgent, simplifiedPath, setAgents);
 
-  // ------------- Discussion Between Agents Begins -------------- //
+    // Update primaryAgent's location
+    primaryAgent.x = agent.x - 2;
+    primaryAgent.y = agent.y - 1;
 
-  // Primary Agent will 'share' the idea
-  await updateAgent({...primaryAgent, x: meetingLocation.x, y: meetingLocation.y, momentResponse: primaryAgentInitialIdea});
+    // ------------- Discussion Between Agents Begins -------------- //
+    let updatedPrimaryAgent = {
+      ...primaryAgent,
+      direction: "right",
+      momentResponse: primaryAgentInitialIdea,
+    };
 
-  // Remove after testing complete
-  let agentTestingResponse =
-    "Love the idea, I can get started on helping you with that.";
-  // Set up prompt for agent using primary agents idea and agents persona
-  // let agentResponsePrompt = agentDiscussionPrompt(
-  //   primaryAgent,
-  //   agent,
-  //   primaryAgentInitialIdea
-  // );
-  await updateAgent({...agent, x: meetingLocation.x - 2 , y: meetingLocation.y - 1 , direction: "right", momentResponse: agentTestingResponse});
+    await setAgents((prevAgents) =>
+      prevAgents.map((a) =>
+        a.uid === updatedPrimaryAgent.uid ? updatedPrimaryAgent : a
+      )
+    );
+    // Primary Agent will 'share' the idea
+    await updateAgent(updatedPrimaryAgent);
+
+    // Remove after testing complete
+    let agentTestingResponse =
+      "Love the idea, I can get started on helping you with that.";
+    // Set up prompt for agent using primary agents idea and agents persona
+    // let agentResponsePrompt = agentDiscussionPrompt(
+    //   primaryAgent,
+    //   agent,
+    //   primaryAgentInitialIdea
+    // );
+    await updateAgent({
+      ...agent,
+      direction: "left",
+      momentResponse: agentTestingResponse,
+    });
+    delay(10000);
+  }
 
   /**
    *

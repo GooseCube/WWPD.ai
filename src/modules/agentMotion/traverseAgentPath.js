@@ -10,18 +10,24 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  * @param {object} agent, agent.x and agent.y
  * @param {number[{x: number, y:number}]} path
  */
-export async function traverseAgentPath(agent, path) {
+
+export async function traverseAgentPath(agent, path, setAgents) {
   const NUMBER_OF_SPRITE_COLUMNS = 3;
+  let updatedAgent = { ...agent };
   for (let index = 0; index < path.length; ++index) {
     let newDirection = path[index].direction;
-    let newFrame = (agent.frame + 1) % NUMBER_OF_SPRITE_COLUMNS;
-    await updateAgent({
-      ...agent,
+    let newFrame = (updatedAgent.frame + 1) % NUMBER_OF_SPRITE_COLUMNS;
+    updatedAgent = {
+      ...updatedAgent,
       x: path[index].x,
       y: path[index].y,
       direction: newDirection,
       frame: newFrame,
-    });
+    };
+    await setAgents((prevAgents) =>
+      prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
+    );
+    await updateAgent(updatedAgent);
     await delay(100);
   }
 }

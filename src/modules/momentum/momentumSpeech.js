@@ -51,7 +51,7 @@ const getRandomMeetingPlace = () => {
  * @param {object} moment, specific moment
  * @param {string} aiModel, name of the ai model to prompt
  */
-export const momentumSpeech = async (agents, moment, aiModel) => {
+export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
   // const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
 
@@ -79,7 +79,7 @@ export const momentumSpeech = async (agents, moment, aiModel) => {
   let path = await agentPathfinder(agent, meetingLocation.x, meetingLocation.y)
   // Extract only the {x: number, y: number} from given array of data
   let simplifiedPath = path.map(node => node.state);
-  await traverseAgentPath(agent, simplifiedPath)
+  await traverseAgentPath(agent, simplifiedPath, setAgents)
 
 
   /**

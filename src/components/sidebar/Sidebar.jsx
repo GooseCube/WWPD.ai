@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
 
@@ -27,13 +27,17 @@ import { updateSidebar } from "../../firebase/firebaseDB";
 
 
 function Sidebar({ showInterface, setShowInterface }) {
-  const { agents, sidebar } = useContext(AuthContext);
+  const { agents, sidebar, setAgents } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
+
+  useEffect(() => {
+
+  })
 
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = (event, moment) => {
     event.preventDefault();
-    momentumSpeech(agents, moment, sidebar.aiModel.title);
+    momentumSpeech(agents, moment, sidebar.aiModel.title, setAgents);
   };
 
   // Updates Firebase with the selected ai model name

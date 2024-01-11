@@ -85,7 +85,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   // offset the meeting place so agents do not overlap
   let path = await agentPathfinder(
     agent,
-    meetingLocation.x - 1,
+    meetingLocation.x - 2,
     meetingLocation.y - 1
   );
   // Filters the path object to container only 'state'
@@ -117,7 +117,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   //   agent,
   //   primaryAgentInitialIdea
   // );
-  await updateAgent({...agent, x: meetingLocation.x - 1 , y: meetingLocation.y - 1 , momentResponse: agentTestingResponse});
+  await updateAgent({...agent, x: meetingLocation.x - 2 , y: meetingLocation.y - 1 , direction: "right", momentResponse: agentTestingResponse});
 
   /**
    *

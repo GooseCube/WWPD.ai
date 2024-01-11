@@ -99,12 +99,12 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     // Update primaryAgent's location
     primaryAgent.x = agent.x - 2;
     primaryAgent.y = agent.y - 1;
+    primaryAgent.momentResponse = `${agent.name} ${primaryAgentInitialIdea}`
 
     // ------------- Discussion Between Agents Begins -------------- //
     let updatedPrimaryAgent = {
       ...primaryAgent,
       direction: "right",
-      momentResponse: primaryAgentInitialIdea,
     };
 
     await setAgents((prevAgents) =>
@@ -115,6 +115,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     // Primary Agent will 'share' the idea
     await updateAgent(updatedPrimaryAgent);
 
+    await delay(3000)
     // Remove after testing complete
     let agentTestingResponse =
       "Love the idea, I can get started on helping you with that.";
@@ -129,7 +130,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
       direction: "left",
       momentResponse: agentTestingResponse,
     });
-    delay(10000);
+    await delay(3000);
   }
 
   /**

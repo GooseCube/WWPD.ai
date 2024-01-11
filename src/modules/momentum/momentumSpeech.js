@@ -81,12 +81,8 @@ export const momentumSpeech = async (agents, moment, aiModel) => {
   let simplifiedPath = path.map(node => node.state);
   await traverseAgentPath(agent, simplifiedPath)
 
-  
+
   /**
-   *
-   * get path for agent to traverse to meeting location from pathfinder function using
-   * current position agent.x and agent.y and the destination chosen destination.x and destination.y
-   * Then, pass the agent and path to the moveAgent(agent, path)
    *
    * complete the same steps for the primaryAgent, pathfinder and moveAgent(primaryAgent, path)
    *

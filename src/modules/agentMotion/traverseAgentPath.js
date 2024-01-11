@@ -11,9 +11,9 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  */
 export async function traverseAgentPath(agent, path) {
   for (let index = 0; index < path.length; ++index) {
-    agent.x = path[index].x;
-    agent.y = path[index].y;
-    await updateAgent(agent);
-    await delay(50);
+    // agent.x = path[index].x;
+    // agent.y = path[index].y;
+    await updateAgent({...agent, x: path[index].x, y: path[index].y, direction: path[index].direction});
+    await delay(100);
   }
 }

@@ -21,7 +21,7 @@ function generateNextSteps(state) {
     !validateGridCollision(state.x - 1, state.y)
   ) {
     next.push({
-      state: { x: state.x - 1, y: state.y },
+      state: { x: state.x - 1, y: state.y, direction: "left" },
       cost: 1,
     });
   }
@@ -31,7 +31,7 @@ function generateNextSteps(state) {
     !validateGridCollision(state.x + 1, state.y)
   ) {
     next.push({
-      state: { x: state.x + 1, y: state.y },
+      state: { x: state.x + 1, y: state.y, direction: "right" },
       cost: 1,
     });
   }
@@ -41,7 +41,7 @@ function generateNextSteps(state) {
     !validateGridCollision(state.x, state.y - 1)
   ) {
     next.push({
-      state: { x: state.x, y: state.y - 1 },
+      state: { x: state.x, y: state.y - 1, direction: "down" },
       cost: 1,
     });
   }
@@ -51,7 +51,7 @@ function generateNextSteps(state) {
     !validateGridCollision(state.x, state.y + 1)
   ) {
     next.push({
-      state: { x: state.x, y: state.y + 1 },
+      state: { x: state.x, y: state.y + 1, direction: "up" },
       cost: 1,
     });
   }
@@ -139,7 +139,7 @@ function heuristic(state, goal) {
 }
 
 async function aStar(agentData, goalX, goalY) {
-  let start = { x: agentData.x, y: agentData.y };
+  let start = { x: agentData.x, y: agentData.y, direction: agentData.direction };
   let goal = { x: goalX, y: goalY };
 
   // empty data structure to store the explored paths

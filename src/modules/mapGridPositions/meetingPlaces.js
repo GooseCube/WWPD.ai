@@ -1,3 +1,6 @@
+/**
+ * Locations for moment conversation meetings
+ */
 export const meetingPlaces = {
   treeStump: { x: 16, y: 18 },
   sushiStand: { x: 30, y: 30 },

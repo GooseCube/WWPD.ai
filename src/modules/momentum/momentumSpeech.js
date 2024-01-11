@@ -1,9 +1,31 @@
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 
+// Primary Agent needs an idea to discuss with others, let's get it
 const initialMomentPrompt = (primaryAgent, initialPrompt) => {
   return `Persona: ${primaryAgent.name}, ${primaryAgent.age}, ${primaryAgent.career}. ${primaryAgent.personality}
    ${initialPrompt.instruction} ${initialPrompt.context} ${initialPrompt.question}`;
 };
+
+// Primary Agent is meeting with others, this is a great way to explain what you would like them to think about
+// and get a constructive response
+const agentDiscussionPrompt = (primaryAgent, agent, initalIdea) => {
+  return `Persona: ${agent.name}, ${agent.age}, ${agent.career}, ${agent.specialty}. ${agent.personality}
+  Idea: ${initalIdea} Instruction: Give advice or help using your persona, the idea you will review and the context.
+  Context: ${primaryAgent.name} has asked you to review an idea which may require you to think outside the box to help.
+  You are happing to help and will give your advice or perform a task to help make the idea happen. Use those special skills.`
+}
+
+/**
+ * Choose a random agent from the array list and remove that
+ * agent from the list. 
+ * @param {object array} agentList 
+ * @returns a single agent from the given list 
+ */
+function getRandomAgent(agentList) {
+  const randomIndex = Math.floor(Math.random() * agentList.length);
+  const [selectedAgent] = agentList.splice(randomIndex, 1);
+  return selectedAgent;
+}
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -18,7 +40,8 @@ export const momentumSpeech = async (agents, moment, aiModel) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
   const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
 
-  let conversations = primaryAgent.name + ": ";
+  // hold inital idea, all agent discussions, and final phase speech
+  const conversations = [];
 
   let primaryAgentInitialIdea = await fetchModelResponse(
     aiModel,
@@ -32,10 +55,12 @@ export const momentumSpeech = async (agents, moment, aiModel) => {
     );
   }
 
-  console.log(initialPrompt, primaryAgentInitialIdea);
+  // Create a list of agents (except for primaryAgent)
+  let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid)
+  let randomAgent = getRandomAgent(agentList);
+
 
   /**
-   * let agentList = agents.find((agent) => agent.uid !== primaryAgent.uid)
    * choose a random agent from the agentList and splice out that agent from agentList
    *
    * choose a meeting location from meetingLocation object at random

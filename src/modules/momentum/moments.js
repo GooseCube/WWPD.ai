@@ -28,8 +28,7 @@ export const pirates = {
     context: `You are creating a script for a play about pirates. You will be the captain of a ship. The period of time will be the 1500's.
     Your home is the open sea, your ship is like a precious child to you, and your crew are the only family you need. It has been a while since your last pirate raid.
     You see a Spanish ship anchored off the coast of Florida. It is probably loading precious cargo.`,
-    question: `Can you give me Act 1 and the characters you will have in your play?`,
-    // question: `Will you take your ship and crew to raid the Spanish ship while anchored or will you wait until it is in open water?`,
+    question: `How many Acts will the play have and what are the actors that will be in the play?`,
   },
   finalPrompt: {
     instruction:

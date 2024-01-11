@@ -75,12 +75,17 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   let agent = getRandomAgent(agentList);
   let meetingLocation = getRandomMeetingPlace();
 
-  // Get the path for agent to traverse
-  let path = await agentPathfinder(agent, meetingLocation.x, meetingLocation.y)
-  // Extract only the {x: number, y: number} from given array of data
-  let simplifiedPath = path.map(node => node.state);
-  await traverseAgentPath(agent, simplifiedPath, setAgents)
+  // get path for agent and begin traversal from a -> b
+  let path = await agentPathfinder(agent, meetingLocation.x, meetingLocation.y);
+  let simplifiedPath = path.map((node) => node.state);
+  await traverseAgentPath(agent, simplifiedPath, setAgents);
+  path = [];
+  simplifiedPath = [];
 
+  // get path for primaryAgent and begin traversal from a -> b
+  path = await agentPathfinder(agent, meetingLocation.x, meetingLocation.y);
+  simplifiedPath = path.map((node) => node.state);
+  await traverseAgentPath(primaryAgent, simplifiedPath, setAgents);
 
   /**
    *

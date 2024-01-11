@@ -15,14 +15,7 @@ export const personas = {
     homePosition: { x: 30, y: 26 },
     playerControlled: true,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    converse: false,
   },
   arthur: {
     name: "Arthur",
@@ -40,21 +33,15 @@ export const personas = {
     homePosition: { x: 12, y: 16 },
     playerControlled: false,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    converse: false,
   },
   carlos: {
     name: "Carlos",
     sprite: "Carlos_Gomez.png",
     age: 22,
     career: "Computer Science",
-    specialty: "I love to create websites, let me show you the architecture for your topic",
+    specialty:
+      "I love to create websites, let me show you the architecture for your topic",
     personality:
       "Carlos is a logical and methodical thinker. He likes to break down problems into smaller parts and solve them step by step.",
     x: 30,
@@ -65,14 +52,7 @@ export const personas = {
     homePosition: { x: 30, y: 6 },
     playerControlled: false,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    converse: false,
   },
   carmen: {
     name: "Carmen",
@@ -90,14 +70,7 @@ export const personas = {
     homePosition: { x: 14, y: 16 },
     playerControlled: false,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    converse: false,
   },
   francisco: {
     name: "Francisco",
@@ -115,21 +88,15 @@ export const personas = {
     homePosition: { x: 81, y: 19 },
     playerControlled: false,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    converse: false,
   },
   isabella: {
     name: "Isabella",
     sprite: "Isabella_Rodriguez.png",
     age: 30,
     career: "Journalist",
-    specialty: "It's time to let people know about your special idea, I'll get it out there",
+    specialty:
+      "It's time to let people know about your special idea, I'll get it out there",
     personality:
       "Isabella is a critical and questioning thinker. She is not afraid to challenge assumptions and think outside the box.",
     x: 52,
@@ -140,21 +107,15 @@ export const personas = {
     homePosition: { x: 52, y: 32 },
     playerControlled: false,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    convrse: false,
   },
   mei: {
     name: "Mei",
     sprite: "Mei_Lin.png",
     age: 29,
     career: "Quality Assurance Manager",
-    specialty: "I'll make sure to validate any product, event marketing, or other quality required needs before it goes public",
+    specialty:
+      "I'll make sure to validate any product, event marketing, or other quality required needs before it goes public",
     personality:
       "Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines.",
     x: 57,
@@ -165,14 +126,7 @@ export const personas = {
     homePosition: { x: 57, y: 17 },
     playerControlled: false,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    converse: false,
   },
   yuriko: {
     name: "Yuriko",
@@ -190,13 +144,6 @@ export const personas = {
     homePosition: { x: 26, y: 34 },
     playerControlled: false,
     momentResponse: null,
-    invite: {
-      meet: false,
-      who: "",
-      x: 0,
-      y: 0,
-      inviteDate: null,
-      converse: false,
-    },
+    converse: false,
   },
 };

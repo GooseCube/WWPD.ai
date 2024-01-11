@@ -33,4 +33,30 @@ export const momentumSpeech = async (agents, moment, aiModel) => {
   }
 
   console.log(initialPrompt, primaryAgentInitialIdea);
+
+  /**
+   * let agentList = agents.find((agent) => agent.uid !== primaryAgent.uid)
+   * choose a random agent from the agentList and splice out that agent from agentList
+   * 
+   * choose a meeting location from meetingLocation object at random
+   * 
+   * get path for agent to traverse to meeting location from pathfinder function using
+   * current position agent.x and agent.y and the destination chosen destination.x and destination.y
+   * Then, pass the agent and path to the moveAgent(agent, path)
+   * 
+   * complete the same steps for the primaryAgent, pathfinder and moveAgent(primaryAgent, path)
+   * 
+   * Once both agents reach their destination, updateAgent() where:
+   *    updateAgent({...agent, moment: primaryAgentInitalIdea, converse: true}) 
+   * 
+   * 
+   * 
+   * 
+   */
+
+
+
+
+
+
 };

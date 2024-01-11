@@ -11,7 +11,7 @@ import { database, auth } from "./firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
 // Personas for each agent, used to create Firebase agents
-import { personas } from "../personas/personas";
+import { personas } from "../modules/personas/personas";
 
 // ---------- Firebase Agents ------------
 

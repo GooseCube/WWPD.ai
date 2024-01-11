@@ -10,8 +10,8 @@ import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
 import { AuthContext } from "../../firebase/AuthProvider";
-import * as moments from "../../personas/moments";
-import { momentumSpeech } from "../../personas/momentum/speech";
+import * as moments from "../../modules/personas/moments";
+import { momentumSpeech } from "../../modules/personas/momentum/speech";
 // import { startAgentMoment } from "../../personas/agentConversations";
 
 // CSS Styles for Sidebar

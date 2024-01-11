@@ -1,3 +1,4 @@
+import { updateAgent } from "../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import { agentPathfinder } from "../agentMotion/agentPathfinder";
 import { traverseAgentPath } from "../agentMotion/traverseAgentPath";
@@ -50,6 +51,7 @@ const getRandomMeetingPlace = () => {
  * @param {object} agents, all agent data
  * @param {object} moment, specific moment
  * @param {string} aiModel, name of the ai model to prompt
+ * @param {context setter} setAgents, setter for context passed from Sidebar
  */
 export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
@@ -58,6 +60,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   // hold inital idea, all agent discussions, and final phase speech
   const conversations = [];
 
+  let primaryAgentInitialIdea = "I'm creating a play about pirates!";
   // let primaryAgentInitialIdea = await fetchModelResponse(
   //   aiModel,
   //   initialPrompt
@@ -72,27 +75,53 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
   // Create a list of agents (except for primaryAgent)
   let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
+
+  // Choose randome agent from list and remove this agent so they are not
+  // chosen again
   let agent = getRandomAgent(agentList);
   let meetingLocation = getRandomMeetingPlace();
 
-  // get path for agent and begin traversal from a -> b
-  let path = await agentPathfinder(agent, meetingLocation.x, meetingLocation.y);
+  // Get a path to the chosen designated meeting place
+  // offset the meeting place so agents do not overlap
+  let path = await agentPathfinder(
+    agent,
+    meetingLocation.x - 1,
+    meetingLocation.y - 1
+  );
+  // Filters the path object to container only 'state'
   let simplifiedPath = path.map((node) => node.state);
+  // Moves the agent using the filtered path array
   await traverseAgentPath(agent, simplifiedPath, setAgents);
-  path = [];
-  simplifiedPath = [];
 
-  // get path for primaryAgent and begin traversal from a -> b
-  path = await agentPathfinder(agent, meetingLocation.x, meetingLocation.y);
+  // Primary agent will not find a path to the meeting place
+  // and traverse to the designated location
+  path = await agentPathfinder(
+    primaryAgent,
+    meetingLocation.x,
+    meetingLocation.y
+  );
   simplifiedPath = path.map((node) => node.state);
   await traverseAgentPath(primaryAgent, simplifiedPath, setAgents);
 
+  // ------------- Discussion Between Agents Begins -------------- //
+
+  // Primary Agent will 'share' the idea
+  await updateAgent({...primaryAgent, x: meetingLocation.x, y: meetingLocation.y, momentResponse: primaryAgentInitialIdea});
+
+  // Remove after testing complete
+  let agentTestingResponse =
+    "Love the idea, I can get started on helping you with that.";
+  // Set up prompt for agent using primary agents idea and agents persona
+  // let agentResponsePrompt = agentDiscussionPrompt(
+  //   primaryAgent,
+  //   agent,
+  //   primaryAgentInitialIdea
+  // );
+  await updateAgent({...agent, x: meetingLocation.x - 1 , y: meetingLocation.y - 1 , momentResponse: agentTestingResponse});
+
   /**
    *
-   * complete the same steps for the primaryAgent, pathfinder and moveAgent(primaryAgent, path)
-   *
-   * Once both agents reach their destination:
-   *    Destination verification - check that agent.x and agent.y === to the destination.x and destination.y for both
+   * Once both agents reach their destination: using await ensures they are both at the location
    *    1. create the prompt for the agent using agent persona + primaryAgentInitialIdea and wait for response from fetchModelResponse()
    *    2. updateAgent({...primaryAgent, moment: primaryAgentInitalIdea, converse: true}), which will initiate the primaryAgent to share idea in game
    *          then, another updateAgent({...primaryAgent, converse: false}) once the primaryAgent reaches the end of the primaryAgent.moment string.

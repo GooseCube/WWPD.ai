@@ -27,6 +27,6 @@ export async function traverseAgentPath(agent, path, setAgents) {
       prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
     );
     await updateAgent(updatedAgent);
-    await delay(100);
+    await delay(100); // adjust up/down as needed for character movement
   }
 }

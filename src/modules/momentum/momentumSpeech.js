@@ -1,4 +1,6 @@
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
+import { agentPathfinder } from "../agentMotion/agentPathfinder";
+import { meetingPlaces } from "../mapGridPositions/meetingPlaces";
 
 // Primary Agent needs an idea to discuss with others, let's get it
 const initialMomentPrompt = (primaryAgent, initialPrompt) => {
@@ -12,20 +14,32 @@ const agentDiscussionPrompt = (primaryAgent, agent, initalIdea) => {
   return `Persona: ${agent.name}, ${agent.age}, ${agent.career}, ${agent.specialty}. ${agent.personality}
   Idea: ${initalIdea} Instruction: Give advice or help using your persona, the idea you will review and the context.
   Context: ${primaryAgent.name} has asked you to review an idea which may require you to think outside the box to help.
-  You are happing to help and will give your advice or perform a task to help make the idea happen. Use those special skills.`
-}
+  You are happing to help and will give your advice or perform a task to help make the idea happen. Use those special skills.`;
+};
 
 /**
  * Choose a random agent from the array list and remove that
- * agent from the list. 
- * @param {object array} agentList 
- * @returns a single agent from the given list 
+ * agent from the list.
+ * @param {object array} agentList
+ * @returns a single agent from the given list
  */
-function getRandomAgent(agentList) {
+const getRandomAgent = (agentList) => {
   const randomIndex = Math.floor(Math.random() * agentList.length);
   const [selectedAgent] = agentList.splice(randomIndex, 1);
   return selectedAgent;
-}
+};
+
+/**
+ * Using the imported meetingPlaces object, get a randome meeting place
+ * @returns a single meetingPlace: {x: number, y: number}
+ */
+const getRandomMeetingPlace = () => {
+  return meetingPlaces[
+    Object.keys(meetingPlaces)[
+      Math.floor(Math.random() * Object.keys(meetingPlaces).length)
+    ]
+  ];
+};
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -38,32 +52,43 @@ function getRandomAgent(agentList) {
  */
 export const momentumSpeech = async (agents, moment, aiModel) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
-  const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
+  // const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
 
   // hold inital idea, all agent discussions, and final phase speech
   const conversations = [];
 
-  let primaryAgentInitialIdea = await fetchModelResponse(
-    aiModel,
-    initialPrompt
-  );
+  // let primaryAgentInitialIdea = await fetchModelResponse(
+  //   aiModel,
+  //   initialPrompt
+  // );
 
-  for (let index = 0; index < 3; ++index) {
-    primaryAgentInitialIdea += await fetchModelResponse(
-      aiModel,
-      initialPrompt + primaryAgentInitialIdea
-    );
-  }
+  // for (let index = 0; index < 3; ++index) {
+  //   primaryAgentInitialIdea += await fetchModelResponse(
+  //     aiModel,
+  //     initialPrompt + primaryAgentInitialIdea
+  //   );
+  // }
 
   // Create a list of agents (except for primaryAgent)
-  let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid)
+  let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
   let randomAgent = getRandomAgent(agentList);
+  let meetingLocation = getRandomMeetingPlace();
+
+  // Get the path for agent to traverse
+  let agentPath = await agentPathfinder(randomAgent, meetingLocation.x, meetingLocation.y)
+  // Extract only the {x: number, y: number} from given array of data
+  let simplifiedPath = agentPath.map(node => node.state);
+
+  console.log("agent list: ", agentList)
+  console.log("Random Agent: ", randomAgent)
+  console.log("Location to Meet: ", meetingLocation)
+  console.log("Path: ", simplifiedPath)
+
+
+
 
 
   /**
-   * choose a random agent from the agentList and splice out that agent from agentList
-   *
-   * choose a meeting location from meetingLocation object at random
    *
    * get path for agent to traverse to meeting location from pathfinder function using
    * current position agent.x and agent.y and the destination chosen destination.x and destination.y

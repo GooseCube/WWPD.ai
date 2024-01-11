@@ -10,19 +10,21 @@ import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
 import { AuthContext } from "../../firebase/AuthProvider";
-import { startAgentMoment } from "../../personas/agentConversations";
 import * as moments from "../../personas/moments";
+import { momentumSpeech } from "../../personas/momentum/speech";
+// import { startAgentMoment } from "../../personas/agentConversations";
 
 // CSS Styles for Sidebar
 import "./styles/styles.css";
 
 // Asset Images (icons)
-import ai from "../../assets/sidebar/ai.png";
+// import ai from "../../assets/sidebar/ai.png";
+// import ai_model from "../../assets/sidebar/ai_model.png";
 import app_icon from "../../assets/sidebar/app_icon.png"
 import idea from "../../assets/sidebar/idea.png";
-import ai_model from "../../assets/sidebar/ai_model.png";
 import essay from "../../assets/sidebar/essay.png"
 import { updateSidebar } from "../../firebase/firebaseDB";
+
 
 function Sidebar({ showInterface, setShowInterface }) {
   const { agents, sidebar } = useContext(AuthContext);
@@ -31,7 +33,7 @@ function Sidebar({ showInterface, setShowInterface }) {
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = (event, moment) => {
     event.preventDefault();
-    startAgentMoment(agents, moment, sidebar.aiModel.title);
+    momentumSpeech(agents, moment, sidebar.aiModel.title);
   };
 
   // Updates Firebase with the selected ai model name

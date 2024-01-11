@@ -8,10 +8,10 @@
 export const townSquare = {
   title: "Town Square",
   initialPrompt: {
-    instruction: "Answer the question using the given context and personality.",
-    context: `You would like to give a talk at the next community meeting. 
+    instruction: "Instruction: Answer the question using the given context and persona.",
+    context: `Context: You would like to give a talk at the next community meeting. 
       Create several topics and give a short paragraph that explains the topic.`,
-    question: `What will your talk be about? Answer:`,
+    question: `Question: What will your talk be about?`,
   },
   finalPrompt: {
     instruction:
@@ -25,9 +25,10 @@ export const pirates = {
   initialPrompt: {
     instruction: "Answer the question using the given context and personality.",
     context: `You are creating a script for a play about pirates. You will be the captain of a ship. The period of time will be the 1500's.
-    Your home is the open sea, your ship is like a son, and your crew are your family. It has been a while since your last pirate raid.
+    Your home is the open sea, your ship is like a precious child to you, and your crew are the only family you need. It has been a while since your last pirate raid.
     You see a Spanish ship anchored off the coast of Florida. It is probably loading precious cargo.`,
-    question: `Will you take your ship and crew to raid the Spanish ship while anchored or will you wait until it is in open water?`,
+    question: `Can you give me Act 1 and the characters you will have in your play?`,
+    // question: `Will you take your ship and crew to raid the Spanish ship while anchored or will you wait until it is in open water?`,
   },
   finalPrompt: {
     instruction:

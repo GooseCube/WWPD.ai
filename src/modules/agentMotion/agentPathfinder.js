@@ -41,7 +41,7 @@ function generateNextSteps(state) {
     !validateGridCollision(state.x, state.y - 1)
   ) {
     next.push({
-      state: { x: state.x, y: state.y - 1, direction: "down" },
+      state: { x: state.x, y: state.y - 1, direction: "up" },
       cost: 1,
     });
   }
@@ -51,7 +51,7 @@ function generateNextSteps(state) {
     !validateGridCollision(state.x, state.y + 1)
   ) {
     next.push({
-      state: { x: state.x, y: state.y + 1, direction: "up" },
+      state: { x: state.x, y: state.y + 1, direction: "down" },
       cost: 1,
     });
   }

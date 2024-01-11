@@ -10,7 +10,8 @@ import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
 import { AuthContext } from "../../firebase/AuthProvider";
-import * as moments from "../../modules/personas/moments";
+// import * as moments from "../../modules/personas/moments";
+import * as moments from "../../modules/momentum/"
 import { momentumSpeech } from "../../modules/personas/momentum/speech";
 // import { startAgentMoment } from "../../personas/agentConversations";
 

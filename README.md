@@ -1,4 +1,4 @@
-# Generative Agent Moment Environment (GAME)
+# Generative Agent Momentum Experientia (G.A.M.E.)
 
 <div style="width: 55em; display: block; margin: 0 auto;">
   <img src="./src/assets/readme/game_bg.png" style="width: 100%; height: auto;" />
@@ -10,19 +10,37 @@ This application is inspired by the Generative Agents program created by [Joon S
 
 ## Premise
 
-Create a limited version of the Generative Agent interactive experience using free open source ai models through [Huggingface](https://huggingface.co/). Where the original generative agent program uses a paid model which holds memory and the interaction with the game environment requires the program to run and be played back, this limited version attempts to achieve a live interaction between a user and active agents as created by the AI Models.
+Create a limited version of the Generative Agent interactive experience using free open source ai models through [Huggingface](https://huggingface.co/).
 
-## GAME
+## Differentiation
 
-To achieve a live experience with agent interaction we have limited the program to `moments`. A `moment` is like the original Generative Agent `whisper` where an agent is given an idea to play out. Agents are given a name and personality created in a static file. When a `moment` is chosen by a user, a specified agent will initiate the `moment`. From there, each agent is given this `moment` and based on their persona, they will give feedback, advice, or help in some creative way to make that `moment` happen.
+OG GenAgents - Difficult to set up and enjoy the experience
+Ours - Yes, we require you understand how to watch a youtube video and set up the Firebase DB. We also require that you have your own Huggingface API Token. Other than that, installation is done from the command line using (wait for it): $ yarn
 
-Several `moments` will be created for the user to choose from which should inspire the user to create their own `moment`. Within the application is a Message Interface that allows the user to prompt the AI Model and try to create a meaningful `moment` of their own.
+OG GenAgents - Requires a paid subscription to use with ChatGPT, and this is also limiting
+Ours - Intended to be used with a free AI Model from Huggingface allowing any model you want to add that we do not have listed. Endless options and outcomes
+
+OG GenAgents - You most likely only experience a play back of some long days experience and only realize later if modifications have worked (or, not).
+Ours - Prompts and interactive experiences are live.
+
+OG GenAgents - Original code is custom fit for a specific purpose and not readily accessible for modification or addition
+Ours - Intended to allow React freaks to freak out and build some seriously cool sh.t
+
+Don't 'git' me wrong. We love the original idea and Joon has laid the foundation for the various implementations I have already seen in the great wild of GitHub. We just want to have fun and let you enjoy some of the experiences that he outlined in a live mode where you get to participate in a meaningful way. This project attempts to further his directive to build those 'believable proxies of human behavior' while having fun.
+
+## G.A.M.E. Momentum
+
+To achieve a live experience with agent interaction we have limited the program to `moments`. A `moment` is like the original Generative Agent `whisper` where an agent is given an idea to play out. When a `moment` is chosen by a user, a specified agent will initiate the `moment`. From there, each agent is given this `moment` and based on their persona, they will give feedback, advice, or help in some creative way to make that `moment` happen.
+
+Several `moments` will be created for the user to choose from which should inspire the user to create their own `moment` to try out.
+
+Further, a message interface allows you to develop your skills in a one-on-one with a chosen agent and its persona. Write a few lines and see how it will resond, or try an entire `moment` and see if you can achieve a specific goal.
 
 ## User Interaction | Message Interface
 
-The `interface` allows you to test out various methods of prompting. When selecting an agent in the game, you take control of that character. When you open the `interface`, any input (prompt) that you create will have a response based on the persona of the character you have selected. In the sidebar you will see the profile of the agent, including their age, career, and personality.
+The `interface` allows you to test out various methods of prompting. When selecting an agent in the game, you take control of that character. When you open the `interface`, any input (prompt) that you create will have a response based on the persona of the character you have selected. In the sidebar you will see the profile of the agent, including their name, age, career, and personality.
 
-The `lightbulb` icon will switch the view to `moments`, allowing an easy method of viewing the entire conversation.
+The `lightbulb` icon will switch the view to `moments`, allowing an easy method of viewing the entire conversation created for each `moment` that you have selected.
 
 <div style="padding-top: 1em; width: 10em; margin: 0 auto">
   <img src="./src/assets/readme/interface.png" style="width: 50%; height: auto;" />
@@ -79,11 +97,11 @@ yarn
 yarn dev
 ```
 
-## Why Not Python?
+## Why A ReactJS Framework and Not Python?
 
-The original code base is in Python and most of the programs dealing with AI Models also use Python due to the large number of available libraries that help fine tune the models. As we are not trying to fine tune ai models and have found ways of prompting the models to achieve our goal it was unnecessary to bring in the large number of libraries that python often requires.
+The original code base is in Python and most of the programs dealing with AI Models also use Python. I imagine this is due to the large number of available libraries that help fine tune the models and interact with the api's. We are not trying to fine tune ai models and have found simple methods of prompting the models to achieve our goal.
 
-As undergrad computer scientists, we wanted to give like minded people the ability to get creative. Building this application in React will expand the ai model community to include another arena of brilliant devs that may want to tear this repo apart and make something truly unique. Our hope is that the application is easy to set up and easy to understand.
+As undergrad computer scientists, we wanted to give like minded people the ability to get creative. Building this application in `React` will expand the ai model community beyond Python developers to include another arena of brilliant devs that may want to tear this repo apart and make something truly unique.
 
 ## Resource Citations
 
@@ -91,4 +109,4 @@ As undergrad computer scientists, we wanted to give like minded people the abili
 
 2. Main logo and sidebar icons sourced from: [VectorStock: Generative AI Vector Set](https://www.vectorstock.com/royalty-free-vector/generative-ai-artificial-intelligence-icon-set-vector-47405050)
 
-3. Agent sprite characters sourced from the original Generative Agents GitHub repo: [GitHub: Generative Agents](https://github.com/joonspk-research/generative_agents) which I believe are the creation of [PixyMoon: Twitter(X)](https://twitter.com/_PixyMoon_).
+3. Agent sprite characters sourced from the original Generative Agents GitHub repo: [GitHub: Generative Agents](https://github.com/joonspk-research/generative_agents) which I believe are the creation of [PixyMoon: Twitter(X)](https://twitter.com/_PixyMoon_) please let me know if this is incorrect.

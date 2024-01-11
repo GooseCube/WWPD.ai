@@ -1,5 +1,6 @@
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import { agentPathfinder } from "../agentMotion/agentPathfinder";
+import { traverseAgentPath } from "../agentMotion/traverseAgentPath";
 import { meetingPlaces } from "../mapGridPositions/meetingPlaces";
 
 // Primary Agent needs an idea to discuss with others, let's get it
@@ -71,23 +72,16 @@ export const momentumSpeech = async (agents, moment, aiModel) => {
 
   // Create a list of agents (except for primaryAgent)
   let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
-  let randomAgent = getRandomAgent(agentList);
+  let agent = getRandomAgent(agentList);
   let meetingLocation = getRandomMeetingPlace();
 
   // Get the path for agent to traverse
-  let agentPath = await agentPathfinder(randomAgent, meetingLocation.x, meetingLocation.y)
+  let path = await agentPathfinder(agent, meetingLocation.x, meetingLocation.y)
   // Extract only the {x: number, y: number} from given array of data
-  let simplifiedPath = agentPath.map(node => node.state);
+  let simplifiedPath = path.map(node => node.state);
+  await traverseAgentPath(agent, simplifiedPath)
 
-  console.log("agent list: ", agentList)
-  console.log("Random Agent: ", randomAgent)
-  console.log("Location to Meet: ", meetingLocation)
-  console.log("Path: ", simplifiedPath)
-
-
-
-
-
+  
   /**
    *
    * get path for agent to traverse to meeting location from pathfinder function using

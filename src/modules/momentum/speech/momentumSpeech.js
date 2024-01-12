@@ -1,11 +1,6 @@
-import { agentEmojis } from "../../emoji/emojis";
 import { updateAgent } from "../../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
-import { agentPathfinder } from "../../agentMotion/agentPathfinder";
-import { traverseAgentPath } from "../../agentMotion/traverseAgentPath";
 import {
-  initialMomentPrompt,
-  agentDiscussionPrompt,
   delay,
   getRandomAgent,
   getRandomMeetingPlace,
@@ -14,6 +9,8 @@ import {
   createUpdatedAgent,
   updateAgentState,
 } from "./helperFunctions";
+import { agentDiscussionPrompt, finalMomentPrompt, initialMomentPrompt } from "./promptTemplates";
+import { agentEmojis } from "../../emoji/emojis";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -30,18 +27,23 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   const speechLocation = getRandomMeetingPlace();
   const conversations = [];
 
+  let primaryAgentInitialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt)
   let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
   let updatedPrimaryAgent = null;
-  let primaryAgentInitialIdea = null;
+  let primaryAgentInitialIdea = "";
   let primaryAgentFinalSpeech = null;
 
-  // @prompt fetch
-  // for (let index = 0; index < 3; ++index) {
+  // @prompt: Get initial idea from AI Model
+  primaryAgentInitialIdea = await fetchModelResponse(aiModel, primaryAgentInitialPrompt)
+
+  // @prompt: fetch remaining context from AI Model
+  for (let index = 0; index < 3; ++index) {
     primaryAgentInitialIdea += await fetchModelResponse(
       aiModel,
-      initialPrompt + primaryAgentInitialIdea
+      `${primaryAgentInitialPrompt}
+      ${primaryAgentInitialIdea}`
     );
-  // }
+  }
 
   // Handle all agents in game, could be reduced using an index expression limiter
   while (agentList.length > 0) {
@@ -62,7 +64,6 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
     // This will initiate the text for momentResponse for primaryAgent
     updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-    await delay(3000);
 
     // @prompt
     let agentResponsePrompt = agentDiscussionPrompt(
@@ -72,10 +73,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     );
 
     // @prompt fetch
-    let agentResponse = await fetchModelResponse(
-      aiModel,
-      agentResponsePrompt
-    )
+    let agentResponse = await fetchModelResponse(aiModel, agentResponsePrompt);
 
     // Local state context is not updated here as agent does not move on {x, y}
     // This update initiates agent response in text bubble
@@ -84,7 +82,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
       direction: "left",
       momentResponse: agentResponse,
     });
-    await delay(3000);
+    await delay(10000);
 
     if (speechLocation.audiencePositions.length > 0) {
       let agentAudiencePosition = getRandomAudiencePosition(
@@ -119,10 +117,20 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
   // ------------- Final Speech by Primary Agent -------------- //
 
-  // Prompt model for final speech
-  // for (let index = 0; index < 4; ++index) {
-  // primaryAgentFinalSpeech += await fetch();
-  // }
+  // @prompt: get final prompt
+  let primaryAgentFinalSpeechPrompt = finalMomentPrompt(primaryAgent, moment.finalPrompt)
+
+  // @prompt: Get initial idea from AI Model
+  primaryAgentFinalSpeech = await fetchModelResponse(aiModel, primaryAgentFinalSpeechPrompt)
+
+  // @prompt: fetch remaining context from AI Model
+  for (let index = 0; index < 3; ++index) {
+    primaryAgentFinalSpeech += await fetchModelResponse(
+      aiModel,
+      `${primaryAgentFinalSpeechPrompt}
+      ${primaryAgentFinalSpeech}`
+    );
+  }
 
   await moveAgent(
     primaryAgent,
@@ -136,8 +144,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     speechLocation.primaryAgent.x,
     speechLocation.primaryAgent.y,
     speechLocation.primaryAgent.direction,
-    "I made it, thank you for waiting. And now without further ado, let's get started . . ."
-    // primaryAgentFinalSpeech
+    primaryAgentFinalSpeech
   );
 
   updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);

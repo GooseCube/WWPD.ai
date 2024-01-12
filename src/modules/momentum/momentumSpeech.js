@@ -35,14 +35,28 @@ const getRandomAgent = (agentList) => {
 };
 
 /**
- * Using the imported meetingPlaces object, get a randome meeting place
- * @returns a single meetingPlace: {x: number, y: number}
+ * Using the imported meetingPlaces object, get a random meeting place
+ * and invite agents to hear the speech
+ * @returns a single meetingPlacde containing:
+ * {primaryAgent: {x: number, y: number, direction: string},
+ *  audiencePositions: [{x:number, y:number}, {...}, . . .]}
  */
 const getRandomMeetingPlace = () => {
   return meetingPlaces[
     Object.keys(meetingPlaces)[
       Math.floor(Math.random() * Object.keys(meetingPlaces).length)
     ]
+  ];
+};
+
+/**
+ * Get a random audience location for agent to attend the speech
+ * @param {array[{x: number, y: number, direction: string}]} audienceLocations
+ * @returns one object audience location from the given audienceLocations array
+ */
+const getRandomAudiencePosition = (audienceLocations) => {
+  return audienceLocations[
+    Math.floor(Math.random() * audienceLocations.length)
   ];
 };
 
@@ -57,6 +71,9 @@ const getRandomMeetingPlace = () => {
  * @param {context setter} setAgents, setter for context passed from Sidebar
  */
 export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
+  // Get a random meeting location
+  const speechLocation = getRandomMeetingPlace();
+  // Set primaryAgent to the agent currently playercontrolled
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
   // const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
 
@@ -65,10 +82,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
   let primaryAgentInitialIdea =
     "I'm creating a play about pirates! Do you think you can help with this?";
-  // let primaryAgentInitialIdea = await fetchModelResponse(
-  //   aiModel,
-  //   initialPrompt
-  // );
+  // let primaryAgentInitialIdea = "";
 
   // for (let index = 0; index < 3; ++index) {
   //   primaryAgentInitialIdea += await fetchModelResponse(
@@ -96,16 +110,14 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     // Moves the agent using the filtered path array
     await traverseAgentPath(primaryAgent, simplifiedPath, setAgents);
 
+    // ------------- Discussion Between Agents Begins -------------- //
+
     // Update primaryAgent's location
     primaryAgent.x = agent.x - 2;
     primaryAgent.y = agent.y - 1;
-    primaryAgent.momentResponse = `${agent.name} ${primaryAgentInitialIdea}`
-
-    // ------------- Discussion Between Agents Begins -------------- //
-    let updatedPrimaryAgent = {
-      ...primaryAgent,
-      direction: "right",
-    };
+    primaryAgent.direction = "right";
+    primaryAgent.momentResponse = `${agent.name} ${primaryAgentInitialIdea}`;
+    let updatedPrimaryAgent = { ...primaryAgent };
 
     await setAgents((prevAgents) =>
       prevAgents.map((a) =>
@@ -115,7 +127,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     // Primary Agent will 'share' the idea
     await updateAgent(updatedPrimaryAgent);
 
-    await delay(3000)
+    await delay(3000);
     // Remove after testing complete
     let agentTestingResponse =
       "Love the idea, I can get started on helping you with that.";
@@ -125,47 +137,79 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     //   agent,
     //   primaryAgentInitialIdea
     // );
+
     await updateAgent({
       ...agent,
       direction: "left",
       momentResponse: agentTestingResponse,
     });
     await delay(3000);
+
+    if (speechLocation.audiencePositions.length > 0) {
+      let agentAudiencePosition = getRandomAudiencePosition(
+        speechLocation.audiencePositions
+      );
+
+      speechLocation.audiencePositions =
+        speechLocation.audiencePositions.filter(
+          (position) =>
+            position.x !== agentAudiencePosition.x &&
+            position.y !== agentAudiencePosition.y
+        );
+
+      let agentPath = await agentPathfinder(
+        agent,
+        agentAudiencePosition.x,
+        agentAudiencePosition.y
+      );
+      // Filters the path object to container only 'state'
+      let agentSimplifiedPath = agentPath.map((node) => node.state);
+      // Moves the agent using the filtered path array
+      await traverseAgentPath(agent, agentSimplifiedPath, setAgents);
+
+      agent.x = agentAudiencePosition.x;
+      agent.y = agentAudiencePosition.y;
+      agent.direction = agentAudiencePosition.direction;
+      let updatedAgent = { ...agent };
+
+      await setAgents((prevAgents) =>
+        prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
+      );
+
+      await updateAgent({ ...updatedAgent });
+    }
   }
 
-  // use meetingPlaces object to randomly choose a position that each agent should go
-  // use meetingPlaces random place.x, place.y, place.direction for primaryAgent to give speech
-  // Then, once there, fetch() final speech from model and update to firebase to begin giving the speech
+  // ------------- Final Speech by Primary Agent -------------- //
 
-  /**
-   *
-   * Once both agents reach their destination: using await ensures they are both at the location
-   *    1. create the prompt for the agent using agent persona + primaryAgentInitialIdea and wait for response from fetchModelResponse()
-   *    2. updateAgent({...primaryAgent, moment: primaryAgentInitalIdea, converse: true}), which will initiate the primaryAgent to share idea in game
-   *          then, another updateAgent({...primaryAgent, converse: false}) once the primaryAgent reaches the end of the primaryAgent.moment string.
-   *    3. check if primaryAgent.converse === false, then updateAgent({...agent, moment: response, converse: true}) for the discussion replay to begin
-   *    4. add the agent response to the conversations += reponse;
-   *
-   *    5. updateAgent({...agent, moment: `Goodbye, ${primaryAgent.name}`}) and similar for the primaryAgent
-   *    6. get path for agent to go back to his/her home location using current agent.x & agent.y position and agent.homePosition.x & agent.homePosition.y as destionation for pathfinder
-   *    7. give the path to moveAgent()
-   *    8. check the agentList,
-   *       if agentList has another agent to find and discuss the idea with then repeat the process
-   *       else, move the final phase which breaks out of the discussion loop
-   *
-   *
-   *  Final Phase:
-   *    Initiate final prompt using: const finalSpeech = initialPrompt + primaryAgentInitialIdea + moment.finalPrompt.instruction + moment.finalPrompt.context
-   *
-   *    Choose a random place to give the speech, let finalLocation = randomSpace()
-   *    For each agent, including the primaryAgent, use this finalLocation {x, y} + and - for each agent on their destionation {x , y} to spread them out
-   *    and get them moving by using the moveAgent() function.
-   *
-   *    Once all agents have reached the location:
-   *    updateAgent({...primaryAgent, moment: finalSpeech}), which initiates the primaryAgent speech bubble to begin giving the speech
-   *    updateMoment(agent, conversation)
-   *
-   *    when primaryAgent is done, begin a random selection of each agent to send them back to their agent.homePosition
-   *       using pathfinder and moveAgent() functions.
-   */
+  let finalSpeech;
+  // Prompt model for final speech
+  // for (let index = 0; index < 4; ++index) {
+  // finalSpeech += fetch();
+  // }
+
+  let finalSpeechPath = await agentPathfinder(
+    primaryAgent,
+    speechLocation.primaryAgent.x,
+    speechLocation.primaryAgent.y
+  );
+  // Filters the path object to container only 'state'
+  let finalSpeechSimplifiedPath = finalSpeechPath.map((node) => node.state);
+  // Moves the agent using the filtered path array
+  await traverseAgentPath(primaryAgent, finalSpeechSimplifiedPath, setAgents);
+
+  // Update primaryAgent's location
+  primaryAgent.x = speechLocation.primaryAgent.x;
+  primaryAgent.y = speechLocation.primaryAgent.y;
+  primaryAgent.direction = speechLocation.primaryAgent.direction;
+  // primaryAgent.momentResponse = `${primaryAgentInitialIdea}`;
+  let updatedPrimaryAgent = { ...primaryAgent };
+
+  await setAgents((prevAgents) =>
+    prevAgents.map((a) =>
+      a.uid === updatedPrimaryAgent.uid ? updatedPrimaryAgent : a
+    )
+  );
+  // Primary Agent will 'share' the idea
+  await updateAgent(updatedPrimaryAgent);
 };

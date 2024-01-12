@@ -103,7 +103,7 @@ export const getRandomEmoji = () => {
  * @TODO need to filter out agents that did not attent the speech
  * @TODO need to reduce the time between displaying the momentResponse
  * for emoji and the switch back to agent name in Agent/SpriteTextBubble
- * 
+ *
  * During a moment, the agents that are not giving the speech
  * should display some interaction with the speaker
  * @param {object} agents
@@ -134,8 +134,14 @@ export const groupSpeechInteraction = (agents, updateAgent) => {
  * their home locations {x, y}
  * @param {object} agents
  */
-export const sendAllAgentsHome = (agents, setAgents) => {
+export const sendAllAgentsHome = async (agents, setAgents) => {
   agents.forEach(async (agent) => {
-    moveAgent(agent, agent.homePosition.x, agent.homePosition.y, setAgents);
+    moveAgent(
+      agent,
+      agent.homePosition.x,
+      agent.homePosition.y,
+      setAgents
+    );
   });
 };
+

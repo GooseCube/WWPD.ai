@@ -74,7 +74,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
     updatedPrimaryAgent = createUpdatedAgent(
       primaryAgent,
-      agent.x - 2,
+      agent.x - 3,
       agent.y - 1,
       "right",
       `${agent.name}: ${primaryAgentInitialIdea}`
@@ -103,7 +103,6 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
       direction: "left",
       momentResponse: agentResponse,
     });
-    await delay(10000);
 
     if (speechLocation.audiencePositions.length > 0) {
       let agentAudiencePosition = getRandomAudiencePosition(
@@ -117,7 +116,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
             position.y !== agentAudiencePosition.y
         );
 
-      await moveAgent(
+      await delay(12000);
+      moveAgent(
         agent,
         agentAudiencePosition.x,
         agentAudiencePosition.y,
@@ -134,7 +134,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
         emojis
       );
 
-      updateAgentState(setAgents, updateAgent, updatedAgent);
+      await updateAgentState(setAgents, updateAgent, updatedAgent);
     }
   }
 
@@ -189,8 +189,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   pushNewMoment(moment.initialPrompt, conversations);
 
   setTimeout(() => {
-    sendAllAgentsHome(agents, setAgents);
-  }, 240000); // wait 4-minutes and send all agents to home positions
+    sendAllAgentsHome(agents, setAgents, updateAgent);
+  }, 150000); // wait 4-minutes and send all agents to home positions
 
   // groupSpeechInteraction(agents, updateAgent);
 };

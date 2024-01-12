@@ -133,7 +133,9 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     await delay(3000);
   }
 
-
+  // use meetingPlaces object to randomly choose a position that each agent should go
+  // use meetingPlaces random place.x, place.y, place.direction for primaryAgent to give speech
+  // Then, once there, fetch() final speech from model and update to firebase to begin giving the speech
 
   /**
    *

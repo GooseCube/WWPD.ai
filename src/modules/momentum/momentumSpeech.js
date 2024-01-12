@@ -133,6 +133,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     await delay(3000);
   }
 
+
+
   /**
    *
    * Once both agents reach their destination: using await ensures they are both at the location

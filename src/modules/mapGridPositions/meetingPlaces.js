@@ -24,14 +24,6 @@ export const meetingPlaces = {
       { x: 56, y: 35, direction: "up" },
     ],
   },
-  bizarre: {
-    primaryAgent: { x: 53, y: 14 },
-    audiencePositions: [
-      { x: 0, y: 0, direction: "left" },
-      { x: 0, y: 0, direction: "left" },
-      { x: 0, y: 0, direction: "left" },
-    ],
-  },
   plazaTable: {
     primaryAgent: { x: 29, y: 18, direction: "down" },
     audiencePositions: [
@@ -61,7 +53,9 @@ export const meetingPlaces = {
     audiencePositions: [
       { x: 83, y: 19, direction: "down" },
       { x: 87, y: 24, direction: "left" },
+      { x: 81, y: 20, direction: "down" },
       { x: 86, y: 26, direction: "left" },
+      { x: 89, y: 26, direction: "left" },
       { x: 93, y: 26, direction: "left" },
     ],
   },

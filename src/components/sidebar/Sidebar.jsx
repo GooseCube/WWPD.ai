@@ -10,9 +10,8 @@ import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
 import { AuthContext } from "../../firebase/AuthProvider";
-import * as moments from "../../modules/momentum/moments"
-import { momentumSpeech } from "../../modules/momentum/momentumSpeech";
-// import { startAgentMoment } from "../../personas/agentConversations";
+import * as moments from "../../modules/momentum/moments";
+import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
 
 // CSS Styles for Sidebar
 import "./styles/styles.css";
@@ -20,19 +19,14 @@ import "./styles/styles.css";
 // Asset Images (icons)
 // import ai from "../../assets/sidebar/ai.png";
 // import ai_model from "../../assets/sidebar/ai_model.png";
-import app_icon from "../../assets/sidebar/app_icon.png"
+import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
-import essay from "../../assets/sidebar/essay.png"
+import essay from "../../assets/sidebar/essay.png";
 import { updateSidebar } from "../../firebase/firebaseDB";
-
 
 function Sidebar({ showInterface, setShowInterface }) {
   const { agents, sidebar, setAgents } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
-
-  useEffect(() => {
-
-  })
 
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = (event, moment) => {

@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 
+/**
+ * When agent.momentResponse object is empty or null, displays the agent name in text bubble
+ * When an update for agent.momentResponse is made in Firebase, the string text
+ * will be displayed in text bubble 
+ * @param {object} agent
+ * @returns the agents text bubble
+ */
 function SpriteTextBubble({ agent }) {
   const [textArray, setTextArray] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayName, setDisplayName] = useState(true);
 
   useEffect(() => {
-    console.log("inside useEffect text bubble", agent.momentResponse)
     if (agent.momentResponse) {
-    console.log("inside useEffect agent moment response IF")
       const words = agent.momentResponse.split(" ");
       const chunks = [];
       for (let i = 0; i < words.length; i += 3) {
@@ -18,7 +23,6 @@ function SpriteTextBubble({ agent }) {
       setCurrentIndex(0);
       setDisplayName(false);
     } else {
-    console.log("inside useEffect agent moment response ELSE")
       setDisplayName(true);
     }
   }, [agent.momentResponse]);
@@ -27,13 +31,13 @@ function SpriteTextBubble({ agent }) {
     let timeoutId;
     if (currentIndex < textArray.length) {
       timeoutId = setTimeout(() => {
-        setCurrentIndex(prevIndex => prevIndex + 1);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
         if (currentIndex + 1 >= textArray.length) {
           setDisplayName(true);
         }
       }, 1000); // Change this value to adjust the time between text changes
     }
-    return () => clearTimeout(timeoutId)
+    return () => clearTimeout(timeoutId);
   };
 
   useEffect(() => {

@@ -1,8 +1,8 @@
-import { updateAgent } from "../../firebase/firebaseDB";
-import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
-import { agentPathfinder } from "../agentMotion/agentPathfinder";
-import { traverseAgentPath } from "../agentMotion/traverseAgentPath";
-import { meetingPlaces } from "../mapGridPositions/meetingPlaces";
+import { updateAgent } from "../../../firebase/firebaseDB";
+import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
+import { agentPathfinder } from "../../agentMotion/agentPathfinder";
+import { traverseAgentPath } from "../../agentMotion/traverseAgentPath";
+import { meetingPlaces } from "../../mapGridPositions/meetingPlaces";
 
 // Primary Agent needs an idea to discuss with others, let's get it
 const initialMomentPrompt = (primaryAgent, initialPrompt) => {

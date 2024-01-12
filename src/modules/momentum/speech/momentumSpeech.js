@@ -190,7 +190,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
   setTimeout(() => {
     sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 150000); // wait 4-minutes and send all agents to home positions
+  }, 100000); // wait 4-minutes and send all agents to home positions
 
   // groupSpeechInteraction(agents, updateAgent);
 };

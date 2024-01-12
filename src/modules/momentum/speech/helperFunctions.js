@@ -1,6 +1,7 @@
 import { agentPathfinder } from "../../agentMotion/agentPathfinder";
 import { traverseAgentPath } from "../../agentMotion/traverseAgentPath";
 import { meetingPlaces } from "../../mapGridPositions/meetingPlaces";
+import { agentEmojis } from "../../emoji/emojis";
 
 // Use to prevent the two agents showing discussion text at the same time
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -91,3 +92,56 @@ export const updateAgentState = async (setAgents, updateAgent, agent) => {
   );
   await updateAgent(agent);
 };
+
+// Function to get a random emoji
+export const getRandomEmoji = () => {
+  const emojis = Object.values(agentEmojis).flat();
+  return emojis[Math.floor(Math.random() * emojis.length)];
+};
+
+/**
+ * @TODO need to filter out agents that did not attent the speech
+ * @TODO need to reduce the time between displaying the momentResponse
+ * for emoji and the switch back to agent name in Agent/SpriteTextBubble
+ *
+ * During a moment, the agents that are not giving the speech
+ * should display some interaction with the speaker
+ * @param {object} agents
+ * @param {firebase function} updateAgent
+ */
+export const groupSpeechInteraction = (agents, updateAgent) => {
+  const nonPlayerAgents = agents.filter((agent) => !agent.playerControlled);
+
+  const intervalId = setInterval(() => {
+    nonPlayerAgents.forEach(async (agent) => {
+      const updatedAgent = {
+        ...agent,
+        momentResponse: getRandomEmoji() + getRandomEmoji(),
+      };
+      await updateAgent(updatedAgent);
+      // setAgents(prevAgents => prevAgents.map(a => a.uid === agent.uid ? updatedAgent : a));
+    });
+  }, 1000);
+
+  // Stop updating after one minute
+  setTimeout(() => {
+    clearInterval(intervalId);
+  }, 60000);
+};
+
+/**
+ * After some given time, the agents will be sent to
+ * their home locations {x, y}
+ * @param {object} agents
+ */
+export const sendAllAgentsHome = async (agents, setAgents) => {
+  agents.forEach(async (agent) => {
+    moveAgent(
+      agent,
+      agent.homePosition.x,
+      agent.homePosition.y,
+      setAgents
+    );
+  });
+};
+

@@ -8,6 +8,9 @@ import {
   moveAgent,
   createUpdatedAgent,
   updateAgentState,
+  groupSpeechInteraction,
+  getRandomEmoji,
+  sendAllAgentsHome,
 } from "./helperFunctions";
 import {
   agentDiscussionPrompt,
@@ -57,7 +60,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     );
   }
 
-  conversations = `InitialIdea: ${primaryAgentInitialIdea}`;
+  conversations = primaryAgentInitialIdea;
 
   // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
 
@@ -71,7 +74,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
     updatedPrimaryAgent = createUpdatedAgent(
       primaryAgent,
-      agent.x - 2,
+      agent.x - 3,
       agent.y - 1,
       "right",
       `${agent.name}: ${primaryAgentInitialIdea}`
@@ -91,7 +94,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     // @prompt fetch
     let agentResponse = await fetchModelResponse(aiModel, agentResponsePrompt);
 
-    conversations += `${agent.name} Response: ${agentResponse}`
+    conversations += `${agent.name}: ${agentResponse}`;
 
     // Local state context is not updated here as agent does not move on {x, y}
     // This update initiates agent response in text bubble
@@ -100,7 +103,6 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
       direction: "left",
       momentResponse: agentResponse,
     });
-    await delay(10000);
 
     if (speechLocation.audiencePositions.length > 0) {
       let agentAudiencePosition = getRandomAudiencePosition(
@@ -114,22 +116,25 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
             position.y !== agentAudiencePosition.y
         );
 
-      await moveAgent(
+      await delay(12000);
+      moveAgent(
         agent,
         agentAudiencePosition.x,
         agentAudiencePosition.y,
         setAgents
       );
 
+      let emojis = getRandomEmoji() + getRandomEmoji();
+
       let updatedAgent = createUpdatedAgent(
         agent,
         agentAudiencePosition.x,
         agentAudiencePosition.y,
         agentAudiencePosition.direction,
-        `${agent.name} ${agentEmojis.sleep[0]}`
+        emojis
       );
 
-      updateAgentState(setAgents, updateAgent, updatedAgent);
+      await updateAgentState(setAgents, updateAgent, updatedAgent);
     }
   }
 
@@ -157,7 +162,13 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     );
   }
 
-  conversations += `FinalMoment: ${primaryAgentFinalSpeech}`
+  conversations += `
+  
+  ----- Final Moment -----
+  
+  `;
+
+  conversations += primaryAgentFinalSpeech;
 
   await moveAgent(
     primaryAgent,
@@ -175,8 +186,11 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   );
 
   updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-  pushNewMoment(
-    `${primaryAgent.name} ${primaryAgentInitialPrompt}`,
-    conversations
-  );
+  pushNewMoment(moment.initialPrompt, conversations);
+
+  setTimeout(() => {
+    sendAllAgentsHome(agents, setAgents, updateAgent);
+  }, 150000); // wait 4-minutes and send all agents to home positions
+
+  // groupSpeechInteraction(agents, updateAgent);
 };

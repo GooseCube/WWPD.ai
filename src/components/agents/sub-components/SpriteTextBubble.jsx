@@ -11,13 +11,14 @@ function SpriteTextBubble({ agent }) {
   const [textArray, setTextArray] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayName, setDisplayName] = useState(true);
+  const [chunkSize, setChunkSize] = useState(5)
 
   useEffect(() => {
     if (agent.momentResponse) {
       const words = agent.momentResponse.split(" ");
       const chunks = [];
-      for (let i = 0; i < words.length; i += 3) {
-        chunks.push(words.slice(i, i + 3).join(" "));
+      for (let i = 0; i < words.length; i += chunkSize) {
+        chunks.push(words.slice(i, i + chunkSize).join(" "));
       }
       setTextArray(chunks);
       setCurrentIndex(0);

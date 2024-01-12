@@ -13,6 +13,7 @@ import { Trash } from "react-bootstrap-icons";
  * @returns a message with prompt and response
  */
 function Moment({ id, moment }) {
+  console.log("Moment: ", moment.prompt)
   return (
     <div key={id} className="moment">
       <div className="prompt">

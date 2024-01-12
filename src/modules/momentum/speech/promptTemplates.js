@@ -5,9 +5,9 @@ export const initialMomentPrompt = (primaryAgent, initialPrompt) => {
 };
 
 // Primary Agent will wrap up the brainstorming and create the final moment
-export const finalMomentPrompt = (primaryAgent, finalPrompt) => {
+export const finalMomentPrompt = (primaryAgent, finalPrompt, topic) => {
   return `Persona: ${primaryAgent.name}, ${primaryAgent.age}, ${primaryAgent.career}, ${primaryAgent.specialty}. ${primaryAgent.personality}
-   ${finalPrompt.instruction} ${finalPrompt.context}`;
+   ${finalPrompt.instruction} ${finalPrompt.context} Topic: ${topic}`;
 }
 
 // Primary Agent is meeting with others, this is a great way to explain what you would like them to think about

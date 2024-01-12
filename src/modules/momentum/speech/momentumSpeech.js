@@ -1,4 +1,4 @@
-import { updateAgent } from "../../../firebase/firebaseDB";
+import { pushNewMoment, updateAgent } from "../../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 import {
   delay,
@@ -9,7 +9,11 @@ import {
   createUpdatedAgent,
   updateAgentState,
 } from "./helperFunctions";
-import { agentDiscussionPrompt, finalMomentPrompt, initialMomentPrompt } from "./promptTemplates";
+import {
+  agentDiscussionPrompt,
+  finalMomentPrompt,
+  initialMomentPrompt,
+} from "./promptTemplates";
 import { agentEmojis } from "../../emoji/emojis";
 
 /**
@@ -25,16 +29,24 @@ import { agentEmojis } from "../../emoji/emojis";
 export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
   const speechLocation = getRandomMeetingPlace();
-  const conversations = [];
+  let conversations = "";
 
-  let primaryAgentInitialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt)
+  // ------------- Initializing Moment by Primary Agent -------------- //
+
+  let primaryAgentInitialPrompt = initialMomentPrompt(
+    primaryAgent,
+    moment.initialPrompt
+  );
   let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
   let updatedPrimaryAgent = null;
   let primaryAgentInitialIdea = "";
-  let primaryAgentFinalSpeech = null;
+  let primaryAgentFinalSpeech = "";
 
   // @prompt: Get initial idea from AI Model
-  primaryAgentInitialIdea = await fetchModelResponse(aiModel, primaryAgentInitialPrompt)
+  primaryAgentInitialIdea = await fetchModelResponse(
+    aiModel,
+    primaryAgentInitialPrompt
+  );
 
   // @prompt: fetch remaining context from AI Model
   for (let index = 0; index < 3; ++index) {
@@ -45,7 +57,10 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     );
   }
 
-  // Handle all agents in game, could be reduced using an index expression limiter
+  conversations = `InitialIdea: ${primaryAgentInitialIdea}`;
+
+  // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
+
   while (agentList.length > 0) {
     // Grab an agent to talk to and remove them from the list
     let agent = getRandomAgent(agentList);
@@ -64,8 +79,9 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
     // This will initiate the text for momentResponse for primaryAgent
     updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
+    delay(10000); // wait for primary agent to finish discussing topic
 
-    // @prompt
+    // @prompt: get prompt for agent AI Model fetch
     let agentResponsePrompt = agentDiscussionPrompt(
       primaryAgent,
       agent,
@@ -74,6 +90,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
 
     // @prompt fetch
     let agentResponse = await fetchModelResponse(aiModel, agentResponsePrompt);
+
+    conversations += `${agent.name} Response: ${agentResponse}`
 
     // Local state context is not updated here as agent does not move on {x, y}
     // This update initiates agent response in text bubble
@@ -118,10 +136,17 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   // ------------- Final Speech by Primary Agent -------------- //
 
   // @prompt: get final prompt
-  let primaryAgentFinalSpeechPrompt = finalMomentPrompt(primaryAgent, moment.finalPrompt)
+  let primaryAgentFinalSpeechPrompt = finalMomentPrompt(
+    primaryAgent,
+    moment.finalPrompt,
+    primaryAgentInitialIdea
+  );
 
   // @prompt: Get initial idea from AI Model
-  primaryAgentFinalSpeech = await fetchModelResponse(aiModel, primaryAgentFinalSpeechPrompt)
+  primaryAgentFinalSpeech = await fetchModelResponse(
+    aiModel,
+    primaryAgentFinalSpeechPrompt
+  );
 
   // @prompt: fetch remaining context from AI Model
   for (let index = 0; index < 3; ++index) {
@@ -131,6 +156,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
       ${primaryAgentFinalSpeech}`
     );
   }
+
+  conversations += `FinalMoment: ${primaryAgentFinalSpeech}`
 
   await moveAgent(
     primaryAgent,
@@ -148,4 +175,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   );
 
   updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
+  pushNewMoment(
+    `${primaryAgent.name} ${primaryAgentInitialPrompt}`,
+    conversations
+  );
 };

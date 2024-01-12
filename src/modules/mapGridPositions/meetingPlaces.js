@@ -61,7 +61,9 @@ export const meetingPlaces = {
     audiencePositions: [
       { x: 83, y: 19, direction: "down" },
       { x: 87, y: 24, direction: "left" },
+      { x: 81, y: 20, direction: "down" },
       { x: 86, y: 26, direction: "left" },
+      { x: 89, y: 26, direction: "left" },
       { x: 93, y: 26, direction: "left" },
     ],
   },

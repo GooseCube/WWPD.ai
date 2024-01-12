@@ -1,3 +1,4 @@
+import { agentEmojis } from "../../emoji/emojis";
 import { updateAgent } from "../../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 import { agentPathfinder } from "../../agentMotion/agentPathfinder";
@@ -11,7 +12,7 @@ import {
   getRandomAudiencePosition,
   moveAgent,
   createUpdatedAgent,
-  updatePrimaryAgentState,
+  updateAgentState,
 } from "./helperFunctions";
 
 /**
@@ -68,7 +69,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     );
 
     // This will initiate the text for momentResponse for primaryAgent
-    updatePrimaryAgentState(setAgents, updateAgent, updatedPrimaryAgent)
+    updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
     await delay(3000);
 
     // Remove after testing complete
@@ -82,6 +83,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     // );
 
     // Local state context is not updated here as agent does not move on {x, y}
+    // This update initiates agent response in text bubble
     await updateAgent({
       ...agent,
       direction: "left",
@@ -101,18 +103,34 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
             position.y !== agentAudiencePosition.y
         );
 
-      await moveAgent(agent, agentAudiencePosition.x, agentAudiencePosition.y, setAgents)
-
-      agent.x = agentAudiencePosition.x;
-      agent.y = agentAudiencePosition.y;
-      agent.direction = agentAudiencePosition.direction;
-      let updatedAgent = { ...agent };
-
-      await setAgents((prevAgents) =>
-        prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
+      await moveAgent(
+        agent,
+        agentAudiencePosition.x,
+        agentAudiencePosition.y,
+        setAgents
       );
 
-      await updateAgent({ ...updatedAgent });
+      let updatedAgent = createUpdatedAgent(
+        agent,
+        agentAudiencePosition.x,
+        agentAudiencePosition.y,
+        agentAudiencePosition.direction,
+        `${agent.name} ${agentEmojis.sleep[0]}`
+      );
+
+      updateAgentState(setAgents, updateAgent, updatedAgent);
+
+      // agent.x = agentAudiencePosition.x;
+      // agent.y = agentAudiencePosition.y;
+      // agent.direction = agentAudiencePosition.direction;
+      // agent.momentResponse = `${agent.name} ${agentEmojis.sleep[0]}`;
+      // let updatedAgent = { ...agent };
+
+      // await setAgents((prevAgents) =>
+      //   prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
+      // );
+
+      // await updateAgent({ ...updatedAgent });
     }
   }
 

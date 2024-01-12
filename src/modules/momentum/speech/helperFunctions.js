@@ -73,7 +73,7 @@ export const moveAgent = async (agent, destX, destY, setAgents) => {
 
 /**
  * Creates a copy of the agents updated state
- * @param {object} primaryAgent
+ * @param {object} agent 
  * @param {number} newX
  * @param {number} newY
  * @param {string} direction
@@ -81,26 +81,26 @@ export const moveAgent = async (agent, destX, destY, setAgents) => {
  * @returns copy of updated agent object
  */
 export const createUpdatedAgent = (
-  primaryAgent,
+  agent,
   newX,
   newY,
   direction,
   momentResponse
 ) => {
-  primaryAgent.x = newX;
-  primaryAgent.y = newY;
-  primaryAgent.direction = direction;
-  primaryAgent.momentResponse = momentResponse;
-  return { ...primaryAgent };
+  agent.x = newX;
+  agent.y = newY;
+  agent.direction = direction;
+  agent.momentResponse = momentResponse;
+  return { ...agent };
 };
 
 /**
- * Set the primary agent global context state and update in Firebase
+ * Set the agent global context state and update in Firebase
  * @param {context setter} setAgents
  * @param {firebase function} updateAgent
  * @param {object} agent
  */
-export const updatePrimaryAgentState = async (setAgents, updateAgent, agent) => {
+export const updateAgentState = async (setAgents, updateAgent, agent) => {
   await setAgents((prevAgents) =>
     prevAgents.map((a) => (a.uid === agent.uid ? agent : a))
   );

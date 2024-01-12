@@ -2,63 +2,17 @@ import { updateAgent } from "../../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 import { agentPathfinder } from "../../agentMotion/agentPathfinder";
 import { traverseAgentPath } from "../../agentMotion/traverseAgentPath";
-import { meetingPlaces } from "../../mapGridPositions/meetingPlaces";
-
-// Primary Agent needs an idea to discuss with others, let's get it
-const initialMomentPrompt = (primaryAgent, initialPrompt) => {
-  return `Persona: ${primaryAgent.name}, ${primaryAgent.age}, ${primaryAgent.career}. ${primaryAgent.personality}
-   ${initialPrompt.instruction} ${initialPrompt.context} ${initialPrompt.question}`;
-};
-
-// Primary Agent is meeting with others, this is a great way to explain what you would like them to think about
-// and get a constructive response
-const agentDiscussionPrompt = (primaryAgent, agent, initalIdea) => {
-  return `Persona: ${agent.name}, ${agent.age}, ${agent.career}, ${agent.specialty}. ${agent.personality}
-  Idea: ${initalIdea} Instruction: Give advice or help using your persona, the idea you will review and the context.
-  Context: ${primaryAgent.name} has asked you to review an idea which may require you to think outside the box to help.
-  You are happing to help and will give your advice or perform a task to help make the idea happen. Use those special skills.`;
-};
-
-// Use to prevent the two agents showing discussion text at the same time
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-/**
- * Choose a random agent from the array list and remove that
- * agent from the list.
- * @param {object array} agentList
- * @returns a single agent from the given list
- */
-const getRandomAgent = (agentList) => {
-  const randomIndex = Math.floor(Math.random() * agentList.length);
-  const [selectedAgent] = agentList.splice(randomIndex, 1);
-  return selectedAgent;
-};
-
-/**
- * Using the imported meetingPlaces object, get a random meeting place
- * and invite agents to hear the speech
- * @returns a single meetingPlacde containing:
- * {primaryAgent: {x: number, y: number, direction: string},
- *  audiencePositions: [{x:number, y:number}, {...}, . . .]}
- */
-const getRandomMeetingPlace = () => {
-  return meetingPlaces[
-    Object.keys(meetingPlaces)[
-      Math.floor(Math.random() * Object.keys(meetingPlaces).length)
-    ]
-  ];
-};
-
-/**
- * Get a random audience location for agent to attend the speech
- * @param {array[{x: number, y: number, direction: string}]} audienceLocations
- * @returns one object audience location from the given audienceLocations array
- */
-const getRandomAudiencePosition = (audienceLocations) => {
-  return audienceLocations[
-    Math.floor(Math.random() * audienceLocations.length)
-  ];
-};
+import {
+  initialMomentPrompt,
+  agentDiscussionPrompt,
+  delay,
+  getRandomAgent,
+  getRandomMeetingPlace,
+  getRandomAudiencePosition,
+  moveAgent,
+  createUpdatedAgent,
+  updateAgentState,
+} from "./helperFunctions";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -71,18 +25,23 @@ const getRandomAudiencePosition = (audienceLocations) => {
  * @param {context setter} setAgents, setter for context passed from Sidebar
  */
 export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
-  // Get a random meeting location
-  const speechLocation = getRandomMeetingPlace();
-  // Set primaryAgent to the agent currently playercontrolled
-  const primaryAgent = agents.find((agent) => agent.playerControlled === true);
-  // const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
-
   // hold inital idea, all agent discussions, and final phase speech
   const conversations = [];
+  let updatedPrimaryAgent;
+  let primaryAgentInitialIdea;
 
-  let primaryAgentInitialIdea =
+  // Get a random meeting location, includes array of audience positions
+  const speechLocation = getRandomMeetingPlace();
+
+  // Set primaryAgent to playerControlled agent
+  const primaryAgent = agents.find((agent) => agent.playerControlled === true);
+
+  // New agent list with primaryAgent removed
+  let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
+
+  // const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
+  primaryAgentInitialIdea =
     "I'm creating a play about pirates! Do you think you can help with this?";
-  // let primaryAgentInitialIdea = "";
 
   // for (let index = 0; index < 3; ++index) {
   //   primaryAgentInitialIdea += await fetchModelResponse(
@@ -91,43 +50,27 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   //   );
   // }
 
-  // Create a list of agents (except for primaryAgent)
-  let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
-
+  // Handle all agents in game, could be reduced using an index expression limiter
   while (agentList.length > 0) {
-    // Choose random agent from list and remove this agent so they are not
-    // chosen again
+    // Grab an agent to talk to and remove them from the list
     let agent = getRandomAgent(agentList);
-
-    // Remove chosen agent from agentList
     agentList = agentList.filter((a) => a.uid !== agent.uid);
 
-    // Get a path to the chosen designated meeting place
-    // offset the meeting place so agents do not overlap
-    let path = await agentPathfinder(primaryAgent, agent.x - 2, agent.y - 1);
-    // Filters the path object to container only 'state'
-    let simplifiedPath = path.map((node) => node.state);
-    // Moves the agent using the filtered path array
-    await traverseAgentPath(primaryAgent, simplifiedPath, setAgents);
+    // Moves primaryAgent to the agent position
+    await moveAgent(primaryAgent, agent.x - 2, agent.y - 1, setAgents);
 
-    // ------------- Discussion Between Agents Begins -------------- //
-
-    // Update primaryAgent's location
-    primaryAgent.x = agent.x - 2;
-    primaryAgent.y = agent.y - 1;
-    primaryAgent.direction = "right";
-    primaryAgent.momentResponse = `${agent.name} ${primaryAgentInitialIdea}`;
-    let updatedPrimaryAgent = { ...primaryAgent };
-
-    await setAgents((prevAgents) =>
-      prevAgents.map((a) =>
-        a.uid === updatedPrimaryAgent.uid ? updatedPrimaryAgent : a
-      )
+    updatedPrimaryAgent = createUpdatedAgent(
+      primaryAgent,
+      agent.x - 2,
+      agent.y - 1,
+      "right",
+      `${agent.name}: ${primaryAgentInitialIdea}`
     );
-    // Primary Agent will 'share' the idea
-    await updateAgent(updatedPrimaryAgent);
 
+    // This will initiate the text for momentResponse for primaryAgent
+    updateAgentState(setAgents, updateAgent, updatedPrimaryAgent)
     await delay(3000);
+
     // Remove after testing complete
     let agentTestingResponse =
       "Love the idea, I can get started on helping you with that.";
@@ -203,7 +146,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   primaryAgent.y = speechLocation.primaryAgent.y;
   primaryAgent.direction = speechLocation.primaryAgent.direction;
   // primaryAgent.momentResponse = `${primaryAgentInitialIdea}`;
-  let updatedPrimaryAgent = { ...primaryAgent };
+  updatedPrimaryAgent = { ...primaryAgent };
 
   await setAgents((prevAgents) =>
     prevAgents.map((a) =>

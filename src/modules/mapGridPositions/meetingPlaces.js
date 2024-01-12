@@ -24,14 +24,6 @@ export const meetingPlaces = {
       { x: 56, y: 35, direction: "up" },
     ],
   },
-  bizarre: {
-    primaryAgent: { x: 53, y: 14 },
-    audiencePositions: [
-      { x: 0, y: 0, direction: "left" },
-      { x: 0, y: 0, direction: "left" },
-      { x: 0, y: 0, direction: "left" },
-    ],
-  },
   plazaTable: {
     primaryAgent: { x: 29, y: 18, direction: "down" },
     audiencePositions: [

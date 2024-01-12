@@ -26,19 +26,16 @@ import {
  * @param {context setter} setAgents, setter for context passed from Sidebar
  */
 export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
-  // hold inital idea, all agent discussions, and final phase speech
-  const conversations = [];
-  let updatedPrimaryAgent;
-  let primaryAgentInitialIdea;
-
-  // Get a random meeting location, includes array of audience positions
-  const speechLocation = getRandomMeetingPlace();
-
-  // Set primaryAgent to playerControlled agent
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
+  const speechLocation = getRandomMeetingPlace();
+  const conversations = [];
+
+  let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
+  let updatedPrimaryAgent = null;
+  let primaryAgentInitialIdea = null;
+  let primaryAgentFinalSpeech = null;
 
   // New agent list with primaryAgent removed
-  let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
 
   // const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
   primaryAgentInitialIdea =
@@ -119,51 +116,56 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
       );
 
       updateAgentState(setAgents, updateAgent, updatedAgent);
-
-      // agent.x = agentAudiencePosition.x;
-      // agent.y = agentAudiencePosition.y;
-      // agent.direction = agentAudiencePosition.direction;
-      // agent.momentResponse = `${agent.name} ${agentEmojis.sleep[0]}`;
-      // let updatedAgent = { ...agent };
-
-      // await setAgents((prevAgents) =>
-      //   prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
-      // );
-
-      // await updateAgent({ ...updatedAgent });
     }
   }
 
   // ------------- Final Speech by Primary Agent -------------- //
 
-  let finalSpeech;
   // Prompt model for final speech
   // for (let index = 0; index < 4; ++index) {
-  // finalSpeech += fetch();
+  // primaryAgentFinalSpeech += await fetch();
   // }
 
-  let finalSpeechPath = await agentPathfinder(
+  await moveAgent(
     primaryAgent,
     speechLocation.primaryAgent.x,
-    speechLocation.primaryAgent.y
+    speechLocation.primaryAgent.y,
+    setAgents
   );
+
+  updatedPrimaryAgent = createUpdatedAgent(
+    primaryAgent,
+    speechLocation.primaryAgent.x,
+    speechLocation.primaryAgent.y,
+    speechLocation.primaryAgent.direction,
+    "I made it, thank you for waiting. And now without further ado, let's get started . . ."
+    // primaryAgentFinalSpeech
+  );
+
+  updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
+
+  // let finalSpeechPath = await agentPathfinder(
+  //   primaryAgent,
+  //   speechLocation.primaryAgent.x,
+  //   speechLocation.primaryAgent.y
+  // );
   // Filters the path object to container only 'state'
-  let finalSpeechSimplifiedPath = finalSpeechPath.map((node) => node.state);
+  // let finalSpeechSimplifiedPath = finalSpeechPath.map((node) => node.state);
   // Moves the agent using the filtered path array
-  await traverseAgentPath(primaryAgent, finalSpeechSimplifiedPath, setAgents);
+  // await traverseAgentPath(primaryAgent, finalSpeechSimplifiedPath, setAgents);
 
   // Update primaryAgent's location
-  primaryAgent.x = speechLocation.primaryAgent.x;
-  primaryAgent.y = speechLocation.primaryAgent.y;
-  primaryAgent.direction = speechLocation.primaryAgent.direction;
+  // primaryAgent.x = speechLocation.primaryAgent.x;
+  // primaryAgent.y = speechLocation.primaryAgent.y;
+  // primaryAgent.direction = speechLocation.primaryAgent.direction;
   // primaryAgent.momentResponse = `${primaryAgentInitialIdea}`;
-  updatedPrimaryAgent = { ...primaryAgent };
+  // updatedPrimaryAgent = { ...primaryAgent };
 
-  await setAgents((prevAgents) =>
-    prevAgents.map((a) =>
-      a.uid === updatedPrimaryAgent.uid ? updatedPrimaryAgent : a
-    )
-  );
+  // await setAgents((prevAgents) =>
+  //   prevAgents.map((a) =>
+  //     a.uid === updatedPrimaryAgent.uid ? updatedPrimaryAgent : a
+  //   )
+  // );
   // Primary Agent will 'share' the idea
-  await updateAgent(updatedPrimaryAgent);
+  // await updateAgent(updatedPrimaryAgent);
 };

@@ -35,17 +35,12 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   let primaryAgentInitialIdea = null;
   let primaryAgentFinalSpeech = null;
 
-  // New agent list with primaryAgent removed
-
-  // const initialPrompt = initialMomentPrompt(primaryAgent, moment.initialPrompt);
-  primaryAgentInitialIdea =
-    "I'm creating a play about pirates! Do you think you can help with this?";
-
+  // @prompt fetch
   // for (let index = 0; index < 3; ++index) {
-  //   primaryAgentInitialIdea += await fetchModelResponse(
-  //     aiModel,
-  //     initialPrompt + primaryAgentInitialIdea
-  //   );
+    primaryAgentInitialIdea += await fetchModelResponse(
+      aiModel,
+      initialPrompt + primaryAgentInitialIdea
+    );
   // }
 
   // Handle all agents in game, could be reduced using an index expression limiter
@@ -69,22 +64,25 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
     await delay(3000);
 
-    // Remove after testing complete
-    let agentTestingResponse =
-      "Love the idea, I can get started on helping you with that.";
-    // Set up prompt for agent using primary agents idea and agents persona
-    // let agentResponsePrompt = agentDiscussionPrompt(
-    //   primaryAgent,
-    //   agent,
-    //   primaryAgentInitialIdea
-    // );
+    // @prompt
+    let agentResponsePrompt = agentDiscussionPrompt(
+      primaryAgent,
+      agent,
+      primaryAgentInitialIdea
+    );
+
+    // @prompt fetch
+    let agentResponse = await fetchModelResponse(
+      aiModel,
+      agentResponsePrompt
+    )
 
     // Local state context is not updated here as agent does not move on {x, y}
     // This update initiates agent response in text bubble
     await updateAgent({
       ...agent,
       direction: "left",
-      momentResponse: agentTestingResponse,
+      momentResponse: agentResponse,
     });
     await delay(3000);
 
@@ -143,29 +141,4 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   );
 
   updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-
-  // let finalSpeechPath = await agentPathfinder(
-  //   primaryAgent,
-  //   speechLocation.primaryAgent.x,
-  //   speechLocation.primaryAgent.y
-  // );
-  // Filters the path object to container only 'state'
-  // let finalSpeechSimplifiedPath = finalSpeechPath.map((node) => node.state);
-  // Moves the agent using the filtered path array
-  // await traverseAgentPath(primaryAgent, finalSpeechSimplifiedPath, setAgents);
-
-  // Update primaryAgent's location
-  // primaryAgent.x = speechLocation.primaryAgent.x;
-  // primaryAgent.y = speechLocation.primaryAgent.y;
-  // primaryAgent.direction = speechLocation.primaryAgent.direction;
-  // primaryAgent.momentResponse = `${primaryAgentInitialIdea}`;
-  // updatedPrimaryAgent = { ...primaryAgent };
-
-  // await setAgents((prevAgents) =>
-  //   prevAgents.map((a) =>
-  //     a.uid === updatedPrimaryAgent.uid ? updatedPrimaryAgent : a
-  //   )
-  // );
-  // Primary Agent will 'share' the idea
-  // await updateAgent(updatedPrimaryAgent);
 };

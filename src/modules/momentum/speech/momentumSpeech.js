@@ -117,7 +117,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
         );
 
       await delay(12000);
-      moveAgent(
+      await moveAgent(
         agent,
         agentAudiencePosition.x,
         agentAudiencePosition.y,
@@ -134,7 +134,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
         emojis
       );
 
-      await updateAgentState(setAgents, updateAgent, updatedAgent);
+      updateAgentState(setAgents, updateAgent, updatedAgent);
     }
   }
 

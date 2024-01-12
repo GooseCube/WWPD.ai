@@ -95,13 +95,12 @@ export const createUpdatedAgent = (
 };
 
 /**
- * Set the agent global context state and update
- * agent state in Firebase
+ * Set the primary agent global context state and update in Firebase
  * @param {context setter} setAgents
  * @param {firebase function} updateAgent
  * @param {object} agent
  */
-export const updateAgentState = async (setAgents, updateAgent, agent) => {
+export const updatePrimaryAgentState = async (setAgents, updateAgent, agent) => {
   await setAgents((prevAgents) =>
     prevAgents.map((a) => (a.uid === agent.uid ? agent : a))
   );

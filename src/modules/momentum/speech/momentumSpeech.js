@@ -11,7 +11,7 @@ import {
   getRandomAudiencePosition,
   moveAgent,
   createUpdatedAgent,
-  updateAgentState,
+  updatePrimaryAgentState,
 } from "./helperFunctions";
 
 /**
@@ -68,7 +68,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     );
 
     // This will initiate the text for momentResponse for primaryAgent
-    updateAgentState(setAgents, updateAgent, updatedPrimaryAgent)
+    updatePrimaryAgentState(setAgents, updateAgent, updatedPrimaryAgent)
     await delay(3000);
 
     // Remove after testing complete
@@ -81,6 +81,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     //   primaryAgentInitialIdea
     // );
 
+    // Local state context is not updated here as agent does not move on {x, y}
     await updateAgent({
       ...agent,
       direction: "left",
@@ -100,15 +101,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
             position.y !== agentAudiencePosition.y
         );
 
-      let agentPath = await agentPathfinder(
-        agent,
-        agentAudiencePosition.x,
-        agentAudiencePosition.y
-      );
-      // Filters the path object to container only 'state'
-      let agentSimplifiedPath = agentPath.map((node) => node.state);
-      // Moves the agent using the filtered path array
-      await traverseAgentPath(agent, agentSimplifiedPath, setAgents);
+      await moveAgent(agent, agentAudiencePosition.x, agentAudiencePosition.y, setAgents)
 
       agent.x = agentAudiencePosition.x;
       agent.y = agentAudiencePosition.y;

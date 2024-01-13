@@ -198,7 +198,7 @@ export const momentumSpeech = async (
   setTimeout(() => {
     setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 90000); // wait 1.5-minutes and send all agents to home positions
+  }, 60000); // wait 1-minute and send all agents to home positions
 
   // groupSpeechInteraction(agents, updateAgent);
 };

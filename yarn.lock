@@ -14,7 +14,12 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@emotion/is-prop-valid@1.2.1", "@emotion/is-prop-valid@^1.2.1":
+"@emailjs/browser@^3.12.1":
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@emailjs/browser/-/browser-3.12.1.tgz#c1b058a09b99e5e19fa42911725c0227a8b7c12f"
+  integrity sha512-C5nK07CgSCFx3onsuRt/ZaaMvIi0T3SHHanM7fKozjSvbZu+OjHHP9W608fYpic0OavF7yIlfy4+lRDO33JdbA==
+
+"@emotion/is-prop-valid@1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-1.2.1.tgz#23116cf1ed18bfeac910ec6436561ecb1a3885cc"
   integrity sha512-61Mf7Ufx4aDxx1xlDeOm8aFFigGHE4z+0sKCa+IHCeZKiyP9RLD0Mmx7m8b9/Cf37f7NAvQOOJAbQQGVr5uERw==
@@ -1040,7 +1045,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-axios@^1.6.3:
+axios@1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.3.tgz#7f50f23b3aa246eff43c54834272346c396613f4"
   integrity sha512-fWyNdeawGam70jXSVlKl+SUNVcL6j6W79CuSIPfi6HnDUmSCH6gyUys/HrqHeA/wU0Az41rRgean494d0Jb+ww==

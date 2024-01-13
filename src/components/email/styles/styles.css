@@ -1,3 +1,18 @@
+.toolbar {
+  display: flex;
+  justify-content: end;
+}
+
+.email-icon {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.email-icon:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
 .email-form {
   z-index: 1;
   position: absolute;

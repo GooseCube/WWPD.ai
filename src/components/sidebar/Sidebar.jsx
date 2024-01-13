@@ -34,36 +34,12 @@ function Sidebar({ showInterface, setShowInterface }) {
   const [overlayStyles, setOverlayStyles] = useState({});
   const [showImageScreen, setShowImageScreen] = useState(false);
 
-  // const imageModules = import.meta.glob(
-  //   "../../assets/pirates/*.{png,jpg,jpeg,svg}"
-  // );
-
-  // useEffect(() => {
-  //   const loadImages = async () => {
-  //     const images = await Promise.all(
-  //       Object.values(imageModules).map((resolve) => resolve())
-  //     );
-      // setOverlayImages(images.map((img) => img.default));
-  //   };
-
-  //   loadImages();
-  // }, []);
-
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = async (event, moment) => {
     event.preventDefault();
     setScreenStyles(meetingPlaces.plazaTable.screenStyles);
     setOverlayStyles(meetingPlaces.plazaTable.overlayStyles);
-
-    const imageModules = await moment.images;
-    console.log("image modules: ", imageModules)
-    const images = await Promise.all(
-      Object.values(imageModules).map((resolve) => resolve())
-    )
-
-    const imageUrls = images.map((img) => img.default);
-    setOverlayImages(imageUrls)
-    console.log("image urls: ", imageUrls)
+    setOverlayImages(moment.images)
 
     // Show Screen for Testing Purposes
     momentumSpeech(

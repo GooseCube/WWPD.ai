@@ -5,11 +5,10 @@
  * - question: what the model should do with the given context
  */
 
-import pirateImages from "./momentImages";
-import financeImages from "./momentImages";
+import {pirateImages, financeImages} from "./momentImages";
 
 export const townSquare = {
-  images: financeImages,
+  images: Object.values(financeImages),
   title: "Town Square",
   initialPrompt: {
     instruction:
@@ -26,7 +25,7 @@ export const townSquare = {
 };
 
 export const pirates = {
-  images: pirateImages,
+  images: Object.values(pirateImages),
   title: "Colonial Pirates",
   initialPrompt: {
     instruction: "Answer the question using the given context and personality.",

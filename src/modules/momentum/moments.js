@@ -5,7 +5,11 @@
  * - question: what the model should do with the given context
  */
 
+import pirateImages from "./momentImages";
+import financeImages from "./momentImages";
+
 export const townSquare = {
+  images: financeImages,
   title: "Town Square",
   initialPrompt: {
     instruction:
@@ -22,6 +26,7 @@ export const townSquare = {
 };
 
 export const pirates = {
+  images: pirateImages,
   title: "Colonial Pirates",
   initialPrompt: {
     instruction: "Answer the question using the given context and personality.",

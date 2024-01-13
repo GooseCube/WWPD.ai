@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./styles/styles.css";
 import screenImage from "../../assets/art/blue_screen.svg";
 
-function ImageScreen({ overlayImages, screenStyles, overlayStyles, show }) {
+function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
   const [currentImage, setCurrentImage] = useState(overlayImages[0]);
   const [index, setIndex] = useState(0);
 
@@ -13,7 +13,7 @@ function ImageScreen({ overlayImages, screenStyles, overlayStyles, show }) {
     }, 3000);
 
     return () => clearInterval(timer);
-  }, [show, overlayImages, index]);
+  }, [overlayImages, index]);
 
   return (
     <div className="image-screen">

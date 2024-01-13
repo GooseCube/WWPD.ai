@@ -115,7 +115,7 @@ function Sidebar({ showInterface, setShowInterface, showEmailForm, setShowEmailF
               ]}
             />
             <ButtonSelection
-              buttonText="Email"
+              buttonText="Email Moments"
               image={message}
               altText="email interface button"
               useStateParam={showEmailForm}

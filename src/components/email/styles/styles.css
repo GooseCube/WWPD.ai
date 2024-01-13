@@ -40,14 +40,30 @@
   outline: none;
 }
 
-.input-btn {
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+  gap: 5px;
+}
+
+.input-btn,
+.clear-form-btn {
   width: 5em;
-  background-color: blue;
   color: white;
   border-radius: 10px;
 }
 
-.input-btn:hover {
+.input-btn {
+  background-color: blue;
+}
+
+.clear-form-btn {
+  background-color: grey;
+}
+
+.input-btn:hover,
+.clear-form-btn:hover {
   transform: scale(1.1);
   transition: all 0.3s ease;
 }

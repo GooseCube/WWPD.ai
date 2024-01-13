@@ -8,41 +8,21 @@ The `yarn` package manager will install the required dependency for EmailJS.
 
 ## EmailJS Environment Variables
 
-You will need to create a `.env` file at /root. Create an account with EmailJS and add the following to the `.env`:
+If you have not already created the `.env` file in /root, create it now and add the following variables as shown. Replace the strings with your respective values given from EmailJS.
 
 ```json
-VITE_API_KEY="yourKeyFromEmailJS"
-VITE_SERVICE_ID="yourIdFromEmailJS"
-VITE_TEMPLATE_ID="theTemplateIdYouAreUsing/Created"
+VITE_EMAILJS_API_KEY="yourKeyFromEmailJS"
+VITE_EMAILJS_SERVICE_ID="yourIdFromEmailJS"
+VITE_EMAILJS_TEMPLATE_ID="theTemplateId"
 
 ```
 
 ## EmailJS Template SetUp
 
+The template id used in the variables above will be given once you create a template. This application expects that you create a template as shown in the image below. Each of the {{variabl_names}} are specific to what will be sent from the email form. CTRL+SHFT+V will open this markdown in a visual screen showing the image linked below.
+
 You will need to create an account with EmailJS. This component uses Gmail as the Email Service.
 
 The Email Template uses has the following variables:
-(change the variables to match your requirements)
 
-```js
-Subject: New message from {{from_name}}
-
-Content:
-  Hello {{to_name}},
-
-  You have a new message from {{from_name}}:
-
-    {{message}}
-
-  Best wishes,
-```
-
-Also, the `To Email` variables are:
-
-```js
-To Email: {{to_email}}
-
-From Name: my initials here
-
-Replay To: {{reply_to}}
-```
+![Email Template](../../assets/email/template.png)

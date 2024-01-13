@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { AuthContext } from "../../firebase/AuthProvider";
 import Draggable from "react-draggable";
 import { XCircleFill } from "react-bootstrap-icons";
 
@@ -14,14 +12,13 @@ const convertISOTimestamp = (timestamp) => {
  * @returns
  */
 function Form({
+  moments,
   showEmailForm,
   setShowEmailForm,
   setMoment,
   handleSendEmail,
   emailRef,
 }) {
-  const { moments } = useContext(AuthContext);
-
   return (
     <Draggable defaultPosition={{ x: 700, y: 100 }}>
       <form

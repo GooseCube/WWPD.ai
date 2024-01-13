@@ -79,7 +79,7 @@ function Toolbar({
         placement="top"
         overlay={<Tooltip id={"tooltip-top"}>Emailer</Tooltip>}>
         <Envelope
-          className="toolbar-icon email"
+          className="toolbar-icon"
           onClick={() => {
             setShowEmailForm(!showEmailForm);
           }}

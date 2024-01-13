@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Form from "./Form";
-import "./styles/styles.css"
+import "./styles/styles.css";
 
 function EmailForm({ showEmailForm, setShowEmailForm }) {
   const API_KEY = import.meta.env.VITE_EMAILJS_API_KEY;
@@ -13,7 +13,20 @@ function EmailForm({ showEmailForm, setShowEmailForm }) {
 
   const sendEmail = async (event) => {
     event.preventDefault();
-    console.log("send Email called with: ", emailData)
+    const formData = new FormData(event.target);
+
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    const emailDataString = formData.get("emailData");
+    if (emailDataString) {
+      const data = JSON.parse(emailDataString);
+      console.log("Form Current: ", data);
+    } else {
+      console.log("No moment selected");
+    }
+
     // try {
     //   const result = await emailjs.sendForm(
     //     SERVICE_ID,
@@ -28,7 +41,11 @@ function EmailForm({ showEmailForm, setShowEmailForm }) {
     // }
   };
 
-  return showEmailForm && <Form form={form} sendEmail={sendEmail} setEmailData={setEmailData} />;
+  return (
+    showEmailForm && (
+      <Form form={form} sendEmail={sendEmail} setEmailData={setEmailData} />
+    )
+  );
 }
 
 export default EmailForm;

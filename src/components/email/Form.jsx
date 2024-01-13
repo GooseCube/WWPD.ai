@@ -15,17 +15,36 @@ const convertISOTimestamp = (timestamp) => {
 function Form({ form, sendEmail, emailData, setEmailData }) {
   const { moments, messages } = useContext(AuthContext);
 
+    const handleSubmit = (e) => {
+    e.preventDefault();
+    const selectedMoment = Object.values(moments)[e.target.value];
+    setEmailData(selectedMoment, () => {
+      sendEmail(e);
+    });
+  };
+
+
   return (
     <Draggable defaultPosition={{ x: 700, y: 100 }}>
-      <form className="email-form" ref={form} onSubmit={sendEmail}>
+      <form className="email-form" ref={form} onSubmit={handleSubmit}>
         <label>Email</label>
         <input className="email" type="email" name="to_email" />
 
         <label>Moments</label>
-        <select className="moments" name="moments" onChange={(e) => setEmailData(Object.values(moments)[e.target.value])} >
+        <input
+          type="hidden"
+          name="emailData"
+          value={JSON.stringify(emailData)}
+        />
+
+        <select
+          className="moments"
+          name="moments"
+          
+          >
           {Object.values(moments).map((moment, index) => (
-            <option key={index} value={index}>
-              {convertISOTimestamp(moment.timestamp)} {moment.prompt.context}
+            <option className="moment-option" key={index} value={index}>
+              {convertISOTimestamp(moment.timestamp)} {moment.response}
             </option>
           ))}
         </select>

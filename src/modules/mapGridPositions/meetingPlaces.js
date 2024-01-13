@@ -38,6 +38,22 @@ export const meetingPlaces = {
       { x: 33, y: 26, direction: "up" },
       { x: 32, y: 35, direction: "up" },
     ],
+    screenStyles: {
+      position: "absolute",
+      left: "420px",
+      top: "330px",
+      transform: "perspective(200px) rotateY(20deg) rotateZ(-7deg)",
+      transformOrigin: "left",
+    },
+    overlayStyles: {
+      position: "absolute",
+      left: "440px",
+      top: "352px",
+      width: "75px",
+      height: "57px",
+      transform: "perspective(200px) rotateY(20deg) rotateZ(-6deg)",
+      transformOrigin: "left",
+    },
   },
   theFlat: {
     primaryAgent: { x: 86, y: 7, direction: "down" },

@@ -3,7 +3,6 @@ import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 import {
   delay,
   getRandomAgent,
-  getRandomMeetingPlace,
   getRandomAudiencePosition,
   moveAgent,
   createUpdatedAgent,
@@ -17,7 +16,6 @@ import {
   finalMomentPrompt,
   initialMomentPrompt,
 } from "./promptTemplates";
-import { agentEmojis } from "../../emoji/emojis";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -29,9 +27,16 @@ import { agentEmojis } from "../../emoji/emojis";
  * @param {string} aiModel, name of the ai model to prompt
  * @param {context setter} setAgents, setter for context passed from Sidebar
  */
-export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
+export const momentumSpeech = async (
+  agents,
+  moment,
+  aiModel,
+  setAgents,
+  speechLocation,
+  setShowImageScreen
+) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
-  const speechLocation = getRandomMeetingPlace();
+  // const speechLocation = getRandomMeetingPlace();
   let conversations = "";
 
   // ------------- Initializing Moment by Primary Agent -------------- //
@@ -177,6 +182,8 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
     setAgents
   );
 
+  // setShowImageScreen(true);
+
   updatedPrimaryAgent = createUpdatedAgent(
     primaryAgent,
     speechLocation.primaryAgent.x,
@@ -189,6 +196,7 @@ export const momentumSpeech = async (agents, moment, aiModel, setAgents) => {
   pushNewMoment(moment.initialPrompt, conversations);
 
   setTimeout(() => {
+    // setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
   }, 100000); // wait 4-minutes and send all agents to home positions
 

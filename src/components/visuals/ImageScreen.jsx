@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./styles/styles.css";
 import screenImage from "../../assets/art/blue_screen.svg";
 
 function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
@@ -16,7 +15,7 @@ function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
   }, [overlayImages, index]);
 
   return (
-    <div className="image-screen">
+    <div className="image-screen" style={{position: "relative"}}>
       <img
         className="screen"
         src={screenImage}
@@ -34,3 +33,24 @@ function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
 }
 
 export default ImageScreen;
+
+// function ImageScreen() {
+//   return (
+//     <div className="image-screen">
+//       <img
+//         className="screen"
+//         src={screenImage}
+//         alt="Projector Screen"
+//         // style={screenStyles}
+//       />
+//       <img
+//         className="overlay"
+//         src={pirateImg}
+//         alt="Overlay Image"
+//         // style={overlayStyles}
+//       />
+//     </div>
+//   );
+// }
+
+// export default ImageScreen;

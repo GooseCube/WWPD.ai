@@ -110,5 +110,3 @@ As undergrad computer scientists, we wanted to give like minded people the abili
 2. Main logo and sidebar icons sourced from: [VectorStock: Generative AI Vector Set](https://www.vectorstock.com/royalty-free-vector/generative-ai-artificial-intelligence-icon-set-vector-47405050)
 
 3. Agent sprite characters sourced from the original Generative Agents GitHub repo: [GitHub: Generative Agents](https://github.com/joonspk-research/generative_agents) which I believe are the creation of [PixyMoon: Twitter(X)](https://twitter.com/_PixyMoon_) please let me know if this is incorrect.
-
-4. Clipart for agent speech with chart and graphs: [WebstockReview Art](https://webstockreview.net/pict/getfirst)

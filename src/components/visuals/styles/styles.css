@@ -2,21 +2,21 @@
   position: relative;
 }
 
-/* .image-screen .screen {
+.image-screen .screen {
   position: absolute;
-  left: 420px;
-  top: 330px;
+  left: 1590px;
+  top: 370px;
   transform: perspective(200px) rotateY(20deg) rotateZ(-7deg);
   transform-origin: left;
-} */
+}
 
 
-/* .image-screen .overlay {
+.image-screen .overlay {
   position: absolute;
-  left: 440px; 
-  top: 352px; 
+  left: 1610px; 
+  top: 392px; 
   width: 75px; 
   height: 57px; 
   transform: perspective(200px) rotateY(20deg) rotateZ(-6deg);
   transform-origin: left;
-} */
+}

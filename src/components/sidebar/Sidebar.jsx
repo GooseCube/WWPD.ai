@@ -37,8 +37,10 @@ function Sidebar({ showInterface, setShowInterface }) {
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = async (event, moment) => {
     event.preventDefault();
-    setScreenStyles(meetingPlaces.plazaTable.screenStyles);
-    setOverlayStyles(meetingPlaces.plazaTable.overlayStyles);
+    // Set the styles for Projector Screen
+    setScreenStyles(meetingPlaces.theFlat.screenStyles);
+    setOverlayStyles(meetingPlaces.theFlat.overlayStyles);
+    // Set the Images to be used according to the type of 'moment' selected
     setOverlayImages(moment.images)
 
     // Show Screen for Testing Purposes
@@ -47,7 +49,7 @@ function Sidebar({ showInterface, setShowInterface }) {
       moment,
       sidebar.aiModel.title,
       setAgents,
-      meetingPlaces.plazaTable,
+      meetingPlaces.theFlat,
       setShowImageScreen
     );
   };

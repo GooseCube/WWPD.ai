@@ -21,6 +21,8 @@ function App() {
       <MessageInterface
         showInterface={showInterface}
         setShowInterface={setShowInterface}
+        showEmailForm={showEmailForm}
+        setShowEmailForm={setShowEmailForm}
       />
       <EmailForm
         showEmailForm={showEmailForm}

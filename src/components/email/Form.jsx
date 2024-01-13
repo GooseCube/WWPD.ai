@@ -6,6 +6,8 @@ const convertISOTimestamp = (timestamp) => {
   return new Date(timestamp).toLocaleString();
 };
 
+
+
 /**
  *
  * @param {useRef} form, reference
@@ -14,15 +16,6 @@ const convertISOTimestamp = (timestamp) => {
  */
 function Form({ form, sendEmail, emailData, setEmailData }) {
   const { moments, messages } = useContext(AuthContext);
-
-    const handleSubmit = (e) => {
-    e.preventDefault();
-    const selectedMoment = Object.values(moments)[e.target.value];
-    setEmailData(selectedMoment, () => {
-      sendEmail(e);
-    });
-  };
-
 
   return (
     <Draggable defaultPosition={{ x: 700, y: 100 }}>
@@ -40,6 +33,10 @@ function Form({ form, sendEmail, emailData, setEmailData }) {
         <select
           className="moments"
           name="moments"
+          onChange={(e) => {
+            const selectedMoment = Object.values(moments)[e.target.value];
+            setEmailData(selectedMoment);
+          }}
           
           >
           {Object.values(moments).map((moment, index) => (

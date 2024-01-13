@@ -1,4 +1,3 @@
-
 .image-screen {
   position: relative;
 }
@@ -13,8 +12,10 @@
 
 .image-screen .overlay {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  left: 440px; /* adjust this value */
+  top: 352px; /* adjust this value */
+  width: 75px; /* adjust this value */
+  height: 57px; /* adjust this value */
+  transform: perspective(200px) rotateY(20deg) rotateZ(-4deg);
+  transform-origin: left;
 }

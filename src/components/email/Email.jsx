@@ -1,14 +1,14 @@
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Form from "./Form";
-import "./styles/styles.css";
+import "./styles/styles.css"
 
-function EmailForm() {
+function EmailForm({ showEmailForm, setShowEmailForm }) {
   // Remember that VITE has a different import of .env variables
   // than create-react-app
-  const API_KEY = import.meta.env.VITE_API_KEY;
-  const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
-  const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+  const API_KEY = import.meta.env.VITE_EMAILJS_API_KEY;
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   // This 'form' object needs to be passed down to the child node
   const form = useRef();
 

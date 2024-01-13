@@ -24,10 +24,11 @@ import "./styles/styles.css";
 import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
+import message from "../../assets/sidebar/message.png"
 import { updateSidebar } from "../../firebase/firebaseDB";
 import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
 
-function Sidebar({ showInterface, setShowInterface }) {
+function Sidebar({ showInterface, setShowInterface, showEmailForm, setShowEmailForm }) {
   const { agents, sidebar, setAgents } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
   const [overlayImages, setOverlayImages] = useState([]);
@@ -115,6 +116,13 @@ function Sidebar({ showInterface, setShowInterface }) {
                 { title: "Mixtral" },
                 { title: "Zephyr" },
               ]}
+            />
+            <ButtonSelection
+              buttonText="Email"
+              image={message}
+              altText="email interface button"
+              useStateParam={showEmailForm}
+              handleStateEvent={setShowEmailForm}
             />
             <AgentProfile agents={agents} />
           </Offcanvas.Body>

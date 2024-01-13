@@ -1,14 +1,18 @@
-form {
+.email-form {
+  /* position: absolute; */
   width: 300px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  background-color: black;
+  color: white;
 }
 
 .name,
 .email {
   height: 25px;
+  background-color: grey;
 }
 
 .name,

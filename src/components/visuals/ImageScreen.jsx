@@ -1,5 +1,5 @@
 import React from "react";
-import projectorScreen from "../../assets/art/projectorScreen.svg";
+import projectorScreen from "../../assets/art/blue_screen.svg";
 import pirateShip from "../../assets/art/pirateShip.png"
 
 import "./styles/styles.css";

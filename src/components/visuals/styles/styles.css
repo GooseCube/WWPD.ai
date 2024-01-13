@@ -6,7 +6,7 @@
   position: absolute;
   left: 420px;
   top: 330px;
-  transform: perspective(200px) rotateY(20deg) rotateZ(-5deg);
+  transform: perspective(200px) rotateY(20deg) rotateZ(-7deg);
   transform-origin: left;
 }
 
@@ -16,6 +16,6 @@
   top: 352px; /* adjust this value */
   width: 75px; /* adjust this value */
   height: 57px; /* adjust this value */
-  transform: perspective(200px) rotateY(20deg) rotateZ(-4deg);
+  transform: perspective(200px) rotateY(20deg) rotateZ(-6deg);
   transform-origin: left;
 }

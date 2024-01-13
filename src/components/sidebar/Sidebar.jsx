@@ -13,7 +13,7 @@ import { AuthContext } from "../../firebase/AuthProvider";
 import * as moments from "../../modules/momentum/moments";
 import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";
-import { meetingPlaces } from "../../modules/mapGridPositions/meetingPlaces";
+// import { meetingPlaces } from "../../modules/mapGridPositions/meetingPlaces";
 
 // CSS Styles for Sidebar
 import "./styles/styles.css";
@@ -25,6 +25,7 @@ import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
 import { updateSidebar } from "../../firebase/firebaseDB";
+import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
 
 function Sidebar({ showInterface, setShowInterface }) {
   const { agents, sidebar, setAgents } = useContext(AuthContext);
@@ -37,9 +38,14 @@ function Sidebar({ showInterface, setShowInterface }) {
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = async (event, moment) => {
     event.preventDefault();
+
+    const meetingPlace = getRandomMeetingPlace();
+    console.log("Meeting Place: ", meetingPlace)
+
+
     // Set the styles for Projector Screen
-    setScreenStyles(meetingPlaces.theFlat.screenStyles);
-    setOverlayStyles(meetingPlaces.theFlat.overlayStyles);
+    setScreenStyles(meetingPlace.screenStyles);
+    setOverlayStyles(meetingPlace.overlayStyles);
     // Set the Images to be used according to the type of 'moment' selected
     setOverlayImages(moment.images)
 
@@ -49,7 +55,7 @@ function Sidebar({ showInterface, setShowInterface }) {
       moment,
       sidebar.aiModel.title,
       setAgents,
-      meetingPlaces.theFlat,
+      meetingPlace,
       setShowImageScreen
     );
   };

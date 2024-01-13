@@ -35,7 +35,6 @@ export const momentumSpeech = async (
   speechLocation,
   setShowImageScreen
 ) => {
-  setShowImageScreen(true)
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
   // const speechLocation = getRandomMeetingPlace();
   let conversations = "";
@@ -122,7 +121,7 @@ export const momentumSpeech = async (
             position.y !== agentAudiencePosition.y
         );
 
-      // await delay(12000);
+      await delay(12000);
       await moveAgent(
         agent,
         agentAudiencePosition.x,
@@ -199,8 +198,7 @@ export const momentumSpeech = async (
   setTimeout(() => {
     setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
-  },2000000);
-  // }, 100000); // wait 4-minutes and send all agents to home positions
+  }, 90000); // wait 1.5-minutes and send all agents to home positions
 
   // groupSpeechInteraction(agents, updateAgent);
 };

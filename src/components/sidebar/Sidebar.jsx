@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
 
@@ -13,14 +13,11 @@ import { AuthContext } from "../../firebase/AuthProvider";
 import * as moments from "../../modules/momentum/moments";
 import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";
-// import { meetingPlaces } from "../../modules/mapGridPositions/meetingPlaces";
 
 // CSS Styles for Sidebar
 import "./styles/styles.css";
 
 // Asset Images (icons)
-// import ai from "../../assets/sidebar/ai.png";
-// import ai_model from "../../assets/sidebar/ai_model.png";
 import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";

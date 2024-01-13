@@ -11,15 +11,14 @@
   border-radius: 16px;
 }
 
-.name,
-.email {
+.email,
+.moments {
   height: 25px;
-  background-color: grey;
+  background-color: rgb(237, 237, 237);
 }
 
-.name,
 .email,
-.textarea {
+.moments {
   display: block;
   width: 100%;
   margin-bottom: 10px;
@@ -27,16 +26,10 @@
   border-radius: 4px;
 }
 
-.name:focus,
 .email:focus,
-.textarea:focus {
+.moments:focus {
   border-color: #007bff;
   outline: none;
-}
-
-.textarea {
-  height: 100px;
-  resize: vertical;
 }
 
 .input-btn {
@@ -44,4 +37,9 @@
   background-color: blue;
   color: white;
   border-radius: 10px;
+}
+
+.input-btn:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }

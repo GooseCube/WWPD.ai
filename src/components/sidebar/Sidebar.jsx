@@ -12,6 +12,7 @@ import AgentProfile from "./sub-components/AgentProfile";
 import { AuthContext } from "../../firebase/AuthProvider";
 import * as moments from "../../modules/momentum/moments";
 import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
+import ImageScreen from "../visuals/ImageScreen";
 
 // CSS Styles for Sidebar
 import "./styles/styles.css";
@@ -41,6 +42,8 @@ function Sidebar({ showInterface, setShowInterface }) {
   };
 
   return (
+    <>
+  <ImageScreen />
     <div className="sidebar-outer-container w-25">
       <Button
         className="arrow-button"
@@ -86,6 +89,7 @@ function Sidebar({ showInterface, setShowInterface }) {
         </Offcanvas.Body>
       </Offcanvas>
     </div>
+    </>
   );
 }
 

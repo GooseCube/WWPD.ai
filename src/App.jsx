@@ -3,7 +3,6 @@ import Sidebar from "./components/sidebar/Sidebar";
 import Agents from "./components/agents/Agents";
 import MessageInterface from "./components/messages/MessageInterface";
 import { useState } from "react";
-import ImageScreen from "./components/visuals/ImageScreen";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -20,7 +19,6 @@ function App() {
         setShowInterface={setShowInterface}
       />
       <Agents />
-      <ImageScreen />
     </div>
   ) : (
     <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />

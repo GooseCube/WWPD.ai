@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
 
@@ -14,8 +14,6 @@ import * as moments from "../../modules/momentum/moments";
 import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";
 import { meetingPlaces } from "../../modules/mapGridPositions/meetingPlaces";
-import blueScreen from "../../assets/art/blue_screen.svg"
-import pirateShip from "../../assets/art/pirateShip.png"
 
 // CSS Styles for Sidebar
 import "./styles/styles.css";
@@ -31,25 +29,39 @@ import { updateSidebar } from "../../firebase/firebaseDB";
 function Sidebar({ showInterface, setShowInterface }) {
   const { agents, sidebar, setAgents } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
-  const [overlayImages, setOverlayImages] = useState([pirateShip])
-  const [screenStyles, setScreenStyles] = useState({})
-  const [overlayStyles, setOverlayStyles] = useState({})
-  const [showImageScreen, setShowImageScreen] = useState(false)
+  const [overlayImages, setOverlayImages] = useState([]);
+  const [screenStyles, setScreenStyles] = useState({});
+  const [overlayStyles, setOverlayStyles] = useState({});
+  const [showImageScreen, setShowImageScreen] = useState(false);
+
+  const imageModules = import.meta.glob(
+    "../../assets/pirates/*.{png,jpg,jpeg,svg}"
+  );
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const images = await Promise.all(
+        Object.values(imageModules).map((resolve) => resolve())
+      );
+      setOverlayImages(images.map((img) => img.default));
+    };
+
+    loadImages();
+  }, []);
 
   // Begin agent conversation given the selected moment name
   const handleMomentConversation = (event, moment) => {
     event.preventDefault();
-    setScreenStyles(meetingPlaces.plazaTable.screenStyles)
-    setOverlayStyles(meetingPlaces.plazaTable.overlayStyles)
+    setScreenStyles(meetingPlaces.plazaTable.screenStyles);
+    setOverlayStyles(meetingPlaces.plazaTable.overlayStyles);
     // Show Screen for Testing Purposes
-    setShowImageScreen(true)
     momentumSpeech(
       agents,
       moment,
       sidebar.aiModel.title,
       setAgents,
       meetingPlaces.plazaTable,
-     setShowImageScreen 
+      setShowImageScreen
     );
   };
 
@@ -61,11 +73,13 @@ function Sidebar({ showInterface, setShowInterface }) {
 
   return (
     <>
-      <ImageScreen
-        overlayImages={overlayImages}
-        screenStyles={screenStyles}
-        overlayStyles={overlayStyles}
-      />
+      {showImageScreen && (
+        <ImageScreen
+          overlayImages={overlayImages}
+          screenStyles={screenStyles}
+          overlayStyles={overlayStyles}
+        />
+      )}
       <div className="sidebar-outer-container w-25">
         <Button
           className="arrow-button"

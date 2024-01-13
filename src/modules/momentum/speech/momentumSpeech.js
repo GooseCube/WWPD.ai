@@ -35,6 +35,7 @@ export const momentumSpeech = async (
   speechLocation,
   setShowImageScreen
 ) => {
+  setShowImageScreen(true)
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
   // const speechLocation = getRandomMeetingPlace();
   let conversations = "";
@@ -182,7 +183,7 @@ export const momentumSpeech = async (
     setAgents
   );
 
-  // setShowImageScreen(true);
+  setShowImageScreen(true);
 
   updatedPrimaryAgent = createUpdatedAgent(
     primaryAgent,
@@ -196,7 +197,7 @@ export const momentumSpeech = async (
   pushNewMoment(moment.initialPrompt, conversations);
 
   setTimeout(() => {
-    // setShowImageScreen(false);
+    setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
   }, 100000); // wait 4-minutes and send all agents to home positions
 

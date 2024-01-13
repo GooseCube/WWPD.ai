@@ -27,7 +27,7 @@ export const meetingPlaces = {
   plazaTable: {
     primaryAgent: { x: 29, y: 18, direction: "down" },
     audiencePositions: [
-      { x: 22, y: 19, direction: "right" },
+      { x: 19, y: 21, direction: "right" },
       { x: 23, y: 26, direction: "up" },
       { x: 27, y: 29, direction: "up" },
       { x: 30, y: 30, direction: "up" },

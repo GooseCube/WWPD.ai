@@ -8,10 +8,8 @@ function ImageScreen({ overlayImages, screenStyles, overlayStyles, show }) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (show) {
-        setIndex((prevIndex) => (prevIndex + 1) % overlayImages.length);
-        setCurrentImage(overlayImages[index]);
-      }
+      setIndex((prevIndex) => (prevIndex + 1) % overlayImages.length);
+      setCurrentImage(overlayImages[index]);
     }, 3000);
 
     return () => clearInterval(timer);

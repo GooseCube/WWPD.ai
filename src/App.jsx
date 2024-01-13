@@ -15,6 +15,8 @@ function App() {
       <Sidebar
         showInterface={showInterface}
         setShowInterface={setShowInterface}
+        showEmailForm={showEmailForm}
+        setShowEmailForm={setShowEmailForm}
       />
       <MessageInterface
         showInterface={showInterface}

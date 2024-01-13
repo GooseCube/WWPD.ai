@@ -1,12 +1,14 @@
 .email-form {
-  /* position: absolute; */
-  width: 300px;
+  z-index: 1;
+  position: absolute;
+  width: 400px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: black;
   color: white;
+  border-radius: 16px;
 }
 
 .name,
@@ -35,4 +37,11 @@
 .textarea {
   height: 100px;
   resize: vertical;
+}
+
+.input-btn {
+  width: 5em;
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
 }

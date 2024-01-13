@@ -31,7 +31,7 @@ function EmailForm({ showEmailForm, setShowEmailForm }) {
     }
   };
 
-  return <Form form={form} sendEmail={sendEmail} />;
+  return showEmailForm && <Form form={form} sendEmail={sendEmail} />;
 }
 
 export default EmailForm;

@@ -9,6 +9,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showInterface, setShowInterface] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
+  const [showAgentCards, setShowAgentCards] = useState(false);
 
   return loggedIn ? (
     <div className="app-container">

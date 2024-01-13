@@ -9,7 +9,7 @@ import { QuestionCircle } from "react-bootstrap-icons";
 function SidebarHeader() {
   return (
     <Offcanvas.Title className="w-100 d-flex justify-content-between align-items-center fs-4">
-      <Image className="app-icon-img" src={app_icon} />G . A . M . E .
+      <Image className="app-icon-img" src={app_icon} /><h2>G . A . M . E .</h2>
       <OverlayTrigger
         placement="right"
         overlay={

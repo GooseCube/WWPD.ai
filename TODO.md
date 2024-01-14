@@ -29,20 +29,9 @@ When releasing the arrow key the sprite character continues to move in the given
 
 Choose the global color schemes and add them to the [Primary Index CSS Styles File](./src/index.css) in the `:root{}` class. Each color should be prepended with a `g_` to prevent style collisions where components have implemented a top level global color scheme of their own.
 
-## Add and Remove Sprite Characters
-
-Add a function to select and add or remove a sprite character from the game. This function event should be triggered from the sidebar. Each sprite character should use the second column and first row for the profile picture (facing down) and their full name should be displayed either above or below the character.
-
 ## Create or Modify Sprite Character Persona
 
 User should have the ability to create their own sprite character persona: {name, personality}. This will require a new input interface or modification of the current MessageInterface allowing the input to push() a new Firebase instance of a sprite character persona.
-
-## Add a (?) Help/Info Icon
-
-Add a help icon in the sidebar to give basic information about the functionality of the game:
-
-- When a sprite is selected, the 'moment' will use this sprites peronality to create the selected 'moment'. The message interface prompt (chat) will also use the selected agents personality for prompt responses.
-- What does each sidebar button represent/do?
 
 ## Create Personas for Remaining Sprite Characters
 
@@ -67,13 +56,3 @@ Add the text to speech AI Model by ElevenLabs and connect the MessageInterface S
 When the speech icon is clicked (onClick() event), the current message(s) should be sent to ElevenLabs for text-2-speech. Each persona name should have a different voice.
 
 [ElevenLabs Generative Voice AI](https://elevenlabs.io/)
-
-## Email Message
-
-User should have the ability to email a current message using an Email Icon in the MessageInterface Toolbar. OnClick() the current message should be sent to the email address used to login to the application (the email in the Firebase DB)
-
-Create an account with EmailJS using goosecube1@gmail.com. Create an API Key and change the private apiKey, serviceId, and templateId in the `.env` file.
-
-## Sprite Character Card
-
-On hover the sprites character persona card should be displayed.

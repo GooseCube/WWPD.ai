@@ -40,7 +40,7 @@ function MessageInterface({
               setShowEmailForm={setShowEmailForm}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
-              aiModel={sidebar.aiModel.title}
+              aiModel={sidebar.aiModel}
             />
             {messages && showMessages && (
               <div className="message-container">

@@ -122,10 +122,10 @@ function Sidebar({
               image={app_icon}
               dropdownEvent={handleChangeAiModel}
               listItems={[
-                { title: "Mistral" },
-                { title: "Mixtral" },
-                { title: "Zephyr" },
-                { title: "StabilityXL" },
+                { title: "Mistral", type: "chat"},
+                { title: "Mixtral", type: "chat" },
+                { title: "Zephyr", type: "chat" },
+                { title: "StabilityXL", type: "txt2img" },
               ]}
             />
             <ButtonSelection

@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
-import { Controller, Check } from "react-bootstrap-icons";
+import { Controller, CheckCircle } from "react-bootstrap-icons";
+import { updateAgent } from "../../../firebase/firebaseDB";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+
+const isRendered = (agent) => {
+  return agent.render
+    ? "player-render-icon ms-auto"
+    : "player-hide-icon ms-auto";
+};
 
 function Cards({ agents, cardIndex, maxViews }) {
   const [agentImages, setAgentImages] = useState({});
@@ -30,8 +38,26 @@ function Cards({ agents, cardIndex, maxViews }) {
       <div className="agent-persona-card border rounded p-2" key={index}>
         <div className="header d-flex">
           <h2>{agent.name}</h2>
-          {agent.playerControlled && <Controller className="player-controlled-icon ms-auto" />}
-          {agent.render && <Check className="player-rendered-icon ms-auto" />}
+          {agent.playerControlled && (
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip id={"tooltip-top"}>Player Controlled</Tooltip>}>
+              <Controller className="player-controlled-icon ms-auto" />
+            </OverlayTrigger>
+          )}
+
+            <OverlayTrigger
+            placement="top" 
+            overlay={<Tooltip id={"tooltip-top"}>Show/Hide Agent</Tooltip>}
+            >
+
+          <CheckCircle
+            className={isRendered(agent)}
+            onClick={() => updateAgent({ ...agent, render: !agent.render })}
+          />
+
+            </OverlayTrigger>
+
         </div>
         <div
           className="agent-sprite-image"

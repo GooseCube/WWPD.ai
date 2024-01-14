@@ -92,8 +92,17 @@
 /* Card Header Icons */
 
 .player-controlled-icon,
-.player-rendered-icon {
+.player-render-icon,
+.player-hide-icon {
   width: 1.5em;
   height: 1.5em;
+}
+
+.player-controlled-icon,
+.player-render-icon {
   color: #849c3a;
+}
+
+.player-hide-icon {
+  color: red;
 }

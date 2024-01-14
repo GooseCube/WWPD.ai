@@ -56,3 +56,7 @@ Add the text to speech AI Model by ElevenLabs and connect the MessageInterface S
 When the speech icon is clicked (onClick() event), the current message(s) should be sent to ElevenLabs for text-2-speech. Each persona name should have a different voice.
 
 [ElevenLabs Generative Voice AI](https://elevenlabs.io/)
+
+## Save Images Firebase
+
+Add an additional firebase property for images created in the message interface using stable diffusion models. In addition to the current save to the 'messages' there should be a seperate images property where the created images could be pulled from on load. This would allow them to be overlayed on the game environment, say in the 'studio', and set them to display each image over 3s intervals for each.

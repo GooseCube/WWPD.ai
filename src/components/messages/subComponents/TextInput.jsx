@@ -28,27 +28,6 @@ function TextInput({
 }) {
   const [userPrompt, setUserPrompt] = useState("");
 
-  // const handleInput = async (event) => {
-  //   if (event.key === "Enter") {
-  //     event.preventDefault();
-  //     setIsLoading(true);
-  //     const agent = agents.find((a) => a.playerControlled === true);
-  //     const response = await fetchModelResponse(
-  //       sidebar.aiModel.title,
-  //       buildPrompt(agent, userPrompt)
-  //     );
-  //     if (response) {
-  //       // Save to Firebase messages
-  //       await pushNewMessage(userPrompt, response, agent);
-  //       // Clear the input & reset isLoading
-  //       setUserPrompt("");
-  //       setIsLoading(false);
-  //     } else {
-  //       setIsLoading(false);
-  //     }
-  //   }
-  // };
-
   const handleInput = async (event) => {
     if (event.key === "Enter") {
       event.preventDefault();

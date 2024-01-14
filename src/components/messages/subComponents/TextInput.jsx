@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import { pushNewMessage } from "../../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 
@@ -27,6 +28,27 @@ function TextInput({
 }) {
   const [userPrompt, setUserPrompt] = useState("");
 
+  // const handleInput = async (event) => {
+  //   if (event.key === "Enter") {
+  //     event.preventDefault();
+  //     setIsLoading(true);
+  //     const agent = agents.find((a) => a.playerControlled === true);
+  //     const response = await fetchModelResponse(
+  //       sidebar.aiModel.title,
+  //       buildPrompt(agent, userPrompt)
+  //     );
+  //     if (response) {
+  //       // Save to Firebase messages
+  //       await pushNewMessage(userPrompt, response, agent);
+  //       // Clear the input & reset isLoading
+  //       setUserPrompt("");
+  //       setIsLoading(false);
+  //     } else {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  // };
+
   const handleInput = async (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -37,8 +59,35 @@ function TextInput({
         buildPrompt(agent, userPrompt)
       );
       if (response) {
+        // Check if the response is a URL
+        const isUrl = (str) => {
+          try {
+            new URL(str);
+            return true;
+          } catch (_) {
+            return false;
+          }
+        };
+
+        let finalResponse = response;
+
+        if (isUrl(response)) {
+          // If the response is a URL, fetch the image and convert it to a Base64 string
+          const response = await axios.get(response, {
+            responseType: "blob",
+          });
+          const reader = new FileReader();
+          reader.readAsDataURL(response.data);
+          await new Promise((resolve) => {
+            reader.onloadend = () => {
+              finalResponse = reader.result;
+              resolve();
+            };
+          });
+        }
+
         // Save to Firebase messages
-        await pushNewMessage(userPrompt, response, agent);
+        await pushNewMessage(userPrompt, finalResponse, agent);
         // Clear the input & reset isLoading
         setUserPrompt("");
         setIsLoading(false);

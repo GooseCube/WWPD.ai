@@ -19,6 +19,8 @@ function App() {
         setShowInterface={setShowInterface}
         showEmailForm={showEmailForm}
         setShowEmailForm={setShowEmailForm}
+        showAgentCards={showAgentCards}
+        setShowAgentCards={setShowAgentCards}
       />
       <MessageInterface
         showInterface={showInterface}
@@ -31,7 +33,12 @@ function App() {
         setShowEmailForm={setShowEmailForm}
       />
       <Agents />
-      <AgentCards />
+      {showAgentCards && (
+        <AgentCards
+          showAgentCards={showAgentCards}
+          setShowAgentCards={setShowAgentCards}
+        />
+      )}
     </div>
   ) : (
     <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />

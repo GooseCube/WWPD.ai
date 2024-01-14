@@ -27,25 +27,25 @@ function AgentCards() {
 
   return (
     <div className="agent-card-container">
-      <div className="arrow-card">
-        <ChevronDoubleLeft
-          className="chevron-left"
-          onClick={() => goLeft(cardIndex, setCardIndex)}
-        />
-      </div>
+      {cardIndex > 0 && (
+        <div
+          className="arrow-card"
+          onClick={() => goLeft(cardIndex, setCardIndex)}>
+          <ChevronDoubleLeft className="chevron-left" />
+        </div>
+      )}
       {agents && (
         <div className="cards-container">
           <Cards agents={agents} cardIndex={cardIndex} maxViews={maxViews} />
         </div>
       )}
 
-      <div className="arrow-card">
-        <ChevronDoubleRight
-          className="chevron-right"
-          onClick={() =>
-            goRight(Object.keys(agents).length, cardIndex, setCardIndex)
-          }
-        />
+      <div
+        className="arrow-card"
+        onClick={() =>
+          goRight(Object.keys(agents).length, cardIndex, setCardIndex)
+        }>
+        <ChevronDoubleRight className="chevron-right" />
       </div>
     </div>
   );

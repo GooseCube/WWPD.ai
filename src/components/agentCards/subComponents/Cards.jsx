@@ -45,8 +45,8 @@ function Cards({ agents, cardIndex, maxViews }) {
   });
 
   return temp.map((card, index) => {
-    ++count;
     if (index >= cardIndex && count <= maxViews) {
+      ++count;
       return card;
     }
     return null;

@@ -107,7 +107,7 @@ export const personas = {
     homePosition: { x: 52, y: 32, direction: "left" },
     playerControlled: false,
     momentResponse: null,
-    convrse: false,
+    render: true,
   },
   mei: {
     name: "Mei",

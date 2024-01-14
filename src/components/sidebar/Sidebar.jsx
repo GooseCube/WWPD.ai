@@ -21,11 +21,18 @@ import "./styles/styles.css";
 import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
-import message from "../../assets/sidebar/message.png"
+import message from "../../assets/sidebar/message.png";
 import { updateSidebar } from "../../firebase/firebaseDB";
 import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
 
-function Sidebar({ showInterface, setShowInterface, showEmailForm, setShowEmailForm }) {
+function Sidebar({
+  showInterface,
+  setShowInterface,
+  showEmailForm,
+  setShowEmailForm,
+  showAgentCards,
+  setShowAgentCards,
+}) {
   const { agents, sidebar, setAgents } = useContext(AuthContext);
   const [show, setShow] = React.useState(false);
   const [overlayImages, setOverlayImages] = useState([]);
@@ -38,14 +45,13 @@ function Sidebar({ showInterface, setShowInterface, showEmailForm, setShowEmailF
     event.preventDefault();
 
     const meetingPlace = getRandomMeetingPlace();
-    console.log("Meeting Place: ", meetingPlace)
-
+    console.log("Meeting Place: ", meetingPlace);
 
     // Set the styles for Projector Screen
     setScreenStyles(meetingPlace.screenStyles);
     setOverlayStyles(meetingPlace.overlayStyles);
     // Set the Images to be used according to the type of 'moment' selected
-    setOverlayImages(moment.images)
+    setOverlayImages(moment.images);
 
     // Show Screen for Testing Purposes
     momentumSpeech(
@@ -121,7 +127,11 @@ function Sidebar({ showInterface, setShowInterface, showEmailForm, setShowEmailF
               useStateParam={showEmailForm}
               handleStateEvent={setShowEmailForm}
             />
-            <AgentProfile agents={agents} />
+            <AgentProfile
+              agents={agents}
+              showAgentCards={showAgentCards}
+              setShowAgentCards={setShowAgentCards}
+            />
           </Offcanvas.Body>
         </Offcanvas>
       </div>

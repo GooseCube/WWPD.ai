@@ -1,0 +1,126 @@
+.agent-card-container {
+  position: relative;
+  z-index: 1;
+  justify-content: space-between; /* remove if not working for chevrons */
+  width: 100%;
+  top: 20em;
+  /* background-color: grey; */
+  background-color: #849c3a;
+  display: flex; /* Add this line to make the children align in a row */
+  justify-content: center; /* Add this line to center the children horizontally */
+  align-items: center; /* Add this line to center the children vertically */
+  height: 40vh; /* Adjust this value to control the height of the container */
+  overflow-x: hidden; /* Add this line to hide the overflow and enable scrolling */
+  overflow-y: hidden; /* Add this line to prevent vertical scrolling */
+  white-space: nowrap; /* Add this line to prevent wrapping */
+  scrollbar-width: none;
+}
+
+.agent-card-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual Cards */
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  scrollbar-width: none;
+}
+
+.agent-persona-card {
+  margin: 0 1em;
+  max-width: 15em;
+  min-width: 15em;
+  min-height: 35vh;
+  background-color: white;
+  color: black;
+  white-space: normal;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  animation: slideInFromLeft 1s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.agent-persona-card:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.agent-sprite-image {
+  transform: scale(1.4);
+  margin-bottom: 1em;
+  background-position: -32px 0;
+  background-repeat: no-repeat;
+}
+
+/* Navigation Chevron Arrows */
+
+.arrow-card {
+  position: relative;
+  width: 2.5vw;
+  height: 100%;
+  background-color: transparent;
+  /* background-color: white; */
+  border: none;
+}
+
+.chevron-left,
+.chevron-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 2.5em;
+  height: 2.5em;
+  transition: all 0.3s ease;
+}
+
+.arrow-card:hover .chevron-left,
+.arrow-card:hover .chevron-right {
+  color: white;
+}
+
+/* Open Close Icon */
+
+.open-close-container {
+  height: 100%;
+}
+
+.open-close-icon {
+  margin-top: 1em;
+  width: 1.5em;
+  height: 1.5em;
+  color: white;
+}
+
+.open-close-icon:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+/* Card Header Icons */
+
+.player-controlled-icon,
+.player-render-icon,
+.player-hide-icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.player-controlled-icon,
+.player-render-icon {
+  color: #849c3a;
+}
+
+.player-hide-icon {
+  color: red;
+}

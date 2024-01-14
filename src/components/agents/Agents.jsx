@@ -10,7 +10,7 @@ import { updateAgent } from "../../firebase/firebaseDB";
 import Agent from "./sub-components/Agent";
 
 // Styles
-import "./styles/styles.css"
+import "./styles/styles.css";
 
 function Agents() {
   const { agents, setAgents } = useContext(AuthContext);
@@ -40,15 +40,18 @@ function Agents() {
   return (
     agents && (
       <div>
-        {agents.map((agent) => (
-          <Agent
-            key={agent.uid}
-            agent={agent}
-            changePlayerControlled={changePlayerControlled}
-            prevPlayerControlled={prevPlayerControlled}
-            setAgents={setAgents}
-          />
-        ))}
+        {agents.map(
+          (agent) =>
+            agent.render && (
+              <Agent
+                key={agent.uid}
+                agent={agent}
+                changePlayerControlled={changePlayerControlled}
+                prevPlayerControlled={prevPlayerControlled}
+                setAgents={setAgents}
+              />
+            )
+        )}
       </div>
     )
   );

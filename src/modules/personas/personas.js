@@ -15,7 +15,7 @@ export const personas = {
     homePosition: { x: 30, y: 26, direction: "down" },
     playerControlled: true,
     momentResponse: null,
-    converse: false,
+    render: true,
   },
   arthur: {
     name: "Arthur",
@@ -33,7 +33,7 @@ export const personas = {
     homePosition: { x: 12, y: 16, direction: "right" },
     playerControlled: false,
     momentResponse: null,
-    converse: false,
+    render: true,
   },
   carlos: {
     name: "Carlos",
@@ -52,7 +52,7 @@ export const personas = {
     homePosition: { x: 30, y: 6, direction: "down" },
     playerControlled: false,
     momentResponse: null,
-    converse: false,
+    render: false,
   },
   carmen: {
     name: "Carmen",
@@ -70,7 +70,7 @@ export const personas = {
     homePosition: { x: 14, y: 16, direction: "left" },
     playerControlled: false,
     momentResponse: null,
-    converse: false,
+    render: true,
   },
   francisco: {
     name: "Francisco",
@@ -88,7 +88,7 @@ export const personas = {
     homePosition: { x: 87, y: 21, direction: "down" },
     playerControlled: false,
     momentResponse: null,
-    converse: false,
+    render: true,
   },
   isabella: {
     name: "Isabella",
@@ -107,7 +107,7 @@ export const personas = {
     homePosition: { x: 52, y: 32, direction: "left" },
     playerControlled: false,
     momentResponse: null,
-    convrse: false,
+    render: true,
   },
   mei: {
     name: "Mei",
@@ -126,7 +126,7 @@ export const personas = {
     homePosition: { x: 57, y: 17, direction: "left" },
     playerControlled: false,
     momentResponse: null,
-    converse: false,
+    render: true,
   },
   yuriko: {
     name: "Yuriko",
@@ -144,6 +144,6 @@ export const personas = {
     homePosition: { x: 26, y: 34, direction: "down" },
     playerControlled: false,
     momentResponse: null,
-    converse: false,
+    render: true,
   },
 };

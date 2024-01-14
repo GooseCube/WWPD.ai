@@ -15,6 +15,7 @@ import {
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null);
   const [agents, setAgents] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -22,13 +23,17 @@ const AuthProvider = ({ children }) => {
   const [sidebar, setSidebar] = useState([])
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       if (user) {
-        initializeAgents(setAgents);
-        getUserMessages(setMessages);
-        getUserMoments(setMoments);
-        getSidebarProperties(setSidebar)
+        await initializeAgents(setAgents);
+        await getUserMessages(setMessages);
+        await getUserMoments(setMoments);
+        await getSidebarProperties(setSidebar)
+        setLoading(false)
+      }
+      else {
+        setLoading(false)
       }
     });
 

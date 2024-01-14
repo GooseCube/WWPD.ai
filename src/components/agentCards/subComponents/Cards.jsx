@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Controller, Check } from "react-bootstrap-icons";
 
 function Cards({ agents, cardIndex, maxViews }) {
   const [agentImages, setAgentImages] = useState({});
@@ -20,7 +21,6 @@ function Cards({ agents, cardIndex, maxViews }) {
     loadImages();
   }, [agents]);
 
-
   // Push all agents to temp[] array
   Object.values(agents).map((agent, index) => {
     const agentName = agent.sprite.replace(".png", "");
@@ -28,7 +28,11 @@ function Cards({ agents, cardIndex, maxViews }) {
 
     temp.push(
       <div className="agent-persona-card border rounded p-2" key={index}>
-        <h2>{agent.name}</h2>
+        <h2>
+          {agent.name}
+          <Controller className="player-controlled-icon" />
+          <Check className="player-rendered-icon" />
+        </h2>
         <div
           className="agent-sprite-image"
           style={{

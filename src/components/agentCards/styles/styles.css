@@ -4,7 +4,8 @@
   justify-content: space-between; /* remove if not working for chevrons */
   width: 100%;
   top: 20em;
-  background-color: grey;
+  /* background-color: grey; */
+  background-color: #849c3a;
   display: flex; /* Add this line to make the children align in a row */
   justify-content: center; /* Add this line to center the children horizontally */
   align-items: center; /* Add this line to center the children vertically */

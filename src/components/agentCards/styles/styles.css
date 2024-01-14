@@ -62,7 +62,7 @@
   background-repeat: no-repeat;
 }
 
-/* Chevron Arrows */
+/* Navigation Chevron Arrows */
 
 .arrow-card {
   position: relative;
@@ -87,6 +87,24 @@
 .arrow-card:hover .chevron-left,
 .arrow-card:hover .chevron-right {
   color: white;
+}
+
+/* Open Close Icon */
+
+.open-close-container {
+  height: 100%;
+}
+
+.open-close-icon {
+  margin-top: 1em;
+  width: 1.5em;
+  height: 1.5em;
+  color: white;
+}
+
+.open-close-icon:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
 
 /* Card Header Icons */

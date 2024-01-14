@@ -1,6 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../../firebase/AuthProvider";
-import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  XCircle,
+  ChevronDoubleRight,
+  ChevronDoubleLeft,
+} from "react-bootstrap-icons";
 import Cards from "./subComponents/Cards";
 import "./styles/styles.css";
 
@@ -39,6 +44,18 @@ function AgentCards({ showAgentCards, setShowAgentCards }) {
           <Cards agents={agents} cardIndex={cardIndex} maxViews={maxViews} />
         </div>
       )}
+
+      <OverlayTrigger
+      placement="top" 
+      overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}
+      >
+        <div className="open-close-container">
+          <XCircle
+            className="open-close-icon"
+            onClick={() => setShowAgentCards(false)}
+          />
+        </div>
+      </OverlayTrigger>
 
       <div
         className="arrow-card"

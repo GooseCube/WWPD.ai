@@ -46,18 +46,14 @@ function Cards({ agents, cardIndex, maxViews }) {
             </OverlayTrigger>
           )}
 
-            <OverlayTrigger
-            placement="top" 
-            overlay={<Tooltip id={"tooltip-top"}>Show/Hide Agent</Tooltip>}
-            >
-
-          <CheckCircle
-            className={isRendered(agent)}
-            onClick={() => updateAgent({ ...agent, render: !agent.render })}
-          />
-
-            </OverlayTrigger>
-
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip id={"tooltip-top"}>Show/Hide Agent</Tooltip>}>
+            <CheckCircle
+              className={isRendered(agent)}
+              onClick={() => updateAgent({ ...agent, render: !agent.render })}
+            />
+          </OverlayTrigger>
         </div>
         <div
           className="agent-sprite-image"

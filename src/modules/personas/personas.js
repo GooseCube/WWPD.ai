@@ -52,7 +52,7 @@ export const personas = {
     homePosition: { x: 30, y: 6, direction: "down" },
     playerControlled: false,
     momentResponse: null,
-    render: true,
+    render: false,
   },
   carmen: {
     name: "Carmen",

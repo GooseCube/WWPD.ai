@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import {Controller} from "react-bootstrap-icons"
+import { Controller } from "react-bootstrap-icons";
 
 /**
  * Display the current player controlled agents profile:

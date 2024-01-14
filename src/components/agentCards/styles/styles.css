@@ -1,6 +1,7 @@
 .agent-card-container {
   position: relative;
   z-index: 1;
+  justify-content: space-between;/* remove if not working for chevrons */
   width: 100%;
   top: 20em;
   background-color: grey;
@@ -13,13 +14,18 @@
   white-space: nowrap; /* Add this line to prevent wrapping */
 }
 
+.cards-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 /* Individual Cards */
 .agent-persona-card {
   margin: 0 1em;
   max-width: 15em;
   min-width: 15em;
   min-height: 35vh;
-  margin-top: 2em;
   background-color: white;
   color: black;
   white-space: normal;
@@ -42,18 +48,25 @@
 
 .arrow-card {
   position: relative;
-  width: 3vw;
-  height: 35vh;
+  width: 2.5vw;
+  height: 100%;
   background-color: transparent;
+  /* background-color: white; */
   border: none;
 }
 
 .chevron-left,
 .chevron-right {
   position: absolute;
-  top: 70%;
+  top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   width: 2.5em;
   height: 2.5em;
+  transition: all 0.3s ease;
+}
+
+.chevron-left:hover,
+.chevron-right:hover {
+  color: white;
 }

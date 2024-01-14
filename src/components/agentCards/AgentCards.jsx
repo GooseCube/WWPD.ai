@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../firebase/AuthProvider";
 import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
+import Cards from "./subComponents/Cards";
 import "./styles/styles.css";
 
 const goLeft = function decrementCardIndex(cardIndex, setCardIndex) {
@@ -27,34 +28,24 @@ function AgentCards() {
   return (
     <div className="agent-card-container">
       <div className="arrow-card">
-        <ChevronDoubleLeft className="chevron-left" />
+        <ChevronDoubleLeft
+          className="chevron-left"
+          onClick={() => goLeft(cardIndex, setCardIndex)}
+        />
       </div>
-      {agents &&
-        Object.values(agents).map((agent, index) => {
-          if (index < 6) {
-            return (
-              <div
-                className="agent-persona-card border rounded p-2"
-                key={agent.name}>
-                <h2>{agent.name}</h2>
-                <div
-                  className="agent-sprite-image"
-                  style={{
-                    backgroundImage: `url(../../assets/characters/${agent.sprite})`,
-                    width: "32px",
-                    height: "32px",
-                  }}
-                />
-                <p>Age: {agent.age}</p>
-                <p>Career: {agent.career}</p>
-                <p>Personality: {agent.personality}</p>
-              </div>
-            );
-          }
-        })}
+      {agents && (
+        <div className="cards-container">
+          <Cards agents={agents} cardIndex={cardIndex} maxViews={maxViews} />
+        </div>
+      )}
 
       <div className="arrow-card">
-        <ChevronDoubleRight className="chevron-right" />
+        <ChevronDoubleRight
+          className="chevron-right"
+          onClick={() =>
+            goRight(Object.keys(agents).length, cardIndex, setCardIndex)
+          }
+        />
       </div>
     </div>
   );

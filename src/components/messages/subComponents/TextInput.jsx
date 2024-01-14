@@ -73,11 +73,11 @@ function TextInput({
 
         if (isUrl(response)) {
           // If the response is a URL, fetch the image and convert it to a Base64 string
-          const response = await axios.get(response, {
+          const imageResponse = await axios.get(response, {
             responseType: "blob",
           });
           const reader = new FileReader();
-          reader.readAsDataURL(response.data);
+          reader.readAsDataURL(imageResponse.data);
           await new Promise((resolve) => {
             reader.onloadend = () => {
               finalResponse = reader.result;

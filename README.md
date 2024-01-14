@@ -14,17 +14,17 @@ Create a limited version of the Generative Agent interactive experience using fr
 
 ## Differentiation
 
-OG GenAgents - Difficult to set up and enjoy the experience
-Ours - Yes, we require you understand how to watch a youtube video and set up the Firebase DB. We also require that you have your own Huggingface API Token. Other than that, installation is done from the command line using (wait for it): $ yarn
+- OG GenAgents - Difficult to set up and enjoy the experience
+- Ours - Yes, we require you understand how to watch a youtube video and set up the Firebase DB. We also require that you have your own Huggingface API Token. Other than that, installation is done from the command line using (wait for it): $ yarn
 
-OG GenAgents - Requires a paid subscription to use with ChatGPT, and this is also limiting
-Ours - Intended to be used with a free AI Model from Huggingface allowing any model you want to add that we do not have listed. Endless options and outcomes
+- OG GenAgents - Requires a paid subscription to use with ChatGPT, and this is also limiting
+- Ours - Intended to be used with a free AI Model from Huggingface allowing any model you want to add that we do not have listed. Endless options and outcomes
 
-OG GenAgents - You most likely only experience a play back of some long days experience and only realize later if modifications have worked (or, not).
-Ours - Prompts and interactive experiences are live.
+- OG GenAgents - You most likely only experience a play back of some long days experience and only realize later if modifications have worked (or, not).
+- Ours - Prompts and interactive experiences are live.
 
-OG GenAgents - Original code is custom fit for a specific purpose and not readily accessible for modification or addition
-Ours - Intended to allow React freaks to freak out and build some seriously cool sh.t
+- OG GenAgents - Original code is custom fit for a specific purpose and not readily accessible for modification or addition
+- Ours - Intended to allow React freaks to freak out and build some seriously cool sh.t
 
 Don't 'git' me wrong. We love the original idea and Joon has laid the foundation for the various implementations I have already seen in the great wild of GitHub. We just want to have fun and let you enjoy some of the experiences that he outlined in a live mode where you get to participate in a meaningful way. This project attempts to further his directive to build those 'believable proxies of human behavior' while having fun.
 
@@ -36,14 +36,30 @@ Several `moments` will be created for the user to choose from which should inspi
 
 Further, a message interface allows you to develop your skills in a one-on-one with a chosen agent and its persona. Write a few lines and see how it will resond, or try an entire `moment` and see if you can achieve a specific goal.
 
+## Agent Selection
+
+In the sidebar you have one agent profile card. This card changes as you select an agent in the game environment and becomes player controlled. If you click on the profile card you will open the agent selection profiles for all agents. Here, you can also select agents to be rendered in the game or taken out of the game environment. This will change the moment you create as only those rendered agents will take part in the moment.
+
+<div style="width: 55em; display: block; margin: 0 auto;">
+  <img src="./src/assets/readme/agent_selection.png" style="width: 100%; height: auto;" />
+</div>
+
 ## User Interaction | Message Interface
 
 The `interface` allows you to test out various methods of prompting. When selecting an agent in the game, you take control of that character. When you open the `interface`, any input (prompt) that you create will have a response based on the persona of the character you have selected. In the sidebar you will see the profile of the agent, including their name, age, career, and personality.
 
 The `lightbulb` icon will switch the view to `moments`, allowing an easy method of viewing the entire conversation created for each `moment` that you have selected.
 
-<div style="padding-top: 1em; width: 10em; margin: 0 auto">
-  <img src="./src/assets/readme/interface.png" style="width: 50%; height: auto;" />
+<div style="width: 55em; display: block; margin: 0 auto;">
+  <img src="./src/assets/readme/interface.png" style="width: 100%; height: auto;" />
+</div>
+
+## Emailer | Capture the Moment
+
+From the sidebar or the message interface you can open the Emailer. Enter an email you want to send the moment to then select a created moment from the dropdown list and submit. The free version from [EmailJS](https://www.emailjs.com) allows 200 free emails a month.
+
+<div style="width: 55em; display: block; margin: 0 auto;">
+  <img src="./src/assets/readme/emailer.png" style="width: 100%; height: auto;" />
 </div>
 
 ## Sidebar
@@ -53,8 +69,8 @@ The `lightbulb` icon will switch the view to `moments`, allowing an easy method 
 - Change the Huggingface AI Model: ["Mistral Instruct", "Mixtral", "Zephyr"]
 - View the currently selected agent profile
 
-<div style="width: 10em; margin: 0 auto;">
-  <img src="./src/assets/readme/sidebar.png" style="width: 50%; height: auto;" />
+<div style="width: 55em; display: block; margin: 0 auto;">
+  <img src="./src/assets/readme/sidebar.png" style="width: 100%; height: auto;" />
 </div>
 
 ## Program Requirements | Environment Variables

@@ -1,6 +1,7 @@
 import Login from "./components/login/Login";
 import Sidebar from "./components/sidebar/Sidebar";
 import Agents from "./components/agents/Agents";
+import AgentCards from "./components/agentCards/AgentCards";
 import MessageInterface from "./components/messages/MessageInterface";
 import EmailForm from "./components/email/Email";
 import { useState } from "react";
@@ -30,6 +31,7 @@ function App() {
         setShowEmailForm={setShowEmailForm}
       />
       <Agents />
+      <AgentCards />
     </div>
   ) : (
     <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />

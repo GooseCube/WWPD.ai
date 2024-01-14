@@ -1,0 +1,59 @@
+.agent-card-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  top: 20em;
+  background-color: grey;
+  display: flex; /* Add this line to make the children align in a row */
+  justify-content: center; /* Add this line to center the children horizontally */
+  align-items: center; /* Add this line to center the children vertically */
+  height: 40vh; /* Adjust this value to control the height of the container */
+  overflow-x: auto; /* Add this line to hide the overflow and enable scrolling */
+  overflow-y: hidden; /* Add this line to prevent vertical scrolling */
+  white-space: nowrap; /* Add this line to prevent wrapping */
+}
+
+/* Individual Cards */
+.agent-persona-card {
+  margin: 0 1em;
+  max-width: 15em;
+  min-width: 15em;
+  min-height: 35vh;
+  margin-top: 2em;
+  background-color: white;
+  color: black;
+  white-space: normal;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.agent-persona-card:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.agent-sprite-image {
+  transform: scale(1.4);
+  margin-bottom: 1em;
+  background-position: -32px 0;
+  background-repeat: no-repeat;
+}
+
+/* Chevron Arrows */
+
+.arrow-card {
+  position: relative;
+  width: 3vw;
+  height: 35vh;
+  background-color: transparent;
+  border: none;
+}
+
+.chevron-left,
+.chevron-right {
+  position: absolute;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 2.5em;
+  height: 2.5em;
+}

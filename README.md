@@ -103,6 +103,13 @@ The original code base is in Python and most of the programs dealing with AI Mod
 
 As undergrad computer scientists, we wanted to give like minded people the ability to get creative. Building this application in `React` will expand the ai model community beyond Python developers to include another arena of brilliant devs that may want to tear this repo apart and make something truly unique.
 
+## Huggingface API's
+
+- [Stability AI (txt2img) | stable-diffusion-xl-base-1.0](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)
+- [Mistral AI (chat) | mistral-7b-instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)
+- [Mixtral AI (chat) | mixtral-8x7b-instruct-v0.1](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1)
+- [Zephyr HuggingFaceH4 (chat) | zephyr-7b-beta](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta)
+
 ## Resource Citations
 
 1. Game background image created by Steven Ochs: [Steven Ochs "Imagination Sculpts Reality"](https://goosecubeproject.com/)

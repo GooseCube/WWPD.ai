@@ -41,6 +41,15 @@
   animation: slideInFromLeft 1s ease-out;
 }
 
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .agent-persona-card:hover {
   transform: scale(1.02);
   transition: all 0.3s ease;
@@ -80,11 +89,11 @@
   color: white;
 }
 
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+/* Card Header Icons */
+
+.player-controlled-icon,
+.player-rendered-icon {
+  width: 1.5em;
+  height: 1.5em;
+  color: #849c3a;
 }

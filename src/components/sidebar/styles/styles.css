@@ -4,6 +4,7 @@
   --blue: blue;
   --black: black;
   --grey: #242424;
+  --green: #849c3a;
   --button-width: 60%;
 }
 
@@ -15,7 +16,7 @@
   display: relative;
   height: 100vh;
   color: var(--white);
-  background-color: var(--grey);
+  background-color: var(--green);
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
 }

@@ -28,11 +28,11 @@ function Cards({ agents, cardIndex, maxViews }) {
 
     temp.push(
       <div className="agent-persona-card border rounded p-2" key={index}>
-        <h2>
-          {agent.name}
-          <Controller className="player-controlled-icon" />
-          <Check className="player-rendered-icon" />
-        </h2>
+        <div className="header d-flex">
+          <h2>{agent.name}</h2>
+          {agent.playerControlled && <Controller className="player-controlled-icon ms-auto" />}
+          {agent.render && <Check className="player-rendered-icon ms-auto" />}
+        </div>
         <div
           className="agent-sprite-image"
           style={{

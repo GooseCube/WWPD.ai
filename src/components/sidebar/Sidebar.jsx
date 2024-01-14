@@ -23,7 +23,9 @@ import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
 import message from "../../assets/sidebar/message.png";
 import { updateSidebar } from "../../firebase/firebaseDB";
-import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
+import {
+  getRandomMeetingPlace,
+} from "../../modules/momentum/speech/helperFunctions";
 
 function Sidebar({
   showInterface,
@@ -44,23 +46,29 @@ function Sidebar({
   const handleMomentConversation = async (event, moment) => {
     event.preventDefault();
 
-    const meetingPlace = getRandomMeetingPlace();
+    if (sidebar.aiModel.title !== "StabilityXL") {
+      const meetingPlace = getRandomMeetingPlace();
 
-    // Set the styles for Projector Screen
-    setScreenStyles(meetingPlace.screenStyles);
-    setOverlayStyles(meetingPlace.overlayStyles);
-    // Set the Images to be used according to the type of 'moment' selected
-    setOverlayImages(moment.images);
+      // Set the styles for Projector Screen
+      setScreenStyles(meetingPlace.screenStyles);
+      setOverlayStyles(meetingPlace.overlayStyles);
+      // Set the Images to be used according to the type of 'moment' selected
+      setOverlayImages(moment.images);
 
-    // Show Screen for Testing Purposes
-    momentumSpeech(
-      agents,
-      moment,
-      sidebar.aiModel.title,
-      setAgents,
-      meetingPlace,
-      setShowImageScreen
-    );
+      // Show Screen for Testing Purposes
+      momentumSpeech(
+        agents,
+        moment,
+        sidebar.aiModel.title,
+        setAgents,
+        meetingPlace,
+        setShowImageScreen
+      );
+    } else {
+      alert(
+        "A Moment requires a chat model is selected. Please change the model to Mistral, Mixtral, or Zephyr."
+      );
+    }
   };
 
   // Updates Firebase with the selected ai model name
@@ -117,7 +125,7 @@ function Sidebar({
                 { title: "Mistral" },
                 { title: "Mixtral" },
                 { title: "Zephyr" },
-                { title: "StabilityXL"}
+                { title: "StabilityXL" },
               ]}
             />
             <ButtonSelection

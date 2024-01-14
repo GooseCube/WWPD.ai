@@ -15,16 +15,16 @@ export const fetchModelResponse = async (model, prompt) => {
   }
 
   switch (model) {
-    case "Mistral":
+    case "Mistral": // chat
       console.log("Prompted the Mistral AI")
       return await mistralAPI(prompt);
-    case "Mixtral":
+    case "Mixtral": // chat
       console.log("Prompted the Mixtral AI")
       return await mixtralAPI(prompt);
-    case "Zephyr":
+    case "Zephyr": // chat
       console.log("Prompted the Zephyr AI")
       return await zephyrAPI(prompt);
-    case "StabilityXL":
+    case "StabilityXL": // txt2img
       console.log("Prompted stabilityXL AI")
       return await stabilityaiXLAPI(prompt);
     default:

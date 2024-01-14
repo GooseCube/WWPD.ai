@@ -14,7 +14,7 @@
 
 .sprite-arrow {
   position: absolute;
-  top: -18px;
+  top: -20px;
   left: 12px;
   width: 10px;
   height: 10px;
@@ -26,14 +26,17 @@
   overflow: hidden;
   position: absolute;
   width: auto;
-  padding: 1px 4px;
-  bottom: 30px;
-  font-size: 7px;
+  min-width: 7em;
+  padding: 1px 3px;
+  bottom: 32px;
+  right: -12px;
+  font-size: 8px;
   border-radius: 3px;
   background: blue;
   color: white;
   font-weight: bold;
   text-transform: uppercase;
+  text-align: center;
 }
 
 /* Sprite Animation Frames */

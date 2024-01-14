@@ -45,7 +45,6 @@ function Sidebar({
     event.preventDefault();
 
     const meetingPlace = getRandomMeetingPlace();
-    console.log("Meeting Place: ", meetingPlace);
 
     // Set the styles for Projector Screen
     setScreenStyles(meetingPlace.screenStyles);

@@ -2,16 +2,6 @@
  * Locations for moment conversation meetings
  */
 export const meetingPlaces = {
-  pagodaPatio: {
-    primaryAgent: { x: 28, y: 6, direction: "right" },
-    audiencePositions: [
-      { x: 31, y: 5, direction: "left" },
-      { x: 31, y: 7, direction: "left" },
-      { x: 35, y: 5, direction: "left" },
-      { x: 36, y: 7, direction: "left" },
-      { x: 43, y: 7, direction: "left" },
-    ],
-  },
   groceryStore: {
     primaryAgent: { x: 52, y: 30, direction: "down" },
     audiencePositions: [

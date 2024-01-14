@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import screenImage from "../../assets/art/blue_screen.svg";
 
+import "./styles/styles.css";
+
 function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
   const [currentImage, setCurrentImage] = useState(overlayImages[0]);
   const [index, setIndex] = useState(0);

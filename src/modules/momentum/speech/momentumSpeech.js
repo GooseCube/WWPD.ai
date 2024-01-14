@@ -36,7 +36,6 @@ export const momentumSpeech = async (
   setShowImageScreen
 ) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
-  // const speechLocation = getRandomMeetingPlace();
   let conversations = "";
 
   // ------------- Initializing Moment by Primary Agent -------------- //
@@ -45,7 +44,10 @@ export const momentumSpeech = async (
     primaryAgent,
     moment.initialPrompt
   );
+  // Filter out the primary agent from list of agents to talk with
   let agentList = agents.filter((agent) => agent.uid !== primaryAgent.uid);
+  // Filter for only those agents rendered to the game environment
+  agentList = agents.filter((agent) => agent.render === true);
   let updatedPrimaryAgent = null;
   let primaryAgentInitialIdea = "";
   let primaryAgentFinalSpeech = "";

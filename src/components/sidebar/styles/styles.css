@@ -99,3 +99,9 @@
   background-position: -32px 0;
   background-repeat: no-repeat;
 }
+
+.player-icon {
+  width: 1.5em;
+  height: 1.5em;
+  color: #849c3a;
+}

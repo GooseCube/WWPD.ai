@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import {Controller} from "react-bootstrap-icons"
 
 /**
  * Display the current player controlled agents profile:
@@ -39,7 +40,15 @@ function AgentProfile({ agents, showAgentCards, setShowAgentCards }) {
       <div
         className="agent-profile-container border rounded p-2"
         onClick={() => setShowAgentCards(!showAgentCards)}>
-        <h2>{agent.name}</h2>
+        <div className="profile-header d-flex">
+          <h2>{agent.name}</h2>
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip id={"tooltip-top"}>Player Controlled</Tooltip>}>
+            <Controller className="player-icon ms-auto" />
+          </OverlayTrigger>
+        </div>
+
         {sprite && (
           <div
             className="agent-sprite-image"

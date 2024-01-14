@@ -1,6 +1,7 @@
 import mistralAPI from "./mistralAPI";
 import mixtralAPI from "./mixtralAPI";
 import zephyrAPI from "./zephyrAPI";
+import stabilityaiXLAPI from "./stabilityaiXLAPI";
 
 /**
  * Requires the model to be used and the a non-empty text string
@@ -23,6 +24,9 @@ export const fetchModelResponse = async (model, prompt) => {
     case "Zephyr":
       console.log("Prompted the Zephyr AI")
       return await zephyrAPI(prompt);
+    case "StabilityXL":
+      console.log("Prompted stabilityXL AI")
+      return await stabilityaiXLAPI(prompt);
     default:
       return "That didn't go as planned.";
   }

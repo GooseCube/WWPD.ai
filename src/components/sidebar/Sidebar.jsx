@@ -118,6 +118,7 @@ function Sidebar({
                 { title: "Mistral" },
                 { title: "Mixtral" },
                 { title: "Zephyr" },
+                { title: "StabilityXL"}
               ]}
             />
             <ButtonSelection

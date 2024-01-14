@@ -1,6 +1,6 @@
 import axios from "axios";
 
-async function txt2imgAPI(prompt) {
+async function stabilityaiXLAPI(prompt) {
   const HUGGINGFACE_API_TOKEN = import.meta.env.VITE_HUGGINGFACE_API_TOKEN;
   const HUGGINGFACE_MISTRAL_URL =
     "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
@@ -33,4 +33,4 @@ async function txt2imgAPI(prompt) {
   }
 }
 
-export default txt2imgAPI;
+export default stabilityaiXLAPI;

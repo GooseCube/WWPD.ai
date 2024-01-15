@@ -1,3 +1,7 @@
+## GAME is Not Responsive
+
+When testing the game on a laptop, the agents, grid collisions, sidebar, agent profile views are not responsive for smaller screens. Need to update all styles to allow responsive behavior across pc, laptop, and tablet.
+
 ## Add Open Source License
 
 Find and add the appropriate open source license to the repo before making it public.

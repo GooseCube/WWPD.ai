@@ -39,7 +39,7 @@ function Agents() {
 
   return (
     agents && (
-      <div>
+      <div className="game-container">
         {agents.map(
           (agent) =>
             agent.render && (

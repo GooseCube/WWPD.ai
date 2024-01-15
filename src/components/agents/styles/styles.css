@@ -2,8 +2,9 @@
 
 .sprite-container {
   position: relative;
-  height: 100%;
-  width: 100%;
+}
+.sprite {
+  position: absolute;
 }
 
 /* See Also: styles/Sprite styled-components */

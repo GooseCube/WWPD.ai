@@ -54,9 +54,9 @@ export const handlePlayerMoveEvent = (agent, setAgents, direction) => {
 };
 
 export const calculateLeftX = (x) => {
-  return 16 * x + "px";
+  return (16 * x) / 10 + "rem";
 };
 
 export const calculateTopY = (y) => {
-  return 16 * y + "px";
+  return (16 * y) / 10 + "rem";
 };

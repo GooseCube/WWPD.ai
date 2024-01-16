@@ -23,6 +23,9 @@ export const initializeAgents = async (setAgents) => {
   Object.values(personas).map((agent) => {
     const agentId = uuidv4();
     agent.uid = agentId;
+    // @TODO may not need this here
+    // agent.x = agent.x / 10;
+    // agent.y = agent.y / 10;
 
     const agentRef = ref(database, `users/${userId}/agents/${agentId}`);
     set(agentRef, agent);

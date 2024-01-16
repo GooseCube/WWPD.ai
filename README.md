@@ -14,17 +14,12 @@ Create a limited version of the Generative Agent interactive experience using fr
 
 ## Differentiation
 
-- OG GenAgents - Difficult to set up and enjoy the experience
-- Ours - Yes, we require you understand how to watch a youtube video and set up the Firebase DB. We also require that you have your own Huggingface API Token. Other than that, installation is done from the command line using (wait for it): $ yarn
-
-- OG GenAgents - Requires a paid subscription to use with ChatGPT, and this is also limiting
-- Ours - Intended to be used with a free AI Model from Huggingface allowing any model you want to add that we do not have listed. Endless options and outcomes
-
-- OG GenAgents - You most likely only experience a play back of some long days experience and only realize later if modifications have worked (or, not).
-- Ours - Prompts and interactive experiences are live.
-
-- OG GenAgents - Original code is custom fit for a specific purpose and not readily accessible for modification or addition
-- Ours - Intended to allow React freaks to freak out and build some seriously cool sh.t
+| GenAgents                                                                                                                               | GAME (this repo)                                                                                                                                                                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Difficult to set up and enjoy the experience                                                                                            | Yes, we require you understand how to watch a youtube video and set up the Firebase DB. We also require that you have your own Huggingface API Token. Other than that, installation is done from the command line using (wait for it): `$ yarn` |
+| Requires a paid subscription to use with ChatGPT, and this is also limiting                                                             | Intended to be used with a free AI Model from Huggingface allowing any model you want to add that we do not have listed. Endless options and outcomes                                                                                           |
+| You most likely only experience a play back of some long days experience and only realize later if modifications have worked (or, not). | Prompts and interactive experiences are live.                                                                                                                                                                                                   |
+| Original code is custom fit for a specific purpose and not readily accessible for modification or addition                              | Intended to allow React phreaks to phreak out and build some seriously cool sh.t                                                                                                                                                                |
 
 Don't 'git' me wrong. We love the original idea and Joon has laid the foundation for the various implementations I have already seen in the great wild of GitHub. We just want to have fun and let you enjoy some of the experiences that he outlined in a live mode where you get to participate in a meaningful way. This project attempts to further his directive to build those 'believable proxies of human behavior' while having fun.
 
@@ -104,6 +99,7 @@ You can fork the project, download a zip file, or use a bash command line to cop
 Using `Node v20` and the `yarn` package manager.
 
 ```bash
+corepack enable
 # Install the package.json dependencies
 yarn
 ```

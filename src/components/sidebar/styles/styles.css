@@ -8,6 +8,10 @@
   --button-width: 60%;
 }
 
+/* .sidebar-outer-container {
+  position: relative;
+} */
+
 .app-icon-img {
   width: 2em;
 }
@@ -80,7 +84,6 @@
 }
 
 /* Sidebar AgentProfile */
-
 .agent-profile-container {
   width: var(--button-width);
   margin-top: 2em;

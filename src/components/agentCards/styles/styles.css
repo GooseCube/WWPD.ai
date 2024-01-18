@@ -1,5 +1,5 @@
 .agent-card-container {
-  position: relative;
+  position: absolute;
   z-index: 1;
   justify-content: space-between; /* remove if not working for chevrons */
   width: 100%;

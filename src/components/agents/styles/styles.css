@@ -1,6 +1,7 @@
 /* New Sprite Animation Movements */
 
 .game-container {
+  position: relative;
   background-position: center;
   /* border: 2px solid white; */
   background-repeat: no-repeat;

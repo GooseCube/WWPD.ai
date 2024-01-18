@@ -86,7 +86,7 @@ function Sidebar({
           overlayStyles={overlayStyles}
         />
       )}
-      <div className="sidebar-outer-container w-25">
+      <div className="sidebar-outer-container">
         <Button
           className="arrow-button"
           variant="primary"

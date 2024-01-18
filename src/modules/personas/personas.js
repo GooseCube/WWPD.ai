@@ -80,8 +80,8 @@ export const personas = {
     specialty: "I'll research your idea and give you great advice",
     personality:
       "Francisco is a strategic and big-picture thinker. He likes to consider all possible outcomes before making a decision.",
-    x: 87,
-    y: 21,
+    x: 45,
+    y: 7,
     direction: "down",
     frame: 0,
     uid: "5",
@@ -137,7 +137,7 @@ export const personas = {
     personality:
       "Yuriko is a flexible and adaptable thinker. He is comfortable with ambiguity and can easily adjust his approach based on new information.",
     x: 26,
-    y: 34,
+    y: 20,
     direction: "down",
     frame: 0,
     uid: "8",

@@ -1,5 +1,4 @@
 * {
-  margin: 0;
   padding: 0;
   font-size: 10px;
 }
@@ -10,12 +9,13 @@
 }
 
 body {
-  margin: 0;
   background-color: var(--background);
 }
 
 .app-container {
-  position: relative;
-  background-repeat: no-repeat;
-  /* background-image: url("./assets/gooseCubeMap_1280x720.png"); */
+ display: flex; 
+ justify-content: center;
+ align-items: center;
+ border: 2px solid blue;
+ height: 100vh;
 }

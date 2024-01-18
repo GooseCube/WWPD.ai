@@ -1,10 +1,12 @@
 /* New Sprite Animation Movements */
 
+.game-container {
+  border: 2px solid white;
+  background-repeat: no-repeat;
+}
+
 .sprite-container {
   position: relative;
-}
-.sprite {
-  position: absolute;
 }
 
 /* See Also: styles/Sprite styled-components */

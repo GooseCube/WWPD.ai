@@ -12,7 +12,7 @@ import Agent from "./sub-components/Agent";
 // Styles
 import "./styles/styles.css";
 
-import gameBackgroundImage from "../../assets/gooseCubeMap_1280x720.png"
+import gameBackgroundImage from "../../assets/16to9Ratio.png"
 
 
 const getWidth = () => {

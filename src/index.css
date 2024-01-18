@@ -16,8 +16,6 @@ body {
 
 .app-container {
   position: relative;
-  height: 100rem;
-  background-image: url("./assets/gooseCubeMap.png");
   background-repeat: no-repeat;
-  background-size: 100vw 100vh;
+  /* background-image: url("./assets/gooseCubeMap_1280x720.png"); */
 }

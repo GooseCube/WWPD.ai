@@ -5,6 +5,17 @@ import AgentCards from "./components/agentCards/AgentCards";
 import MessageInterface from "./components/messages/MessageInterface";
 import EmailForm from "./components/email/Email";
 import { useState } from "react";
+import gameBackground from "./assets/gooseCubeMap_1280x720.png";
+
+const getWidth = () => {
+  return (1280 / 10) + "rem";
+  // return "1280px"
+}
+
+const getHeight = () => {
+  return (720 / 10) + "rem";
+  // return "720px"
+}
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -13,7 +24,10 @@ function App() {
   const [showAgentCards, setShowAgentCards] = useState(false);
 
   return loggedIn ? (
-    <div className="app-container">
+    <div className="app-container" style={{backgroundImage: `url(${gameBackground})`, width: getWidth(), height: getHeight()}}>
+    {/* <div
+      className="app-container"
+      style={{ backgroundImage: `url(${gameBackground})` }}> */}
       <Sidebar
         showInterface={showInterface}
         setShowInterface={setShowInterface}

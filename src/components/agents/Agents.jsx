@@ -16,13 +16,11 @@ import gameBackgroundImage from "../../assets/gooseCubeMap_1280x720.png"
 
 
 const getWidth = () => {
-  return 1280 / 10 + "rem";
-  // return "1280px"
+  return 1280 / 10 + "rem"; // HD
 };
 
 const getHeight = () => {
-  return 720 / 10 + "rem";
-  // return "720px"
+  return 720 / 10 + "rem"; // HD
 };
 
 function Agents() {

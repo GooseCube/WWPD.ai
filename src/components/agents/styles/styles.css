@@ -2,7 +2,7 @@
 
 .game-container {
   background-position: center;
-  border: 2px solid white;
+  /* border: 2px solid white; */
   background-repeat: no-repeat;
   margin: 0 auto;
   max-width: 100%;

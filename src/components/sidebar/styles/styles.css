@@ -9,6 +9,10 @@
   --button-width: 18rem;
 }
 
+.sidebar-outer-container {
+  z-index: 1;
+}
+
 /* Sidebar Title */
 
 .title {

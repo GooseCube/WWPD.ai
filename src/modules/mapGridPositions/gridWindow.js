@@ -1,6 +1,6 @@
 export const gridWindow = {
-  minX: 3,
+  minX: 0,
   maxX: 75,
-  minY: 2,
+  minY: 0,
   maxY: 41,
 };

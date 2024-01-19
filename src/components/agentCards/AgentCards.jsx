@@ -25,7 +25,7 @@ const goRight = function incrementCardIndex(
   }
 };
 
-function AgentCards({ showAgentCards, setShowAgentCards }) {
+function AgentCards({ setShowAgentCards }) {
   const { agents } = useContext(AuthContext);
   const [cardIndex, setCardIndex] = useState(0);
   const [maxViews, setMaxViews] = useState(5);

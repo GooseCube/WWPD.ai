@@ -45,12 +45,7 @@ function App() {
         setShowEmailForm={setShowEmailForm}
       />
       <Agents />
-      {showAgentCards && (
-        <AgentCards
-          showAgentCards={showAgentCards}
-          setShowAgentCards={setShowAgentCards}
-        />
-      )}
+      {showAgentCards && <AgentCards setShowAgentCards={setShowAgentCards} />}
     </div>
   ) : (
     <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />

@@ -53,8 +53,8 @@
 /* Toolbar Icons */
 
 .toolbar-icon {
-  width: 1.5em;
-  height: 1.5em;
+  width: 2em;
+  height: 2em;
 }
 
 .toolbar-icon:hover {
@@ -74,6 +74,10 @@
   transition: all 0.3s ease;
 }
 
+.ai-model-name {
+  font-size: 1.5em;
+}
+
 /* Toolbar Animation */
 
 .spinner-animation {
@@ -90,6 +94,11 @@
   color: white;
 }
 
+.message div,
+.moment div {
+  font-size: 1.5em;
+}
+
 .prompt,
 .response {
   padding: 0.25em;
@@ -104,12 +113,20 @@
   background-color: blue;
 }
 
-.prompt pre, .response pre {
-  white-space: pre-wrap;       /* Since CSS 2.1 */
-  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;      /* Opera 4-6 */
-  white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+.response-img {
+  padding: 1em;
+  width: 60%;
+  height: auto;
+  border-radius: 3em;
+}
+
+.prompt pre,
+.response pre {
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 /* TextInput | Sub-Component */
@@ -123,6 +140,7 @@
   border-bottom-right-radius: 16px;
   vertical-align: top;
   white-space: pre-wrap;
+  font-size: 1.25em;
 }
 
 /* SCROLLBAR CUSTOMIZATION | Chrome / Safari / FireFox*/
@@ -252,4 +270,3 @@
 .Yuriko {
   background-color: #179cd0;
 }
-

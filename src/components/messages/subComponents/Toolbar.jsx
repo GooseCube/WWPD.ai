@@ -86,12 +86,6 @@ function Toolbar({
         />
       </OverlayTrigger>
 
-      {/* <OverlayTrigger
-        placement="top"
-        overlay={<Tooltip id={"tooltip-top"}>Text2Speech Coming Soon</Tooltip>}>
-        <VolumeUpFill className="toolbar-icon speech" />
-      </OverlayTrigger> */}
-
       <OverlayTrigger
         placement="top"
         overlay={<Tooltip id={"tooltip-top"}>Selected AI Model</Tooltip>}>

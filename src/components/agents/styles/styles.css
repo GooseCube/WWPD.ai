@@ -1,13 +1,16 @@
 /* New Sprite Animation Movements */
 
 .game-container {
+  border: 2px solid #849c3a;
+  z-index: -1;
   position: relative;
   background-position: center;
-  /* border: 2px solid white; */
   background-repeat: no-repeat;
-  margin: 0 auto;
+  background-size: cover;
+  padding: 0;
   max-width: 125%;
   max-height: 125%;
+  border-radius: 10px;
 }
 
 .sprite-container {

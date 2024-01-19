@@ -46,9 +46,8 @@ function AgentCards({ showAgentCards, setShowAgentCards }) {
       )}
 
       <OverlayTrigger
-      placement="top" 
-      overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}
-      >
+        placement="top"
+        overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
         <div className="open-close-container">
           <XCircle
             className="open-close-icon"

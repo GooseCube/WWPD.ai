@@ -23,9 +23,7 @@ import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
 import message from "../../assets/sidebar/message.png";
 import { updateSidebar } from "../../firebase/firebaseDB";
-import {
-  getRandomMeetingPlace,
-} from "../../modules/momentum/speech/helperFunctions";
+import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
 
 function Sidebar({
   showInterface,
@@ -91,7 +89,11 @@ function Sidebar({
           className="arrow-button"
           variant="primary"
           onClick={() => setShow(!show)}>
-          {show ? <ChevronDoubleLeft className="chevront-double-left" /> : <ChevronDoubleRight className="chevron-double-right"/>}
+          {show ? (
+            <ChevronDoubleLeft className="chevront-double-left" />
+          ) : (
+            <ChevronDoubleRight className="chevron-double-right" />
+          )}
         </Button>
         <Offcanvas
           className="offcanvas-container"
@@ -122,7 +124,7 @@ function Sidebar({
               image={app_icon}
               dropdownEvent={handleChangeAiModel}
               listItems={[
-                { title: "Mistral", type: "chat"},
+                { title: "Mistral", type: "chat" },
                 { title: "Mixtral", type: "chat" },
                 { title: "Zephyr", type: "chat" },
                 { title: "StabilityXL", type: "txt2img" },

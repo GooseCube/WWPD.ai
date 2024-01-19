@@ -1,7 +1,7 @@
-const agentRenderPositions = [
+export const agentRenderPositions = [
   { x: 8, y: 14, direction: "right" },
   { x: 40, y: 31, direction: "left" },
-  { x: 18, y: 30, direction: "right" },
+  { x: 20, y: 30, direction: "right" },
   { x: 39, y: 37, direction: "right" },
   { x: 63, y: 37, direction: "down" },
   { x: 69, y: 16, direction: "down" },

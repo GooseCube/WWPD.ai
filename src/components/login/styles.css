@@ -14,5 +14,19 @@
   border: 1px solid white;
   border-radius: 16px;
   color: white;
-  max-width: 35em;
+  max-width: 45em;
+}
+
+.form-text {
+  font-size: 3rem;
+}
+
+.form-email,
+.form-password,
+.form-control {
+  font-size: 1.25rem;
+}
+
+.form-selection-container button {
+  font-size: 1.25rem;
 }

@@ -33,9 +33,9 @@ function SignUp({ signUp, setSignUp }) {
       <Form
         className="col-6 bg-dark bordered form-container"
         onSubmit={handleSignUp}>
-        <Form.Text className="fs-1 text-light">Sign Up</Form.Text>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+        <Form.Text className="text-light form-text">Sign Up</Form.Text>
+        <Form.Group className="mb-3 form-group" controlId="formBasicEmail">
+          <Form.Label className="form-email">Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -45,7 +45,7 @@ function SignUp({ signUp, setSignUp }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="form-password">Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"

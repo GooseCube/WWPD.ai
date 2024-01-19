@@ -20,7 +20,7 @@ function Form({
   emailRef,
 }) {
   return (
-    <Draggable defaultPosition={{ x: 700, y: 100 }}>
+    <Draggable defaultPosition={{ x: 50, y: 25 }}>
       <form
         className="email-form"
         onSubmit={(e) => handleSendEmail(e, emailRef.current.value)}>
@@ -31,11 +31,11 @@ function Form({
           />
         </div>
         {/* Enter Email to Send Message */}
-        <label>Email</label>
-        <input className="email" type="email" name="to_email" ref={emailRef} />
+        <label className="label-title">Email</label>
+        <input className="email input-email" type="email" name="to_email" ref={emailRef} />
 
         {/* Select a Moment from list */}
-        <label>Moments</label>
+        <label className="label-title">Moments</label>
         {Object.keys(moments).length > 0 ? (
           <select
             className="moments"

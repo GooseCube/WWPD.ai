@@ -8,15 +8,14 @@ import { QuestionCircle } from "react-bootstrap-icons";
 
 function SidebarHeader() {
   return (
-    <Offcanvas.Title className="w-100 d-flex justify-content-between align-items-center fs-4">
+    <Offcanvas.Title className="sidebar-title w-100 d-flex justify-content-between align-items-center">
       <Image className="app-icon-img" src={app_icon} />
-      <h2>G . A . M . E .</h2>
+      <p className="title">G . A . M . E .</p>
       <OverlayTrigger
         placement="right"
         overlay={
           <Tooltip id={"tooltip-top"} className="custom-tooltip">
-            Generative Agent <br />
-            <p className="border-bottom border-white">Momentum Experientia</p>
+            <h3 className="border-bottom border-white">Generative Agent Moment Experience</h3>
             <p className="text-start">
               <strong>Interface:</strong> open/close the user interface to view
               moments or messages

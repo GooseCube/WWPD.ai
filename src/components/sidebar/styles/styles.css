@@ -8,12 +8,24 @@
   --button-width: 60%;
 }
 
-/* .sidebar-outer-container {
-  position: relative;
-} */
+/* Sidebar Title */
+
+.title {
+  font-size: 3rem;
+}
+
+.custom-tooltip p {
+  font-size: 1.25rem;
+}
 
 .app-icon-img {
-  width: 2em;
+  width: 3.5em;
+  height: 3.5em;
+}
+
+.sidebar-help-icon {
+  width: 2.25em;
+  height: 2.25em;
 }
 
 .offcanvas-container {

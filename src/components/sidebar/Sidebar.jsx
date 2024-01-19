@@ -87,7 +87,7 @@ function Sidebar({
       <div className="sidebar-outer-container">
         <Button
           className="arrow-button"
-          variant="primary"
+          // variant="success"
           onClick={() => setShow(!show)}>
           {show ? (
             <ChevronDoubleLeft className="chevront-double-left" />

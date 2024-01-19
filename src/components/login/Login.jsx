@@ -30,7 +30,6 @@ function Login({ loggedIn, setLoggedIn }) {
         email,
         password
       );
-      console.log("LogIn Successful (credentials): ", userCredentials);
       setLoggedIn(!loggedIn);
     } catch (error) {
       alert(

@@ -58,14 +58,17 @@
 }
 
 .arrow-button {
+  margin-left: 0.5em;
   position: absolute;
   background-color: var(--black);
   width: 3.5em;
   height: 3.5em;
+  border: 2px solid #849c3a;
 }
 
 .arrow-button:hover {
   transition: all 0.3s ease;
+  background-color: #849c3a;
 }
 
 .arrow-button .chevron-double-left,
@@ -83,7 +86,7 @@
   color: var(--black);
   font-size: 1.5em;
   border-radius: 10px;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 8px 8px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .sidebar-btn-img {
@@ -122,7 +125,7 @@
   margin-top: 2em;
   background-color: var(--white);
   color: var(--black);
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 8px 8px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .agent-profile-container:hover {

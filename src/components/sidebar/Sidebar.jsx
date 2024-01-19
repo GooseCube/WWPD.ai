@@ -91,7 +91,7 @@ function Sidebar({
           className="arrow-button"
           variant="primary"
           onClick={() => setShow(!show)}>
-          {show ? <ChevronDoubleLeft /> : <ChevronDoubleRight />}
+          {show ? <ChevronDoubleLeft className="chevront-double-left" /> : <ChevronDoubleRight className="chevron-double-right"/>}
         </Button>
         <Offcanvas
           className="offcanvas-container"

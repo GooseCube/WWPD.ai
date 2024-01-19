@@ -5,7 +5,8 @@
   --black: black;
   --grey: #242424;
   --green: #849c3a;
-  --button-width: 60%;
+  --gradient-green: #738833;
+  --button-width: 18rem;
 }
 
 /* Sidebar Title */
@@ -28,12 +29,18 @@
   height: 2.25em;
 }
 
+/* Sidebar Body */
+
 .offcanvas-container {
   display: relative;
   height: 100vh;
   color: var(--white);
   background-color: var(--green);
-  background-image: linear-gradient(to bottom right, var(--green), #738833);
+  background-image: linear-gradient(
+    to bottom right,
+    var(--green),
+    var(--gradient-green)
+  );
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -53,6 +60,18 @@
 .arrow-button {
   position: absolute;
   background-color: var(--black);
+  width: 3.5em;
+  height: 3.5em;
+}
+
+.arrow-button:hover {
+  transition: all 0.3s ease;
+}
+
+.arrow-button .chevron-double-left,
+.arrow-button .chevron-double-right {
+  width: 2em;
+  height: 2em;
 }
 
 /* Sidebar Sub Components: Button, Images, DropdownItems, AgentProfile */
@@ -62,6 +81,7 @@
   padding: 0.25em;
   background-color: var(--white);
   color: var(--black);
+  font-size: 1.5em;
   border-radius: 10px;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
@@ -81,7 +101,8 @@
 }
 
 .dropdown-toggle-btn {
-  height: 32px;
+  height: 3.25em;
+  width: 2.25em;
 }
 
 .sidebar-button:hover,
@@ -109,6 +130,10 @@
   transition: all 0.3s ease;
 }
 
+.agent-profile-container p {
+  font-size: 1.25em;
+}
+
 .agent-sprite-image {
   transform: scale(1.4);
   margin-bottom: 1em;
@@ -117,7 +142,7 @@
 }
 
 .player-icon {
-  width: 1.5em;
-  height: 1.5em;
-  color: #849c3a;
+  width: 2em;
+  height: 2em;
+  color: var(--green);
 }

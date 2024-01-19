@@ -105,13 +105,17 @@
 
 .dropdown-toggle-btn {
   height: 3.25em;
-  width: 2.25em;
+  width: 2.65em;
 }
 
 .sidebar-button:hover,
 .dropdown-toggle-btn:hover {
   transform: scale(1.02);
   transition: all 0.3s ease;
+}
+
+.dropdown-items {
+  font-size: 1.5em;
 }
 
 .dropdown-items:hover {
@@ -134,7 +138,7 @@
 }
 
 .agent-profile-container p {
-  font-size: 1.25em;
+  font-size: 1.4em;
 }
 
 .agent-sprite-image {

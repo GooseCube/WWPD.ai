@@ -1,5 +1,24 @@
 import { removeMoment } from "../../../firebase/firebaseDB";
-import { Trash } from "react-bootstrap-icons";
+import { saveAs } from "file-saver";
+import { Tooltip, OverlayTrigger } from "react-bootstrap";
+import { Trash, Download } from "react-bootstrap-icons";
+
+/**
+ * Save the moment as a .txt file with .json encoding
+ * This should be easily converted to .json if you want this file type,
+ * otherwise for most users it is better to have a .txt file
+ * @param {object} moment
+ */
+const downloadMoment = (moment) => {
+  const blob = new Blob([JSON.stringify(moment, null, 2)], {
+    type: "application/json",
+  });
+  saveAs(
+    blob,
+    `moment-${new Date(moment.timestamp).toLocaleDateString("en-US")}.txt`,
+    { autoBom: true }
+  );
+};
 
 /**
  * @param {array[{objects}]} moment Firebase Realtime Database
@@ -10,22 +29,41 @@ import { Trash } from "react-bootstrap-icons";
 function Moment({ id, moment }) {
   return (
     <div className="moment-container">
-      <div className="date-container fs-5">
-        <Trash
-          className="delete-message-icon"
-          onClick={() => removeMoment(id)}
-        />{" "}
+      <div className="moment-toolbar fs-5">
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id={"tooltip-top"}>Download Moment</Tooltip>}>
+          <Download
+            className="download-moment-icon"
+            onClick={() => downloadMoment(moment)}
+          />
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id={"tooltip-top"}>Delete Moment</Tooltip>}>
+          <Trash
+            className="delete-message-icon"
+            onClick={() => removeMoment(id)}
+          />
+        </OverlayTrigger>
         {new Date(moment.timestamp).toLocaleDateString("en-US")}
       </div>
       {moment.conversation.map((item, index) => {
         if (index === 0) {
           return (
-            <div key={index} className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
-              <div className="primaryAgent fs-5">{item.primaryAgent.name} Initial Prompt:</div>
-              <div className="initialPrompt fs-5">
+            <div
+              key={index}
+              className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
+              <div className="primaryAgent fs-5">
+                {item.primaryAgent.name} Initial Prompt:
+              </div>
+              <div className="agent initialPrompt fs-5">
                 {item.initialPrompt.question}
               </div>
-              <div className="initialResponse fs-5">{item.initialResponse}</div>
+              <div className="agent initialResponse fs-5">
+                <pre>{item.initialResponse}</pre>
+              </div>
             </div>
           );
         } else if (index === moment.conversation.length - 1) {
@@ -37,7 +75,9 @@ function Moment({ id, moment }) {
               <div className="speech fs-5">
                 <pre>{item.speech}</pre>
               </div>
-              <div className="agent">----------------- End of Moment -----------------</div>
+              <div className="agent">
+                ----------------- End of Moment -----------------
+              </div>
             </div>
           );
         } else {

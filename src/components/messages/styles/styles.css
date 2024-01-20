@@ -123,15 +123,29 @@
   color: #f1f1f1;
 }
 
-.delete-message-icon {
+.moment-toolbar {
+  margin-left: 0.5em;
+}
+
+.delete-message-icon,
+.download-moment-icon {
   width: 2em;
   height: 2em;
+  margin: 0.5em;
+}
+
+.delete-message-icon:hover,
+.download-moment-icon:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
 }
 
 .delete-message-icon:hover {
   color: red;
-  transform: scale(1.05);
-  transition: all 0.3s ease;
+}
+
+.download-moment-icon:hover {
+  color: green;
 }
 
 .agent {

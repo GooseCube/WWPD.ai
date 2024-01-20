@@ -15,6 +15,7 @@ import {
   agentDiscussionPrompt,
   finalMomentPrompt,
   initialMomentPrompt,
+  paraphraseResponse,
 } from "./promptTemplates";
 
 /**
@@ -51,6 +52,7 @@ export const momentumSpeech = async (
   let updatedPrimaryAgent = null;
   let primaryAgentInitialIdea = "";
   let primaryAgentFinalSpeech = "";
+  let paraphrasedInitialIdea = "";
 
   // @prompt: Get initial idea from AI Model
   primaryAgentInitialIdea = await fetchModelResponse(
@@ -67,10 +69,16 @@ export const momentumSpeech = async (
     );
   }
 
+  paraphrasedInitialIdea = await fetchModelResponse(
+    aiModel,
+    paraphraseResponse(primaryAgentInitialIdea)
+  );
+
   const initialIdea = {
     primaryAgent: primaryAgent,
     initialPrompt: moment.initialPrompt,
     initialResponse: primaryAgentInitialIdea,
+    paraphrasedResponse: paraphrasedInitialIdea,
   };
 
   conversations.push(initialIdea);
@@ -83,14 +91,14 @@ export const momentumSpeech = async (
     agentList = agentList.filter((a) => a.uid !== agent.uid);
 
     // Moves primaryAgent to the agent position
-    await moveAgent(primaryAgent, agent.x - 2, agent.y - 1, setAgents);
+    await moveAgent(primaryAgent, agent.x - 3, agent.y - 1, setAgents);
 
     updatedPrimaryAgent = createUpdatedAgent(
       primaryAgent,
       agent.x - 3,
       agent.y - 1,
       "right",
-      `${agent.name}: ${primaryAgentInitialIdea}`
+      `${agent.name}: ${paraphrasedInitialIdea}`
     );
 
     // This will initiate the text for momentResponse for primaryAgent
@@ -135,7 +143,7 @@ export const momentumSpeech = async (
             position.y !== agentAudiencePosition.y
         );
 
-      await delay(12000);
+      await delay(14000);
       await moveAgent(
         agent,
         agentAudiencePosition.x,
@@ -158,6 +166,16 @@ export const momentumSpeech = async (
   }
 
   // ------------- Final Speech by Primary Agent -------------- //
+
+  updatedPrimaryAgent = createUpdatedAgent(
+    primaryAgent,
+    primaryAgent.x,
+    primaryAgent.y,
+    "down",
+    getRandomEmoji()
+  );
+
+  await updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
 
   // @prompt: get final prompt
   let primaryAgentFinalSpeechPrompt = finalMomentPrompt(

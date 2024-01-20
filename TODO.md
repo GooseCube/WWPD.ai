@@ -1,7 +1,3 @@
-## GAME is Not Responsive
-
-When testing the game on a laptop, the agents, grid collisions, sidebar, agent profile views are not responsive for smaller screens. Need to update all styles to allow responsive behavior across pc, laptop, and tablet.
-
 ## Add Open Source License
 
 Find and add the appropriate open source license to the repo before making it public.
@@ -20,7 +16,7 @@ In the sidebar, the user should be able to enter an API Key for Huggingface whic
 
 ## Styled Components
 
-Once a component fulfillsi functionality and style requirements, begin re-write of CSS styles to Styled Components, or at the very least replace as much of the css styles with the react-bootstrap class names as possible.
+Once a components functionality and style requirements are completed, begin re-write of CSS styles to Styled Components, or at the very least replace as much of the css styles with the react-bootstrap class names as possible.
 
 [Styled Components Home Page](https://styled-components.com/)
 [React Bootstrap 5+ Docs](https://react-bootstrap.github.io/)

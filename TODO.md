@@ -14,6 +14,14 @@ Create a new account and add the `.env` variables using goosecube1@gmail.com.
 
 In the sidebar, the user should be able to enter an API Key for Huggingface which will be stored in their user account on Firebase. This can only happen if a safe mechanism to encrypt and decrypt is used, otherwise it will have to be a manual add to the .env file.
 
+## Error Handling
+
+Need to handle error (404) when any one of the api's is unable to complete a request. The error should log and give the user feedback regarding the server error.
+
+## Moment Loading
+
+When a moment is selected, the initial prompt for the primaryAgent takes a minute to fetch before any motion in the game is rendered. There should be a loading animation to give the user selection feedback.
+
 ## Styled Components
 
 Once a components functionality and style requirements are completed, begin re-write of CSS styles to Styled Components, or at the very least replace as much of the css styles with the react-bootstrap class names as possible.

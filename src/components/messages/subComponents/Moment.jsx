@@ -15,7 +15,7 @@ function Moment({ id, moment }) {
 
   return (
     <div className="moment-container">
-      <div className="date-container">
+      <div className="date-container fs-5">
         <Trash
           className="delete-message-icon"
           onClick={() => removeMoment(id)}

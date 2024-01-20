@@ -20,8 +20,8 @@ function Moment({ id, moment }) {
       {moment.conversation.map((item, index) => {
         if (index === 0) {
           return (
-            <div key={index} className="agent initial-prompt-container">
-              <div className="primaryAgent fs-5">{item.primaryAgent.name}</div>
+            <div key={index} className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
+              <div className="primaryAgent fs-5">{item.primaryAgent.name} Initial Prompt:</div>
               <div className="initialPrompt fs-5">
                 {item.initialPrompt.question}
               </div>
@@ -37,6 +37,7 @@ function Moment({ id, moment }) {
               <div className="speech fs-5">
                 <pre>{item.speech}</pre>
               </div>
+              <div className="agent">----------------- End of Moment -----------------</div>
             </div>
           );
         } else {

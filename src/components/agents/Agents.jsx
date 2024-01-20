@@ -49,7 +49,6 @@ function Agents() {
           width: "1280px",
           height: "720px",
         }}>
-        {/* <div className="game-container"> */}
         {agents.map(
           (agent) =>
             agent.render && (

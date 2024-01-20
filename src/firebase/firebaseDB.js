@@ -141,11 +141,10 @@ export const getUserMoments = async (setMoments) => {
  * @param {string} prompt
  * @param {string} response
  */
-export const pushNewMoment = async (prompt, conversation) => {
+export const pushNewMoment = async (conversation) => {
   const moment = {
-    prompt: prompt,
-    response: conversation,
     timestamp: Date.now(),
+    conversation: conversation,
   };
   const userId = auth.currentUser.uid;
   const momentsRef = ref(database, `users/${userId}/moments`);

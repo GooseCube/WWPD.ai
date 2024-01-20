@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import screenImage from "../../assets/art/blue_screen.svg";
+import screenImage from "../../assets/art/pull_down_screen.png";
 
 import "./styles/styles.css";
 
-function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
+// function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
+function ImageScreen({ overlayImages }) {
   const [currentImage, setCurrentImage] = useState(overlayImages[0]);
   const [index, setIndex] = useState(0);
 
@@ -22,16 +23,33 @@ function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
         className="screen"
         src={screenImage}
         alt="Projector Screen"
-        style={screenStyles}
+        // style={screenStyles}
       />
       <img
         className="overlay"
         src={currentImage}
         alt="Overlay Image"
-        style={overlayStyles}
+        // style={overlayStyles}
       />
     </div>
   );
 }
 
 export default ImageScreen;
+
+  // return (
+  //   <div className="image-screen" style={{ position: "relative" }}>
+  //     <img
+  //       className="screen"
+  //       src={screenImage}
+  //       alt="Projector Screen"
+  //       style={screenStyles}
+  //     />
+  //     <img
+  //       className="overlay"
+  //       src={currentImage}
+  //       alt="Overlay Image"
+  //       style={overlayStyles}
+  //     />
+  //   </div>
+  // );

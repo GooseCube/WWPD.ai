@@ -5,19 +5,17 @@
 
 .image-screen .screen {
   position: absolute;
-  left: 1590px;
-  top: 370px;
-  transform: perspective(200px) rotateY(20deg) rotateZ(-7deg);
-  transform-origin: left;
+  left: 59em;
+  top: 0em;
+  width: 10em;
+  height: 8em;
 }
 
 
 .image-screen .overlay {
   position: absolute;
-  left: 1610px; 
-  top: 392px; 
-  width: 75px; 
-  height: 57px; 
-  transform: perspective(200px) rotateY(20deg) rotateZ(-6deg);
-  transform-origin: left;
+  left: 60em; 
+  top: 1em; 
+  width: 8em; 
+  height: 4em; 
 }

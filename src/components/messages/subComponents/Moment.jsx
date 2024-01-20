@@ -3,12 +3,9 @@ import { Trash } from "react-bootstrap-icons";
 
 /**
  * @param {array[{objects}]} moment Firebase Realtime Database
- * moment [
- *
- * ]
  * @param {number} id moments id from Firebase, necessary for virtual DOM to track each new node mapped()
  * and to remove a moment from the Firebase DB.
- * @returns a message with prompt and response
+ * @returns a single 'moment' from idea -> discussion -> final speech
  */
 function Moment({ id, moment }) {
   console.log("M.I. Moment:\n", moment.conversation[2].agent.name);

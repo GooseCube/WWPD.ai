@@ -46,6 +46,7 @@ function Sidebar({
 
     if (sidebar.aiModel.title !== "StabilityXL") {
       const meetingPlace = getRandomMeetingPlace();
+      console.log("Meeting Place: ", meetingPlace)
 
       // Set the styles for Projector Screen
       setScreenStyles(meetingPlace.screenStyles);

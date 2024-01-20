@@ -40,167 +40,167 @@ export const momentumSpeech = async (
 
   // ------------- Initializing Moment by Primary Agent -------------- //
 
-  let primaryAgentInitialPrompt = initialMomentPrompt(
-    primaryAgent,
-    moment.initialPrompt
-  );
-  // Filter out the primary agent from list of agents to talk with
-  let agentList = agents.filter(
-    (agent) => agent.uid !== primaryAgent.uid && agent.render === true
-  );
-  let updatedPrimaryAgent = null;
-  let primaryAgentInitialIdea = "";
-  let primaryAgentFinalSpeech = "";
+  // let primaryAgentInitialPrompt = initialMomentPrompt(
+  //   primaryAgent,
+  //   moment.initialPrompt
+  // );
+  // // Filter out the primary agent from list of agents to talk with
+  // let agentList = agents.filter(
+  //   (agent) => agent.uid !== primaryAgent.uid && agent.render === true
+  // );
+  // let updatedPrimaryAgent = null;
+  // let primaryAgentInitialIdea = "";
+  // let primaryAgentFinalSpeech = "";
 
-  // @prompt: Get initial idea from AI Model
-  primaryAgentInitialIdea = await fetchModelResponse(
-    aiModel,
-    primaryAgentInitialPrompt
-  );
+  // // @prompt: Get initial idea from AI Model
+  // primaryAgentInitialIdea = await fetchModelResponse(
+  //   aiModel,
+  //   primaryAgentInitialPrompt
+  // );
 
-  // @prompt: fetch remaining context from AI Model
-  for (let index = 0; index < 3; ++index) {
-    primaryAgentInitialIdea += await fetchModelResponse(
-      aiModel,
-      `${primaryAgentInitialPrompt}
-      ${primaryAgentInitialIdea}`
-    );
-  }
+  // // @prompt: fetch remaining context from AI Model
+  // for (let index = 0; index < 3; ++index) {
+  //   primaryAgentInitialIdea += await fetchModelResponse(
+  //     aiModel,
+  //     `${primaryAgentInitialPrompt}
+  //     ${primaryAgentInitialIdea}`
+  //   );
+  // }
 
-  conversations = primaryAgentInitialIdea;
+  // conversations = primaryAgentInitialIdea;
 
-  // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
+  // // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
 
-  while (agentList.length > 0) {
-    // Grab an agent to talk to and remove them from the list
-    let agent = getRandomAgent(agentList);
-    agentList = agentList.filter((a) => a.uid !== agent.uid);
+  // while (agentList.length > 0) {
+  //   // Grab an agent to talk to and remove them from the list
+  //   let agent = getRandomAgent(agentList);
+  //   agentList = agentList.filter((a) => a.uid !== agent.uid);
 
-    // Moves primaryAgent to the agent position
-    await moveAgent(primaryAgent, agent.x - 2, agent.y - 1, setAgents);
+  //   // Moves primaryAgent to the agent position
+  //   await moveAgent(primaryAgent, agent.x - 2, agent.y - 1, setAgents);
 
-    updatedPrimaryAgent = createUpdatedAgent(
-      primaryAgent,
-      agent.x - 3,
-      agent.y - 1,
-      "right",
-      `${agent.name}: ${primaryAgentInitialIdea}`
-    );
+  //   updatedPrimaryAgent = createUpdatedAgent(
+  //     primaryAgent,
+  //     agent.x - 3,
+  //     agent.y - 1,
+  //     "right",
+  //     `${agent.name}: ${primaryAgentInitialIdea}`
+  //   );
 
-    // This will initiate the text for momentResponse for primaryAgent
-    updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-    delay(10000); // wait for primary agent to finish discussing topic
+  //   // This will initiate the text for momentResponse for primaryAgent
+  //   updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
+  //   delay(10000); // wait for primary agent to finish discussing topic
 
-    // @prompt: get prompt for agent AI Model fetch
-    let agentResponsePrompt = agentDiscussionPrompt(
-      primaryAgent,
-      agent,
-      primaryAgentInitialIdea
-    );
+  //   // @prompt: get prompt for agent AI Model fetch
+  //   let agentResponsePrompt = agentDiscussionPrompt(
+  //     primaryAgent,
+  //     agent,
+  //     primaryAgentInitialIdea
+  //   );
 
-    // @prompt fetch
-    let agentResponse = await fetchModelResponse(aiModel, agentResponsePrompt);
+  //   // @prompt fetch
+  //   let agentResponse = await fetchModelResponse(aiModel, agentResponsePrompt);
 
-    conversations += `${agent.name}: ${agentResponse}`;
+  //   conversations += `${agent.name}: ${agentResponse}`;
 
-    // Local state context is not updated here as agent does not move on {x, y}
-    // This update initiates agent response in text bubble
-    await updateAgent({
-      ...agent,
-      direction: "left",
-      momentResponse: agentResponse,
-    });
+  //   // Local state context is not updated here as agent does not move on {x, y}
+  //   // This update initiates agent response in text bubble
+  //   await updateAgent({
+  //     ...agent,
+  //     direction: "left",
+  //     momentResponse: agentResponse,
+  //   });
 
-    if (speechLocation.audiencePositions.length > 0) {
-      let agentAudiencePosition = getRandomAudiencePosition(
-        speechLocation.audiencePositions
-      );
+  //   if (speechLocation.audiencePositions.length > 0) {
+  //     let agentAudiencePosition = getRandomAudiencePosition(
+  //       speechLocation.audiencePositions
+  //     );
 
-      speechLocation.audiencePositions =
-        speechLocation.audiencePositions.filter(
-          (position) =>
-            position.x !== agentAudiencePosition.x &&
-            position.y !== agentAudiencePosition.y
-        );
+  //     speechLocation.audiencePositions =
+  //       speechLocation.audiencePositions.filter(
+  //         (position) =>
+  //           position.x !== agentAudiencePosition.x &&
+  //           position.y !== agentAudiencePosition.y
+  //       );
 
-      await delay(12000);
-      await moveAgent(
-        agent,
-        agentAudiencePosition.x,
-        agentAudiencePosition.y,
-        setAgents
-      );
+  //     await delay(12000);
+  //     await moveAgent(
+  //       agent,
+  //       agentAudiencePosition.x,
+  //       agentAudiencePosition.y,
+  //       setAgents
+  //     );
 
-      let emojis = getRandomEmoji() + getRandomEmoji();
+  //     let emojis = getRandomEmoji() + getRandomEmoji();
 
-      let updatedAgent = createUpdatedAgent(
-        agent,
-        agentAudiencePosition.x,
-        agentAudiencePosition.y,
-        agentAudiencePosition.direction,
-        emojis
-      );
+  //     let updatedAgent = createUpdatedAgent(
+  //       agent,
+  //       agentAudiencePosition.x,
+  //       agentAudiencePosition.y,
+  //       agentAudiencePosition.direction,
+  //       emojis
+  //     );
 
-      updateAgentState(setAgents, updateAgent, updatedAgent);
-    }
-  }
+  //     updateAgentState(setAgents, updateAgent, updatedAgent);
+  //   }
+  // }
 
-  // ------------- Final Speech by Primary Agent -------------- //
+  // // ------------- Final Speech by Primary Agent -------------- //
 
-  // @prompt: get final prompt
-  let primaryAgentFinalSpeechPrompt = finalMomentPrompt(
-    primaryAgent,
-    moment.finalPrompt,
-    primaryAgentInitialIdea
-  );
+  // // @prompt: get final prompt
+  // let primaryAgentFinalSpeechPrompt = finalMomentPrompt(
+  //   primaryAgent,
+  //   moment.finalPrompt,
+  //   primaryAgentInitialIdea
+  // );
 
-  // @prompt: Get initial idea from AI Model
-  primaryAgentFinalSpeech = await fetchModelResponse(
-    aiModel,
-    primaryAgentFinalSpeechPrompt
-  );
+  // // @prompt: Get initial idea from AI Model
+  // primaryAgentFinalSpeech = await fetchModelResponse(
+  //   aiModel,
+  //   primaryAgentFinalSpeechPrompt
+  // );
 
-  // @prompt: fetch remaining context from AI Model
-  for (let index = 0; index < 3; ++index) {
-    primaryAgentFinalSpeech += await fetchModelResponse(
-      aiModel,
-      `${primaryAgentFinalSpeechPrompt}
-      ${primaryAgentFinalSpeech}`
-    );
-  }
+  // // @prompt: fetch remaining context from AI Model
+  // for (let index = 0; index < 3; ++index) {
+  //   primaryAgentFinalSpeech += await fetchModelResponse(
+  //     aiModel,
+  //     `${primaryAgentFinalSpeechPrompt}
+  //     ${primaryAgentFinalSpeech}`
+  //   );
+  // }
 
-  conversations += `
+  // conversations += `
   
-  ----- Final Moment -----
+  // ----- Final Moment -----
   
-  `;
+  // `;
 
-  conversations += primaryAgentFinalSpeech;
+  // conversations += primaryAgentFinalSpeech;
 
-  await moveAgent(
-    primaryAgent,
-    speechLocation.primaryAgent.x,
-    speechLocation.primaryAgent.y,
-    setAgents
-  );
+  // await moveAgent(
+  //   primaryAgent,
+  //   speechLocation.primaryAgent.x,
+  //   speechLocation.primaryAgent.y,
+  //   setAgents
+  // );
 
   setShowImageScreen(true);
 
-  updatedPrimaryAgent = createUpdatedAgent(
-    primaryAgent,
-    speechLocation.primaryAgent.x,
-    speechLocation.primaryAgent.y,
-    speechLocation.primaryAgent.direction,
-    primaryAgentFinalSpeech
-  );
+  // updatedPrimaryAgent = createUpdatedAgent(
+  //   primaryAgent,
+  //   speechLocation.primaryAgent.x,
+  //   speechLocation.primaryAgent.y,
+  //   speechLocation.primaryAgent.direction,
+  //   primaryAgentFinalSpeech
+  // );
 
-  updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-  pushNewMoment(moment.initialPrompt, conversations);
+  // updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
+  // pushNewMoment(moment.initialPrompt, conversations);
 
   setTimeout(() => {
     setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 60000); // wait 1-minute and send all agents to home positions
+  }, 600000); // wait 1-minute and send all agents to home positions
 
   // groupSpeechInteraction(agents, updateAgent);
 };

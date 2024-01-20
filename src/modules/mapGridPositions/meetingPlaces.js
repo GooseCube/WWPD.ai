@@ -63,12 +63,12 @@ export const meetingPlaces = {
     title: "The Flat",
     primaryAgent: { x: 67, y: 6, direction: "down" },
     audiencePositions: [
-      { x: 68, y: 17, direction: "up" }, //
-      { x: 62, y: 18, direction: "up" }, //
+      { x: 66, y: 17, direction: "up" },
+      { x: 62, y: 18, direction: "up" },
       { x: 73, y: 18, direction: "up" },
-      { x: 62, y: 12, direction: "up" }, //
-      { x: 65, y: 14, direction: "up" }, //
-      { x: 71, y: 14, direction: "up" }, //
+      { x: 62, y: 12, direction: "up" },
+      { x: 65, y: 14, direction: "up" },
+      { x: 71, y: 14, direction: "up" },
     ],
     screenStyles: {
       position: "absolute",

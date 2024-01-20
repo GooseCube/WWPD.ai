@@ -89,7 +89,7 @@ export const meetingPlaces = {
     title: "The Deck",
     primaryAgent: { x: 62, y: 22, direction: "right" },
     audiencePositions: [
-      { x: 62, y: 18, direction: "down" },
+      { x: 70, y: 18, direction: "down" },
       { x: 72, y: 18, direction: "left" },
       { x: 67, y: 21, direction: "down" },
       { x: 74, y: 23, direction: "left" },

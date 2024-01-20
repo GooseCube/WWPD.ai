@@ -13,7 +13,7 @@ import Agent from "./sub-components/Agent";
 import "./styles/styles.css";
 
 // Assets: AI Generated background image by Steven Ochs
-import gameBackgroundImage from "../../assets/16to9Ratio.png";
+import gameBackgroundImage from "../../assets/StevenOchsBgImage.png";
 
 function Agents() {
   const { agents, setAgents } = useContext(AuthContext);

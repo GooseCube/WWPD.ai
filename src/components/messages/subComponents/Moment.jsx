@@ -8,8 +8,6 @@ import { Trash } from "react-bootstrap-icons";
  * @returns a single 'moment' from idea -> discussion -> final speech
  */
 function Moment({ id, moment }) {
-  console.log("M.I. Moment:\n", moment.conversation[2].agent.name);
-
   return (
     <div className="moment-container">
       <div className="date-container fs-5">

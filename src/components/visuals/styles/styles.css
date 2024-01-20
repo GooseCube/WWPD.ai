@@ -5,8 +5,8 @@
 
 .image-screen .screen {
   position: absolute;
-  left: 59em;
-  top: 0em;
+  left: 111em;
+  top: -23em;
   width: 10em;
   height: 8em;
 }
@@ -14,8 +14,8 @@
 
 .image-screen .overlay {
   position: absolute;
-  left: 60em; 
-  top: 1em; 
+  left: 112em; /* one more than .screen left */ 
+  top: -22em;  /* one less than .screen top */
   width: 8em; 
   height: 4em; 
 }

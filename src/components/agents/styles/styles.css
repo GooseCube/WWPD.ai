@@ -1,10 +1,20 @@
 /* New Sprite Animation Movements */
 
+.game-container {
+  border: 2px solid #849c3a;
+  z-index: 0;
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0;
+  max-width: 125%;
+  max-height: 125%;
+  border-radius: 10px;
+}
+
 .sprite-container {
   position: relative;
-}
-.sprite {
-  position: absolute;
 }
 
 /* See Also: styles/Sprite styled-components */

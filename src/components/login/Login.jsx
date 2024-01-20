@@ -30,7 +30,6 @@ function Login({ loggedIn, setLoggedIn }) {
         email,
         password
       );
-      console.log("LogIn Successful (credentials): ", userCredentials);
       setLoggedIn(!loggedIn);
     } catch (error) {
       alert(
@@ -47,9 +46,9 @@ function Login({ loggedIn, setLoggedIn }) {
       <Form
         className="col-6 bg-dark bordered form-container"
         onSubmit={handleLogin}>
-        <Form.Text className="fs-1 text-light">Login</Form.Text>
+        <Form.Text className="text-light form-text">Login</Form.Text>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label className="form-email">Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -59,7 +58,7 @@ function Login({ loggedIn, setLoggedIn }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="form-password">Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"

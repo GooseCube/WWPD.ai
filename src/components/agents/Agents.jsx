@@ -12,6 +12,19 @@ import Agent from "./sub-components/Agent";
 // Styles
 import "./styles/styles.css";
 
+import gameBackgroundImage from "../../assets/16to9Ratio.png"
+
+
+const getWidth = () => {
+  // return 1280 / 10 + "rem"; // HD
+  return "1280px";
+};
+
+const getHeight = () => {
+  // return 720 / 10 + "rem"; // HD
+  return "720px"
+};
+
 function Agents() {
   const { agents, setAgents } = useContext(AuthContext);
   const [prevPlayerControlled, setPrevPlayerControlled] = useState([]);
@@ -39,7 +52,9 @@ function Agents() {
 
   return (
     agents && (
-      <div className="game-container">
+
+    <div className="game-container" style={{backgroundImage: `url(${gameBackgroundImage})`, width: getWidth(), height: getHeight()}}>
+      {/* <div className="game-container"> */}
         {agents.map(
           (agent) =>
             agent.render && (

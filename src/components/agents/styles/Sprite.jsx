@@ -11,7 +11,6 @@ export const Sprite = styled.div.withConfig({
   width: 32px;
   height: 32px;
   transition: top 0.2s ease, left 0.2s ease;
-  zoom: 1.25;
   background-image: ${({ agent }) =>
     `url(src/assets/characters/${agent.sprite})`};
   &.grid-cell {

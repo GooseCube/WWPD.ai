@@ -35,6 +35,7 @@ function AgentProfile({ agents, showAgentCards, setShowAgentCards }) {
 
   return (
     <OverlayTrigger
+    className="overlay-trigger-container"
       placement="right"
       overlay={<Tooltip id={"tooltip-right"}>Click to View Agents</Tooltip>}>
       <div

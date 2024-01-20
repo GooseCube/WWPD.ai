@@ -25,7 +25,7 @@ const goRight = function incrementCardIndex(
   }
 };
 
-function AgentCards({ showAgentCards, setShowAgentCards }) {
+function AgentCards({ setShowAgentCards }) {
   const { agents } = useContext(AuthContext);
   const [cardIndex, setCardIndex] = useState(0);
   const [maxViews, setMaxViews] = useState(5);
@@ -46,9 +46,8 @@ function AgentCards({ showAgentCards, setShowAgentCards }) {
       )}
 
       <OverlayTrigger
-      placement="top" 
-      overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}
-      >
+        placement="top"
+        overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
         <div className="open-close-container">
           <XCircle
             className="open-close-icon"

@@ -12,20 +12,36 @@ import { v4 as uuidv4 } from "uuid";
 
 // Personas for each agent, used to create Firebase agents
 import { personas } from "../modules/personas/personas";
+import { agentRenderPositions } from "../modules/mapGridPositions/agentRenderPositions";
 
 // ---------- Firebase Agents ------------
 
 // Called from AuthProvider | Initialize All Agents in Game
+
 export const initializeAgents = async (setAgents) => {
   const userId = auth.currentUser.uid;
   const agentsRef = ref(database, `users/${userId}/agents`);
 
+  const assignPositionToAgent = (agent) => {
+    const randomIndex = Math.floor(Math.random() * agentRenderPositions.length);
+    const position = agentRenderPositions[randomIndex];
+    agent.x = position.x;
+    agent.y = position.y;
+    agent.direction = position.direction;
+    agent.homePosition = {
+      x: position.x,
+      y: position.y,
+      direction: position.direction,
+    };
+    // Remove the used position from the array
+    agentRenderPositions.splice(randomIndex, 1);
+  };
+
   Object.values(personas).map((agent) => {
     const agentId = uuidv4();
     agent.uid = agentId;
-    // @TODO may not need this here
-    // agent.x = agent.x / 10;
-    // agent.y = agent.y / 10;
+
+    assignPositionToAgent(agent);
 
     const agentRef = ref(database, `users/${userId}/agents/${agentId}`);
     set(agentRef, agent);

@@ -1,22 +1,21 @@
 .image-screen {
   position: relative;
+  z-index: 1;
 }
 
 .image-screen .screen {
   position: absolute;
-  left: 1590px;
-  top: 370px;
-  transform: perspective(200px) rotateY(20deg) rotateZ(-7deg);
-  transform-origin: left;
+  left: 45em;
+  top: 19em;
+  width: 10em;
+  height: 8em;
 }
 
 
 .image-screen .overlay {
   position: absolute;
-  left: 1610px; 
-  top: 392px; 
-  width: 75px; 
-  height: 57px; 
-  transform: perspective(200px) rotateY(20deg) rotateZ(-6deg);
-  transform-origin: left;
+  left: 46em; /* ~ one more than .screen left */ 
+  top: 20em;  /* ~ -1 .screen top if neg | else: +1 */
+  width: 8em; 
+  height: 4em; 
 }

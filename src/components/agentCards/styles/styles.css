@@ -1,18 +1,23 @@
+/* Local Global Variables */
 .agent-card-container {
-  position: relative;
+  --white: #e9e9e9;
+  --black: black;
+  --red: red;
+  --green: #849c3a;
+}
+
+.agent-card-container {
   z-index: 1;
-  justify-content: space-between; /* remove if not working for chevrons */
+  padding: 2em 0;
+  position: absolute;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  top: 20em;
-  /* background-color: grey; */
-  background-color: #849c3a;
-  display: flex; /* Add this line to make the children align in a row */
-  justify-content: center; /* Add this line to center the children horizontally */
-  align-items: center; /* Add this line to center the children vertically */
-  height: 40vh; /* Adjust this value to control the height of the container */
-  overflow-x: hidden; /* Add this line to hide the overflow and enable scrolling */
-  overflow-y: hidden; /* Add this line to prevent vertical scrolling */
-  white-space: nowrap; /* Add this line to prevent wrapping */
+  background-color: var(--green);
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
   scrollbar-width: none;
 }
 
@@ -31,11 +36,9 @@
 
 .agent-persona-card {
   margin: 0 1em;
-  max-width: 15em;
-  min-width: 15em;
-  min-height: 35vh;
-  background-color: white;
-  color: black;
+  width: 16em;
+  background-color: var(--white);
+  color: var(--black);
   white-space: normal;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   animation: slideInFromLeft 1s ease-out;
@@ -48,6 +51,10 @@
   100% {
     transform: translateX(0);
   }
+}
+
+.agent-persona-card p {
+  font-size: 1.25em;
 }
 
 .agent-persona-card:hover {
@@ -69,7 +76,6 @@
   width: 2.5vw;
   height: 100%;
   background-color: transparent;
-  /* background-color: white; */
   border: none;
 }
 
@@ -86,20 +92,20 @@
 
 .arrow-card:hover .chevron-left,
 .arrow-card:hover .chevron-right {
-  color: white;
+  color: var(--white);
 }
 
 /* Open Close Icon */
 
 .open-close-container {
-  height: 100%;
+  height: 38vh;
 }
 
 .open-close-icon {
   margin-top: 1em;
-  width: 1.5em;
-  height: 1.5em;
-  color: white;
+  width: 2.25em;
+  height: 2.25em;
+  color: var(--white);
 }
 
 .open-close-icon:hover {
@@ -118,9 +124,9 @@
 
 .player-controlled-icon,
 .player-render-icon {
-  color: #849c3a;
+  color: var(--green);
 }
 
 .player-hide-icon {
-  color: red;
+  color: var(--red);
 }

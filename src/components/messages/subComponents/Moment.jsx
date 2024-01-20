@@ -2,34 +2,57 @@ import { removeMoment } from "../../../firebase/firebaseDB";
 import { Trash } from "react-bootstrap-icons";
 
 /**
- * @param {object} moment Firebase Object:
- *  path: users/id
- *    /moments/id
- *      /prompt/ {context, instruction, question, title}
- *      /response
- *      timestamp
+ * @param {array[{objects}]} moment Firebase Realtime Database
+ * moment [
+ *
+ * ]
  * @param {number} id moments id from Firebase, necessary for virtual DOM to track each new node mapped()
  * and to remove a moment from the Firebase DB.
  * @returns a message with prompt and response
  */
 function Moment({ id, moment }) {
+  console.log("M.I. Moment:\n", moment.conversation[2].agent.name);
+
   return (
-    <div key={id} className="moment">
-      <div className="prompt">
+    <div className="moment-container">
+      <div className="date-container">
         <Trash
           className="delete-message-icon"
           onClick={() => removeMoment(id)}
         />{" "}
         {new Date(moment.timestamp).toLocaleDateString("en-US")}
-        <pre>Context: {moment.prompt.context}</pre>
-        <pre>Instruction: {moment.prompt.instruction}</pre>
-        <pre>Question: {moment.prompt.question}</pre>
       </div>
-
-      <div className="response">
-        Response: {new Date(moment.timestamp).toLocaleDateString("en-US")}{" "}
-        <pre>{moment.response}</pre>
-      </div>
+      {moment.conversation.map((item, index) => {
+        if (index === 0) {
+          return (
+            <div key={index} className="agent initial-prompt-container">
+              <div className="primaryAgent fs-5">{item.primaryAgent.name}</div>
+              <div className="initialPrompt fs-5">
+                {item.initialPrompt.question}
+              </div>
+              <div className="initialResponse fs-5">{item.initialResponse}</div>
+            </div>
+          );
+        } else if (index === moment.conversation.length - 1) {
+          return (
+            <div key={index} className="agent">
+              <div className="header fs-5">
+                <pre>{item.header}</pre>
+              </div>
+              <div className="speech fs-5">
+                <pre>{item.speech}</pre>
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div key={index} className={`agent ${item.agent.name} fs-5`}>
+              <div className="agentName fs-5">{item.agent.name}:</div>
+              <div className="agentResponse fs-5">{item.agentResponse}</div>
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }

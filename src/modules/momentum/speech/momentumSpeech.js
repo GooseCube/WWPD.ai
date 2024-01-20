@@ -36,7 +36,7 @@ export const momentumSpeech = async (
   setShowImageScreen
 ) => {
   const primaryAgent = agents.find((agent) => agent.playerControlled === true);
-  let conversations = "";
+  let conversations = [];
 
   // ------------- Initializing Moment by Primary Agent -------------- //
 
@@ -67,7 +67,15 @@ export const momentumSpeech = async (
     );
   }
 
-  conversations = primaryAgentInitialIdea;
+  const initialIdea = {
+    primaryAgent: primaryAgent,
+    initialPrompt: moment.initialPrompt,
+    initialResponse: primaryAgentInitialIdea
+  }
+
+  conversations.push(initialIdea);
+
+  // conversations = primaryAgentInitialIdea;
 
   // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
 
@@ -92,16 +100,24 @@ export const momentumSpeech = async (
     delay(10000); // wait for primary agent to finish discussing topic
 
     // @prompt: get prompt for agent AI Model fetch
-    let agentResponsePrompt = agentDiscussionPrompt(
+    let agentPrompt = agentDiscussionPrompt(
       primaryAgent,
       agent,
       primaryAgentInitialIdea
     );
 
     // @prompt fetch
-    let agentResponse = await fetchModelResponse(aiModel, agentResponsePrompt);
+    let agentResponse = await fetchModelResponse(aiModel, agentPrompt);
 
-    conversations += `${agent.name}: ${agentResponse}`;
+    const agentFeedback = {
+      agent: agent,
+      agentPrompt: agentPrompt,
+      agentResponse: agentResponse,
+    }
+
+    conversations.push(agentFeedback)
+
+    // conversations += `${agent.name}: ${agentResponse}`;
 
     // Local state context is not updated here as agent does not move on {x, y}
     // This update initiates agent response in text bubble
@@ -169,13 +185,14 @@ export const momentumSpeech = async (
     );
   }
 
-  conversations += `
-  
-  ----- Final Moment -----
-  
-  `;
+  const finalSpeech = {
+    header: "---------- Final Speech ----------",
+    speech: primaryAgentFinalSpeech,
+  }
 
-  conversations += primaryAgentFinalSpeech;
+  conversations.push(finalSpeech)
+
+  // conversations += primaryAgentFinalSpeech;
 
   await moveAgent(
     primaryAgent,
@@ -195,7 +212,7 @@ export const momentumSpeech = async (
   );
 
   updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-  pushNewMoment(moment.initialPrompt, conversations);
+  pushNewMoment(conversations);
 
   setTimeout(() => {
     setShowImageScreen(false);

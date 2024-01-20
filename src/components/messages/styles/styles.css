@@ -63,17 +63,6 @@
   transition: all 0.3s ease;
 }
 
-.delete-message-icon {
-  width: 1.25em;
-  height: 1.25em;
-}
-
-.delete-message-icon:hover {
-  color: red;
-  transform: scale(1.05);
-  transition: all 0.3s ease;
-}
-
 .ai-model-name {
   font-size: 1.5em;
 }
@@ -86,16 +75,14 @@
   color: blue;
 }
 
-/* Moment & Message | Sub-Component */
+/* Message Display | Sub-Component */
 
-.message,
-.moment {
+.message {
   padding: 0.25em;
   color: white;
 }
 
-.message div,
-.moment div {
+.message div {
   font-size: 1.5em;
 }
 
@@ -128,6 +115,25 @@
   white-space: -o-pre-wrap; /* Opera 7 */
   word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
+
+/* Moment Display | Sub-Component */
+
+.moment-container {
+  padding: 1em;
+  color: #f1f1f1;
+}
+
+.delete-message-icon {
+  width: 2em;
+  height: 2em;
+}
+
+.delete-message-icon:hover {
+  color: red;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
 
 /* TextInput | Sub-Component */
 
@@ -170,6 +176,17 @@
 }
 
 /* Sprite Message BG Color */
+
+.agent {
+  margin: 0.5em;
+  padding: .5em;
+  border-radius: 10px;
+}
+
+.agent pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 
 .Abigail {
   background-color: #2049a3;

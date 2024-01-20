@@ -134,6 +134,16 @@
   transition: all 0.3s ease;
 }
 
+.agent {
+  margin: 0.5em;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.agent pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 
 /* TextInput | Sub-Component */
 
@@ -176,17 +186,6 @@
 }
 
 /* Sprite Message BG Color */
-
-.agent {
-  margin: 0.5em;
-  padding: .5em;
-  border-radius: 10px;
-}
-
-.agent pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
 
 .Abigail {
   background-color: #2049a3;

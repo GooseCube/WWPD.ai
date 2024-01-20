@@ -70,12 +70,10 @@ export const momentumSpeech = async (
   const initialIdea = {
     primaryAgent: primaryAgent,
     initialPrompt: moment.initialPrompt,
-    initialResponse: primaryAgentInitialIdea
-  }
+    initialResponse: primaryAgentInitialIdea,
+  };
 
   conversations.push(initialIdea);
-
-  // conversations = primaryAgentInitialIdea;
 
   // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
 
@@ -113,11 +111,9 @@ export const momentumSpeech = async (
       agent: agent,
       agentPrompt: agentPrompt,
       agentResponse: agentResponse,
-    }
+    };
 
-    conversations.push(agentFeedback)
-
-    // conversations += `${agent.name}: ${agentResponse}`;
+    conversations.push(agentFeedback);
 
     // Local state context is not updated here as agent does not move on {x, y}
     // This update initiates agent response in text bubble
@@ -188,11 +184,9 @@ export const momentumSpeech = async (
   const finalSpeech = {
     header: "---------- Final Speech ----------",
     speech: primaryAgentFinalSpeech,
-  }
+  };
 
-  conversations.push(finalSpeech)
-
-  // conversations += primaryAgentFinalSpeech;
+  conversations.push(finalSpeech);
 
   await moveAgent(
     primaryAgent,

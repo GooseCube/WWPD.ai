@@ -1,4 +1,4 @@
-# Generative Agent Momentum Experientia (G.A.M.E.)
+# Generative Agent Moment Experience (G.A.M.E.)
 
 <div style="width: 55em; display: block; margin: 0 auto;">
   <img src="./src/assets/readme/game_bg.png" style="width: 100%; height: auto;" />

@@ -1,10 +1,6 @@
 import Draggable from "react-draggable";
 import { XCircleFill } from "react-bootstrap-icons";
 
-const convertISOTimestamp = (timestamp) => {
-  return new Date(timestamp).toLocaleString();
-};
-
 /**
  *
  * @param {useRef} form, reference
@@ -40,7 +36,8 @@ function Form({
 
         {/* Selected Moment Header Description*/}
         <div className="label-title">Selected Moment</div>
-        <div className={`selected-moment ${moment.conversation[0].primaryAgent.name} rounded p-2`}>
+        <div
+          className={`selected-moment ${moment.conversation[0].primaryAgent.name} rounded p-2`}>
           {moment.conversation[0].initialResponse} . . .
         </div>
 

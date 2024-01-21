@@ -11,7 +11,8 @@ export const emailFormatting = (conversation, to_email) => {
     } else if (index === conversation.length - 1) {
       email.moment = moment.speech;
     } else {
-      email.agent += `${moment.agent.name}: ${moment.agentResponse}`;
+      email.agent += `${moment.agent.name}: 
+      ${moment.agentResponse}`;
     }
   });
 

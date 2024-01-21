@@ -18,7 +18,6 @@ function Form({
   handleSendEmail,
   emailRef,
 }) {
-  console.log(moment)
   return (
     <Draggable defaultPosition={{ x: 50, y: 25 }}>
       <form
@@ -37,7 +36,8 @@ function Form({
         {/* Select a Moment from list */}
         <label className="label-title">Selected Moment</label>
 
-        <div className="selected-moment">{moment}</div>
+        <div className="selected-moment">{moment.conversation[0].primaryAgent.name}</div>
+        <div className="selected-moment">{moment.conversation[0].initialResponse} . . .</div>
 
         <div className="button-container">
           <input className="input-btn" type="submit" value="Send" />

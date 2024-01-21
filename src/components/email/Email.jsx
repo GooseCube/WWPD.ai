@@ -21,7 +21,7 @@ function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
 
   const handleSendEmail = async (event, email) => {
     event.preventDefault();
-    console.log("Moment in EmailForm: ", moment)
+    console.log("Inside handleSendEmail ", moment)
     const agent = agents.find((a) => a.playerControlled === true);
     const templateParams = {
       ...moment,
@@ -43,10 +43,12 @@ function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
     emailRef.current.value = "";
   };
 
+  console.log("Moment in EmailForm(): ", moment)
+
   return (
     showEmailForm && (
       <Form
-        moment={selectedMoment}
+        moment={moment}
         showEmailForm={showEmailForm}
         setShowEmailForm={setShowEmailForm}
         handleSendEmail={handleSendEmail}

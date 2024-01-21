@@ -28,8 +28,6 @@ import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunct
 function Sidebar({
   showInterface,
   setShowInterface,
-  showEmailForm,
-  setShowEmailForm,
   showAgentCards,
   setShowAgentCards,
 }) {
@@ -46,7 +44,7 @@ function Sidebar({
 
     if (sidebar.aiModel.title !== "StabilityXL") {
       const meetingPlace = getRandomMeetingPlace();
-      console.log("Meeting Place: ", meetingPlace)
+      console.log("Meeting Place: ", meetingPlace);
 
       // Set the styles for Projector Screen
       setScreenStyles(meetingPlace.screenStyles);
@@ -130,13 +128,6 @@ function Sidebar({
                 { title: "Zephyr", type: "chat" },
                 { title: "StabilityXL", type: "txt2img" },
               ]}
-            />
-            <ButtonSelection
-              buttonText="Email Moments"
-              image={message}
-              altText="email interface button"
-              useStateParam={showEmailForm}
-              handleStateEvent={setShowEmailForm}
             />
             <AgentProfile
               agents={agents}

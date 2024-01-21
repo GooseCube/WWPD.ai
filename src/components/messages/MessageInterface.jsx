@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from "../../firebase/AuthProvider";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
@@ -13,12 +13,7 @@ import TextInput from "./subComponents/TextInput";
 // Interface Styles
 import "./styles/styles.css";
 
-function MessageInterface({
-  showInterface,
-  setShowInterface,
-  showEmailForm,
-  setShowEmailForm,
-}) {
+function MessageInterface({ showInterface, setShowInterface }) {
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
   const [showMessages, setShowMessages] = useState(true);
   const [showInputArea, setShowInputArea] = useState(true);
@@ -36,8 +31,6 @@ function MessageInterface({
               setShowInputArea={setShowInputArea}
               showInterface={showInterface}
               setShowInterface={setShowInterface}
-              showEmailForm={showEmailForm}
-              setShowEmailForm={setShowEmailForm}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
               aiModel={sidebar.aiModel}

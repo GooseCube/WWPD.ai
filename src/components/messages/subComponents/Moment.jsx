@@ -55,7 +55,9 @@ function Moment({ id, moment }) {
             onClick={() => removeMoment(id)}
           />
         </OverlayTrigger>
-        {new Date(moment.timestamp).toLocaleDateString("en-US")}
+        <div className="date-timestamp">
+          {new Date(moment.timestamp).toLocaleDateString("en-US")}
+        </div>
       </div>
       {moment.conversation.map((item, index) => {
         if (index === 0) {
@@ -82,9 +84,6 @@ function Moment({ id, moment }) {
               </div>
               <div className="speech fs-5">
                 <pre>{item.speech}</pre>
-              </div>
-              <div className="agent">
-                ----------------- End of Moment -----------------
               </div>
             </div>
           );

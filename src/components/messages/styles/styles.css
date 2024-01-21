@@ -121,10 +121,20 @@
 .moment-container {
   padding: 1em;
   color: #f1f1f1;
+  border-top: 1px solid white;
+  border-radius: 10px;
+}
+
+.moment-container:first-of-type {
+  border-top: none;
 }
 
 .moment-toolbar {
   margin-left: 0.5em;
+}
+
+.date-timestamp {
+  font-size: 1.25em;
 }
 
 .delete-message-icon,

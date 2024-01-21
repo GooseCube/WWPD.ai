@@ -2,7 +2,7 @@ import { removeMoment } from "../../../firebase/firebaseDB";
 import { saveAs } from "file-saver";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Envelope, Trash, Download } from "react-bootstrap-icons";
-import EmailForm from "../../email/Email";
+import { emailFormatting } from "../../email/modules/emailFormatting";
 
 /**
  * Save the moment as a .txt file with .json encoding

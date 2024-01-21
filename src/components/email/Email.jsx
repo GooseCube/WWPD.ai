@@ -3,6 +3,7 @@ import { AuthContext } from "../../firebase/AuthProvider";
 import emailjs from "@emailjs/browser";
 import Form from "./Form";
 import "./styles/styles.css";
+import { emailFormatting } from "./modules/emailFormatting";
 
 /**
  * Uses the AuthContext 'moments' allowing a user to select
@@ -21,14 +22,10 @@ function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
 
   const handleSendEmail = async (event, email) => {
     event.preventDefault();
-    console.log("Email: ", email)
-    console.log("Inside handleSendEmail ", moment)
+    console.log("Moment: ", moment)
+    console.log("Formatted Email: ", emailFormatting(moment.conversation, email));
     // const agent = agents.find((a) => a.playerControlled === true);
-    // const templateParams = {
-    //   ...moment,
-    //   agent_name: agent.name,
-    //   to_email: email,
-    // };
+    // const templateParams = emailFormatting(moment.conversation, email);
 
     // try {
     //   const result = await emailjs.send(
@@ -43,6 +40,14 @@ function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
     // }
     // emailRef.current.value = "";
   };
+
+  if (!moment) {
+    return (
+      <div className="moment-error fs-5">
+        No moments are currently available to email.
+      </div>
+    );
+  }
 
   return (
     showEmailForm && (

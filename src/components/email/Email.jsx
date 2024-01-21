@@ -21,29 +21,28 @@ function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
 
   const handleSendEmail = async (event, email) => {
     event.preventDefault();
+    console.log("Email: ", email)
     console.log("Inside handleSendEmail ", moment)
-    const agent = agents.find((a) => a.playerControlled === true);
-    const templateParams = {
-      ...moment,
-      agent_name: agent.name,
-      to_email: email,
-    };
+    // const agent = agents.find((a) => a.playerControlled === true);
+    // const templateParams = {
+    //   ...moment,
+    //   agent_name: agent.name,
+    //   to_email: email,
+    // };
 
-    try {
-      const result = await emailjs.send(
-        serviceID,
-        templateID,
-        templateParams,
-        publicKey
-      );
-      console.log(result.text);
-    } catch (error) {
-      console.log("Email Request Error: ", error);
-    }
-    emailRef.current.value = "";
+    // try {
+    //   const result = await emailjs.send(
+    //     serviceID,
+    //     templateID,
+    //     templateParams,
+    //     publicKey
+    //   );
+    //   console.log(result.text);
+    // } catch (error) {
+    //   console.log("Email Request Error: ", error);
+    // }
+    // emailRef.current.value = "";
   };
-
-  console.log("Moment in EmailForm(): ", moment)
 
   return (
     showEmailForm && (

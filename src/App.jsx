@@ -15,9 +15,8 @@ function App() {
 
   const handleEmail = (e, selectedMoment) => {
     e.preventDefault();
-    setMoment(selectedMoment)
-    console.log("Moment in App(): ", moment)
-  }
+    setMoment(selectedMoment);
+  };
 
   return loggedIn ? (
     <div className="app-container">

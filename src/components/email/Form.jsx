@@ -31,13 +31,18 @@ function Form({
         </div>
         {/* Enter Email to Send Message */}
         <label className="label-title">Email</label>
-        <input className="email input-email" type="email" name="to_email" ref={emailRef} />
+        <input
+          className="email input-email"
+          type="email"
+          name="to_email"
+          ref={emailRef}
+        />
 
-        {/* Select a Moment from list */}
-        <label className="label-title">Selected Moment</label>
-
-        <div className="selected-moment">{moment.conversation[0].primaryAgent.name}</div>
-        <div className="selected-moment">{moment.conversation[0].initialResponse} . . .</div>
+        {/* Selected Moment Header Description*/}
+        <div className="label-title">Selected Moment</div>
+        <div className={`selected-moment ${moment.conversation[0].primaryAgent.name} rounded p-2`}>
+          {moment.conversation[0].initialResponse} . . .
+        </div>
 
         <div className="button-container">
           <input className="input-btn" type="submit" value="Send" />

@@ -6,10 +6,6 @@ Find and add the appropriate open source license to the repo before making it pu
 
 Create an account with Huggingface using goosecube1@gmail.com. Create an API Key and change current VITE_HUGGINGFACE_API_TOKEN in the `.env` file. Currently using Adams Huggingface API Token.
 
-## Switch EmailJS Account for Goose Cube
-
-Create a new account and add the `.env` variables using goosecube1@gmail.com.
-
 ## Add Sidebar Huggingface API Token Input
 
 In the sidebar, the user should be able to enter an API Key for Huggingface which will be stored in their user account on Firebase. This can only happen if a safe mechanism to encrypt and decrypt is used, otherwise it will have to be a manual add to the .env file.

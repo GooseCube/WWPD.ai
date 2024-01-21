@@ -42,7 +42,7 @@
 
 .toolbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0.5em;
   background-color: black;
   color: white;

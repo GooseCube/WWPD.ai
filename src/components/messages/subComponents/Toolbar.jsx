@@ -2,7 +2,6 @@ import {
   ChatDots,
   Keyboard,
   Lightbulb,
-  VolumeUpFill,
   XCircleFill,
 } from "react-bootstrap-icons";
 

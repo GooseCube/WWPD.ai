@@ -10,10 +10,19 @@ import Message from "./subComponents/Message";
 import Moment from "./subComponents/Moment";
 import TextInput from "./subComponents/TextInput";
 
+// Import Other Components
+import EmailForm from "../email/Email"
+
 // Interface Styles
 import "./styles/styles.css";
 
-function MessageInterface({ showInterface, setShowInterface }) {
+function MessageInterface({
+  showInterface,
+  setShowInterface,
+  showEmailForm,
+  setShowEmailForm,
+  handleEmail
+}) {
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
   const [showMessages, setShowMessages] = useState(true);
   const [showInputArea, setShowInputArea] = useState(true);
@@ -45,7 +54,16 @@ function MessageInterface({ showInterface, setShowInterface }) {
             {moments && !showMessages && (
               <div className="message-container">
                 {Object.entries(moments).map(([id, moment]) => {
-                  return <Moment id={id} moment={moment} key={id} />;
+                  return (
+                    <Moment
+                      id={id}
+                      moment={moment}
+                      key={id}
+                      showEmailForm={showEmailForm}
+                      setShowEmailForm={setShowEmailForm}
+                      handleEmail={handleEmail}
+                    />
+                  );
                 })}
               </div>
             )}

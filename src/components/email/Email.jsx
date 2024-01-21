@@ -3,7 +3,6 @@ import { AuthContext } from "../../firebase/AuthProvider";
 import emailjs from "@emailjs/browser";
 import Form from "./Form";
 import "./styles/styles.css";
-import { updateAgent } from "../../firebase/firebaseDB";
 
 /**
  * Uses the AuthContext 'moments' allowing a user to select
@@ -12,16 +11,17 @@ import { updateAgent } from "../../firebase/firebaseDB";
  * @param {useState setter} setShowEmailForm
  * @returns the Email moment selector form
  */
-function EmailForm({ showEmailForm, setShowEmailForm }) {
-  const { moments, agents } = useContext(AuthContext);
+function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
+  const { agents } = useContext(AuthContext);
   const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
-  const [moment, setMoment] = useState({});
+  // const [moment, setMoment] = useState({});
   const emailRef = useRef();
 
   const handleSendEmail = async (event, email) => {
     event.preventDefault();
+    console.log("Moment in EmailForm: ", moment)
     const agent = agents.find((a) => a.playerControlled === true);
     const templateParams = {
       ...moment,
@@ -46,10 +46,9 @@ function EmailForm({ showEmailForm, setShowEmailForm }) {
   return (
     showEmailForm && (
       <Form
-        moments={moments}
+        moment={selectedMoment}
         showEmailForm={showEmailForm}
         setShowEmailForm={setShowEmailForm}
-        setMoment={setMoment}
         handleSendEmail={handleSendEmail}
         emailRef={emailRef}
       />

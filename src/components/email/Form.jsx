@@ -12,13 +12,13 @@ const convertISOTimestamp = (timestamp) => {
  * @returns
  */
 function Form({
-  moments,
+  moment,
   showEmailForm,
   setShowEmailForm,
-  setMoment,
   handleSendEmail,
   emailRef,
 }) {
+  console.log(moment)
   return (
     <Draggable defaultPosition={{ x: 50, y: 25 }}>
       <form
@@ -35,32 +35,9 @@ function Form({
         <input className="email input-email" type="email" name="to_email" ref={emailRef} />
 
         {/* Select a Moment from list */}
-        <label className="label-title">Moments</label>
-        {Object.keys(moments).length > 0 ? (
-          <select
-            className="moments"
-            name="moments"
-            onChange={(e) => {
-              {
-                const moment = Object.values(moments)[e.target.value];
-                setMoment({
-                  timestamp: moment.timestamp,
-                  instruction: moment.prompt.instruction,
-                  context: moment.prompt.context,
-                  question: moment.prompt.question,
-                  response: moment.response,
-                });
-              }
-            }}>
-            {Object.values(moments).map((moment, index) => (
-              <option className="moment-option" key={index} value={index}>
-                {convertISOTimestamp(moment.timestamp)} {moment.response}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <p>Create a 'moment' in order to use the emailer</p>
-        )}
+        <label className="label-title">Selected Moment</label>
+
+        <div className="selected-moment">{moment}</div>
 
         <div className="button-container">
           <input className="input-btn" type="submit" value="Send" />

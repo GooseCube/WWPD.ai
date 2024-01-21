@@ -11,6 +11,13 @@ function App() {
   const [showInterface, setShowInterface] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [showAgentCards, setShowAgentCards] = useState(false);
+  const [moment, setMoment] = useState({});
+
+  const handleEmail = (e, selectedMoment) => {
+    e.preventDefault();
+    setMoment(selectedMoment)
+    console.log("Moment in App(): ", moment)
+  }
 
   return loggedIn ? (
     <div className="app-container">
@@ -23,10 +30,14 @@ function App() {
       <MessageInterface
         showInterface={showInterface}
         setShowInterface={setShowInterface}
+        showEmailForm={showEmailForm}
+        setShowEmailForm={setShowEmailForm}
+        handleEmail={handleEmail}
       />
       <EmailForm
         showEmailForm={showEmailForm}
         setShowEmailForm={setShowEmailForm}
+        moment={moment}
       />
       <Agents />
       {showAgentCards && <AgentCards setShowAgentCards={setShowAgentCards} />}

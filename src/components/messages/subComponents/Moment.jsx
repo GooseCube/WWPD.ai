@@ -1,7 +1,7 @@
 import { removeMoment } from "../../../firebase/firebaseDB";
 import { saveAs } from "file-saver";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
-import { Trash, Download } from "react-bootstrap-icons";
+import { Envelope, Trash, Download } from "react-bootstrap-icons";
 
 /**
  * Save the moment as a .txt file with .json encoding
@@ -35,6 +35,14 @@ function Moment({ id, moment }) {
           overlay={<Tooltip id={"tooltip-top"}>Download Moment</Tooltip>}>
           <Download
             className="download-moment-icon"
+            onClick={() => downloadMoment(moment)}
+          />
+        </OverlayTrigger>
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id={"tooltip-top"}>Email Moment</Tooltip>}>
+          <Envelope
+            className="email-moment-icon"
             onClick={() => downloadMoment(moment)}
           />
         </OverlayTrigger>

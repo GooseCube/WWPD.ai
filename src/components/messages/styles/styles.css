@@ -128,15 +128,17 @@
 }
 
 .delete-message-icon,
-.download-moment-icon {
+.download-moment-icon,
+.email-moment-icon {
   width: 2em;
   height: 2em;
   margin: 0.5em;
 }
 
 .delete-message-icon:hover,
+.email-moment-icon:hover,
 .download-moment-icon:hover {
-  transform: scale(1.05);
+  transform: scale(1.25);
   transition: all 0.3s ease;
 }
 
@@ -144,6 +146,7 @@
   color: red;
 }
 
+.email-moment-icon:hover,
 .download-moment-icon:hover {
   color: green;
 }

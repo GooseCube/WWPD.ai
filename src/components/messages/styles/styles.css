@@ -42,7 +42,7 @@
 
 .toolbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0.5em;
   background-color: black;
   color: white;
@@ -121,22 +121,34 @@
 .moment-container {
   padding: 1em;
   color: #f1f1f1;
+  border-top: 1px solid white;
+  border-radius: 10px;
+}
+
+.moment-container:first-of-type {
+  border-top: none;
 }
 
 .moment-toolbar {
   margin-left: 0.5em;
 }
 
+.date-timestamp {
+  font-size: 1.25em;
+}
+
 .delete-message-icon,
-.download-moment-icon {
+.download-moment-icon,
+.email-moment-icon {
   width: 2em;
   height: 2em;
   margin: 0.5em;
 }
 
 .delete-message-icon:hover,
+.email-moment-icon:hover,
 .download-moment-icon:hover {
-  transform: scale(1.05);
+  transform: scale(1.25);
   transition: all 0.3s ease;
 }
 
@@ -144,6 +156,7 @@
   color: red;
 }
 
+.email-moment-icon:hover,
 .download-moment-icon:hover {
   color: green;
 }

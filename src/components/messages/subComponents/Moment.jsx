@@ -1,7 +1,8 @@
 import { removeMoment } from "../../../firebase/firebaseDB";
 import { saveAs } from "file-saver";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
-import { Trash, Download } from "react-bootstrap-icons";
+import { Envelope, Trash, Download } from "react-bootstrap-icons";
+import { emailFormatting } from "../../email/modules/emailFormatting";
 
 /**
  * Save the moment as a .txt file with .json encoding
@@ -26,7 +27,7 @@ const downloadMoment = (moment) => {
  * and to remove a moment from the Firebase DB.
  * @returns a single 'moment' from idea -> discussion -> final speech
  */
-function Moment({ id, moment }) {
+function Moment({ id, moment, showEmailForm, setShowEmailForm, handleEmail }) {
   return (
     <div className="moment-container">
       <div className="moment-toolbar fs-5">
@@ -41,16 +42,33 @@ function Moment({ id, moment }) {
 
         <OverlayTrigger
           placement="top"
+          overlay={<Tooltip id={"tooltip-top"}>Email Moment</Tooltip>}>
+          <Envelope
+            className="email-moment-icon"
+            onClick={(e) => 
+              {
+                setShowEmailForm(!showEmailForm)
+                handleEmail(e, moment)
+              }
+            }
+          />
+        </OverlayTrigger>
+
+        <OverlayTrigger
+          placement="top"
           overlay={<Tooltip id={"tooltip-top"}>Delete Moment</Tooltip>}>
           <Trash
             className="delete-message-icon"
             onClick={() => removeMoment(id)}
           />
         </OverlayTrigger>
-        {new Date(moment.timestamp).toLocaleDateString("en-US")}
+        <div className="date-timestamp">
+          {new Date(moment.timestamp).toLocaleDateString("en-US")}
+        </div>
       </div>
       {moment.conversation.map((item, index) => {
         if (index === 0) {
+          // display the header with original prompt
           return (
             <div
               key={index}
@@ -66,7 +84,10 @@ function Moment({ id, moment }) {
               </div>
             </div>
           );
-        } else if (index === moment.conversation.length - 1) {
+        }
+
+        // display the moment conclusion, always the last item in array
+        else if (index === moment.conversation.length - 1) {
           return (
             <div key={index} className="agent">
               <div className="header fs-5">
@@ -75,12 +96,12 @@ function Moment({ id, moment }) {
               <div className="speech fs-5">
                 <pre>{item.speech}</pre>
               </div>
-              <div className="agent">
-                ----------------- End of Moment -----------------
-              </div>
             </div>
           );
-        } else {
+        }
+
+        // display each of the agents responses that participated in the moment
+        else {
           return (
             <div key={index} className={`agent ${item.agent.name} fs-5`}>
               <div className="agentName fs-5">{item.agent.name}:</div>

@@ -1,9 +1,8 @@
-import { useContext, useRef, useState } from "react";
-import { AuthContext } from "../../firebase/AuthProvider";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Form from "./Form";
 import "./styles/styles.css";
-import { updateAgent } from "../../firebase/firebaseDB";
+import { emailFormatting } from "./modules/emailFormatting";
 
 /**
  * Uses the AuthContext 'moments' allowing a user to select
@@ -12,22 +11,20 @@ import { updateAgent } from "../../firebase/firebaseDB";
  * @param {useState setter} setShowEmailForm
  * @returns the Email moment selector form
  */
-function EmailForm({ showEmailForm, setShowEmailForm }) {
-  const { moments, agents } = useContext(AuthContext);
+function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
   const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
-  const [moment, setMoment] = useState({});
   const emailRef = useRef();
 
   const handleSendEmail = async (event, email) => {
     event.preventDefault();
-    const agent = agents.find((a) => a.playerControlled === true);
-    const templateParams = {
-      ...moment,
-      agent_name: agent.name,
-      to_email: email,
-    };
+    console.log(
+      "Formatted Email: ",
+      emailFormatting(moment.conversation, email)
+    );
+
+    const templateParams = emailFormatting(moment.conversation, email);
 
     try {
       const result = await emailjs.send(
@@ -36,20 +33,27 @@ function EmailForm({ showEmailForm, setShowEmailForm }) {
         templateParams,
         publicKey
       );
-      console.log(result.text);
+      console.log("EmailJS Request Success: ", result.text);
     } catch (error) {
-      console.log("Email Request Error: ", error);
+      console.log("EmailJS Request Error: ", error);
     }
     emailRef.current.value = "";
   };
 
+  if (!moment) {
+    return (
+      <div className="moment-error fs-5">
+        No moments are currently available to email.
+      </div>
+    );
+  }
+
   return (
     showEmailForm && (
       <Form
-        moments={moments}
+        moment={moment}
         showEmailForm={showEmailForm}
         setShowEmailForm={setShowEmailForm}
-        setMoment={setMoment}
         handleSendEmail={handleSendEmail}
         emailRef={emailRef}
       />

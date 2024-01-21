@@ -1,9 +1,7 @@
 import {
   ChatDots,
-  Envelope,
   Keyboard,
   Lightbulb,
-  VolumeUpFill,
   XCircleFill,
 } from "react-bootstrap-icons";
 
@@ -25,8 +23,6 @@ function Toolbar({
   setShowInputArea,
   showInterface,
   setShowInterface,
-  showEmailForm,
-  setShowEmailForm,
   isLoading,
   aiModel,
 }) {
@@ -74,17 +70,6 @@ function Toolbar({
           </OverlayTrigger>
         )
       )}
-
-      <OverlayTrigger
-        placement="top"
-        overlay={<Tooltip id={"tooltip-top"}>Emailer</Tooltip>}>
-        <Envelope
-          className="toolbar-icon"
-          onClick={() => {
-            setShowEmailForm(!showEmailForm);
-          }}
-        />
-      </OverlayTrigger>
 
       <OverlayTrigger
         placement="top"

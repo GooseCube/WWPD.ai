@@ -16,7 +16,7 @@ function EmailForm({ showEmailForm, setShowEmailForm }) {
   const { moments, agents } = useContext(AuthContext);
   const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const publicKey = import.meta.env.VITE_EMAILJS_API_KEY;
+  const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
   const [moment, setMoment] = useState({});
   const emailRef = useRef();
 

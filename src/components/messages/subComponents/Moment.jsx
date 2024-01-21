@@ -61,6 +61,7 @@ function Moment({ id, moment }) {
       </div>
       {moment.conversation.map((item, index) => {
         if (index === 0) {
+          // display the header with original prompt
           return (
             <div
               key={index}
@@ -76,7 +77,10 @@ function Moment({ id, moment }) {
               </div>
             </div>
           );
-        } else if (index === moment.conversation.length - 1) {
+        }
+
+        // display the moment conclusion, always the last item in array
+        else if (index === moment.conversation.length - 1) {
           return (
             <div key={index} className="agent">
               <div className="header fs-5">
@@ -87,7 +91,10 @@ function Moment({ id, moment }) {
               </div>
             </div>
           );
-        } else {
+        }
+
+        // display each of the agents responses that participated in the moment
+        else {
           return (
             <div key={index} className={`agent ${item.agent.name} fs-5`}>
               <div className="agentName fs-5">{item.agent.name}:</div>

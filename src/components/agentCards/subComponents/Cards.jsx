@@ -13,7 +13,7 @@ const isRendered = (agent) => {
     : "player-hide-icon ms-auto";
 };
 
-function Cards({ agents, cardIndex, maxViews, editAgent, setEditAgent }) {
+function Cards({ agents, cardIndex, setCardIndex, maxViews, editAgent, setEditAgent }) {
   const [agentImages, setAgentImages] = useState({});
   const temp = [];
   let count = 0;
@@ -83,7 +83,12 @@ function Cards({ agents, cardIndex, maxViews, editAgent, setEditAgent }) {
               }>
               <PencilSquare
                 className="edit-icon ms-auto"
-                onClick={() => setEditAgent(agent)}
+                onClick={() => 
+                  {
+                  setCardIndex(0)
+                  setEditAgent(agent)
+                  }
+                }
               />
             </OverlayTrigger>
           </div>

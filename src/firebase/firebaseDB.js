@@ -17,19 +17,65 @@ import { agentRenderPositions } from "../modules/mapGridPositions/agentRenderPos
 
 // ---------- Firebase Agents ------------
 
-// Called from AuthProvider | Initialize All Agents in Game
+/**
+ * Loads the agents from Firebase and sets an active listener
+ * on changes
+ * @param {useState object} agents
+ * @param {useState Setter} setAgents
+ * @returns
+ */
+export const loadAgentsFromFirebase = async (agents, setAgents) => {
+  const userId = auth.currentUser.uid;
+  const agentsRef = ref(database, `users/${userId}/agents`);
 
-export const initializeAgents = async (setAgents) => {
+  // Check if 'agents' is an empty array
+  // and load agents from firebase if true
+  if (agents.length === 0) {
+    const snapshot = await get(agentsRef);
+    if (snapshot.exists()) {
+      const agents = snapshot.val();
+      setAgents(Object.values(agents));
+      return;
+    }
+  }
+
+  // If agents exist, then establish an event listener on each agent.
+  agents.forEach((agent) => {
+    const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);
+    onValue(agentRef, (snapshot) => {
+      const updatedAgent = snapshot.val();
+      setAgents((prevAgents) => {
+        return prevAgents.map((a) => (a.uid === agent.uid ? updatedAgent : a));
+      });
+    });
+  });
+};
+
+/**
+ * Evaluate if agents exist in Firebase
+ * @returns  boolean: true if agents exist or false
+ * if they have not yet been loaded to firebase
+ */
+export const isFirstAgentInitialization = async () => {
   const userId = auth.currentUser.uid;
   const agentsRef = ref(database, `users/${userId}/agents`);
 
   // If agents exist in Firebase, return
   const snapshot = await get(agentsRef);
   if (snapshot.exists()) {
-    const agents = snapshot.val();
-    setAgents(Object.values(agents))
-    return;
+    return false;
   }
+  return true;
+};
+
+/**
+ * Loads the agents from /personas array in static file
+ * if this is the first time logging in.
+ * @param {useState Setter} setAgents
+ */
+export const initializeAgentsFromPersonas = async (setAgents) => {
+  const userId = auth.currentUser.uid;
+  const agentsRef = ref(database, `users/${userId}/agents`);
 
   const assignPositionToAgent = (agent) => {
     const randomIndex = Math.floor(Math.random() * agentRenderPositions.length);

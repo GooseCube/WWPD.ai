@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
-import { Controller, CheckCircle } from "react-bootstrap-icons";
+import { Controller, CheckCircle, PencilSquare } from "react-bootstrap-icons";
 import { updateAgent } from "../../../firebase/firebaseDB";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+
+// Sub Component
+import Card from "./Card";
 
 const isRendered = (agent) => {
   return agent.render
@@ -9,7 +12,7 @@ const isRendered = (agent) => {
     : "player-hide-icon ms-auto";
 };
 
-function Cards({ agents, cardIndex, maxViews }) {
+function Cards({ agents, cardIndex, maxViews, editAgent, setEditAgent }) {
   const [agentImages, setAgentImages] = useState({});
   const temp = [];
   let count = 0;
@@ -38,6 +41,8 @@ function Cards({ agents, cardIndex, maxViews }) {
       <div className="agent-persona-card border rounded p-2" key={index}>
         <div className="header d-flex">
           <h2>{agent.name}</h2>
+
+          {/* Icons for OnClick() Events */}
           {agent.playerControlled && (
             <OverlayTrigger
               placement="top"
@@ -54,19 +59,19 @@ function Cards({ agents, cardIndex, maxViews }) {
               onClick={() => updateAgent({ ...agent, render: !agent.render })}
             />
           </OverlayTrigger>
+
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip id={"tooltip-top"}>Edit Agent Persona</Tooltip>}>
+            <PencilSquare
+              className={isRendered(agent)}
+              onClick={() => updateAgent({ ...agent, render: !agent.render })}
+            />
+          </OverlayTrigger>
         </div>
-        <div
-          className="agent-sprite-image"
-          style={{
-            backgroundImage: agentImage ? `url(${agentImage.default})` : "none",
-            width: "32px",
-            height: "32px",
-          }}
-        />
-        <p>AGE: {agent.age}</p>
-        <p>CAREER: {agent.career}</p>
-        <p>SPECIALTY: {agent.specialty}</p>
-        <p>PERSONALITY: {agent.personality}</p>
+
+        {/* Agent Persona Information and Sprite Image */}
+        <Card agent={agent} agentImage={agentImage} editAgent={editAgent} />
       </div>
     );
   });

@@ -65,7 +65,7 @@ function Cards({ agents, cardIndex, maxViews, editAgent, setEditAgent }) {
             overlay={<Tooltip id={"tooltip-top"}>Edit Agent Persona</Tooltip>}>
             <PencilSquare
               className={isRendered(agent)}
-              onClick={() => updateAgent({ ...agent, render: !agent.render })}
+              onClick={() => setEditAgent(!editAgent)}
             />
           </OverlayTrigger>
         </div>

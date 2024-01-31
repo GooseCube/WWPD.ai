@@ -25,13 +25,14 @@
   display: none;
 }
 
-/* Individual Cards */
+/* Individual Agent Cards */
 
 .cards-container {
   display: flex;
   justify-content: center;
   width: 100%;
   scrollbar-width: none;
+  min-height: 33em;
 }
 
 .agent-persona-card {
@@ -70,6 +71,10 @@
   background-position: -32px 0;
   background-repeat: no-repeat;
 }
+
+/* Edit Agent Cards */
+
+
 
 /* Navigation Chevron Arrows */
 

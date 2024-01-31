@@ -28,7 +28,10 @@ function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
   };
 
   return (
-    <div className="agent-persona-card border rounded p-2" key={index}>
+    <div
+      // className="agent-persona-card edit-agent-persona-card border rounded p-2"
+      className="edit-agent-persona-card border rounded p-2"
+      key={index}>
       <div className="header d-flex">
         <h2>{agent.name}</h2>
       </div>
@@ -38,8 +41,10 @@ function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
           backgroundImage: agentImage ? `url(${agentImage.default})` : "none",
           width: "32px",
           height: "32px",
-        }}>
-        <form className="agent-edit-form" onSubmit={handleEditAgent}>
+        }}></div>
+
+      <form className="agent-edit-form" onSubmit={handleEditAgent}>
+        <div className="top-row">
           <label htmlFor="age">Age:</label>
           <input
             id="age"
@@ -54,10 +59,12 @@ function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
             value={career}
             onChange={(e) => setCareer(e.target.value)}
           />
+        </div>
+        <div className="body-row">
           <label htmlFor="specialty">Specialty:</label>
           <textarea
             id="specialty"
-            rows="4"
+            rows="2"
             wrap="soft"
             value={specialty}
             onChange={(e) => setSpecialty(e.target.value)}
@@ -65,14 +72,21 @@ function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
           <label htmlFor="personality">Personality:</label>
           <textarea
             id="personality"
-            rows="4"
+            rows="3"
             wrap="soft"
             value={personality}
             onChange={(e) => setPersonality(e.target.value)}
           />
-          <button type="submit">Save</button>
-        </form>
-      </div>
+        </div>
+        <div className="btn-container">
+          <button className="edit-save" type="submit">
+            Save
+          </button>
+          <button className="edit-exit" onClick={() => setEditAgent(null)}>
+            Exit
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

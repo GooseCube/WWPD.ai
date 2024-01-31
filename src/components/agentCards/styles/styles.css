@@ -73,8 +73,69 @@
 
 /* Edit Agent Cards */
 
+.edit-agent-persona-card {
+  width: 50em;
+  height: 33em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--white);
+  color: var(--black);
+  white-space: normal;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  animation: slideInFromLeft 1s ease-out;
+}
+
 .agent-edit-form {
-  
+  margin-top: 1em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.agent-edit-form input,
+.agent-edit-form label,
+.agent-edit-form textarea {
+  font-size: 12px;
+}
+
+.agent-edit-form .top-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.agent-edit-form .body-row {
+  padding: 0 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-edit-form label {
+  margin-top: 0.5em;
+}
+
+.btn-container {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.edit-save,
+.edit-exit {
+  margin: 0 10px;
+  width: 5em;
+  border-radius: 5em;
+}
+
+.edit-save {
+  background-color: var(--green);
+  color: white;
+}
+
+.edit-exit {
+  background-color: var(--red);
+  color: white;
 }
 
 /* Navigation Chevron Arrows */

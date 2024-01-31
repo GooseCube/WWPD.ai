@@ -27,6 +27,7 @@ const goRight = function incrementCardIndex(
 
 function AgentCards({ setShowAgentCards }) {
   const { agents } = useContext(AuthContext);
+  const [editAgent, setEditAgent] = useState(null);
   const [cardIndex, setCardIndex] = useState(0);
   const [maxViews, setMaxViews] = useState(5);
 
@@ -41,7 +42,14 @@ function AgentCards({ setShowAgentCards }) {
       )}
       {agents && (
         <div className="cards-container">
-          <Cards agents={agents} cardIndex={cardIndex} maxViews={maxViews} />
+          <Cards
+            agents={agents}
+            cardIndex={cardIndex}
+            setCardIndex={setCardIndex}
+            maxViews={maxViews}
+            editAgent={editAgent}
+            setEditAgent={setEditAgent}
+          />
         </div>
       )}
 

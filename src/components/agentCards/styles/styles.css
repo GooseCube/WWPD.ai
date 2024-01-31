@@ -25,7 +25,7 @@
   display: none;
 }
 
-/* Individual Cards */
+/* Individual Agent Cards */
 
 .cards-container {
   display: flex;
@@ -35,8 +35,11 @@
 }
 
 .agent-persona-card {
+  width: 18em;
+  height: 33em;
   margin: 0 1em;
-  width: 16em;
+  padding: 1em;
+  overflow-y: auto;
   background-color: var(--white);
   color: var(--black);
   white-space: normal;
@@ -67,6 +70,79 @@
   margin-bottom: 1em;
   background-position: -32px 0;
   background-repeat: no-repeat;
+}
+
+/* Edit Agent Cards */
+
+.edit-agent-persona-card {
+  width: 50em;
+  height: 33em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--white);
+  color: var(--black);
+  white-space: normal;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.agent-edit-form {
+  margin-top: 1em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.agent-edit-form input,
+.agent-edit-form label,
+.agent-edit-form textarea {
+  font-size: 12px;
+}
+
+.agent-edit-form .top-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.agent-edit-form .body-row {
+  padding: 0 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-edit-form label {
+  margin-top: 0.5em;
+}
+
+.btn-container {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.edit-save,
+.edit-exit {
+  margin: 0 10px;
+  width: 5em;
+  border-radius: 5em;
+}
+
+.edit-save:hover,
+.edit-exit:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.edit-save {
+  background-color: var(--green);
+  color: white;
+}
+
+.edit-exit {
+  background-color: var(--red);
+  color: white;
 }
 
 /* Navigation Chevron Arrows */
@@ -117,7 +193,8 @@
 
 .player-controlled-icon,
 .player-render-icon,
-.player-hide-icon {
+.player-hide-icon,
+.edit-icon {
   width: 1.5em;
   height: 1.5em;
 }
@@ -129,4 +206,25 @@
 
 .player-hide-icon {
   color: var(--red);
+}
+
+/* Scroll Bar Behavior for Agent Cards */
+
+/* For Chrome and Edge */
+.agent-persona-card::-webkit-scrollbar {
+  width: 5px; /* Adjust scrollbar width */
+}
+
+.agent-persona-card::-webkit-scrollbar-thumb {
+  background: #888; /* Adjust scrollbar color */
+}
+
+.agent-persona-card::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Adjust scrollbar color on hover */
+}
+
+/* For Firefox */
+.agent-persona-card {
+  scrollbar-width: thin; /* Adjust scrollbar width */
+  scrollbar-color: #888 #fff; /* Adjust scrollbar and track color */
 }

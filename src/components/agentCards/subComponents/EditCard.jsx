@@ -82,7 +82,7 @@ function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
           <button className="edit-save" type="submit">
             Save
           </button>
-          <button className="edit-exit" onClick={() => setEditAgent(null)}>
+          <button className="edit-exit" type="button" onClick={() => setEditAgent(null)}>
             Exit
           </button>
         </div>

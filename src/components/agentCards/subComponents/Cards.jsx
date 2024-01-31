@@ -41,7 +41,7 @@ function Cards({ agents, cardIndex, maxViews, editAgent, setEditAgent }) {
     if (editAgent && editAgent.uid === agent.uid) {
       temp.push(
         <EditCard
-        index={index}
+        index={agent.uid}
           agent={agent}
           agentImage={agentImage}
           editAgent={editAgent}

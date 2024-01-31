@@ -52,7 +52,7 @@ function Cards({ agents, cardIndex, maxViews, editAgent, setEditAgent }) {
 
     if (!editAgent) {
       temp.push(
-        <div className="agent-persona-card border rounded p-2" key={index}>
+        <div className="agent-persona-card border rounded" key={index}>
           <div className="header d-flex">
             <h2>{agent.name}</h2>
 
@@ -82,7 +82,7 @@ function Cards({ agents, cardIndex, maxViews, editAgent, setEditAgent }) {
                 <Tooltip id={"tooltip-top"}>Edit Agent Persona</Tooltip>
               }>
               <PencilSquare
-                className="ms-auto"
+                className="edit-icon ms-auto"
                 onClick={() => setEditAgent(agent)}
               />
             </OverlayTrigger>

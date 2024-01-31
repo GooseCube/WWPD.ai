@@ -38,6 +38,7 @@
   width: 18em;
   height: 33em;
   margin: 0 1em;
+  padding: 1em;
   overflow-y: auto;
   background-color: var(--white);
   color: var(--black);
@@ -128,6 +129,12 @@
   border-radius: 5em;
 }
 
+.edit-save:hover,
+.edit-exit:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
 .edit-save {
   background-color: var(--green);
   color: white;
@@ -186,7 +193,8 @@
 
 .player-controlled-icon,
 .player-render-icon,
-.player-hide-icon {
+.player-hide-icon,
+.edit-icon {
   width: 1.5em;
   height: 1.5em;
 }

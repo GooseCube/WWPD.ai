@@ -26,7 +26,7 @@ const goRight = function incrementCardIndex(
 };
 
 function AgentCards({ setShowAgentCards }) {
-  const [editAgent, setEditAgent] = useState(false);
+  const [editAgent, setEditAgent] = useState(null);
   const { agents } = useContext(AuthContext);
   const [cardIndex, setCardIndex] = useState(0);
   const [maxViews, setMaxViews] = useState(5);

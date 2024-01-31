@@ -32,13 +32,12 @@
   justify-content: center;
   width: 100%;
   scrollbar-width: none;
-  min-height: 33em;
 }
 
 .agent-persona-card {
-  margin: 0 1em;
   width: 18em;
-  max-height: 33em;
+  height: 33em;
+  margin: 0 1em;
   overflow-y: auto;
   background-color: var(--white);
   color: var(--black);
@@ -74,7 +73,9 @@
 
 /* Edit Agent Cards */
 
-
+.agent-edit-form {
+  
+}
 
 /* Navigation Chevron Arrows */
 

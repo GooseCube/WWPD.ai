@@ -3,7 +3,8 @@ import { updateAgent } from "../../../firebase/firebaseDB";
 import { updateAgentState } from "../../../modules/momentum/speech/helperFunctions";
 import { AuthContext } from "../../../firebase/AuthProvider";
 
-function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
+// Builds the form to edit a single agent persona
+function EditCard({ index, agent, agentImage, setEditAgent }) {
   const { setAgents } = useContext(AuthContext);
   const [age, setAge] = useState(agent.age);
   const [career, setCareer] = useState(agent.career);
@@ -28,10 +29,7 @@ function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
   };
 
   return (
-    <div
-      // className="agent-persona-card edit-agent-persona-card border rounded p-2"
-      className="edit-agent-persona-card border rounded p-2"
-      key={index}>
+    <div className="edit-agent-persona-card border rounded p-2" key={index}>
       <div className="header d-flex">
         <h2>{agent.name}</h2>
       </div>
@@ -82,7 +80,10 @@ function EditCard({ index, agent, agentImage, editAgent, setEditAgent }) {
           <button className="edit-save" type="submit">
             Save
           </button>
-          <button className="edit-exit" type="button" onClick={() => setEditAgent(null)}>
+          <button
+            className="edit-exit"
+            type="button"
+            onClick={() => setEditAgent(null)}>
             Exit
           </button>
         </div>

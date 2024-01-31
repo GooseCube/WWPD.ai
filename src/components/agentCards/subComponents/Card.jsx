@@ -1,3 +1,4 @@
+// Builds a single agent card
 function Card({ agent, agentImage }) {
   return (
     <>

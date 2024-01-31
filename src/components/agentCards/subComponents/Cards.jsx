@@ -13,7 +13,14 @@ const isRendered = (agent) => {
     : "player-hide-icon ms-auto";
 };
 
-function Cards({ agents, cardIndex, setCardIndex, maxViews, editAgent, setEditAgent }) {
+function Cards({
+  agents,
+  cardIndex,
+  setCardIndex,
+  maxViews,
+  editAgent,
+  setEditAgent,
+}) {
   const [agentImages, setAgentImages] = useState({});
   const temp = [];
   let count = 0;
@@ -33,23 +40,24 @@ function Cards({ agents, cardIndex, setCardIndex, maxViews, editAgent, setEditAg
     loadImages();
   }, [agents]);
 
-  // Push all agents to temp[] array
   Object.values(agents).map((agent, index) => {
     const agentName = agent.sprite.replace(".png", "");
     const agentImage = agentImages[agentName];
 
+    // If editing an agent, only push the agent who's unique id
+    // matches the selected agents uid.
     if (editAgent && editAgent.uid === agent.uid) {
       temp.push(
         <EditCard
-        index={agent.uid}
+          index={agent.uid}
           agent={agent}
           agentImage={agentImage}
-          editAgent={editAgent}
           setEditAgent={setEditAgent}
         />
       );
     }
 
+    // If we are not editing an agent, push all agents to temp[]
     if (!editAgent) {
       temp.push(
         <div className="agent-persona-card border rounded" key={index}>
@@ -83,12 +91,10 @@ function Cards({ agents, cardIndex, setCardIndex, maxViews, editAgent, setEditAg
               }>
               <PencilSquare
                 className="edit-icon ms-auto"
-                onClick={() => 
-                  {
-                  setCardIndex(0)
-                  setEditAgent(agent)
-                  }
-                }
+                onClick={() => {
+                  setCardIndex(0);
+                  setEditAgent(agent);
+                }}
               />
             </OverlayTrigger>
           </div>

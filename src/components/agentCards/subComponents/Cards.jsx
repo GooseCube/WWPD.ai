@@ -15,6 +15,7 @@ const isRendered = (agent) => {
 
 function Cards({
   agents,
+  setAgents,
   cardIndex,
   setCardIndex,
   maxViews,
@@ -80,7 +81,16 @@ function Cards({
               overlay={<Tooltip id={"tooltip-top"}>Show/Hide Agent</Tooltip>}>
               <CheckCircle
                 className={isRendered(agent)}
-                onClick={() => updateAgent({ ...agent, render: !agent.render })}
+                onClick={() => {
+                  setAgents((prevAgents) => {
+                    return prevAgents.map((a) =>
+                      a.uid === agent.uid
+                        ? { ...agent, render: !agent.render }
+                        : a
+                    );
+                  });
+                  updateAgent({ ...agent, render: !agent.render });
+                }}
               />
             </OverlayTrigger>
 

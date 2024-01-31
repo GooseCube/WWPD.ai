@@ -63,9 +63,10 @@ function Cards({ agents, cardIndex, maxViews }) {
             height: "32px",
           }}
         />
-        <p>Age: {agent.age}</p>
-        <p>Career: {agent.career}</p>
-        <p>Personality: {agent.personality}</p>
+        <p>AGE: {agent.age}</p>
+        <p>CAREER: {agent.career}</p>
+        <p>SPECIALTY: {agent.specialty}</p>
+        <p>PERSONALITY: {agent.personality}</p>
       </div>
     );
   });

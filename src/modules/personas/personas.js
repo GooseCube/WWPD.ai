@@ -93,7 +93,7 @@ export const personas = {
     specialty:
       "I'll make sure to validate any product, event marketing, or other quality required needs before it goes public",
     personality:
-      "Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines.",
+      "Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines. Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines. Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines.",
     frame: 0,
     uid: "7",
     playerControlled: false,

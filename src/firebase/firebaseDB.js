@@ -6,6 +6,7 @@ import {
   set,
   onDisconnect,
   onValue,
+  get,
 } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
@@ -21,6 +22,14 @@ import { agentRenderPositions } from "../modules/mapGridPositions/agentRenderPos
 export const initializeAgents = async (setAgents) => {
   const userId = auth.currentUser.uid;
   const agentsRef = ref(database, `users/${userId}/agents`);
+
+  // If agents exist in Firebase, return
+  const snapshot = await get(agentsRef);
+  if (snapshot.exists()) {
+    const agents = snapshot.val();
+    setAgents(Object.values(agents))
+    return;
+  }
 
   const assignPositionToAgent = (agent) => {
     const randomIndex = Math.floor(Math.random() * agentRenderPositions.length);
@@ -54,13 +63,6 @@ export const initializeAgents = async (setAgents) => {
         return prevAgents.map((a) => (a.uid === agent.uid ? updatedAgent : a));
       });
     });
-  });
-
-  // Remove agent from Firebase when user disconnects
-  onDisconnect(agentsRef).remove((error) => {
-    if (error) {
-      console.error("Unable to remove agent on disconnect");
-    }
   });
 };
 

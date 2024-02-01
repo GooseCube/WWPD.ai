@@ -9,7 +9,9 @@ import {
   getSidebarProperties,
   getUserMessages,
   getUserMoments,
-  initializeAgents,
+  loadAgentsFromFirebase,
+  isFirstAgentInitialization,
+  initializeAgentsFromPersonas
 } from "./firebaseDB";
 
 export const AuthContext = createContext();
@@ -26,7 +28,12 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       if (user) {
-        await initializeAgents(setAgents);
+        if (await isFirstAgentInitialization()) {
+          await initializeAgentsFromPersonas(setAgents)
+        }
+        else {
+          await loadAgentsFromFirebase(agents, setAgents)
+        }
         await getUserMessages(setMessages);
         await getUserMoments(setMoments);
         await getSidebarProperties(setSidebar)

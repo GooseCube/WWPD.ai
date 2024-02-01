@@ -26,18 +26,21 @@ function Agents() {
 
     // Create a new array of agents with updated playerControlled status
     const updatedAgents = agents.map((a) => {
+      let updatedAgent;
       if (a.uid === agent.uid) {
-        return { ...a, playerControlled: true };
+        updatedAgent = { ...a, playerControlled: true };
       } else {
-        return { ...a, playerControlled: false };
+        updatedAgent = { ...a, playerControlled: false };
       }
+
+      // Update each agent in Firebase
+      updateAgent(updatedAgent);
+
+      return updatedAgent;
     });
 
     // update global context state
     setAgents(updatedAgents);
-
-    // Update Firebase
-    updateAgent(agent);
   };
 
   return (

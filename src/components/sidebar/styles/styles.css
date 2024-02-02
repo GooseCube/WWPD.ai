@@ -19,9 +19,11 @@
   font-size: 3rem;
 }
 
-.custom-tooltip p {
-  font-size: 1.25rem;
+.custom-tooltip p,
+.custom-tooltip strong {
+  font-size: 1.5rem;
 }
+
 
 .app-icon-img {
   width: 3.5em;
@@ -50,7 +52,7 @@
 }
 
 .offcanvas-body {
-  margin-left: 1em;
+  margin-left: 4em;
 }
 
 .btn-close {

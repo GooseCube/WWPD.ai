@@ -89,7 +89,7 @@ function Sidebar({
           // variant="success"
           onClick={() => setShow(!show)}>
           {show ? (
-            <ChevronDoubleLeft className="chevront-double-left" />
+            <ChevronDoubleLeft className="chevron-double-left" />
           ) : (
             <ChevronDoubleRight className="chevron-double-right" />
           )}

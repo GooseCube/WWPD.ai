@@ -29,6 +29,8 @@ export const handlePlayerMoveEvent = (agent, setAgents, direction) => {
       newX += 1;
       newDirection = "right";
       break;
+    default:
+      return;
   }
 
   if (!validateGridCollision(newX, newY)) {

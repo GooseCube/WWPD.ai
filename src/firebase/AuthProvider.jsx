@@ -14,10 +14,9 @@ import {
 
 import { getUserMessages } from "./firebaseMessages";
 
-import {
-  getSidebarProperties,
-  getUserMoments,
-} from "./firebaseDB";
+import { getUserMoments } from "./firebaseMoments";
+
+import { getSidebarProperties } from "./firebaseDB";
 
 export const AuthContext = createContext();
 

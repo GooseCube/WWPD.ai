@@ -1,3 +1,4 @@
+// See the README in /firebase directory for a list of Functions
 import { update, ref, set, onValue, get } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 import { v4 as uuidv4 } from "uuid";

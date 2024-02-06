@@ -1,4 +1,4 @@
-// See the README in /firebase directory for a list of Functions
+// For a complete list of firebase sdk functions see "./README.md"
 import { remove, ref, push, set, onValue } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 

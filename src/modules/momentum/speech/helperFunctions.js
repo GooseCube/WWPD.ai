@@ -2,7 +2,6 @@ import { agentPathfinder } from "../../agentMotion/agentPathfinder";
 import { traverseAgentPath } from "../../agentMotion/traverseAgentPath";
 import { meetingPlaces } from "../../mapGridPositions/meetingPlaces";
 import { agentEmojis } from "../../emoji/emojis";
-import { updateSidebar } from "../../../firebase/firebaseDB";
 
 // Use to prevent the two agents showing discussion text at the same time
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

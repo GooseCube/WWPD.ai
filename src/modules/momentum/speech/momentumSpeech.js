@@ -1,4 +1,5 @@
-import { pushNewMoment, updateAgent } from "../../../firebase/firebaseDB";
+import { updateAgent } from "../../../firebase/firebaseAgents";
+import { pushNewMoment } from "../../../firebase/firebaseDB";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 import {
   delay,

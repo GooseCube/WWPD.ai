@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { updateAgent } from "../../../firebase/firebaseDB";
+import { updateAgent } from "../../../firebase/firebaseAgents";
 import { updateAgentState } from "../../../modules/momentum/speech/helperFunctions";
 import { AuthContext } from "../../../firebase/AuthProvider";
 

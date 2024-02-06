@@ -1,4 +1,4 @@
-import { updateAgent } from "../../../firebase/firebaseDB";
+import { updateAgent } from "../../../firebase/firebaseAgents";
 import { validateGridCollision } from "../../../modules/mapGridPositions/gridCollisionDetection";
 
 // Arrow Key Events for Player Controlled Agent

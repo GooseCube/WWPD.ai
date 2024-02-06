@@ -12,9 +12,10 @@ import {
   loadAgentsFromFirebase,
 } from "./firebaseAgents";
 
+import { getUserMessages } from "./firebaseMessages";
+
 import {
   getSidebarProperties,
-  getUserMessages,
   getUserMoments,
 } from "./firebaseDB";
 

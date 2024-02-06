@@ -1,5 +1,5 @@
 import axios from "axios";
-import { pushNewMessage } from "../firebase/firebaseDB";
+import { pushNewMessage } from "../firebase/firebaseMessages";
 import { filterMistralResponse } from "./modules/filterResponse";
 
 async function mistralAPI(prompt) {

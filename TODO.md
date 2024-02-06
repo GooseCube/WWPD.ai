@@ -24,6 +24,10 @@ Combine the Agent Firebase update and Context State into one function call.
 
 # @todo: STYLING
 
+## AI Model Message Interface
+
+When prompting the AI Model, the rendered output does not have a good style/look.
+
 ## Update :root Global Color Scheme
 
 Choose the global color schemes and add them to the [Primary Index CSS Styles File](./src/index.css) in the `:root{}` class. Each color should be prepended with a `g_` to prevent style collisions where components have implemented a top level global color scheme of their own.

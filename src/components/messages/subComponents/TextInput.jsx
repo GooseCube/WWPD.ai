@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
-import { pushNewMessage } from "../../../firebase/firebaseDB";
+import { pushNewMessage } from "../../../firebase/firebaseMessages";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 
 const buildPrompt = (agent, userPrompt) => {

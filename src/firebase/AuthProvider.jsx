@@ -5,18 +5,15 @@ import { useState, useEffect, createContext } from "react";
 import { auth } from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
-// FirebaseDB
+// Firebase
 import {
   isFirstAgentInitialization,
   initializeAgentsFromPersonas,
   loadAgentsFromFirebase,
 } from "./firebaseAgents";
-
-import {
-  getSidebarProperties,
-  getUserMessages,
-  getUserMoments,
-} from "./firebaseDB";
+import { getUserMessages } from "./firebaseMessages";
+import { getUserMoments } from "./firebaseMoments";
+import { getSidebarProperties } from "./firebaseSidebar";
 
 export const AuthContext = createContext();
 

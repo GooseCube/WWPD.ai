@@ -1,4 +1,5 @@
-import { removeMoment } from "../../../firebase/firebaseDB";
+/* eslint-disable react/prop-types */
+import { removeMoment } from "../../../firebase/firebaseMoments";
 import { saveAs } from "file-saver";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Envelope, Trash, Download } from "react-bootstrap-icons";

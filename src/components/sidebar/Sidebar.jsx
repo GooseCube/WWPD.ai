@@ -1,6 +1,12 @@
+/* eslint-disable react/prop-types */
 import React, { useContext, useState } from "react";
+
+// Bootstrap Styles
 import { Button, Offcanvas } from "react-bootstrap";
 import { ChevronDoubleRight, ChevronDoubleLeft } from "react-bootstrap-icons";
+
+// Firebase
+import { updateSidebar } from "../../firebase/firebaseSidebar";
 
 // Sidebar Sub Components
 import DropdownSelector from "./sub-components/DropdownSelection";
@@ -21,9 +27,8 @@ import "./styles/styles.css";
 import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
-import message from "../../assets/sidebar/message.png";
-import { updateSidebar } from "../../firebase/firebaseDB";
 import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
+// import message from "../../assets/sidebar/message.png";
 
 function Sidebar({
   showInterface,

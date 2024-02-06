@@ -1,4 +1,5 @@
-import { removeMessage } from "../../../firebase/firebaseDB";
+/* eslint-disable react/prop-types */
+import { removeMessage } from "../../../firebase/firebaseMessages";
 import { Trash } from "react-bootstrap-icons";
 
 function Message({ id, message }) {

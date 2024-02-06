@@ -1,4 +1,5 @@
-import { update, remove, ref, push, set, onValue } from "firebase/database";
+// For a complete list of firebase sdk functions see "./README.md"
+import { update, ref, onValue } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 
 /**

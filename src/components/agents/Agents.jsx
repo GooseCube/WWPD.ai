@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../firebase/AuthProvider";
 
 // Firebase DB
-import { updateAgent } from "../../firebase/firebaseDB";
+import { updateAgent } from "../../firebase/firebaseAgents";
 
 // Sub Component
 import Agent from "./sub-components/Agent";

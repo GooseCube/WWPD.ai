@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Controller, CheckCircle, PencilSquare } from "react-bootstrap-icons";
-import { updateAgent } from "../../../firebase/firebaseDB";
+import { updateAgent } from "../../../firebase/firebaseAgents";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 // Sub Component

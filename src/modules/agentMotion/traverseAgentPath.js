@@ -1,4 +1,4 @@
-import { updateAgent } from "../../firebase/firebaseDB";
+import { updateAgent } from "../../firebase/firebaseAgents";
 
 // Slows the movement from one position to the next
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

@@ -1,47 +1,42 @@
-## Add Open Source License
+# @todo: ERROR and DEBUG
 
-Find and add the appropriate open source license to the repo before making it public.
+## On Load
 
-## Switch Huggingface API Token for Goose Cube
-
-Create an account with Huggingface using goosecube1@gmail.com. Create an API Key and change current VITE_HUGGINGFACE_API_TOKEN in the `.env` file. Currently using Adams Huggingface API Token.
-
-## Add Sidebar Huggingface API Token Input
-
-In the sidebar, the user should be able to enter an API Key for Huggingface which will be stored in their user account on Firebase. This can only happen if a safe mechanism to encrypt and decrypt is used, otherwise it will have to be a manual add to the .env file.
-
-## Error Handling
-
-Need to handle error (404) when any one of the api's is unable to complete a request. The error should log and give the user feedback regarding the server error.
+- When the last moment from a previous iteration is stored in Firebase the moment 'text' will re-render for each agent. Need to clear all agents after the moment is done and all agents have finished reaching their final home positions.
 
 ## Moment Loading
 
 When a moment is selected, the initial prompt for the primaryAgent takes a minute to fetch before any motion in the game is rendered. There should be a loading animation to give the user selection feedback.
 
-## Styled Components
+<!-- ------------------------------------------------------------------ -->
 
-Once a components functionality and style requirements are completed, begin re-write of CSS styles to Styled Components, or at the very least replace as much of the css styles with the react-bootstrap class names as possible.
+# @todo: REFACTOR
 
-[Styled Components Home Page](https://styled-components.com/)
-[React Bootstrap 5+ Docs](https://react-bootstrap.github.io/)
+## Show || Hide Flags
 
-## Sprite Character Animation
+Update the App.jsx by moving all boolean useState objects into one object that can be easily passed down to each component. Destructure the necessary flags at the child component level.
 
-When releasing the arrow key the sprite character continues to move in the given arrow direction. Eliminate the additional arrow key direction movement which is the 'rapid fire of the arrow key event while holding a direction'. Using setTimeout() is not usually recommended but for this game it may be a simple implementation that resolves the issue.
+## Agent Update
+
+Combine the Agent Firebase update and Context State into one function call.
+
+<!-- ------------------------------------------------------------------ -->
+
+# @todo: STYLING
 
 ## Update :root Global Color Scheme
 
 Choose the global color schemes and add them to the [Primary Index CSS Styles File](./src/index.css) in the `:root{}` class. Each color should be prepended with a `g_` to prevent style collisions where components have implemented a top level global color scheme of their own.
 
-## Create or Modify Sprite Character Persona
+<!-- ------------------------------------------------------------------ -->
 
-User should have the ability to create their own sprite character persona: {name, personality}. This will require a new input interface or modification of the current MessageInterface allowing the input to push() a new Firebase instance of a sprite character persona.
+# Add Open Source License
 
-## Create Personas for Remaining Sprite Characters
+Find and add the appropriate open source license to the repo before making it public.
 
-Using the /assets/characters sprite animation names, continue the creation of new personas for each name in /personas/personas.js
+<!-- ------------------------------------------------------------------ -->
 
-<!-- STORIES | Added Features -->
+# @todo: STORIES
 
 ## Translator Component
 
@@ -53,7 +48,7 @@ Unfortunately, the example uses a Class based example. You should implement a co
 2. Follow the Huggingface example for React, use classes to make sure that the implementation is as close to the example as possible
 3. Convert the component from a Class based implementation to a Functional implementation
 
-## ElevenLabs Text to Speech
+## ElevenLabs or Huggingface Text to Speech
 
 Add the text to speech AI Model by ElevenLabs and connect the MessageInterface Speech Icon to the model.
 

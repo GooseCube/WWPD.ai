@@ -1,16 +1,8 @@
-import {
-  update,
-  remove,
-  ref,
-  push,
-  set,
-  onValue,
-  get,
-} from "firebase/database";
+import { update, ref, set, onValue, get } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
-// Personas for each agent, used to create Firebase agents
+// Personas for each agent, used to create Firebase agents on initial load
 import { personas } from "../modules/personas/personas";
 import { agentRenderPositions } from "../modules/mapGridPositions/agentRenderPositions";
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, createContext } from "react";
 
 // Firebase Initial Configuration
@@ -20,7 +21,6 @@ import {
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [agents, setAgents] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -39,9 +39,6 @@ const AuthProvider = ({ children }) => {
         await getUserMessages(setMessages);
         await getUserMoments(setMoments);
         await getSidebarProperties(setSidebar);
-        setLoading(false);
-      } else {
-        setLoading(false);
       }
     });
 

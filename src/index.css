@@ -6,9 +6,6 @@
 /* :root is used for Global CSS Variables */
 :root {
   font-family: "Raleway", Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.65;
   --background: black; /* Global Color Scheme: background-color: var(--background) */
 }
 

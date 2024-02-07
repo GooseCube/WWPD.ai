@@ -89,8 +89,13 @@ export const loadAgentsFromFirebase = async (agents, setAgents) => {
   if (agents.length === 0) {
     const snapshot = await get(agentsRef);
     if (snapshot.exists()) {
-      const agents = snapshot.val();
-      setAgents(Object.values(agents));
+      let agents = snapshot.val();
+      // Set momentResponse of each agent to null
+      agents = Object.values(agents).map((agent) => ({
+        ...agent,
+        momentResponse: null,
+      }));
+      setAgents(agents);
       return;
     }
   }
@@ -100,6 +105,8 @@ export const loadAgentsFromFirebase = async (agents, setAgents) => {
     const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);
     onValue(agentRef, (snapshot) => {
       const updatedAgent = snapshot.val();
+      // Set momentResponse of the updated agent to null
+      updatedAgent.momentResponse = null;
       setAgents((prevAgents) => {
         return prevAgents.map((a) => (a.uid === agent.uid ? updatedAgent : a));
       });

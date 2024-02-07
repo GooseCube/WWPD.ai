@@ -15,7 +15,6 @@
 
 .sprite-container {
   position: relative;
-  z-index: 1;
 }
 
 /* See Also: styles/Sprite styled-components */

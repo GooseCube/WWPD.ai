@@ -19,7 +19,7 @@ function AgentProfile({ agents, showAgentCards, setShowAgentCards }) {
     setAgent(userControlledAgent);
     if (userControlledAgent) {
       const controlledAgent = userControlledAgent.sprite.replace(".png", "");
-      import(`../../../assets/characters/${controlledAgent}.png`)
+      import(`/assets/characters/${controlledAgent}.png`)
         .then((image) => setSprite(image.default))
         .catch((err) => console.error(err));
     }

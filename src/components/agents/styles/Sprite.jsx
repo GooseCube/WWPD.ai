@@ -12,7 +12,7 @@ export const Sprite = styled.div.withConfig({
   height: 32px;
   transition: top 0.2s ease, left 0.2s ease;
   background-image: ${({ agent }) =>
-    `url(src/assets/characters/${agent.sprite})`};
+    `url(/assets/characters/${agent.sprite})`};
   &.grid-cell {
     // Add your grid-cell styles here
   }

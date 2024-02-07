@@ -32,7 +32,8 @@ function Cards({
       for (const agent of Object.values(agents)) {
         const agentName = agent.sprite.replace(".png", "");
         images[agentName] = await import(
-          `../../../assets/characters/${agentName}.png`
+          // `../../../assets/characters/${agentName}.png`
+          `/assets/characters/${agentName}.png`
         );
       }
       setAgentImages(images);

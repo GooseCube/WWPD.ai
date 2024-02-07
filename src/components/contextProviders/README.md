@@ -1,0 +1,51 @@
+# Show Provider
+
+This provider allows flags that are used or could be used in several places within the application to become easily and globally accessible.
+
+## React Documentation
+
+- [useReducer](https://react.dev/reference/react/useReducer)
+- [Scaling with Reducer and Context](https://react.dev/learn/scaling-up-with-reducer-and-context)
+
+## SetUp
+
+In `main.jsx` I have wrapped the `<App />` with the `<ShowProvider />` to pass down the {children} to the rest of the tree. This eliminates the need to push each object down the tree commonly referred to as `prop drilling`.
+
+```js
+<AuthProvider>
+  <ShowProvider>
+    <App />
+  </ShowProvider>
+</AuthProvider>
+```
+
+The implementation ensures that the AuthProvider is still preventing login until a valid username and password are entered. Then, ShowProvider will give access to the objects globally.
+
+## Use Show and Dispatch
+
+To use a particular flag in your component you will import `useShow` from the ShowContext file path.
+
+Destructure the call to `useShow` which gives you `show` and `dispatch`. The `dispatch` is a function call to set the flag/object which requires that the `type: 'FLAG_NAME'` is specific to the flag you want to change and must match the switch () case: in the ShowProvider file.
+
+Here is a simple example of how to use the ShowProvider:
+
+```js
+import { useShow } from "./path/to/ShowContext";
+
+function YourBadAssComponent() {
+  const { show, dispatch } = useShow();
+
+  const handleThatClick = (event) => {
+    event.preventDefault(); // if you want to prevent unnecessary render
+
+    // Calls switch to find 'FLAG_NAME' and changes the boolean value
+    dispatch({ type: "FLAG_NAME", payload: !show.myFlag });
+  };
+
+  return (
+    <div>
+      <button onClick={(event) => handleThatClick(event)}>Click This</button>
+    </div>
+  );
+}
+```

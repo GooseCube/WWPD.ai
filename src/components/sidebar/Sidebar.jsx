@@ -37,7 +37,7 @@ function Sidebar({
   setShowAgentCards,
 }) {
   const { agents, sidebar, setAgents } = useContext(AuthContext);
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = React.useState(true);
   const [overlayImages, setOverlayImages] = useState([]);
   const [screenStyles, setScreenStyles] = useState({});
   const [overlayStyles, setOverlayStyles] = useState({});

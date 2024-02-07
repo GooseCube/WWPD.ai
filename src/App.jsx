@@ -8,7 +8,7 @@ import EmailForm from "./components/email/Email";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showInterface, setShowInterface] = useState(false);
+  const [showInterface, setShowInterface] = useState(true);
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [showAgentCards, setShowAgentCards] = useState(false);
   const [moment, setMoment] = useState({});

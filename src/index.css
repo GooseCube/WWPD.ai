@@ -9,6 +9,10 @@
 }
 
 body {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.65;
   background-color: var(--background);
 }
 

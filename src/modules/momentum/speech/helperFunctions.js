@@ -100,7 +100,7 @@ export const getRandomEmoji = () => {
 };
 
 /**
- * @TODO need to filter out agents that did not attent the speech
+ * @TODO need to filter out agents that did not attend the speech
  * @TODO need to reduce the time between displaying the momentResponse
  * for emoji and the switch back to agent name in Agent/SpriteTextBubble
  *

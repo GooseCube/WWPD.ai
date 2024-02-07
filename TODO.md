@@ -1,9 +1,5 @@
 # @todo: ERROR and DEBUG
 
-## On Load
-
-- When the last moment from a previous iteration is stored in Firebase the moment 'text' will re-render for each agent. Need to clear all agents after the moment is done and all agents have finished reaching their final home positions.
-
 ## Moment Loading
 
 When a moment is selected, the initial prompt for the primaryAgent takes a minute to fetch before any motion in the game is rendered. There should be a loading animation to give the user selection feedback.

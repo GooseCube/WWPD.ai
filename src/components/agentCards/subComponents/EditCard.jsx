@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { updateAgent } from "../../../firebase/firebaseAgents";
 import { updateAgentState } from "../../../modules/momentum/speech/helperFunctions";
-import { AuthContext } from "../../../firebase/AuthProvider";
+import { AuthContext } from "../../contextProviders/AuthProvider";
 
 // Builds the form to edit a single agent persona
 function EditCard({ index, agent, agentImage, setEditAgent }) {

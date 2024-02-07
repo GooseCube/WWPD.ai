@@ -2,7 +2,7 @@
 import { useState, useEffect, createContext } from "react";
 
 // Firebase Initial Configuration
-import { auth } from "./firebaseConfig";
+import { auth } from "../../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
 // Firebase
@@ -10,10 +10,10 @@ import {
   isFirstAgentInitialization,
   initializeAgentsFromPersonas,
   loadAgentsFromFirebase,
-} from "./firebaseAgents";
-import { getUserMessages } from "./firebaseMessages";
-import { getUserMoments } from "./firebaseMoments";
-import { getSidebarProperties } from "./firebaseSidebar";
+} from "../../firebase/firebaseAgents";
+import { getUserMessages } from "../../firebase/firebaseMessages";
+import { getUserMoments } from "../../firebase/firebaseMoments";
+import { getSidebarProperties } from "../../firebase/firebaseSidebar";
 
 export const AuthContext = createContext();
 

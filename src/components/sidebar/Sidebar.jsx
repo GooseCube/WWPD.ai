@@ -15,7 +15,7 @@ import ButtonSelection from "./sub-components/ButtonSelection";
 import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
-import { AuthContext } from "../../firebase/AuthProvider";
+import { AuthContext } from "../contextProviders/AuthProvider";
 import * as moments from "../../modules/momentum/moments";
 import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";

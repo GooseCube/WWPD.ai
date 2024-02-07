@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { AuthContext } from "../../firebase/AuthProvider";
+import { AuthContext } from "../contextProviders/AuthProvider";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   XCircle,

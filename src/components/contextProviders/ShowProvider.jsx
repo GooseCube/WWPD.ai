@@ -1,19 +1,4 @@
 /* eslint-disable react/prop-types */
-/**
-EXAMPLE USE IN COMPONENT:
-
-import { useShow } from './ShowContext';
-
-function SomeComponent() {
-  const { show, dispatch } = useShow();
-
-  const handleClick = () => {
-    dispatch({ type: 'SET_INTERFACE', payload: !show.interface });
-  };
-
-  // ... rest of your code
-}
-*/
 import { createContext, useReducer, useContext } from "react";
 
 const ShowContext = createContext();
@@ -50,11 +35,7 @@ export function ShowProvider({ children }) {
 /**
  * Pull down the global boolean flags for use in your component
  * Default: { interface: true, emailForm: false, agentCards: false} 
-   Example Use:
-   const handleClick = () => {
-      dispatch({ type: 'SET_INTERFACE', payload: !show.interface });
-    };
- * @returns context provider
+ * See README.md in "/src/components/contextProviders" for use example
  */
 export function useShow() {
   const context = useContext(ShowContext);

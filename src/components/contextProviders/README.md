@@ -49,3 +49,13 @@ function YourBadAssComponent() {
   );
 }
 ```
+
+## Where to Import ShowProvider
+
+Try to import `useShow` at the top level of your specific component to give the remainder of the child nodes access by passing down `show, dispatch` rather than importing `useShow` everywhere. Then, pass `show, dispatch` down to each sub-component 'child node' that requires a show.flag.
+
+## Adding a New Flag
+
+In the ShowProvider.jsx you will need to add the name of your flag to the `initialState` object.
+
+Add a new case to the `showReducer` function giving it a name that follows the current syntax with all upper case and that's it. Your flag is now part of the show.someFlag global context.

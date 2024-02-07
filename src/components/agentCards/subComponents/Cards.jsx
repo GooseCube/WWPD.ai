@@ -26,15 +26,16 @@ function Cards({
   const temp = [];
   let count = 0;
 
+
   useEffect(() => {
     const loadImages = async () => {
       const images = {};
       for (const agent of Object.values(agents)) {
         const agentName = agent.sprite.replace(".png", "");
-        images[agentName] = await import(
-          // `../../../assets/characters/${agentName}.png`
-          `/assets/characters/${agentName}.png`
-        );
+        images[agentName] = import.meta.env.BASE_URL + `assets/characters/${agentName}.png`;
+          images[agentName] = await import(
+            `../../../assets/characters/${agentName}.png`
+          );
       }
       setAgentImages(images);
     };

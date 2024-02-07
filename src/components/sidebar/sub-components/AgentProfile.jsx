@@ -19,23 +19,19 @@ function AgentProfile({ agents, showAgentCards, setShowAgentCards }) {
     setAgent(userControlledAgent);
     if (userControlledAgent) {
       const controlledAgent = userControlledAgent.sprite.replace(".png", "");
-      import(`/assets/characters/${controlledAgent}.png`)
+      import(`../../../assets/characters/${controlledAgent}.png`)
         .then((image) => setSprite(image.default))
         .catch((err) => console.error(err));
     }
   }, [agents]);
 
-  if (!agent) {
-    return (
-      <div className="agent-profile-error">
-        Player controlled agent will be displayed here.
-      </div>
-    );
-  }
-
-  return (
+  return !sprite ? (
+    <div className="agent-profile-error agent-profile-container border rounded p-2">
+      Agent will be displayed in a moment
+    </div>
+  ) : (
     <OverlayTrigger
-    className="overlay-trigger-container"
+      className="overlay-trigger-container"
       placement="right"
       overlay={<Tooltip id={"tooltip-right"}>Click to View Agents</Tooltip>}>
       <div

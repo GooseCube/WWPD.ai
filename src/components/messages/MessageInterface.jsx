@@ -1,5 +1,10 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
+
+// Global Context Providers
 import { AuthContext } from "../contextProviders/AuthProvider";
+import { useShow } from "../contextProviders/ShowProvider";
+
+// React
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css";
@@ -9,9 +14,6 @@ import Toolbar from "./subComponents/Toolbar";
 import Message from "./subComponents/Message";
 import Moment from "./subComponents/Moment";
 import TextInput from "./subComponents/TextInput";
-
-// Import Other Components
-import EmailForm from "../email/Email"
 
 // Interface Styles
 import "./styles/styles.css";
@@ -23,17 +25,20 @@ function MessageInterface({
   setShowEmailForm,
   handleEmail
 }) {
+  const { show , dispatch } = useShow();
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
   const [showMessages, setShowMessages] = useState(true);
   const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  return showInterface ? (
+  return show.interface ? (
     <div className="message-interface-container">
       <Draggable handle=".interface">
         <ResizableBox width={400} height={500} className="resizeable-box">
           <div className="interface">
             <Toolbar
+              show={show}
+              dispatch={dispatch}
               showMessages={showMessages}
               setShowMessages={setShowMessages}
               showInputArea={showInputArea}

@@ -17,6 +17,8 @@ import Spinner from "react-bootstrap/Spinner";
  * @returns
  */
 function Toolbar({
+  show,
+  dispatch,
   showMessages,
   setShowMessages,
   showInputArea,
@@ -84,7 +86,8 @@ function Toolbar({
         overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
         <XCircleFill
           className="toolbar-icon close"
-          onClick={() => setShowInterface(!showInterface)}
+          // onClick={() => setShowInterface(!showInterface)}
+          onClick={() => dispatch({ type: 'SET_INTERFACE', payload: !show.interface})}
         />
       </OverlayTrigger>
     </div>

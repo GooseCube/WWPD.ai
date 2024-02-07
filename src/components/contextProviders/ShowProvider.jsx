@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 /**
-To use this boolean flag global context provider:
-
-EXAMPLE:
+EXAMPLE USE IN COMPONENT:
 
 import { useShow } from './ShowContext';
 
@@ -49,6 +47,15 @@ export function ShowProvider({ children }) {
   );
 }
 
+/**
+ * Pull down the global boolean flags for use in your component
+ * Default: { interface: true, emailForm: false, agentCards: false} 
+   Example Use:
+   const handleClick = () => {
+      dispatch({ type: 'SET_INTERFACE', payload: !show.interface });
+    };
+ * @returns context provider
+ */
 export function useShow() {
   const context = useContext(ShowContext);
   if (context === undefined) {

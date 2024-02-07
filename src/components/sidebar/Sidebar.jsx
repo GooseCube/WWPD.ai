@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
+
+// Global Context Provider
+import { useShow } from "../contextProviders/ShowProvider";
 
 // Bootstrap Styles
 import { Button, Offcanvas } from "react-bootstrap";
@@ -36,8 +39,9 @@ function Sidebar({
   showAgentCards,
   setShowAgentCards,
 }) {
+  // const { show, dispatch } = useShow();
   const { agents, sidebar, setAgents } = useContext(AuthContext);
-  const [show, setShow] = React.useState(true);
+  const [showArrowButton, setShowArrowButton] = useState(true);
   const [overlayImages, setOverlayImages] = useState([]);
   const [screenStyles, setScreenStyles] = useState({});
   const [overlayStyles, setOverlayStyles] = useState({});
@@ -92,8 +96,8 @@ function Sidebar({
         <Button
           className="arrow-button"
           // variant="success"
-          onClick={() => setShow(!show)}>
-          {show ? (
+          onClick={() => setShowArrowButton(!showArrowButton)}>
+          {showArrowButton ? (
             <ChevronDoubleLeft className="chevron-double-left" />
           ) : (
             <ChevronDoubleRight className="chevron-double-right" />
@@ -101,8 +105,8 @@ function Sidebar({
         </Button>
         <Offcanvas
           className="offcanvas-container"
-          show={show}
-          onHide={() => setShow(!show)}>
+          show={showArrowButton}
+          onHide={() => setShowArrowButton(!showArrowButton)}>
           <Offcanvas.Header closeButton>
             <SidebarHeader />
           </Offcanvas.Header>

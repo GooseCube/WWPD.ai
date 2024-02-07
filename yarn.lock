@@ -561,6 +561,11 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.10.5.tgz#cd9897680d0a2f1bce8d8c23a590e5874f4617c5"
   integrity sha512-eSkJsnhBWv5kCTSU1tSUVl9mpFu+5NXXunZc83le8GMjMlsWwQArSc7cJJ4yl+aDFY0NGLi0AjZWMn1axOrkRg==
 
+"@fontsource/raleway@^5.0.16":
+  version "5.0.16"
+  resolved "https://registry.yarnpkg.com/@fontsource/raleway/-/raleway-5.0.16.tgz#0ec89d60c0fef790ecaf0dd93c255766a6df3dd7"
+  integrity sha512-+VNqahWDG31fL4TyeShCfCu5HWyid/Pm2wXH75rjFjJeqWergmkPUAqUzBXjaMIcYqWmFkI6KYzDKWpe2VZiaA==
+
 "@grpc/grpc-js@~1.9.0":
   version "1.9.13"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.9.13.tgz#ad9b7dbb6089c462469653c809996f13e46aa1cd"
@@ -1529,7 +1534,7 @@ file-entry-cache@^6.0.1:
   dependencies:
     flat-cache "^3.0.4"
 
-file-saver@^2.0.5:
+file-saver@2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
   integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
@@ -2622,7 +2627,7 @@ strip-json-comments@^3.1.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-styled-components@^6.1.6:
+styled-components@6.1.6:
   version "6.1.6"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.1.6.tgz#c75c4f994136545b3bcc11608db5363710b78c0e"
   integrity sha512-DgTLULSC29xpabJ24bbn1+hulU6vvGFQf4RPwBOJrm8WJFnN42yXpo5voBt3jDSJBa5tBd1L6PqswJjQ0wRKdg==

@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState, useRef } from "react";
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
 import { AuthContext } from "../contextProviders/AuthProvider";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import {

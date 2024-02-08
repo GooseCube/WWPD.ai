@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 
 // Global Context Provider
-import { AuthContext } from "../../firebase/AuthProvider";
+import { AuthContext } from "../contextProviders/AuthProvider";
 
 // Firebase DB
 import { updateAgent } from "../../firebase/firebaseAgents";

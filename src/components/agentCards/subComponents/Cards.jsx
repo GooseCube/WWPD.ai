@@ -18,7 +18,7 @@ function Cards({
   setAgents,
   cardIndex,
   setCardIndex,
-  maxViews,
+  MAX_CARD_VIEWS,
   editAgent,
   setEditAgent,
 }) {
@@ -119,7 +119,7 @@ function Cards({
   });
 
   return temp.map((card, index) => {
-    if (index >= cardIndex && count <= maxViews) {
+    if (index >= cardIndex && count <= MAX_CARD_VIEWS) {
       ++count;
       return card;
     }

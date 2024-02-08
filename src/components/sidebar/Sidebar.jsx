@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
+
+// Global Context Provider
+import { useShow } from "../contextProviders/ShowProvider";
 
 // Bootstrap Styles
 import { Button, Offcanvas } from "react-bootstrap";
@@ -15,7 +18,7 @@ import ButtonSelection from "./sub-components/ButtonSelection";
 import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
-import { AuthContext } from "../../firebase/AuthProvider";
+import { AuthContext } from "../contextProviders/AuthProvider";
 import * as moments from "../../modules/momentum/moments";
 import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";
@@ -28,16 +31,11 @@ import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
 import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
-// import message from "../../assets/sidebar/message.png";
 
-function Sidebar({
-  showInterface,
-  setShowInterface,
-  showAgentCards,
-  setShowAgentCards,
-}) {
+function Sidebar() {
+  const { show, dispatch } = useShow();
   const { agents, sidebar, setAgents } = useContext(AuthContext);
-  const [show, setShow] = React.useState(true);
+  const [showArrowButton, setShowArrowButton] = useState(true);
   const [overlayImages, setOverlayImages] = useState([]);
   const [screenStyles, setScreenStyles] = useState({});
   const [overlayStyles, setOverlayStyles] = useState({});
@@ -92,8 +90,8 @@ function Sidebar({
         <Button
           className="arrow-button"
           // variant="success"
-          onClick={() => setShow(!show)}>
-          {show ? (
+          onClick={() => setShowArrowButton(!showArrowButton)}>
+          {showArrowButton ? (
             <ChevronDoubleLeft className="chevron-double-left" />
           ) : (
             <ChevronDoubleRight className="chevron-double-right" />
@@ -101,8 +99,8 @@ function Sidebar({
         </Button>
         <Offcanvas
           className="offcanvas-container"
-          show={show}
-          onHide={() => setShow(!show)}>
+          show={showArrowButton}
+          onHide={() => setShowArrowButton(!showArrowButton)}>
           <Offcanvas.Header closeButton>
             <SidebarHeader />
           </Offcanvas.Header>
@@ -112,8 +110,9 @@ function Sidebar({
               buttonText="Interface"
               image={essay}
               altText="input interface button"
-              useStateParam={showInterface}
-              handleStateEvent={setShowInterface}
+              show={show}
+              showProviderType="SET_INTERFACE"
+              dispatch={dispatch}
             />
             <DropdownSelector
               buttonTitle="Moment"
@@ -134,11 +133,7 @@ function Sidebar({
                 { title: "StabilityXL", type: "txt2img" },
               ]}
             />
-            <AgentProfile
-              agents={agents}
-              showAgentCards={showAgentCards}
-              setShowAgentCards={setShowAgentCards}
-            />
+            <AgentProfile agents={agents} show={show} dispatch={dispatch} />
           </Offcanvas.Body>
         </Offcanvas>
       </div>

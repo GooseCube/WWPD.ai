@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+// React
+import { useState, useEffect } from "react";
+
+// Libraries
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Controller } from "react-bootstrap-icons";
 
@@ -8,7 +12,7 @@ import { Controller } from "react-bootstrap-icons";
  * @param {object} agents
  * @returns the agent persona: {name, age, career, personality}
  */
-function AgentProfile({ agents, showAgentCards, setShowAgentCards }) {
+function AgentProfile({ agents, show, dispatch }) {
   const [sprite, setSprite] = useState(null);
   const [agent, setAgent] = useState(null);
 
@@ -36,7 +40,9 @@ function AgentProfile({ agents, showAgentCards, setShowAgentCards }) {
       overlay={<Tooltip id={"tooltip-right"}>Click to View Agents</Tooltip>}>
       <div
         className="agent-profile-container border rounded p-2"
-        onClick={() => setShowAgentCards(!showAgentCards)}>
+        onClick={() =>
+          dispatch({ type: "SET_AGENT_CARDS", payload: !show.agentCards })
+        }>
         <div className="profile-header d-flex">
           <h2>{agent.name}</h2>
           <OverlayTrigger

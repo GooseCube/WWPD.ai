@@ -6,7 +6,7 @@
   z-index: 2;
 }
 
-.resizeable-box {
+.resizable-box {
   position: relative;
   display: flex;
   flex-direction: column;

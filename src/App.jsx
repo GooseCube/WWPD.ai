@@ -1,4 +1,7 @@
+// React
 import { useState } from "react";
+
+// Components
 import Login from "./components/login/Login";
 import Sidebar from "./components/sidebar/Sidebar";
 import Agents from "./components/agents/Agents";
@@ -8,9 +11,6 @@ import EmailForm from "./components/email/Email";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showInterface, setShowInterface] = useState(true);
-  const [showEmailForm, setShowEmailForm] = useState(false);
-  const [showAgentCards, setShowAgentCards] = useState(false);
   const [moment, setMoment] = useState({});
 
   const handleEmail = (e, selectedMoment) => {
@@ -20,26 +20,11 @@ function App() {
 
   return loggedIn ? (
     <div className="app-container">
-      <Sidebar
-        showInterface={showInterface}
-        setShowInterface={setShowInterface}
-        showAgentCards={showAgentCards}
-        setShowAgentCards={setShowAgentCards}
-      />
-      <MessageInterface
-        showInterface={showInterface}
-        setShowInterface={setShowInterface}
-        showEmailForm={showEmailForm}
-        setShowEmailForm={setShowEmailForm}
-        handleEmail={handleEmail}
-      />
-      <EmailForm
-        showEmailForm={showEmailForm}
-        setShowEmailForm={setShowEmailForm}
-        moment={moment}
-      />
+      <Sidebar />
+      <MessageInterface handleEmail={handleEmail} />
+      <EmailForm moment={moment} />
       <Agents />
-      {showAgentCards && <AgentCards setShowAgentCards={setShowAgentCards} />}
+      <AgentCards />
     </div>
   ) : (
     <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />

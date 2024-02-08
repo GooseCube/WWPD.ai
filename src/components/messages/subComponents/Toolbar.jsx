@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   ChatDots,
   Keyboard,
@@ -11,33 +12,19 @@ import { Tooltip, OverlayTrigger } from "react-bootstrap";
 // Load Animation
 import Spinner from "react-bootstrap/Spinner";
 
-/**
- * @param {boolean} isLoading, while fetching api request
- * @param {boolean} showInputArea, open/close text area
- * @returns
- */
-function Toolbar({
-  showMessages,
-  setShowMessages,
-  showInputArea,
-  setShowInputArea,
-  showInterface,
-  setShowInterface,
-  isLoading,
-  aiModel,
-}) {
+function Toolbar({ show, dispatch, isLoading, aiModel }) {
   return (
     <div className="toolbar-container">
       {/* Toggle Between Messages & Moments */}
-      {showMessages ? (
+      {show.messages ? (
         <OverlayTrigger
           placement="top"
           overlay={<Tooltip id={"tooltip-top"}>View Moments</Tooltip>}>
           <Lightbulb
             className="toolbar-icon lightbulb"
             onClick={() => {
-              setShowMessages(!showMessages);
-              setShowInputArea(false);
+              dispatch({ type: "SET_MESSAGES", payload: !show.messages });
+              dispatch({ type: "SET_INPUT_AREA", payload: false });
             }}
           />
         </OverlayTrigger>
@@ -48,24 +35,26 @@ function Toolbar({
           <ChatDots
             className="toolbar-icon chat"
             onClick={() => {
-              setShowMessages(!showMessages);
-              setShowInputArea(true);
+              dispatch({ type: "SET_MESSAGES", payload: !show.messages });
+              dispatch({ type: "SET_INPUT_AREA", payload: true });
             }}
           />
         </OverlayTrigger>
       )}
 
       {/* Only display keyboard (and, loading animation) for Message Input */}
-      {showMessages && isLoading ? (
+      {show.messages && isLoading ? (
         <Spinner className="spinner-animation" />
       ) : (
-        showMessages && (
+        show.messages && (
           <OverlayTrigger
             placement="top"
             overlay={<Tooltip id={"tooltip-top"}>Message Input</Tooltip>}>
             <Keyboard
               className="toolbar-icon keyboard"
-              onClick={() => setShowInputArea(!showInputArea)}
+              onClick={() =>
+                dispatch({ type: "SET_INPUT_AREA", payload: !show.inputArea })
+              }
             />
           </OverlayTrigger>
         )
@@ -84,7 +73,9 @@ function Toolbar({
         overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
         <XCircleFill
           className="toolbar-icon close"
-          onClick={() => setShowInterface(!showInterface)}
+          onClick={() =>
+            dispatch({ type: "SET_INTERFACE", payload: !show.interface })
+          }
         />
       </OverlayTrigger>
     </div>

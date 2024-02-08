@@ -30,7 +30,7 @@ Destructure the call to `useShow` which gives you `show` and `dispatch`. The `di
 Here is a simple example of how to use the ShowProvider:
 
 ```js
-import { useShow } from "./path/to/ShowContext";
+import { useShow } from "./path/to/ShowProvider";
 
 function YourBadAssComponent() {
   const { show, dispatch } = useShow();
@@ -50,6 +50,23 @@ function YourBadAssComponent() {
 }
 ```
 
+## Use Show.myFlag to Hide Component
+
+Quick example of how to use `show` to hide or show a component:
+
+```js
+import { useShow } from "./path/to/ShowProvider"
+
+function YourBadAssComponent() {
+  const { show, dispatch } = useShow();
+
+  // some other statements or useEffect() . . .
+
+  return show.myFlag ? (
+    <div>Things to show if 'show.myFlag' is 'true'</div>
+  )
+}
+
 ## Where to Import ShowProvider
 
 Try to import `useShow` at the top level of your specific component to give the remainder of the child nodes access by passing down `show, dispatch` rather than importing `useShow` everywhere. Then, pass `show, dispatch` down to each sub-component 'child node' that requires a show.flag.
@@ -59,3 +76,4 @@ Try to import `useShow` at the top level of your specific component to give the 
 In the ShowProvider.jsx you will need to add the name of your flag to the `initialState` object.
 
 Add a new case to the `showReducer` function giving it a name that follows the current syntax with all upper case and that's it. Your flag is now part of the show.someFlag global context.
+```

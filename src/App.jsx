@@ -8,7 +8,6 @@ import EmailForm from "./components/email/Email";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showInterface, setShowInterface] = useState(true);
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [showAgentCards, setShowAgentCards] = useState(false);
   const [moment, setMoment] = useState({});
@@ -21,14 +20,10 @@ function App() {
   return loggedIn ? (
     <div className="app-container">
       <Sidebar
-        showInterface={showInterface}
-        setShowInterface={setShowInterface}
         showAgentCards={showAgentCards}
         setShowAgentCards={setShowAgentCards}
       />
       <MessageInterface
-        showInterface={showInterface}
-        setShowInterface={setShowInterface}
         showEmailForm={showEmailForm}
         setShowEmailForm={setShowEmailForm}
         handleEmail={handleEmail}

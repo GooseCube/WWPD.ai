@@ -31,15 +31,9 @@ import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
 import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
-// import message from "../../assets/sidebar/message.png";
 
-function Sidebar({
-  showInterface,
-  setShowInterface,
-  showAgentCards,
-  setShowAgentCards,
-}) {
-  // const { show, dispatch } = useShow();
+function Sidebar({ showAgentCards, setShowAgentCards }) {
+  const { show, dispatch } = useShow();
   const { agents, sidebar, setAgents } = useContext(AuthContext);
   const [showArrowButton, setShowArrowButton] = useState(true);
   const [overlayImages, setOverlayImages] = useState([]);
@@ -116,8 +110,9 @@ function Sidebar({
               buttonText="Interface"
               image={essay}
               altText="input interface button"
-              useStateParam={showInterface}
-              handleStateEvent={setShowInterface}
+              show={show}
+              showProviderType="SET_INTERFACE"
+              dispatch={dispatch}
             />
             <DropdownSelector
               buttonTitle="Moment"

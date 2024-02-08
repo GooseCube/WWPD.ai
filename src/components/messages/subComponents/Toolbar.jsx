@@ -23,8 +23,6 @@ function Toolbar({
   setShowMessages,
   showInputArea,
   setShowInputArea,
-  showInterface,
-  setShowInterface,
   isLoading,
   aiModel,
 }) {
@@ -86,7 +84,6 @@ function Toolbar({
         overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
         <XCircleFill
           className="toolbar-icon close"
-          // onClick={() => setShowInterface(!showInterface)}
           onClick={() => dispatch({ type: 'SET_INTERFACE', payload: !show.interface})}
         />
       </OverlayTrigger>

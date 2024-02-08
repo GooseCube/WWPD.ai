@@ -18,14 +18,8 @@ import TextInput from "./subComponents/TextInput";
 // Interface Styles
 import "./styles/styles.css";
 
-function MessageInterface({
-  showInterface,
-  setShowInterface,
-  showEmailForm,
-  setShowEmailForm,
-  handleEmail
-}) {
-  const { show , dispatch } = useShow();
+function MessageInterface({ showEmailForm, setShowEmailForm, handleEmail }) {
+  const { show, dispatch } = useShow();
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
   const [showMessages, setShowMessages] = useState(true);
   const [showInputArea, setShowInputArea] = useState(true);
@@ -43,8 +37,6 @@ function MessageInterface({
               setShowMessages={setShowMessages}
               showInputArea={showInputArea}
               setShowInputArea={setShowInputArea}
-              showInterface={showInterface}
-              setShowInterface={setShowInterface}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
               aiModel={sidebar.aiModel}

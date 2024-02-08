@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+
 // React
 import { useState, useContext } from "react";
 import Draggable from "react-draggable";
@@ -65,7 +66,6 @@ function MessageInterface({ handleEmail }) {
                 })}
               </div>
             )}
-            {/* If the location of TextInput inside the 'interface' div container causes issues, move outside of the div container */}
             <TextInput
               showInputArea={showInputArea}
               isLoading={isLoading}

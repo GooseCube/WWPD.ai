@@ -3,12 +3,17 @@ import { createContext, useReducer, useContext } from "react";
 
 const ShowContext = createContext();
 
+// If 'showReducer' get larger, move the 'initialState' object
+// to the same file with 'showReducer'
 const initialState = {
   interface: true,
   emailForm: false,
   agentCards: false,
 };
 
+// As the switch statement gets larger: 
+// move to separate file in /contextProvider/modules
+// with the 'initialState' object above
 function showReducer(state, action) {
   switch (action.type) {
     case "SET_INTERFACE":

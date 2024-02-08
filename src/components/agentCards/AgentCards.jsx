@@ -1,21 +1,31 @@
 /* eslint-disable react/prop-types */
+// React
 import { useContext, useState } from "react";
+
+// Context Providers
 import { AuthContext } from "../contextProviders/AuthProvider";
+import { useShow } from "../contextProviders/ShowProvider";
+
+// Sub Components
+import Cards from "./subComponents/Cards";
+
+// Styles
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   XCircle,
   ChevronDoubleRight,
   ChevronDoubleLeft,
 } from "react-bootstrap-icons";
-import Cards from "./subComponents/Cards";
 import "./styles/styles.css";
 
+// Decrement Card Array Index
 const goLeft = function decrementCardIndex(cardIndex, setCardIndex) {
   if (cardIndex > 0) {
     setCardIndex((prevIndex) => prevIndex - 1);
   }
 };
 
+// Increment Card Array Index
 const goRight = function incrementCardIndex(
   arrayLength,
   cardIndex,
@@ -26,54 +36,59 @@ const goRight = function incrementCardIndex(
   }
 };
 
-function AgentCards({ setShowAgentCards }) {
+function AgentCards() {
   const { agents, setAgents } = useContext(AuthContext);
+  const { show, dispatch } = useShow();
   const [editAgent, setEditAgent] = useState(null);
   const [cardIndex, setCardIndex] = useState(0);
   const [maxViews, setMaxViews] = useState(5);
 
   return (
-    <div className="agent-card-container">
-      {cardIndex > 0 && (
+    show.agentCards && (
+      <div className="agent-card-container">
+        {cardIndex > 0 && (
+          <div
+            className="arrow-card"
+            onClick={() => goLeft(cardIndex, setCardIndex)}>
+            <ChevronDoubleLeft className="chevron-left" />
+          </div>
+        )}
+        {agents && (
+          <div className="cards-container">
+            <Cards
+              agents={agents}
+              setAgents={setAgents}
+              cardIndex={cardIndex}
+              setCardIndex={setCardIndex}
+              maxViews={maxViews}
+              editAgent={editAgent}
+              setEditAgent={setEditAgent}
+            />
+          </div>
+        )}
+
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
+          <div className="open-close-container">
+            <XCircle
+              className="open-close-icon"
+              onClick={() =>
+                dispatch({ type: "SET_AGENT_CARDS", payload: !show.agentCards })
+              }
+            />
+          </div>
+        </OverlayTrigger>
+
         <div
           className="arrow-card"
-          onClick={() => goLeft(cardIndex, setCardIndex)}>
-          <ChevronDoubleLeft className="chevron-left" />
+          onClick={() =>
+            goRight(Object.keys(agents).length, cardIndex, setCardIndex)
+          }>
+          <ChevronDoubleRight className="chevron-right" />
         </div>
-      )}
-      {agents && (
-        <div className="cards-container">
-          <Cards
-            agents={agents}
-            setAgents={setAgents}
-            cardIndex={cardIndex}
-            setCardIndex={setCardIndex}
-            maxViews={maxViews}
-            editAgent={editAgent}
-            setEditAgent={setEditAgent}
-          />
-        </div>
-      )}
-
-      <OverlayTrigger
-        placement="top"
-        overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
-        <div className="open-close-container">
-          <XCircle
-            className="open-close-icon"
-            onClick={() => setShowAgentCards(false)}
-          />
-        </div>
-      </OverlayTrigger>
-
-      <div
-        className="arrow-card"
-        onClick={() =>
-          goRight(Object.keys(agents).length, cardIndex, setCardIndex)
-        }>
-        <ChevronDoubleRight className="chevron-right" />
       </div>
-    </div>
+    )
   );
 }
 

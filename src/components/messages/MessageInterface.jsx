@@ -19,8 +19,9 @@ import "react-resizable/css/styles.css";
 import "./styles/styles.css";
 
 function MessageInterface({ handleEmail }) {
-  const { show, dispatch } = useShow();
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
+  const { show, dispatch } = useShow();
+
   const [showMessages, setShowMessages] = useState(true);
   const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,7 @@ function MessageInterface({ handleEmail }) {
   return show.interface ? (
     <div className="message-interface-container">
       <Draggable handle=".interface">
-        <ResizableBox width={400} height={500} className="resizeable-box">
+        <ResizableBox width={400} height={500} className="resizable-box">
           <div className="interface">
             <Toolbar
               show={show}

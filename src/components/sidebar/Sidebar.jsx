@@ -32,7 +32,7 @@ import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
 import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
 
-function Sidebar({ showAgentCards, setShowAgentCards }) {
+function Sidebar() {
   const { show, dispatch } = useShow();
   const { agents, sidebar, setAgents } = useContext(AuthContext);
   const [showArrowButton, setShowArrowButton] = useState(true);
@@ -133,11 +133,7 @@ function Sidebar({ showAgentCards, setShowAgentCards }) {
                 { title: "StabilityXL", type: "txt2img" },
               ]}
             />
-            <AgentProfile
-              agents={agents}
-              showAgentCards={showAgentCards}
-              setShowAgentCards={setShowAgentCards}
-            />
+            <AgentProfile agents={agents} show={show} dispatch={dispatch} />
           </Offcanvas.Body>
         </Offcanvas>
       </div>

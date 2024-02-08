@@ -1,13 +1,12 @@
+/* eslint-disable react/prop-types */
+// React
 import { useState, useContext } from "react";
+import Draggable from "react-draggable";
+import { ResizableBox } from "react-resizable";
 
 // Global Context Providers
 import { AuthContext } from "../contextProviders/AuthProvider";
 import { useShow } from "../contextProviders/ShowProvider";
-
-// React
-import Draggable from "react-draggable";
-import { ResizableBox } from "react-resizable";
-import "react-resizable/css/styles.css";
 
 // Messages Sub-Components
 import Toolbar from "./subComponents/Toolbar";
@@ -16,9 +15,10 @@ import Moment from "./subComponents/Moment";
 import TextInput from "./subComponents/TextInput";
 
 // Interface Styles
+import "react-resizable/css/styles.css";
 import "./styles/styles.css";
 
-function MessageInterface({ showEmailForm, setShowEmailForm, handleEmail }) {
+function MessageInterface({ handleEmail }) {
   const { show, dispatch } = useShow();
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
   const [showMessages, setShowMessages] = useState(true);

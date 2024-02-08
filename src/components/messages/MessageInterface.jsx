@@ -27,58 +27,58 @@ function MessageInterface({ handleEmail }) {
   const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  return show.interface ? (
-    <div className="message-interface-container">
-      <Draggable handle=".interface">
-        <ResizableBox width={400} height={500} className="resizable-box">
-          <div className="interface">
-            <Toolbar
-              show={show}
-              dispatch={dispatch}
-              showMessages={showMessages}
-              setShowMessages={setShowMessages}
-              showInputArea={showInputArea}
-              setShowInputArea={setShowInputArea}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              aiModel={sidebar.aiModel}
-            />
-            {messages && showMessages && (
-              <div className="message-container">
-                {Object.entries(messages).map(([id, message]) => {
-                  return <Message id={id} message={message} key={id} />;
-                })}
-              </div>
-            )}
-            {moments && !showMessages && (
-              <div className="message-container">
-                {Object.entries(moments).map(([id, moment]) => {
-                  return (
-                    <Moment
-                      id={id}
-                      moment={moment}
-                      key={id}
-                      show={show}
-                      dispatch={dispatch}
-                      handleEmail={handleEmail}
-                    />
-                  );
-                })}
-              </div>
-            )}
-            <TextInput
-              showInputArea={showInputArea}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              sidebar={sidebar}
-              agents={agents}
-            />
-          </div>
-        </ResizableBox>
-      </Draggable>
-    </div>
-  ) : (
-    ""
+  return (
+    show.interface && sidebar.aiModel && (
+      <div className="message-interface-container">
+        <Draggable handle=".interface">
+          <ResizableBox width={400} height={500} className="resizable-box">
+            <div className="interface">
+              <Toolbar
+                show={show}
+                dispatch={dispatch}
+                showMessages={showMessages}
+                setShowMessages={setShowMessages}
+                showInputArea={showInputArea}
+                setShowInputArea={setShowInputArea}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                aiModel={sidebar.aiModel}
+              />
+              {messages && showMessages && (
+                <div className="message-container">
+                  {Object.entries(messages).map(([id, message]) => {
+                    return <Message id={id} message={message} key={id} />;
+                  })}
+                </div>
+              )}
+              {moments && !showMessages && (
+                <div className="message-container">
+                  {Object.entries(moments).map(([id, moment]) => {
+                    return (
+                      <Moment
+                        id={id}
+                        moment={moment}
+                        key={id}
+                        show={show}
+                        dispatch={dispatch}
+                        handleEmail={handleEmail}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+              <TextInput
+                showInputArea={showInputArea}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                sidebar={sidebar}
+                agents={agents}
+              />
+            </div>
+          </ResizableBox>
+        </Draggable>
+      </div>
+    )
   );
 }
 

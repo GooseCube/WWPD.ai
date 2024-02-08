@@ -31,7 +31,7 @@ function SidebarHeader() {
             </p>
             <p className="text-start">
               <strong>Agent Profile:</strong> overview of the agent persona you
-              have selected. Click on the profile to view all agents.
+              have selected. Click on the profile to view, edit, or create new personas.
             </p>
           </Tooltip>
         }>

@@ -42,7 +42,6 @@ function AgentCards() {
   const [editAgent, setEditAgent] = useState(null);
   const [cardIndex, setCardIndex] = useState(0);
   const MAX_CARD_VIEWS = 5;
-  // const [maxViews, setMaxViews] = useState(5);
 
   return (
     show.agentCards && (
@@ -57,6 +56,7 @@ function AgentCards() {
         {agents && (
           <div className="cards-container">
             <Cards
+              show={show}
               agents={agents}
               setAgents={setAgents}
               cardIndex={cardIndex}

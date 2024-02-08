@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 // React
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
 
@@ -22,10 +22,10 @@ import "./styles/styles.css";
 function MessageInterface({ handleEmail }) {
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
   const { show, dispatch } = useShow();
-  const [isLoading, setIsLoading] = useState(false);
 
   return (
-    show.interface && sidebar.aiModel && (
+    show.interface &&
+    sidebar.aiModel && (
       <div className="message-interface-container">
         <Draggable handle=".interface">
           <ResizableBox width={400} height={500} className="resizable-box">
@@ -33,8 +33,6 @@ function MessageInterface({ handleEmail }) {
               <Toolbar
                 show={show}
                 dispatch={dispatch}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
                 aiModel={sidebar.aiModel}
               />
               {messages && show.messages && (
@@ -62,8 +60,7 @@ function MessageInterface({ handleEmail }) {
               )}
               <TextInput
                 show={show}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
+                dispatch={dispatch}
                 sidebar={sidebar}
                 agents={agents}
               />

@@ -17,13 +17,13 @@ const buildPrompt = (agent, userPrompt) => {
  * is updated to Firebase. These messages trigger an event in Firebase
  * to update the active listener and display the new message.
  */
-function TextInput({ show, isLoading, setIsLoading, sidebar, agents }) {
+function TextInput({ show, dispatch, sidebar, agents }) {
   const [userPrompt, setUserPrompt] = useState("");
 
   const handleInput = async (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      setIsLoading(true);
+      dispatch({ type: "SET_IS_LOADING", payload: true });
       const agent = agents.find((a) => a.playerControlled === true);
       const response = await fetchModelResponse(
         sidebar.aiModel.title,
@@ -61,16 +61,16 @@ function TextInput({ show, isLoading, setIsLoading, sidebar, agents }) {
         await pushNewMessage(userPrompt, finalResponse, agent);
         // Clear the input & reset isLoading
         setUserPrompt("");
-        setIsLoading(false);
+        dispatch({ type: "SET_IS_LOADING", payload: false });
       } else {
-        setIsLoading(false);
+        dispatch({ type: "SET_IS_LOADING", payload: false });
       }
     }
   };
 
   return (
     <div className="input-container">
-      {!isLoading && show.inputArea && (
+      {!show.isLoading && show.inputArea && (
         <>
           <label htmlFor="prompt"></label>
           <textarea

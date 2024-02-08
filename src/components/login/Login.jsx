@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -25,6 +26,8 @@ function Login({ loggedIn, setLoggedIn }) {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
+      // useCredentials: {user: uid, email, dislpayName, . . .}
+      // did not have time to implement in the application
       const userCredentials = await signInWithEmailAndPassword(
         auth,
         email,

@@ -93,8 +93,4 @@ Try to import `useShow` at the top level of your specific component to give the 
 
 In the ShowProvider.jsx you will need to add the name of your flag to the `initialState` object.
 
-Add a new case to the `showReducer` function giving it a name that follows the current syntax with all upper case and that's it. Your flag is now part of the show.someFlag global context.
-
-```
-
-```
+Add a new case to the `showReducer` function giving it a name that follows the current syntax with all upper case. Then, add the same initialState object name to the `initialStateObjectName: action.payload` that's it. Your flag is now part of the show.someFlag global context.

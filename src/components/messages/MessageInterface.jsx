@@ -22,9 +22,6 @@ import "./styles/styles.css";
 function MessageInterface({ handleEmail }) {
   const { agents, messages, moments, sidebar } = useContext(AuthContext);
   const { show, dispatch } = useShow();
-
-  const [showMessages, setShowMessages] = useState(true);
-  const [showInputArea, setShowInputArea] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   return (
@@ -36,22 +33,18 @@ function MessageInterface({ handleEmail }) {
               <Toolbar
                 show={show}
                 dispatch={dispatch}
-                showMessages={showMessages}
-                setShowMessages={setShowMessages}
-                showInputArea={showInputArea}
-                setShowInputArea={setShowInputArea}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
                 aiModel={sidebar.aiModel}
               />
-              {messages && showMessages && (
+              {messages && show.messages && (
                 <div className="message-container">
                   {Object.entries(messages).map(([id, message]) => {
                     return <Message id={id} message={message} key={id} />;
                   })}
                 </div>
               )}
-              {moments && !showMessages && (
+              {moments && !show.messages && (
                 <div className="message-container">
                   {Object.entries(moments).map(([id, moment]) => {
                     return (
@@ -68,7 +61,7 @@ function MessageInterface({ handleEmail }) {
                 </div>
               )}
               <TextInput
-                showInputArea={showInputArea}
+                show={show}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
                 sidebar={sidebar}

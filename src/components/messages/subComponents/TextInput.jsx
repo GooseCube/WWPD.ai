@@ -16,17 +16,8 @@ const buildPrompt = (agent, userPrompt) => {
  * Each user input creates a user 'prompt' and model 'response' which
  * is updated to Firebase. These messages trigger an event in Firebase
  * to update the active listener and display the new message.
- * @param {boolean} showInputArea
- * @param {boolean} isLoading
- * @returns
  */
-function TextInput({
-  showInputArea,
-  isLoading,
-  setIsLoading,
-  sidebar,
-  agents,
-}) {
+function TextInput({ show, isLoading, setIsLoading, sidebar, agents }) {
   const [userPrompt, setUserPrompt] = useState("");
 
   const handleInput = async (event) => {
@@ -79,7 +70,7 @@ function TextInput({
 
   return (
     <div className="input-container">
-      {!isLoading && showInputArea && (
+      {!isLoading && show.inputArea && (
         <>
           <label htmlFor="prompt"></label>
           <textarea

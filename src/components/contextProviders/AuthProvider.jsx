@@ -15,6 +15,9 @@ import { getUserMessages } from "../../firebase/firebaseMessages";
 import { getUserMoments } from "../../firebase/firebaseMoments";
 import { getSidebarProperties } from "../../firebase/firebaseSidebar";
 
+/**
+ * context: {user, agents, setAgents, messages, moments, sidebar}
+ */
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {

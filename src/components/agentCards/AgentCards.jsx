@@ -41,7 +41,8 @@ function AgentCards() {
   const { show, dispatch } = useShow();
   const [editAgent, setEditAgent] = useState(null);
   const [cardIndex, setCardIndex] = useState(0);
-  const [maxViews, setMaxViews] = useState(5);
+  const MAX_CARD_VIEWS = 5;
+  // const [maxViews, setMaxViews] = useState(5);
 
   return (
     show.agentCards && (
@@ -60,7 +61,7 @@ function AgentCards() {
               setAgents={setAgents}
               cardIndex={cardIndex}
               setCardIndex={setCardIndex}
-              maxViews={maxViews}
+              MAX_CARD_VIEWS={MAX_CARD_VIEWS}
               editAgent={editAgent}
               setEditAgent={setEditAgent}
             />

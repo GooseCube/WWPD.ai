@@ -9,6 +9,8 @@ const initialState = {
   interface: true,
   emailForm: false,
   agentCards: false,
+  messages: true,
+  inputArea: true,
 };
 
 // As the switch statement gets larger: 
@@ -22,6 +24,10 @@ function showReducer(state, action) {
       return { ...state, emailForm: action.payload };
     case "SET_AGENT_CARDS":
       return { ...state, agentCards: action.payload };
+    case "SET_MESSAGES":
+      return { ...state, messages: action.payload };
+    case "SET_INPUT_AREA":
+      return { ...state, inputArea: action.payload };
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
@@ -39,8 +45,9 @@ export function ShowProvider({ children }) {
 
 /**
  * Pull down the global boolean flags for use in your component
- * Default: { interface: true, emailForm: false, agentCards: false} 
- * See README.md in "/src/components/contextProviders" for use example
+ * Default: { interface: true, emailForm: false, agentCards: false, 
+ * messages: true, inputArea: true } 
+ * FOR DETAILS -> README.md in "/src/components/contextProviders" for use example
  */
 export function useShow() {
   const context = useContext(ShowContext);

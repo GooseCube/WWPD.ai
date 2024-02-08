@@ -36,7 +36,6 @@ export const isFirstAgentInitialization = async () => {
  */
 export const initializeAgentsFromPersonas = async (setAgents) => {
   const userId = auth.currentUser.uid;
-  // const agentsRef = ref(database, `users/${userId}/agents`);
 
   const assignPositionToAgent = (agent) => {
     const randomIndex = Math.floor(Math.random() * agentRenderPositions.length);

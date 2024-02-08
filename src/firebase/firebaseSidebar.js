@@ -15,7 +15,10 @@ export const getSidebarProperties = async (setSidebar) => {
       sidebar = {};
     }
     if (!sidebar.aiModel) {
-      sidebar.aiModel = "Mixtral";
+      sidebar.aiModel = {};
+      sidebar.aiModel.title = "Mixtral";
+      sidebar.aiModel.type = "chat"
+      updateSidebar(sidebar);
     }
     setSidebar(sidebar);
     console.log("AI Model Set As: ", sidebar);

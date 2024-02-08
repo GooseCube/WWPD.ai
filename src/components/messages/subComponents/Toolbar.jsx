@@ -10,9 +10,14 @@ import {
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
 // Load Animation
-import Spinner from "react-bootstrap/Spinner";
+import SpinnerAnimation from "../../loadAnimations/Spinner";
 
-function Toolbar({ show, dispatch, isLoading, aiModel }) {
+function Toolbar({ show, dispatch, aiModel }) {
+  const animationAttributes = {
+    className: "spinner-animation",
+    animation: "border",
+  };
+
   return (
     <div className="toolbar-container">
       {/* Toggle Between Messages & Moments */}
@@ -43,8 +48,8 @@ function Toolbar({ show, dispatch, isLoading, aiModel }) {
       )}
 
       {/* Only display keyboard (and, loading animation) for Message Input */}
-      {show.messages && isLoading ? (
-        <Spinner className="spinner-animation" />
+      {show.messages && show.isLoading ? (
+        <SpinnerAnimation {...animationAttributes} />
       ) : (
         show.messages && (
           <OverlayTrigger

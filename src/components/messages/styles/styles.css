@@ -70,9 +70,10 @@
 /* Toolbar Animation */
 
 .spinner-animation {
-  width: 1.25em;
-  height: 1.25em;
-  color: blue;
+  width: 1.5em;
+  height: 1.5em;
+  color: green;
+  margin-top: 3px;
 }
 
 /* Message Display | Sub-Component */

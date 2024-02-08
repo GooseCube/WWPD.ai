@@ -14,8 +14,8 @@ import SpinnerAnimation from "../../loadAnimations/Spinner";
 
 function Toolbar({ show, dispatch, aiModel }) {
   const animationAttributes = {
-    className: "spinner-animation",
-    animation: "border",
+    className: "toolbar-animation",
+    animation: "grow", // you can also use "border" for circle
   };
 
   return (
@@ -49,7 +49,7 @@ function Toolbar({ show, dispatch, aiModel }) {
 
       {/* Only display keyboard (and, loading animation) for Message Input */}
       {show.messages && show.isLoading ? (
-        <SpinnerAnimation {...animationAttributes} />
+        <SpinnerAnimation attributes={animationAttributes} />
       ) : (
         show.messages && (
           <OverlayTrigger

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import Spinner from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
 /**
  * Circle spinner animation using react-bootstrap library.
@@ -10,6 +10,7 @@ import Spinner from "react-bootstrap";
  * @returns spinner animation element
  */
 function SpinnerAnimation({ attributes }) {
+  console.log("Spinner Attributes: ", attributes)
   return <Spinner {...attributes} />;
 }
 

@@ -14,6 +14,7 @@ const isRendered = (agent) => {
 };
 
 function Cards({
+  show,
   agents,
   setAgents,
   cardIndex,
@@ -112,7 +113,7 @@ function Cards({
           </div>
 
           {/* Agent Persona Information and Sprite Image */}
-          <Card agent={agent} agentImage={agentImage} />
+          <Card show={show} agent={agent} agentImage={agentImage} />
         </div>
       );
     }

@@ -67,10 +67,18 @@
 
 .agent-sprite-image {
   transform: scale(1.4);
-  margin-bottom: 1em;
+  /* margin-bottom: 1em; */
+  margin: 1em 0; 
   background-position: -32px 0;
   background-repeat: no-repeat;
 }
+
+.agent-loading-animation {
+  width: 1.75em;
+  height: 1.75em;
+  color: var(--green);
+}
+
 
 /* Edit Agent Cards */
 

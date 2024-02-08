@@ -1,17 +1,29 @@
-import { useRef, useState } from "react";
+/* eslint-disable react/prop-types */
+// React
+import { useRef } from "react";
+
+// Context Providers
+import { useShow } from "../contextProviders/ShowProvider";
+
+// Libraries
 import emailjs from "@emailjs/browser";
+
+// Sub Components
 import Form from "./Form";
-import "./styles/styles.css";
 import { emailFormatting } from "./modules/emailFormatting";
+
+// Styles
+import "./styles/styles.css";
 
 /**
  * Uses the AuthContext 'moments' allowing a user to select
  * a moment from the list, and the email to send the 'moment' to
- * @param {useState param} showEmailform
- * @param {useState setter} setShowEmailForm
+ * @param {context} show
+ * @param {context} dispatch
  * @returns the Email moment selector form
  */
-function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
+function EmailForm({ moment }) {
+  const { show, dispatch } = useShow();
   const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
@@ -49,11 +61,11 @@ function EmailForm({ showEmailForm, setShowEmailForm, moment }) {
   }
 
   return (
-    showEmailForm && (
+    show.emailForm && (
       <Form
         moment={moment}
-        showEmailForm={showEmailForm}
-        setShowEmailForm={setShowEmailForm}
+        show={show}
+        dispatch={dispatch}
         handleSendEmail={handleSendEmail}
         emailRef={emailRef}
       />

@@ -3,7 +3,6 @@ import { removeMoment } from "../../../firebase/firebaseMoments";
 import { saveAs } from "file-saver";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Envelope, Trash, Download } from "react-bootstrap-icons";
-import { emailFormatting } from "../../email/modules/emailFormatting";
 
 /**
  * Save the moment as a .txt file with .json encoding
@@ -28,7 +27,7 @@ const downloadMoment = (moment) => {
  * and to remove a moment from the Firebase DB.
  * @returns a single 'moment' from idea -> discussion -> final speech
  */
-function Moment({ id, moment, showEmailForm, setShowEmailForm, handleEmail }) {
+function Moment({ id, moment, show, dispatch, handleEmail }) {
   return (
     <div className="moment-container">
       <div className="moment-toolbar fs-5">
@@ -46,12 +45,10 @@ function Moment({ id, moment, showEmailForm, setShowEmailForm, handleEmail }) {
           overlay={<Tooltip id={"tooltip-top"}>Email Moment</Tooltip>}>
           <Envelope
             className="email-moment-icon"
-            onClick={(e) => 
-              {
-                setShowEmailForm(!showEmailForm)
-                handleEmail(e, moment)
-              }
-            }
+            onClick={(e) => {
+              dispatch({ type: "SET_EMAIL_FORM", payload: !show.emailForm})
+              handleEmail(e, moment);
+            }}
           />
         </OverlayTrigger>
 

@@ -1,19 +1,8 @@
+/* eslint-disable react/prop-types */
 import Draggable from "react-draggable";
 import { XCircleFill } from "react-bootstrap-icons";
 
-/**
- *
- * @param {useRef} form, reference
- * @param {function event} sendEmail, handles onsubmit send request
- * @returns
- */
-function Form({
-  moment,
-  showEmailForm,
-  setShowEmailForm,
-  handleSendEmail,
-  emailRef,
-}) {
+function Form({ moment, show, dispatch, handleSendEmail, emailRef }) {
   return (
     <Draggable defaultPosition={{ x: 50, y: 25 }}>
       <form
@@ -22,7 +11,9 @@ function Form({
         <div className="toolbar">
           <XCircleFill
             className="email-icon"
-            onClick={() => setShowEmailForm(!showEmailForm)}
+            onClick={() =>
+              dispatch({ type: "SET_EMAIL_FORM", payload: !show.emailForm })
+            }
           />
         </div>
         {/* Enter Email to Send Message */}

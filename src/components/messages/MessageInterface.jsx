@@ -56,8 +56,8 @@ function MessageInterface({ showEmailForm, setShowEmailForm, handleEmail }) {
                       id={id}
                       moment={moment}
                       key={id}
-                      showEmailForm={showEmailForm}
-                      setShowEmailForm={setShowEmailForm}
+                      show={show}
+                      dispatch={dispatch}
                       handleEmail={handleEmail}
                     />
                   );

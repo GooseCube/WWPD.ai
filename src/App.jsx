@@ -8,7 +8,6 @@ import EmailForm from "./components/email/Email";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showEmailForm, setShowEmailForm] = useState(false);
   const [showAgentCards, setShowAgentCards] = useState(false);
   const [moment, setMoment] = useState({});
 
@@ -23,16 +22,8 @@ function App() {
         showAgentCards={showAgentCards}
         setShowAgentCards={setShowAgentCards}
       />
-      <MessageInterface
-        showEmailForm={showEmailForm}
-        setShowEmailForm={setShowEmailForm}
-        handleEmail={handleEmail}
-      />
-      <EmailForm
-        showEmailForm={showEmailForm}
-        setShowEmailForm={setShowEmailForm}
-        moment={moment}
-      />
+      <MessageInterface handleEmail={handleEmail} />
+      <EmailForm moment={moment} />
       <Agents />
       {showAgentCards && <AgentCards setShowAgentCards={setShowAgentCards} />}
     </div>

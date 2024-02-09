@@ -1,3 +1,11 @@
+/**
+ * Evaluate the agent.x and agent.y positions 
+ * @param {object} agent1 
+ * @param {object} agent2 
+ * @returns {boolean}
+ * - TRUE: if two agents are within 2x && 2y cells from each other
+ * - FALSE: if they do not meet the 2x && 2y criteria
+ */
 function checkProximity(agent1, agent2) {
   const xDiff = Math.abs(agent1.x - agent2.x);
   const yDiff = Math.abs(agent1.y - agent2.y);

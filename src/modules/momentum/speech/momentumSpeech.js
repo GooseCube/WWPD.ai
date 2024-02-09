@@ -37,19 +37,29 @@ export const momentumSpeech = async (
   speechLocation,
   setShowImageScreen
 ) => {
-  const primaryAgent = agents.find((agent) => agent.playerControlled === true);
+  let primaryAgent = null;
+  let agentList = [];
+
+  // Set primaryAgent and the agentList[]
+  agents.reduce((acc, agent) => {
+    if (agent.playerControlled === true) {
+      primaryAgent = agent;
+    } else if (agent.render === true) {
+      agentList.push(agent);
+    }
+  }, []);
+
+  // Initialize the array of conversations to take place
   let conversations = [];
 
   // ------------- Initializing Moment by Primary Agent -------------- //
 
+  // Get the initial prompt template which combines the params
   let primaryAgentInitialPrompt = initialMomentPrompt(
     primaryAgent,
     moment.initialPrompt
   );
-  // Filter out the primary agent from list of agents to talk with
-  let agentList = agents.filter(
-    (agent) => agent.uid !== primaryAgent.uid && agent.render === true
-  );
+
   let updatedPrimaryAgent = null;
   let primaryAgentInitialIdea = "";
   let primaryAgentFinalSpeech = "";
@@ -103,8 +113,8 @@ export const momentumSpeech = async (
     );
 
     // This will initiate the text for momentResponse for primaryAgent
-    updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-    delay(10000); // wait for primary agent to finish discussing topic
+    await updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
+    // delay(10000); // wait for primary agent to finish discussing topic
 
     // @prompt: get prompt for agent AI Model fetch
     let agentPrompt = agentDiscussionPrompt(
@@ -144,7 +154,7 @@ export const momentumSpeech = async (
             position.y !== agentAudiencePosition.y
         );
 
-      await delay(14000);
+      // await delay(14000);
       await moveAgent(
         agent,
         agentAudiencePosition.x,
@@ -162,7 +172,7 @@ export const momentumSpeech = async (
         emojis
       );
 
-      updateAgentState(setAgents, updateAgent, updatedAgent);
+      await updateAgentState(setAgents, updateAgent, updatedAgent);
     }
   }
 
@@ -230,7 +240,7 @@ export const momentumSpeech = async (
   setTimeout(() => {
     setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 60000); // wait 1-minute and send all agents to home positions
+  }, 6000); // wait 1-minute and send all agents to home positions
 
   // groupSpeechInteraction(agents, updateAgent);
 };

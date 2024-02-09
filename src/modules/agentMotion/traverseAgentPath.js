@@ -1,7 +1,5 @@
 import { updateAgent } from "../../firebase/firebaseAgents";
-
-// Slows the movement from one position to the next
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { delay } from "../momentum/speechModules/helperFunctions";
 
 /**
  * Using the path obtained from agentPathfinder, moves the
@@ -25,6 +23,7 @@ export async function traverseAgentPath(agent, path, setAgents) {
     };
 
     await updateAgent(updatedAgent, setAgents);
+    // The 'await delay()' will slow down the agent to a normal speed
     // await delay(100); // adjust up/down as needed for character movement
   }
 }

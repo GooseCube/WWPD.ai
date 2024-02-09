@@ -1,23 +1,21 @@
-import { updateAgent } from "../../../firebase/firebaseAgents";
-import { pushNewMoment } from "../../../firebase/firebaseMoments";
-import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
+import { updateAgent } from "../../firebase/firebaseAgents";
+import { pushNewMoment } from "../../firebase/firebaseMoments";
+import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import {
-  delay,
   getRandomAgent,
   getRandomAudiencePosition,
   moveAgent,
   createUpdatedAgent,
   updateAgentState,
-  groupSpeechInteraction,
   getRandomEmoji,
   sendAllAgentsHome,
-} from "./helperFunctions";
+} from "./speechModules/helperFunctions";
 import {
   agentDiscussionPrompt,
   finalMomentPrompt,
   initialMomentPrompt,
   paraphraseResponse,
-} from "./promptTemplates";
+} from "./speechModules/promptTemplates";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -37,11 +35,20 @@ export const momentumSpeech = async (
   speechLocation,
   setShowImageScreen
 ) => {
-  let primaryAgent = null;
+  let primaryAgentInitialIdea = "";
+  let primaryAgentFinalSpeech = "";
+  let paraphrasedInitialIdea = "";
+  let primaryAgent = {};
+  let updatedPrimaryAgent = {};
   let agentList = [];
+  let conversations = [];
 
-  // Set primaryAgent and the agentList[]
-  agents.reduce((acc, agent) => {
+  /**
+   * Set only those agents that are either:
+   * playerControlled || rendered to the game
+   * leaving out all other agents in array
+   */
+  agents.forEach((agent) => {
     if (agent.playerControlled === true) {
       primaryAgent = agent;
     } else if (agent.render === true) {
@@ -49,64 +56,55 @@ export const momentumSpeech = async (
     }
   }, []);
 
-  // Initialize the array of conversations to take place
-  let conversations = [];
-
-  // ------------- Initializing Moment by Primary Agent -------------- //
-
-  // Get the initial prompt template which combines the params
-  let primaryAgentInitialPrompt = initialMomentPrompt(
-    primaryAgent,
-    moment.initialPrompt
-  );
-
-  let updatedPrimaryAgent = null;
-  let primaryAgentInitialIdea = "";
-  let primaryAgentFinalSpeech = "";
-  let paraphrasedInitialIdea = "";
-
   // @prompt: Get initial idea from AI Model
   primaryAgentInitialIdea = await fetchModelResponse(
     aiModel,
-    primaryAgentInitialPrompt
+    initialMomentPrompt(primaryAgent, moment.initialPrompt)
   );
 
   // @prompt: fetch remaining context from AI Model
   for (let index = 0; index < 3; ++index) {
     primaryAgentInitialIdea += await fetchModelResponse(
       aiModel,
-      `${primaryAgentInitialPrompt}
+      `${initialMomentPrompt(primaryAgent, moment.initialPrompt)}
       ${primaryAgentInitialIdea}`
     );
   }
 
+  /**
+   * Rather than sending the entire idea to the agent text bubble
+   * this will/should reduce the text to a general overview of the conversation
+   */
   paraphrasedInitialIdea = await fetchModelResponse(
     aiModel,
     paraphraseResponse(primaryAgentInitialIdea)
   );
 
-  const initialIdea = {
+  // Push all primary agents initial moment set up from AI Model
+  conversations.push({
     primaryAgent: primaryAgent,
     initialPrompt: moment.initialPrompt,
     initialResponse: primaryAgentInitialIdea,
     paraphrasedResponse: paraphrasedInitialIdea,
-  };
-
-  conversations.push(initialIdea);
+  });
 
   // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
 
   while (agentList.length > 0) {
+    // Hoist and initialize all local variables:
+    let agentPrompt = ""; // prompt template: string
+    let agentResponse = ""; // ai model response: string
+
     // Grab an agent to talk to and remove them from the list
     let agent = getRandomAgent(agentList);
     agentList = agentList.filter((a) => a.uid !== agent.uid);
 
     // Moves primaryAgent to the agent position
-    await moveAgent(primaryAgent, agent.x - 3, agent.y - 1, setAgents);
+    await moveAgent(primaryAgent, agent.x - 1, agent.y - 1, setAgents);
 
     updatedPrimaryAgent = createUpdatedAgent(
       primaryAgent,
-      agent.x - 3,
+      agent.x - 1,
       agent.y - 1,
       "right",
       `${agent.name}: ${paraphrasedInitialIdea}`
@@ -114,25 +112,22 @@ export const momentumSpeech = async (
 
     // This will initiate the text for momentResponse for primaryAgent
     await updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-    // delay(10000); // wait for primary agent to finish discussing topic
 
-    // @prompt: get prompt for agent AI Model fetch
-    let agentPrompt = agentDiscussionPrompt(
+    // @prompt: create the AI Model prompt template
+    agentPrompt = agentDiscussionPrompt(
       primaryAgent,
       agent,
       primaryAgentInitialIdea
     );
 
-    // @prompt fetch
-    let agentResponse = await fetchModelResponse(aiModel, agentPrompt);
+    // @prompt fetch ai model response
+    agentResponse = await fetchModelResponse(aiModel, agentPrompt);
 
-    const agentFeedback = {
+    conversations.push({
       agent: agent,
       agentPrompt: agentPrompt,
       agentResponse: agentResponse,
-    };
-
-    conversations.push(agentFeedback);
+    });
 
     // Local state context is not updated here as agent does not move on {x, y}
     // This update initiates agent response in text bubble
@@ -154,7 +149,6 @@ export const momentumSpeech = async (
             position.y !== agentAudiencePosition.y
         );
 
-      // await delay(14000);
       await moveAgent(
         agent,
         agentAudiencePosition.x,
@@ -241,6 +235,4 @@ export const momentumSpeech = async (
     setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
   }, 6000); // wait 1-minute and send all agents to home positions
-
-  // groupSpeechInteraction(agents, updateAgent);
 };

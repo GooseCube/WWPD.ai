@@ -1,0 +1,27 @@
+import pirateImg_1 from "../../../assets/art/pirates/pirate_bar.jpg"
+import pirateImg_2 from "../../../assets/art/pirates/pirates_and_chest.jpg"
+import pirateImg_3 from "../../../assets/art/pirates/pirateShip.png"
+import pirateImg_4 from "../../../assets/art/pirates/the_plank.jpg"
+import pirateImg_5 from "../../../assets/art/pirates/the_raid.jpg"
+import pirateImg_6 from "../../../assets/art/pirates/treasure.jpg"
+
+export const pirateImages = {
+  pirateImg_1,
+  pirateImg_2,
+  pirateImg_3,
+  pirateImg_4,
+  pirateImg_5,
+  pirateImg_6
+}
+
+import financeImg_1 from "../../../assets/art/finance/bank.jpg"
+import financeImg_2 from "../../../assets/art/finance/cryptocurrency.jpg"
+import financeImg_3 from "../../../assets/art/finance/graph_up_line.jpg"
+import financeImg_4 from "../../../assets/art/finance/pieChart.jpg"
+
+export const financeImages = {
+  financeImg_1,
+  financeImg_2,
+  financeImg_3,
+  financeImg_4
+}

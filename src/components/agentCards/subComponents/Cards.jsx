@@ -55,6 +55,7 @@ function Cards({
         <EditCard
           index={agent.uid}
           agent={agent}
+          setAgents={setAgents}
           agentImage={agentImage}
           setEditAgent={setEditAgent}
         />

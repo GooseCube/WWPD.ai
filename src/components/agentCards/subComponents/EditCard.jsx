@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
+// Firebase DB
 import { updateAgent } from "../../../firebase/firebaseAgents";
-import { updateAgentState } from "../../../modules/momentum/speech/helperFunctions";
-import { AuthContext } from "../../contextProviders/AuthProvider";
 
 // Builds the form to edit a single agent persona
-function EditCard({ index, agent, agentImage, setEditAgent }) {
-  const { setAgents } = useContext(AuthContext);
+function EditCard({ index, agent, setAgents, agentImage, setEditAgent }) {
   const [age, setAge] = useState(agent.age);
   const [career, setCareer] = useState(agent.career);
   const [specialty, setSpecialty] = useState(agent.specialty);
@@ -23,8 +23,7 @@ function EditCard({ index, agent, agentImage, setEditAgent }) {
       personality: personality,
     };
 
-    await updateAgentState(setAgents, updateAgent, updatedAgent);
-
+    await updateAgent(updatedAgent, setAgents);
     setEditAgent(null);
   };
 

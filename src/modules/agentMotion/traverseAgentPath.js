@@ -23,10 +23,8 @@ export async function traverseAgentPath(agent, path, setAgents) {
       direction: newDirection,
       frame: newFrame,
     };
-    await setAgents((prevAgents) =>
-      prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
-    );
-    await updateAgent(updatedAgent);
+
+    await updateAgent(updatedAgent, setAgents);
     await delay(100); // adjust up/down as needed for character movement
   }
 }

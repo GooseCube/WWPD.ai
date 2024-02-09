@@ -122,7 +122,7 @@ export const loadAgentsFromFirebase = async (agents, setAgents) => {
 export const updateAgent = async (agent, setAgents = null) => {
   const userId = auth.currentUser.uid;
   const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);
-  update(agentRef, agent);
+  await update(agentRef, agent);
   if (setAgents !== null) {
     setAgents((prevAgents) => {
       return prevAgents.map((a) => (a.uid === agent.uid ? agent : a));

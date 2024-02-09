@@ -63,12 +63,12 @@ export const initializeAgentsFromPersonas = async (setAgents) => {
     setAgents((prev) => [...prev, agent]);
 
     // Set up a listener for changes to this agent
-    onValue(agentRef, (snapshot) => {
-      const updatedAgent = snapshot.val();
-      setAgents((prevAgents) => {
-        return prevAgents.map((a) => (a.uid === agent.uid ? updatedAgent : a));
-      });
-    });
+    // onValue(agentRef, (snapshot) => {
+    //   const updatedAgent = snapshot.val();
+    //   setAgents((prevAgents) => {
+    //     return prevAgents.map((a) => (a.uid === agent.uid ? updatedAgent : a));
+    //   });
+    // });
   });
 };
 
@@ -113,9 +113,19 @@ export const loadAgentsFromFirebase = async (agents, setAgents) => {
   });
 };
 
-// Update Firebase agent properties
-export const updateAgent = async (agent) => {
+/**
+ * Updates the agent state in Firebase and the global context
+ * state in AuthProvider.
+ * @param {object} agent AuthProvider context object
+ * @param {useState} setAgents function for AuthProvider context
+ */
+export const updateAgent = async (agent, setAgents = null) => {
   const userId = auth.currentUser.uid;
   const agentRef = ref(database, `users/${userId}/agents/${agent.uid}`);
   update(agentRef, agent);
+  if (setAgents !== null) {
+    setAgents((prevAgents) => {
+      return prevAgents.map((a) => (a.uid === agent.uid ? agent : a));
+    });
+  }
 };

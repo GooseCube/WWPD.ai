@@ -27,16 +27,16 @@ function Cards({
   const temp = [];
   let count = 0;
 
-
   useEffect(() => {
     const loadImages = async () => {
       const images = {};
       for (const agent of Object.values(agents)) {
         const agentName = agent.sprite.replace(".png", "");
-        images[agentName] = import.meta.env.BASE_URL + `assets/characters/${agentName}.png`;
-          images[agentName] = await import(
-            `../../../assets/characters/${agentName}.png`
-          );
+        images[agentName] =
+          import.meta.env.BASE_URL + `assets/characters/${agentName}.png`;
+        images[agentName] = await import(
+          `../../../assets/characters/${agentName}.png`
+        );
       }
       setAgentImages(images);
     };
@@ -84,16 +84,9 @@ function Cards({
               overlay={<Tooltip id={"tooltip-top"}>Show/Hide Agent</Tooltip>}>
               <CheckCircle
                 className={isRendered(agent)}
-                onClick={() => {
-                  setAgents((prevAgents) => {
-                    return prevAgents.map((a) =>
-                      a.uid === agent.uid
-                        ? { ...agent, render: !agent.render }
-                        : a
-                    );
-                  });
-                  updateAgent({ ...agent, render: !agent.render });
-                }}
+                onClick={() =>
+                  updateAgent({ ...agent, render: !agent.render }, setAgents)
+                }
               />
             </OverlayTrigger>
 

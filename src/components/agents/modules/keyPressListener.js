@@ -2,7 +2,7 @@ import { updateAgent } from "../../../firebase/firebaseAgents";
 import { validateGridCollision } from "../../../modules/mapGridPositions/gridCollisionDetection";
 
 // Arrow Key Events for Player Controlled Agent
-export const handlePlayerMoveEvent = (agent, setAgents, direction) => {
+export const handlePlayerMoveEvent = async (agent, setAgents, direction) => {
   const NUMBER_OF_SPRITE_COLUMNS = 3;
   let newX = agent.x;
   let newY = agent.y;
@@ -40,7 +40,7 @@ export const handlePlayerMoveEvent = (agent, setAgents, direction) => {
     };
 
     // Update Firebase
-    updateAgent(updatedAgent, setAgents);
+    await updateAgent(updatedAgent, setAgents);
 
     // Console Out To Help Create Grid Collisions: Remove when done
     let position = "{" + "x: " + newX + "," + " y: " + newY + "},";

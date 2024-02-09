@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 
 import SpriteTextBubble from "./SpriteTextBubble";
@@ -25,9 +26,9 @@ function Agent({
       return;
     }
 
-    const handleKeyPress = (event) => {
+    const handleKeyPress = async (event) => {
       if (agent.playerControlled) {
-        handlePlayerMoveEvent(agent, setAgents, event.key);
+        await handlePlayerMoveEvent(agent, setAgents, event.key);
       }
     };
 

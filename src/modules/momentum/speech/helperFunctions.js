@@ -45,7 +45,7 @@ export const getRandomAudiencePosition = (audienceLocations) => {
 };
 
 /**
- * Move agent to the given destionation {x, y} position
+ * Move agent from current position to the given {x, y} destination
  * @param {object} agent
  * @param {number} destX
  * @param {number} destY

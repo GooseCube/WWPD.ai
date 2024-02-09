@@ -25,6 +25,6 @@ export async function traverseAgentPath(agent, path, setAgents) {
     };
 
     await updateAgent(updatedAgent, setAgents);
-    await delay(100); // adjust up/down as needed for character movement
+    // await delay(100); // adjust up/down as needed for character movement
   }
 }

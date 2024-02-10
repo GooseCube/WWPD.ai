@@ -29,7 +29,7 @@ function AgentProfile({ agents, show, dispatch }) {
     }
   }, [agents]);
 
-  return !sprite ? (
+  return !sprite || !agent ? (
     <div className="agent-profile-error agent-profile-container border rounded p-2">
       Agent will be displayed in a moment
     </div>

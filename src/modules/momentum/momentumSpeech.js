@@ -73,19 +73,21 @@ export const momentumSpeech = async (
    * For each agent, traverse the primaryAgent to 'agent' position and share
    * paraphrased idea. Agent will then fetch an ai response
    */
-  speech.agentList.forEach(async (agent) => {
-    try {
-      await generateAgentResponses(
-        agent,
-        speech,
-        setAgents,
-        aiModel,
-        speechLocation
-      );
-    } catch (error) {
-      console.error("Error while generating agent responses\n", error);
-    }
-  });
+  await Promise.all(
+    speech.agentList.map(async (agent) => {
+      try {
+        await generateAgentResponses(
+          agent,
+          speech,
+          setAgents,
+          aiModel,
+          speechLocation
+        );
+      } catch (error) {
+        console.error("Error while generating agent responses\n", error);
+      }
+    })
+  );
 
   /**
    * At this point the primary agent is at the { x, y } of the last agent to share their idea with.

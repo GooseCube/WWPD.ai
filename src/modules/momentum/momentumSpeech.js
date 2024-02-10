@@ -2,18 +2,13 @@ import { updateAgent } from "../../firebase/firebaseAgents";
 import { pushNewMoment } from "../../firebase/firebaseMoments";
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import {
-  getRandomAgent,
-  getRandomAudiencePosition,
   moveAgent,
   createUpdatedAgent,
   updateAgentState,
   getRandomEmoji,
   sendAllAgentsHome,
 } from "./speechModules/helperFunctions";
-import {
-  agentDiscussionPrompt,
-  finalMomentPrompt,
-} from "./speechModules/promptTemplates";
+import { finalMomentPrompt } from "./speechModules/promptTemplates";
 
 // ------------------New Imports for Refactor-------------------------------
 import { initializeAgents } from "./initializeAgents";
@@ -48,11 +43,22 @@ export const momentumSpeech = async (
     conversations: [],
   };
 
+  /**
+   * Sets the primaryAgent based on 'playerControlled'
+   * Creates a randomized list of the agents rendered to game
+   */
   initializeAgents(agents, speech);
 
+  /**
+   * Fetch the initial idea based on user selected 'moment' and
+   * fetch the paraphrase of the initial idea
+   */
   await initializePrimaryAgentIdea(speech, aiModel, moment);
 
-  // Push all primary agents initial moment set up from AI Model
+  /**
+   * Conversation is used to track the entire conversation
+   * which will be rendered to the message interface
+   */
   speech.conversations.push({
     primaryAgent: speech.primaryAgent,
     initialPrompt: moment.initialPrompt,
@@ -60,50 +66,59 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
-  // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
 
-  await generateAgentResponses(speech, setAgents, aiModel, speechLocation);
+  /**
+   * For each agent, traverse the primaryAgent to 'agent' position and share
+   * paraphrased idea. Agent will then fetch an ai response
+   */
+  speech.agentList.forEach( async (agent) => {
+    await generateAgentResponses(agent, speech, setAgents, aiModel, speechLocation);
+  })
 
   // ------------- Final Speech by Primary Agent -------------- //
 
-  updatedPrimaryAgent = createUpdatedAgent(
-    primaryAgent,
-    primaryAgent.x,
-    primaryAgent.y,
+  speech.updatedPrimaryAgent = createUpdatedAgent(
+    speech.primaryAgent,
+    speech.primaryAgent.x,
+    speech.primaryAgent.y,
     "down",
     getRandomEmoji()
   );
 
-  await updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
+  await updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
 
   // @prompt: Get initial idea from AI Model
-  primaryAgentFinalSpeech = await fetchModelResponse(
+  speech.primaryAgentFinalSpeech = await fetchModelResponse(
     aiModel,
-    finalMomentPrompt(primaryAgent, moment.finalPrompt, primaryAgentInitialIdea)
+    finalMomentPrompt(
+      speech.primaryAgent,
+      moment.finalPrompt,
+      speech.primaryAgentInitialIdea
+    )
   );
 
   // @prompt: fetch remaining context from AI Model
   for (let index = 0; index < 3; ++index) {
-    primaryAgentFinalSpeech += await fetchModelResponse(
+    speech.primaryAgentFinalSpeech += await fetchModelResponse(
       aiModel,
       `${finalMomentPrompt(
-        primaryAgent,
+        speech.primaryAgent,
         moment.finalPrompt,
-        primaryAgentInitialIdea
+        speech.primaryAgentInitialIdea
       )}
-      ${primaryAgentFinalSpeech}`
+      ${speech.primaryAgentFinalSpeech}`
     );
   }
 
   const finalSpeech = {
     header: "-------------- MOMENT --------------",
-    speech: primaryAgentFinalSpeech,
+    speech: speech.primaryAgentFinalSpeech,
   };
 
-  conversations.push(finalSpeech);
+  speech.conversations.push(finalSpeech);
 
   await moveAgent(
-    primaryAgent,
+    speech.primaryAgent,
     speechLocation.primaryAgent.x,
     speechLocation.primaryAgent.y,
     setAgents
@@ -111,16 +126,16 @@ export const momentumSpeech = async (
 
   setShowImageScreen(true);
 
-  updatedPrimaryAgent = createUpdatedAgent(
-    primaryAgent,
+  speech.updatedPrimaryAgent = createUpdatedAgent(
+    speech.primaryAgent,
     speechLocation.primaryAgent.x,
     speechLocation.primaryAgent.y,
     speechLocation.primaryAgent.direction,
-    primaryAgentFinalSpeech
+    speech.primaryAgentFinalSpeech
   );
 
-  updateAgentState(setAgents, updateAgent, updatedPrimaryAgent);
-  pushNewMoment(conversations);
+  updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
+  pushNewMoment(speech.conversations);
 
   setTimeout(() => {
     setShowImageScreen(false);

@@ -1,4 +1,4 @@
-import { getRandomAgent } from "./speechModules/helperFunctions";
+import { faceDirectionOfOtherAgent, getRandomAgent } from "./speechModules/helperFunctions";
 import { moveAgent } from "./speechModules/helperFunctions";
 import { createUpdatedAgent } from "./speechModules/helperFunctions";
 import { updateAgentState } from "./speechModules/helperFunctions";
@@ -58,12 +58,19 @@ export const generateAgentResponses = async (
     }
 
     speech.updatedPrimaryAgent = createUpdatedAgent(
-      speech.primaryAgent,
+      ...speech.primaryAgent,
       // agent.x - 1,
       // agent.y - 1,
-      "right",
+      faceDirectionOfOtherAgent(speech.primaryAgent, agent), // should return direction relative to 'agent'
       `${agent.name}: ${speech.paraphrasedInitialIdea}`
     );
+
+
+
+
+
+
+
 
     // This will initiate the text for momentResponse for primaryAgent
     await updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);

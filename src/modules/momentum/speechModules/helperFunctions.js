@@ -8,10 +8,13 @@ export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const faceDirectionOfOtherAgent = (primaryAgent, observedAgent) => {
   let x = primaryAgent.x - observedAgent.x;
-  let y = primaryAgent.y = observedAgent.y;
+  let y = (primaryAgent.y - observedAgent.y);
 
-
-}
+  if (x < -1) return "right";
+  else if (x > 1) return "left";
+  else if (x >= -1 && x <= 1 && y > -1) return "up";
+  return "down";
+};
 
 /**
  * Choose a random agent from the array list and remove that
@@ -28,7 +31,7 @@ export const getRandomAgent = (agentList) => {
 /**
  * Using the imported meetingPlaces object, get a random meeting place
  * and invite agents to hear the speech
- * @returns a single meetingPlacde containing:
+ * @returns a single meetingPlace containing:
  * {primaryAgent: {x: number, y: number, direction: string},
  *  audiencePositions: [{x:number, y:number}, {...}, . . .]}
  */

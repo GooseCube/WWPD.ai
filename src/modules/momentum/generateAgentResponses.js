@@ -1,21 +1,22 @@
-import {
-  faceDirectionOfOtherAgent,
-  getRandomAgent,
-} from "./speechModules/helperFunctions";
-import { moveAgent } from "./speechModules/helperFunctions";
-import { createUpdatedAgent } from "./speechModules/helperFunctions";
-import { updateAgentState } from "./speechModules/helperFunctions";
-import { agentDiscussionPrompt } from "./speechModules/promptTemplates";
-import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
-import { getRandomAudiencePosition } from "./speechModules/helperFunctions";
-import { getRandomEmoji } from "./speechModules/helperFunctions";
-
 // Firebase
 import { updateAgent } from "../../firebase/firebaseAgents";
+
+// AI Model API
+import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
+
+// Local Module Helper Functions
 import {
   findValidDiscussionPosition,
   validateGridCollision,
 } from "../mapGridPositions/gridCollisionDetection";
+import {
+  moveAgent,
+  createUpdatedAgent,
+  getRandomAudiencePosition,
+  getRandomEmoji,
+  faceDirectionOfOtherAgent,
+} from "./speechModules/helperFunctions";
+import { agentDiscussionPrompt } from "./speechModules/promptTemplates";
 
 export const generateAgentResponses = async (
   agent,
@@ -104,10 +105,13 @@ export const generateAgentResponses = async (
     setAgents
   );
 
+  // ---------- @todo If there is no wait time between updateAgent() and the if () statements --------------------
+  //  then there is NOT enough time for the agent to display their response before moving to
+  //  a designated position
+
   /**
-   * speechLocation object is created in the Sidebar component before calling momentumSpeech:
-   * The audiencePosition object contains a randomly selected number of randomly selected valid
-   * audience positions.
+   * speechLocation object is selected by the user and set in the /Sidebar component.
+   * The number of valid { x, y } positions available for agents is randomly selected in /Sidebar.
    */
   if (speechLocation.audiencePositions.length > 0) {
     let agentAudiencePosition = getRandomAudiencePosition(
@@ -137,6 +141,6 @@ export const generateAgentResponses = async (
       emojis
     );
 
-    await updateAgentState(setAgents, updateAgent, updatedAgent);
+    await updateAgent(updatedAgent, setAgents);
   }
 };

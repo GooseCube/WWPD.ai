@@ -11,7 +11,6 @@ import {
 } from "../mapGridPositions/gridCollisionDetection";
 import {
   moveAgent,
-  createUpdatedAgent,
   getRandomAudiencePosition,
   getRandomEmoji,
   faceDirectionOfOtherAgent,

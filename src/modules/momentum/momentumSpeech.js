@@ -5,7 +5,6 @@ import {
   moveAgent,
   createUpdatedAgent,
   updateAgentState,
-  getRandomEmoji,
   sendAllAgentsHome,
 } from "./speechModules/helperFunctions";
 import { finalMomentPrompt } from "./speechModules/promptTemplates";
@@ -53,7 +52,11 @@ export const momentumSpeech = async (
    * Fetch the initial idea based on user selected 'moment' and
    * fetch the paraphrase of the initial idea
    */
-  await initializePrimaryAgentIdea(speech, aiModel, moment);
+  try {
+    await initializePrimaryAgentIdea(speech, aiModel, moment);
+  } catch (error) {
+    console.error("Error Initializing Primary Agent Idea\n", error);
+  }
 
   /**
    * Conversation is used to track the entire conversation
@@ -66,16 +69,31 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
-
   /**
    * For each agent, traverse the primaryAgent to 'agent' position and share
    * paraphrased idea. Agent will then fetch an ai response
    */
-  speech.agentList.forEach( async (agent) => {
-    await generateAgentResponses(agent, speech, setAgents, aiModel, speechLocation);
-  })
+  speech.agentList.forEach(async (agent) => {
+    try {
+      await generateAgentResponses(
+        agent,
+        speech,
+        setAgents,
+        aiModel,
+        speechLocation
+      );
+    } catch (error) {
+      console.error("Error while generating agent responses\n", error);
+    }
+  });
 
-  // ------------- Final Speech by Primary Agent -------------- //
+  /**
+   * At this point the primary agent is at the { x, y } of the last agent to share their idea with.
+   * Their properties should be updated correctly to Firebase and local context.
+   * Next, set up and then deliver the final moment speech in front of those agents
+   * lucky enough to have attended.
+   * NOTE: Agents that are not attending could have other things to do during this time . . .
+   */
 
   // @prompt: Get initial idea from AI Model
   speech.primaryAgentFinalSpeech = await fetchModelResponse(

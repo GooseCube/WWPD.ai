@@ -6,6 +6,13 @@ import { agentEmojis } from "../../emoji/emojis";
 // Use to prevent the two agents showing discussion text at the same time
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+export const faceDirectionOfOtherAgent = (primaryAgent, observedAgent) => {
+  let x = primaryAgent.x - observedAgent.x;
+  let y = primaryAgent.y = observedAgent.y;
+
+
+}
+
 /**
  * Choose a random agent from the array list and remove that
  * agent from the list.

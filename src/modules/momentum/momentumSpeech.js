@@ -62,7 +62,7 @@ export const momentumSpeech = async (
 
   // ------------- Agents Begin Brainstorming with Primary Agent -------------- //
 
-  await generateAgentResponses();
+  await generateAgentResponses(speech, setAgents, aiModel, speechLocation);
 
   // ------------- Final Speech by Primary Agent -------------- //
 

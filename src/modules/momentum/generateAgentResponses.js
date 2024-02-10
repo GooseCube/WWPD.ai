@@ -25,6 +25,7 @@ export const generateAgentResponses = async (
   speechLocation
 ) => {
   // Declare and initialize all local variables:
+  const MAX_DISTANCE = 2; // distance between agents for discussion
   let agentPrompt = ""; // prompt template: string
   let agentResponse = ""; // ai model response: string
   let emojis = ""; // string
@@ -34,63 +35,80 @@ export const generateAgentResponses = async (
    * - IFF valid { x, y } position then traverse primaryAgent to destination
    * - Else, call findValidDiscussionPosition() which evaluates all possible valid positions
    *    returning the first valid position
-   *  NOTE: moveAgent() handles Firebase & Local Context Update for primaryAgent: 
+   *  NOTE: moveAgent() handles Firebase & Local Context Update for primaryAgent:
    *        'updateAgent(updatedAgent, setAgents)'
    */
-  if (!validateGridCollision(agent.x - 2, agent.y - 2)) {
+  if (!validateGridCollision(agent.x - MAX_DISTANCE, agent.y - MAX_DISTANCE)) {
     const { newX, newY } = findValidDiscussionPosition(
-      agent.x - 2,
-      agent.y - 2
+      agent.x - MAX_DISTANCE,
+      agent.y - MAX_DISTANCE
     );
-    // NOTE: moveAgent() will 'updateAgent(updatedAgent, setAgents)'
     await moveAgent(speech.primaryAgent, newX, newY, setAgents);
   } else {
-    // NOTE: moveAgent() will 'updateAgent(updatedAgent, setAgents)'
-    await moveAgent(speech.primaryAgent, agent.x - 2, agent.y - 2, setAgents);
-  }
-
-  /**
-   * Update primary agent facing direction to align with the agent
-   * they are talking to about the moment idea. Then, pass the idea
-   * to the primaryAgent which will automatically render the text to
-   * primaryAgent text bubble.
-   */
-  const updatedPrimaryAgent = {
-    ...speech.primaryAgent,
-    direction: faceDirectionOfOtherAgent(speech.primaryAgent, agent),
-    momentResponse: speech.paraphrasedInitialIdea,
+    await moveAgent(
+      speech.primaryAgent,
+      agent.x - MAX_DISTANCE,
+      agent.y - MAX_DISTANCE,
+      setAgents
+    );
   }
 
   /**
    * Update local context and firebase db for primary agent
-   * to initiate the message in primary agent text bubble.
+   * to initiate the paraphrased message in primary agent text bubble.
    */
-  await updateAgent(updatedPrimaryAgent, setAgents)
-
-  // @prompt: create the AI Model prompt template
-  agentPrompt = agentDiscussionPrompt(
-    speech.primaryAgent,
-    agent,
-    speech.primaryAgentInitialIdea
+  await updateAgent(
+    {
+      ...speech.primaryAgent,
+      direction: faceDirectionOfOtherAgent(speech.primaryAgent, agent),
+      momentResponse: speech.paraphrasedInitialIdea,
+    },
+    setAgents
   );
 
-  // @prompt fetch ai model response
-  agentResponse = await fetchModelResponse(aiModel, agentPrompt);
+  /**
+   * AgentDiscussionPrompt: Create the prompt template that the agent will use to
+   * respond to the primary agent. Requires the primaryAgent info,
+   * primaryAgents initial idea, and the agent info that will be
+   * responding to primary agent.
+   *
+   * FetchModelResponse: Now, fetch the agents response to the primary agent using the created
+   *   agent prompt template from above
+   */
+  agentResponse = await fetchModelResponse(
+    aiModel,
+    agentDiscussionPrompt(
+      agent,
+      speech.primaryAgent,
+      speech.primaryAgentInitialIdea
+    )
+  );
 
+  /**
+   * Add the new information with agent and response to the ongoing
+   * conversation
+   */
   speech.conversations.push({
     agent: agent,
     agentPrompt: agentPrompt,
     agentResponse: agentResponse,
   });
 
-  // Local state context is not updated here as agent does not move on {x, y}
-  // This update initiates agent response in text bubble
-  await updateAgent({
-    ...agent,
-    direction: "left",
-    momentResponse: agentResponse,
-  });
+  // Push update for agent to initiate a response to primary agent in text bubble
+  await updateAgent(
+    {
+      ...agent,
+      direction: faceDirectionOfOtherAgent(agent, speech.primaryAgent),
+      momentResponse: agentResponse,
+    },
+    setAgents
+  );
 
+  /**
+   * speechLocation object is created in the Sidebar component before calling momentumSpeech:
+   * The audiencePosition object contains a randomly selected number of randomly selected valid
+   * audience positions.
+   */
   if (speechLocation.audiencePositions.length > 0) {
     let agentAudiencePosition = getRandomAudiencePosition(
       speechLocation.audiencePositions

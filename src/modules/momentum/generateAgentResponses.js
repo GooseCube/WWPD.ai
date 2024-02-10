@@ -18,6 +18,19 @@ import {
 } from "./speechModules/helperFunctions";
 import { agentDiscussionPrompt } from "./speechModules/promptTemplates";
 
+/**
+ * Very explicit and delicate function that handles:
+ * - Primary agent traversing to 'agent' offset position,
+ *    sharing moment idea
+ * - Agent, responds to the primary agents idea
+ * - IFF the audience pre-selected positions are available
+ *    'agent' will traverse to a position to enjoy the speech
+ * @param {object} agent
+ * @param {object} speech
+ * @param {context useState} setAgents
+ * @param {string} aiModel
+ * @param {object} speechLocation
+ */
 export const generateAgentResponses = async (
   agent,
   speech,
@@ -29,7 +42,6 @@ export const generateAgentResponses = async (
   const MAX_DISTANCE = 2; // distance between agents for discussion
   let agentPrompt = ""; // prompt template: string
   let agentResponse = ""; // ai model response: string
-  let emojis = ""; // string
 
   /**
    * Checks if given offset is a valid position
@@ -114,16 +126,22 @@ export const generateAgentResponses = async (
    * The number of valid { x, y } positions available for agents is randomly selected in /Sidebar.
    */
   if (speechLocation.audiencePositions.length > 0) {
+    // Select an audience position for the agent
     let agentAudiencePosition = getRandomAudiencePosition(
       speechLocation.audiencePositions
     );
 
+    // Find the selected audience position and remove it from the list
     speechLocation.audiencePositions = speechLocation.audiencePositions.filter(
       (position) =>
         position.x !== agentAudiencePosition.x &&
         position.y !== agentAudiencePosition.y
     );
 
+    /**
+     * Traverse the agent to the selected audience position { x, y }
+     * and set Firebase DB && local context state
+     */
     await moveAgent(
       agent,
       agentAudiencePosition.x,
@@ -131,16 +149,17 @@ export const generateAgentResponses = async (
       setAgents
     );
 
-    emojis = getRandomEmoji() + getRandomEmoji();
-
-    let updatedAgent = createUpdatedAgent(
-      agent,
-      agentAudiencePosition.x,
-      agentAudiencePosition.y,
-      agentAudiencePosition.direction,
-      emojis
+    /**
+     * Update the agents state to the correct direction to face based on { x, y }
+     * Give final emoji to text bubble
+     */
+    await updateAgent(
+      {
+        ...agent,
+        direction: agentAudiencePosition.direction,
+        momentResponse: getRandomEmoji() + getRandomEmoji(),
+      },
+      setAgents
     );
-
-    await updateAgent(updatedAgent, setAgents);
   }
 };

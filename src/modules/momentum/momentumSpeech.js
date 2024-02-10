@@ -77,16 +77,6 @@ export const momentumSpeech = async (
 
   // ------------- Final Speech by Primary Agent -------------- //
 
-  speech.updatedPrimaryAgent = createUpdatedAgent(
-    speech.primaryAgent,
-    speech.primaryAgent.x,
-    speech.primaryAgent.y,
-    "down",
-    getRandomEmoji()
-  );
-
-  await updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
-
   // @prompt: Get initial idea from AI Model
   speech.primaryAgentFinalSpeech = await fetchModelResponse(
     aiModel,

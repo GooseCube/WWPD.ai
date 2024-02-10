@@ -98,57 +98,57 @@ export const momentumSpeech = async (
    */
 
   // @prompt: Get final speech from AI Model
-  speech.primaryAgentFinalSpeech = await fetchModelResponse(
-    aiModel,
-    finalMomentPrompt(
-      speech.primaryAgent,
-      moment.finalPrompt,
-      speech.primaryAgentInitialIdea
-    )
-  );
+  // speech.primaryAgentFinalSpeech = await fetchModelResponse(
+  //   aiModel,
+  //   finalMomentPrompt(
+  //     speech.primaryAgent,
+  //     moment.finalPrompt,
+  //     speech.primaryAgentInitialIdea
+  //   )
+  // );
 
-  // @prompt: fetch remaining context from AI Model
-  for (let index = 0; index < 3; ++index) {
-    speech.primaryAgentFinalSpeech += await fetchModelResponse(
-      aiModel,
-      `${finalMomentPrompt(
-        speech.primaryAgent,
-        moment.finalPrompt,
-        speech.primaryAgentInitialIdea
-      )}
-      ${speech.primaryAgentFinalSpeech}`
-    );
-  }
+  // // @prompt: fetch remaining context from AI Model
+  // for (let index = 0; index < 3; ++index) {
+  //   speech.primaryAgentFinalSpeech += await fetchModelResponse(
+  //     aiModel,
+  //     `${finalMomentPrompt(
+  //       speech.primaryAgent,
+  //       moment.finalPrompt,
+  //       speech.primaryAgentInitialIdea
+  //     )}
+  //     ${speech.primaryAgentFinalSpeech}`
+  //   );
+  // }
 
-  const finalSpeech = {
-    header: "-------------- MOMENT --------------",
-    speech: speech.primaryAgentFinalSpeech,
-  };
+  // const finalSpeech = {
+  //   header: "-------------- MOMENT --------------",
+  //   speech: speech.primaryAgentFinalSpeech,
+  // };
 
-  speech.conversations.push(finalSpeech);
+  // speech.conversations.push(finalSpeech);
 
-  await moveAgent(
-    speech.primaryAgent,
-    speechLocation.primaryAgent.x,
-    speechLocation.primaryAgent.y,
-    setAgents
-  );
+  // await moveAgent(
+  //   speech.primaryAgent,
+  //   speechLocation.primaryAgent.x,
+  //   speechLocation.primaryAgent.y,
+  //   setAgents
+  // );
 
-  setShowImageScreen(true);
+  // setShowImageScreen(true);
 
-  speech.updatedPrimaryAgent = createUpdatedAgent(
-    speech.primaryAgent,
-    speechLocation.primaryAgent.x,
-    speechLocation.primaryAgent.y,
-    speechLocation.primaryAgent.direction,
-    speech.primaryAgentFinalSpeech
-  );
+  // speech.updatedPrimaryAgent = createUpdatedAgent(
+  //   speech.primaryAgent,
+  //   speechLocation.primaryAgent.x,
+  //   speechLocation.primaryAgent.y,
+  //   speechLocation.primaryAgent.direction,
+  //   speech.primaryAgentFinalSpeech
+  // );
 
-  updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
-  pushNewMoment(speech.conversations);
+  // updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
+  // pushNewMoment(speech.conversations);
 
-  setTimeout(() => {
-    setShowImageScreen(false);
-    sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 6000); // wait 1-minute and send all agents to home positions
+  // setTimeout(() => {
+  //   setShowImageScreen(false);
+  //   sendAllAgentsHome(agents, setAgents, updateAgent);
+  // }, 6000); // wait 1-minute and send all agents to home positions
 };

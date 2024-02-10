@@ -29,6 +29,8 @@ function AgentProfile({ agents, show, dispatch }) {
     }
   }, [agents]);
 
+  console.log("AgentProfile Card (agent): ", agent)
+
   return !sprite || !agent ? (
     <div className="agent-profile-error agent-profile-container border rounded p-2">
       Agent will be displayed in a moment

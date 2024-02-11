@@ -119,7 +119,7 @@ export const loadAgentsFromFirebase = async (agents, setAgents) => {
  * @param {object} agent AuthProvider context object
  * @param {useState} setAgents function for AuthProvider context
  */
-export const updateAgent = async (agent, setAgents) => {
+export const updateAgent = async (agent, setAgents = null) => {
   if (!agent || !agent.uid) {
     throw new Error("Invalid agent object");
   }

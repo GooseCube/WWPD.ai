@@ -50,20 +50,28 @@ export const generateAgentResponses = async (
    *  NOTE: moveAgent() handles Firebase & Local Context Update for primaryAgent:
    *        'updateAgent(updatedAgent, setAgents)'
    */
-  if (!validateGridCollision(agent.x - MAX_DISTANCE, agent.y - MAX_DISTANCE)) {
-    const { newX, newY } = findValidDiscussionPosition(
-      agent.x - MAX_DISTANCE,
-      agent.y - MAX_DISTANCE
-    );
-    await moveAgent(speech.primaryAgent, newX, newY, setAgents);
-  } else {
-    await moveAgent(
-      speech.primaryAgent,
-      agent.x - MAX_DISTANCE,
-      agent.y - MAX_DISTANCE,
-      setAgents
-    );
-  }
+  // if (validateGridCollision(agent.x - MAX_DISTANCE, agent.y - MAX_DISTANCE)) {
+  //   await moveAgent(
+  //     speech.primaryAgent,
+  //     agent.x - MAX_DISTANCE,
+  //     agent.y - MAX_DISTANCE,
+  //     setAgents
+  //   );
+  // } else {
+  //   // If the { x, y } position is NOT valid, try to find the first good location
+  //   const { newX, newY } = findValidDiscussionPosition(
+  //     agent.x - MAX_DISTANCE,
+  //     agent.y - MAX_DISTANCE
+  //   );
+  //   console.log("newX: ", newX, "  and newY: ", newY)
+  //   await moveAgent(speech.primaryAgent, newX, newY, setAgents);
+  // }
+  await moveAgent(
+    speech.primaryAgent,
+    agent.x - MAX_DISTANCE,
+    agent.y - MAX_DISTANCE,
+    setAgents
+  );
 
   /**
    * Update local context and firebase db for primary agent
@@ -87,31 +95,33 @@ export const generateAgentResponses = async (
    * FetchModelResponse: Now, fetch the agents response to the primary agent using the created
    *   agent prompt template from above
    */
-  agentResponse = await fetchModelResponse(
-    aiModel,
-    agentDiscussionPrompt(
-      agent,
-      speech.primaryAgent,
-      speech.primaryAgentInitialIdea
-    )
-  );
+  // TESTING: uncomment after testing motion
+  // agentResponse = await fetchModelResponse(
+  //   aiModel,
+  //   agentDiscussionPrompt(
+  //     agent,
+  //     speech.primaryAgent,
+  //     speech.primaryAgentInitialIdea
+  //   )
+  // );
 
   /**
    * Add the new information with agent and response to the ongoing
    * conversation
    */
-  speech.conversations.push({
-    agent: agent,
-    agentPrompt: agentPrompt,
-    agentResponse: agentResponse,
-  });
+  // TESTING: uncomment after testing motion
+  // speech.conversations.push({
+  //   agent: agent,
+  //   agentPrompt: agentPrompt,
+  //   agentResponse: agentResponse,
+  // });
 
   // Push update for agent to initiate a response to primary agent in text bubble
   await updateAgent(
     {
       ...agent,
       direction: faceDirectionOfOtherAgent(agent, speech.primaryAgent),
-      momentResponse: agentResponse,
+      // momentResponse: agentResponse,
     },
     setAgents
   );
@@ -155,6 +165,8 @@ export const generateAgentResponses = async (
     await updateAgent(
       {
         ...agent,
+        x: agentAudiencePosition.x,
+        y: agentAudiencePosition.y,
         direction: agentAudiencePosition.direction,
         momentResponse: getRandomEmoji() + getRandomEmoji(),
       },

@@ -28,22 +28,26 @@ export const findValidDiscussionPosition = (x, y) => {
   let newY = Number(y);
   let step = 1;
 
-  while (Math.abs(newX) <= 2 && Math.abs(newY) <= 2) {
+  while (step <= 2) {
     for (let i = 0; i < step; ++i) {
-      if (validateGridCollision(newX - i, newY))
+      if (!validateGridCollision(newX - i, newY))
+        // Check if the position is valid
         return { x: newX - i, y: newY };
-      if (validateGridCollision(newX + i, newY))
+      if (!validateGridCollision(newX + i, newY))
+        // Check if the position is valid
         return { x: newX + i, y: newY };
     }
     for (let i = 0; i < step; ++i) {
-      if (validateGridCollision(newX, newY - i))
+      if (!validateGridCollision(newX, newY - i))
+        // Check if the position is valid
         return { x: newX, y: newY - i };
-      if (validateGridCollision(newX, newY + i))
+      if (!validateGridCollision(newX, newY + i))
+        // Check if the position is valid
         return { x: newX, y: newY + i };
     }
     ++step;
   }
 
   // Base Case if no possible solution is found
-  return {x, y};
+  return { x: x, y: y };
 };

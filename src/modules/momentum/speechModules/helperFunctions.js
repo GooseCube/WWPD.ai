@@ -8,7 +8,7 @@ export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const faceDirectionOfOtherAgent = (primaryAgent, observedAgent) => {
   let x = primaryAgent.x - observedAgent.x;
-  let y = (primaryAgent.y - observedAgent.y);
+  let y = primaryAgent.y - observedAgent.y;
 
   if (x < -1) return "right";
   else if (x > 1) return "left";

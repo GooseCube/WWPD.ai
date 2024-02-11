@@ -1,6 +1,4 @@
 import { moveAgent } from "./speechModules/helperFunctions";
-import { faceDirectionOfOtherAgent } from "./speechModules/helperFunctions";
-import { updateAgent } from "../../firebase/firebaseAgents";
 
 export const movePrimaryAgentToAgentLocation = async (
   agent,
@@ -8,32 +6,17 @@ export const movePrimaryAgentToAgentLocation = async (
   setAgents,
   MAX_OFFSET = 2
 ) => {
-  // const destX = agent.x - MAX_OFFSET;
-  // const destY = agent.y - MAX_OFFSET;
-  const destX = agent.x;
-  const destY = agent.y;
+  const destX = agent.x - MAX_OFFSET;
+  const destY = agent.y - MAX_OFFSET;
+  /**
+   * GHOSTING primary agent may get caught in { x, y }
+   * non-valid grid position and pathfinder will move
+   * primary agent directly from A -> B
+   */
+  // const destX = agent.x;
+  // const destY = agent.y;
 
   await moveAgent(speech.primaryAgent, destX, destY, setAgents);
-  speech.primaryAgent.x = destX;
-  speech.primaryAgent.y = destY;
-
-  /**
-   * Update local context and firebase db for primary agent
-   * to initiate the paraphrased message in primary agent text bubble.
-   */
-  // await updateAgent(
-  //   {
-  //     ...speech.primaryAgent,
-  //     // x: destX,
-  //     // y: destY,
-  //     direction: faceDirectionOfOtherAgent(speech.primaryAgent, agent),
-  //     // momentResponse: speech.paraphrasedInitialIdea,
-  //   },
-  //   setAgents
-  // );
-
-  // speech.primaryAgent.x = destX;
-  // speech.primaryAgent.y = destY;
 };
 
 /**

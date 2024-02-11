@@ -11,6 +11,7 @@ import { delay } from "../momentum/speechModules/helperFunctions";
 export async function traverseAgentPath(agent, path, setAgents) {
   const NUMBER_OF_SPRITE_COLUMNS = 3;
   let updatedAgent = { ...agent };
+
   for (let index = 0; index < path.length; ++index) {
     let newDirection = path[index].direction;
     let newFrame = (updatedAgent.frame + 1) % NUMBER_OF_SPRITE_COLUMNS;
@@ -23,8 +24,11 @@ export async function traverseAgentPath(agent, path, setAgents) {
     };
 
     await updateAgent(updatedAgent, setAgents);
-
     // The 'await delay()' will slow down the agent to a normal speed
     await delay(30); // adjust up/down as needed for character movement
   }
+    agent.x = updatedAgent.x;
+    agent.y = updatedAgent.y;
+    agent.direction = updatedAgent.direction;
+    agent.frame = updatedAgent.frame;
 }

@@ -9,13 +9,19 @@ import { moveAgent } from "./speechModules/helperFunctions";
  * @param {context useState} setAgents
  */
 export const movePrimaryAgentAndTalk = async (agent, speech, setAgents) => {
-  await moveAgent(speech.primaryAgent, agent.x, agent.y, setAgents);
+  try {
+    await moveAgent(speech.primaryAgent, agent.x, agent.y, setAgents);
 
-  /**
-   * @ADAM
-   * This is were the primary agent could introduce themselves to the 'agent'
-   * and relay paraphrased idea
-   */
+    /**
+     * @ADAM
+     * This is were the primary agent could introduce themselves to the 'agent'
+     * and relay paraphrased idea
+     */
 
-  await generateSlideImage(speech.paraphrasedInitialIdea, speech);
+    await generateSlideImage(speech.paraphrasedInitialIdea, speech);
+  } catch (error) {
+    throw new Error(
+      `Failed to move primary agent or fetch general discussion ${error.message}`
+    );
+  }
 };

@@ -91,7 +91,6 @@ export const momentumSpeech = async (
         aiModel,
         speechLocation
       );
-      // await generateSlideImage(agent, speech);
     } catch (error) {
       console.error("Error while generating agent responses\n", error);
     }

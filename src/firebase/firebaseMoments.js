@@ -30,7 +30,7 @@ export const pushNewMoment = async (moment) => {
   const newMoment = {
     timestamp: Date.now(),
     conversation: moment.conversation,
-    images: moment.images,
+    images: [...moment.images],
   };
   const userId = auth.currentUser.uid;
   const momentsRef = ref(database, `users/${userId}/moments`);

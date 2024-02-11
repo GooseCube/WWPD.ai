@@ -67,7 +67,7 @@ export const generateAgentResponses = async (
 
   // Create an image based on agent response
   // which should also give the agent time to finish their text response
-  await generateSlideImage(agent, speech)
+  await generateSlideImage(agentResponse, speech)
   // await delay(3000);
 
   /**

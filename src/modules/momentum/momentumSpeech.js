@@ -9,6 +9,7 @@ import { initializeAgents } from "./initializeAgents";
 import { initializePrimaryAgentIdea } from "./initPrimaryAgentIdea";
 import { generateAgentResponses } from "./generateAgentResponses";
 import { movePrimaryAgentAndTalk } from "./movePrimaryToAnAgent";
+import { generateSlideImage } from "./generateSlideImage";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -90,7 +91,7 @@ export const momentumSpeech = async (
         aiModel,
         speechLocation
       );
-
+      // await generateSlideImage(agent, speech);
     } catch (error) {
       console.error("Error while generating agent responses\n", error);
     }
@@ -141,5 +142,5 @@ export const momentumSpeech = async (
   setTimeout(() => {
     setShowImageScreen(false);
     sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 6000); // wait 1-minute and send all agents to home positions
+  }, 9000); // wait 1-minute and send all agents to home positions
 };

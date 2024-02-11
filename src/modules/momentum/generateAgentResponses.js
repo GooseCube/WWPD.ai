@@ -3,6 +3,7 @@ import { updateAgent } from "../../firebase/firebaseAgents";
 
 // AI Model API
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
+import { generateSlideImage } from "./generateSlideImage";
 
 // Local Module Helper Functions
 import {
@@ -64,7 +65,10 @@ export const generateAgentResponses = async (
     setAgents
   );
 
-  await delay(3000);
+  // Create an image based on agent response
+  // which should also give the agent time to finish their text response
+  await generateSlideImage(agent, speech)
+  // await delay(3000);
 
   /**
    * speechLocation object is selected by the user and set in the /Sidebar component.

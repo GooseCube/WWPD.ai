@@ -1,3 +1,4 @@
+import { generateSlideImage } from "./generateSlideImage";
 import { moveAgent } from "./speechModules/helperFunctions";
 
 /**
@@ -15,4 +16,6 @@ export const movePrimaryAgentAndTalk = async (agent, speech, setAgents) => {
    * This is were the primary agent could introduce themselves to the 'agent'
    * and relay paraphrased idea
    */
+
+  await generateSlideImage(speech.paraphrasedInitialIdea, speech)
 };

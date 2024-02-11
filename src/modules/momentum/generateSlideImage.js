@@ -5,10 +5,16 @@ const createImagePrompt = (response) => {
   return `Generate an image that best represents the the following idea: ${response}`;
 };
 
+/**
+ * Use each agents response to the primary agent idea to generate
+ * an image to be displayed at the end of the moment and in the
+ * message interface
+ * @param {string} response
+ * @param {object} speech
+ */
 export const generateSlideImage = async (response, speech) => {
   const prompt = createImagePrompt(response);
   const image = await stabilityaiXLAPI(prompt);
-  console.log("response before filter for URL: ", image);
 
   const imageResponse = await axios.get(image, {
     responseType: "blob",
@@ -22,5 +28,4 @@ export const generateSlideImage = async (response, speech) => {
   });
 
   speech.images.push(finalResponse);
-  console.log("final image pushed to speech.images: ", finalResponse)
 };

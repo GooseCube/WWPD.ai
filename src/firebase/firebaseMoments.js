@@ -26,11 +26,11 @@ export const getUserMoments = async (setMoments) => {
  * @param {string} prompt
  * @param {string} response
  */
-export const pushNewMoment = async (moment) => {
+export const pushNewMoment = async (speech) => {
   const newMoment = {
     timestamp: Date.now(),
-    conversation: moment.conversation,
-    images: [...moment.images],
+    conversation: [...speech.conversations],
+    images: [...speech.images],
   };
   const userId = auth.currentUser.uid;
   const momentsRef = ref(database, `users/${userId}/moments`);

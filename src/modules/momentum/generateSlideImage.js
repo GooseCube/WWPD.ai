@@ -14,13 +14,13 @@ export const generateSlideImage = async (response, speech) => {
     responseType: "blob",
   });
 
-  const reader = new FileReader();
-  let finalResponse = null;
+  const finalResponse = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(imageResponse.data);
+  });
 
-  reader.onloadend = () => {
-    finalResponse = reader.result;
-    speech.images.push(finalResponse);
-  };
-
-  reader.readAsDataURL(imageResponse.data);
+  speech.images.push(finalResponse);
+  console.log("final image pushed to speech.images: ", finalResponse)
 };

@@ -11,43 +11,20 @@ export const validateGridCollision = (x, y) => {
 };
 
 /**
- * This function will attempt to resolve the issue of giving
- * an agent a location in the grid which is NOT a valid position.
- * A non-valid position will cause the agent to be Grid Locked causing
- * traversal (teleportation from A -> B).
- * Function will exhaust all possibilities for a 5x5 grid which
- * an agent should be no closer than 2 cells away for any given { x, y }
- * @param {number} x should be a negative value such as (-2)
- * @param {number} y should be a negative value such as (-2)
- * @returns a new { x, y } valid destination goal position if found
- * if a valid { x, y } position is not found, function returns the original
- * { x, y } position as the only suitable solution.
+ * Should evaluate different offsets until:
+ * - a valid offset destination { x, y } is found
+ * - or no valid offset is found agent will use the original { x, y }
+ * @param {object} gridPoint {x, y}
+ * @param {number} MAX_OFFSET 
  */
-export const findValidDiscussionPosition = (x, y) => {
-  let newX = Number(x);
-  let newY = Number(y);
-  let step = 1;
-
-  while (step <= 2) {
-    for (let i = 0; i < step; ++i) {
-      if (!validateGridCollision(newX - i, newY))
-        // Check if the position is valid
-        return { x: newX - i, y: newY };
-      if (!validateGridCollision(newX + i, newY))
-        // Check if the position is valid
-        return { x: newX + i, y: newY };
-    }
-    for (let i = 0; i < step; ++i) {
-      if (!validateGridCollision(newX, newY - i))
-        // Check if the position is valid
-        return { x: newX, y: newY - i };
-      if (!validateGridCollision(newX, newY + i))
-        // Check if the position is valid
-        return { x: newX, y: newY + i };
-    }
-    ++step;
+export const findValidOffsetPosition = (gridPoint, MAX_OFFSET) => {
+  if (validateGridCollision(gridPoint.x, gridPoint.y - MAX_OFFSET)) {
+    gridPoint.y -= MAX_OFFSET;
+  } else if (validateGridCollision(gridPoint.x, gridPoint.y + MAX_OFFSET)) {
+    gridPoint.y += MAX_OFFSET;
+  } else if (validateGridCollision(gridPoint.x - MAX_OFFSET, gridPoint.y)) {
+    gridPoint.x -= MAX_OFFSET;
+  } else if (validateGridCollision(gridPoint.x + MAX_OFFSET, gridPoint.y)) {
+    gridPoint.x += MAX_OFFSET;
   }
-
-  // Base Case if no possible solution is found
-  return { x: x, y: y };
 };

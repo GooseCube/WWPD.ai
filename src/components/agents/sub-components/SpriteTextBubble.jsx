@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 /**
  * When agent.momentResponse object is empty or null, displays the agent name in text bubble
  * When an update for agent.momentResponse is made in Firebase, the string text
- * will be displayed in text bubble 
+ * will be displayed in text bubble
  * @param {object} agent
  * @returns the agents text bubble
  */
@@ -12,14 +12,14 @@ function SpriteTextBubble({ agent }) {
   const [textArray, setTextArray] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayName, setDisplayName] = useState(true);
-  const [chunkSize, setChunkSize] = useState(5)
+  const CHUNK_SIZE = 5; // max number of words to display
 
   useEffect(() => {
     if (agent.momentResponse) {
       const words = agent.momentResponse.split(" ");
       const chunks = [];
-      for (let i = 0; i < words.length; i += chunkSize) {
-        chunks.push(words.slice(i, i + chunkSize).join(" "));
+      for (let i = 0; i < words.length; i += CHUNK_SIZE) {
+        chunks.push(words.slice(i, i + CHUNK_SIZE).join(" "));
       }
       setTextArray(chunks);
       setCurrentIndex(0);
@@ -29,7 +29,7 @@ function SpriteTextBubble({ agent }) {
     }
   }, [agent.momentResponse]);
 
-  const displayTextMessage = () => {
+  const displayTextMessage = async () => {
     let timeoutId;
     if (currentIndex < textArray.length) {
       timeoutId = setTimeout(() => {

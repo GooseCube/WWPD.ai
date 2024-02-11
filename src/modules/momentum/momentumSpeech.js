@@ -1,20 +1,14 @@
 import { updateAgent } from "../../firebase/firebaseAgents";
 import { pushNewMoment } from "../../firebase/firebaseMoments";
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
-import {
-  moveAgent,
-  createUpdatedAgent,
-  updateAgentState,
-  sendAllAgentsHome,
-} from "./speechModules/helperFunctions";
+import { moveAgent, sendAllAgentsHome } from "./speechModules/helperFunctions";
 import { finalMomentPrompt } from "./speechModules/promptTemplates";
 
 // ------------------New Imports for Refactor-------------------------------
 import { initializeAgents } from "./initializeAgents";
 import { initializePrimaryAgentIdea } from "./initPrimaryAgentIdea";
 import { generateAgentResponses } from "./generateAgentResponses";
-import { delay } from "./speechModules/helperFunctions";
-import { movePrimaryAgentToAgentLocation } from "./movePrimaryToAnAgent";
+import { movePrimaryAgentAndTalk } from "./movePrimaryToAnAgent";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -25,6 +19,7 @@ import { movePrimaryAgentToAgentLocation } from "./movePrimaryToAnAgent";
  * @param {object} moment, specific moment
  * @param {string} aiModel, name of the ai model to prompt
  * @param {context setter} setAgents, setter for context passed from Sidebar
+ * @param {useState setter} setShowImageScreen
  */
 export const momentumSpeech = async (
   agents,
@@ -71,13 +66,22 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
+  // -------------TODO
+  // agentList.map((agent) => {
+  //  locations.push(findValidOffsetLocation(speech, agent))
+  // }
+  // For each agent in List, find a valid offset position and push({x: valid, y: valid })
+  //  using this array in the next for loop to give the primary agent a definitive position offset
+  //  to the agent they are sharing their idea with
+  // -----------------
+
   /**
    * For each agent, traverse the primaryAgent to 'agent' position and share
    * paraphrased idea. Agent will then fetch an ai response
    */
   for (const agent of speech.agentList) {
     try {
-      await movePrimaryAgentToAgentLocation(agent, speech, setAgents);
+      await movePrimaryAgentAndTalk(agent, speech, setAgents);
       await generateAgentResponses(
         agent,
         speech,
@@ -108,21 +112,8 @@ export const momentumSpeech = async (
     )
   );
 
-  // @prompt: fetch remaining context from AI Model
-  for (let index = 0; index < 3; ++index) {
-    speech.primaryAgentFinalSpeech += await fetchModelResponse(
-      aiModel,
-      `${finalMomentPrompt(
-        speech.primaryAgent,
-        moment.finalPrompt,
-        speech.primaryAgentInitialIdea
-      )}
-      ${speech.primaryAgentFinalSpeech}`
-    );
-  }
-
   const finalSpeech = {
-    header: "-------------- MOMENT: Final Speech --------------",
+    header: "---------- MOMENT: Final Speech ----------",
     speech: speech.primaryAgentFinalSpeech,
   };
 
@@ -137,15 +128,12 @@ export const momentumSpeech = async (
 
   setShowImageScreen(true);
 
-  speech.updatedPrimaryAgent = createUpdatedAgent(
-    speech.primaryAgent,
-    speechLocation.primaryAgent.x,
-    speechLocation.primaryAgent.y,
-    speechLocation.primaryAgent.direction,
-    speech.primaryAgentFinalSpeech
-  );
+  speech.primaryAgent.x = speechLocation.primaryAgent.x;
+  speech.primaryAgent.y = speechLocation.primaryAgent.y;
+  speech.primaryAgent.direction = speechLocation.primaryAgent.direction;
+  speech.primaryAgent.momentResponse = speech.primaryAgentFinalSpeech;
 
-  updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
+  await updateAgent({ ...speech.primaryAgent }, setAgents);
   pushNewMoment(speech.conversations);
 
   setTimeout(() => {

@@ -15,13 +15,13 @@ export const initializePrimaryAgentIdea = async (speech, aiModel, moment) => {
     initialMomentPrompt(speech.primaryAgent, moment.initialPrompt)
   );
 
-  for (let index = 0; index < 3; ++index) {
-    speech.primaryAgentInitialIdea += await fetchModelResponse(
-      aiModel,
-      `${initialMomentPrompt(speech.primaryAgent, moment.initialPrompt)}
-      ${speech.primaryAgentInitialIdea}`
-    );
-  }
+  // for (let index = 0; index < 3; ++index) {
+  //   speech.primaryAgentInitialIdea += await fetchModelResponse(
+  //     aiModel,
+  //     `${initialMomentPrompt(speech.primaryAgent, moment.initialPrompt)}
+  //     ${speech.primaryAgentInitialIdea}`
+  //   );
+  // }
 
   speech.paraphrasedInitialIdea = await fetchModelResponse(
     aiModel,

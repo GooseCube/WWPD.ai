@@ -10,6 +10,7 @@ import {
   getRandomAudiencePosition,
   getRandomEmoji,
   faceDirectionOfOtherAgent,
+  delay,
 } from "./speechModules/helperFunctions";
 import { agentDiscussionPrompt } from "./speechModules/promptTemplates";
 
@@ -33,26 +34,15 @@ export const generateAgentResponses = async (
   aiModel,
   speechLocation
 ) => {
-  let agentPrompt = ""; // prompt template: string
-  let agentResponse = ""; // ai model response: string
-
-  /**
-   * AgentDiscussionPrompt: Create the prompt template that the agent will use to
-   * respond to the primary agent. Requires the primaryAgent info,
-   * primaryAgents initial idea, and the agent info that will be
-   * responding to primary agent.
-   *
-   * FetchModelResponse: Now, fetch the agents response to the primary agent using the created
-   *   agent prompt template from above
-   */
-  agentResponse = await fetchModelResponse(
-    aiModel,
-    agentDiscussionPrompt(
-      agent,
-      speech.primaryAgent,
-      speech.primaryAgentInitialIdea
-    )
+  // Create the agents prompt template
+  const agentPrompt = agentDiscussionPrompt(
+    agent,
+    speech.primaryAgent,
+    speech.primaryAgentInitialIdea
   );
+
+  // Fetch agent response to primaryAgent
+  const agentResponse = await fetchModelResponse(aiModel, agentPrompt);
 
   /**
    * Add the new information with agent and response to the ongoing
@@ -74,9 +64,7 @@ export const generateAgentResponses = async (
     setAgents
   );
 
-  // ---------- @todo If there is no wait time between updateAgent() and the if () statements --------------------
-  //  then there is NOT enough time for the agent to display their response before moving to
-  //  a designated position
+  await delay(300);
 
   /**
    * speechLocation object is selected by the user and set in the /Sidebar component.
@@ -106,16 +94,22 @@ export const generateAgentResponses = async (
       setAgents
     );
 
-    /**
-     * Update the agents state to the correct direction to face based on { x, y }
-     * Give final emoji to text bubble
-     */
+    // update agents facing direction and give final text emoji
     await updateAgent(
       {
         ...agent,
-        x: agentAudiencePosition.x,
-        y: agentAudiencePosition.y,
+        // x: agentAudiencePosition.x,
+        // y: agentAudiencePosition.y,
         direction: agentAudiencePosition.direction,
+        momentResponse: getRandomEmoji() + getRandomEmoji(),
+      },
+      setAgents
+    );
+  } else {
+    // update agents facing direction and give final text emoji
+    await updateAgent(
+      {
+        ...agent,
         momentResponse: getRandomEmoji() + getRandomEmoji(),
       },
       setAgents

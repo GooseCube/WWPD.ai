@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 
-// Global Context Provider
+// Global Context Providers
 import { AuthContext } from "../contextProviders/AuthProvider";
 
 // Firebase DB

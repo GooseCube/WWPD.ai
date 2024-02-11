@@ -1,4 +1,3 @@
-import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
 import { moveAgent } from "./speechModules/helperFunctions";
 
 /**
@@ -8,17 +7,11 @@ import { moveAgent } from "./speechModules/helperFunctions";
  * @param {object} speech
  * @param {context useState} setAgents
  */
-export const movePrimaryAgentToAgentLocation = async (
-  agent,
-  speech,
-  setAgents
-) => {
-  const MAX_OFFSET = 2;
-  const gridPoint = {
-    x: agent.x,
-    y: agent.y,
-  };
+export const movePrimaryAgentAndTalk = async (agent, speech, setAgents) => {
+  await moveAgent(speech.primaryAgent, agent.x, agent.y, setAgents);
 
-  findValidOffsetPosition(gridPoint, MAX_OFFSET);
-  await moveAgent(speech.primaryAgent, gridPoint.x, gridPoint.y, setAgents);
+  /**
+   * This is were the primary agent could introduce themselves to the 'agent'
+   * and relay paraphrased idea
+   */
 };

@@ -54,24 +54,22 @@ export const momentumSpeech = async (
    * Fetch the initial idea based on user selected 'moment' and
    * fetch the paraphrase of the initial idea
    */
-  // TESTING: uncomment after testing motion
-  // try {
-  //   await initializePrimaryAgentIdea(speech, aiModel, moment);
-  // } catch (error) {
-  //   console.error("Error Initializing Primary Agent Idea\n", error);
-  // }
+  try {
+    await initializePrimaryAgentIdea(speech, aiModel, moment);
+  } catch (error) {
+    console.error("Error Initializing Primary Agent Idea\n", error);
+  }
 
   /**
    * Conversation is used to track the entire conversation
    * which will be rendered to the message interface
    */
-  // TESTING: uncomment after testing motion
-  // speech.conversations.push({
-  //   primaryAgent: speech.primaryAgent,
-  //   initialPrompt: moment.initialPrompt,
-  //   initialResponse: speech.primaryAgentInitialIdea,
-  //   paraphrasedResponse: speech.paraphrasedInitialIdea,
-  // });
+  speech.conversations.push({
+    primaryAgent: speech.primaryAgent,
+    initialPrompt: moment.initialPrompt,
+    initialResponse: speech.primaryAgentInitialIdea,
+    paraphrasedResponse: speech.paraphrasedInitialIdea,
+  });
 
   /**
    * For each agent, traverse the primaryAgent to 'agent' position and share
@@ -101,57 +99,57 @@ export const momentumSpeech = async (
    */
 
   // @prompt: Get final speech from AI Model
-  // speech.primaryAgentFinalSpeech = await fetchModelResponse(
-  //   aiModel,
-  //   finalMomentPrompt(
-  //     speech.primaryAgent,
-  //     moment.finalPrompt,
-  //     speech.primaryAgentInitialIdea
-  //   )
-  // );
+  speech.primaryAgentFinalSpeech = await fetchModelResponse(
+    aiModel,
+    finalMomentPrompt(
+      speech.primaryAgent,
+      moment.finalPrompt,
+      speech.primaryAgentInitialIdea
+    )
+  );
 
-  // // @prompt: fetch remaining context from AI Model
-  // for (let index = 0; index < 3; ++index) {
-  //   speech.primaryAgentFinalSpeech += await fetchModelResponse(
-  //     aiModel,
-  //     `${finalMomentPrompt(
-  //       speech.primaryAgent,
-  //       moment.finalPrompt,
-  //       speech.primaryAgentInitialIdea
-  //     )}
-  //     ${speech.primaryAgentFinalSpeech}`
-  //   );
-  // }
+  // @prompt: fetch remaining context from AI Model
+  for (let index = 0; index < 3; ++index) {
+    speech.primaryAgentFinalSpeech += await fetchModelResponse(
+      aiModel,
+      `${finalMomentPrompt(
+        speech.primaryAgent,
+        moment.finalPrompt,
+        speech.primaryAgentInitialIdea
+      )}
+      ${speech.primaryAgentFinalSpeech}`
+    );
+  }
 
-  // const finalSpeech = {
-  //   header: "-------------- MOMENT --------------",
-  //   speech: speech.primaryAgentFinalSpeech,
-  // };
+  const finalSpeech = {
+    header: "-------------- MOMENT: Final Speech --------------",
+    speech: speech.primaryAgentFinalSpeech,
+  };
 
-  // speech.conversations.push(finalSpeech);
+  speech.conversations.push(finalSpeech);
 
-  // await moveAgent(
-  //   speech.primaryAgent,
-  //   speechLocation.primaryAgent.x,
-  //   speechLocation.primaryAgent.y,
-  //   setAgents
-  // );
+  await moveAgent(
+    speech.primaryAgent,
+    speechLocation.primaryAgent.x,
+    speechLocation.primaryAgent.y,
+    setAgents
+  );
 
-  // setShowImageScreen(true);
+  setShowImageScreen(true);
 
-  // speech.updatedPrimaryAgent = createUpdatedAgent(
-  //   speech.primaryAgent,
-  //   speechLocation.primaryAgent.x,
-  //   speechLocation.primaryAgent.y,
-  //   speechLocation.primaryAgent.direction,
-  //   speech.primaryAgentFinalSpeech
-  // );
+  speech.updatedPrimaryAgent = createUpdatedAgent(
+    speech.primaryAgent,
+    speechLocation.primaryAgent.x,
+    speechLocation.primaryAgent.y,
+    speechLocation.primaryAgent.direction,
+    speech.primaryAgentFinalSpeech
+  );
 
-  // updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
-  // pushNewMoment(speech.conversations);
+  updateAgentState(setAgents, updateAgent, speech.updatedPrimaryAgent);
+  pushNewMoment(speech.conversations);
 
-  // setTimeout(() => {
-  //   setShowImageScreen(false);
-  //   sendAllAgentsHome(agents, setAgents, updateAgent);
-  // }, 6000); // wait 1-minute and send all agents to home positions
+  setTimeout(() => {
+    setShowImageScreen(false);
+    sendAllAgentsHome(agents, setAgents, updateAgent);
+  }, 6000); // wait 1-minute and send all agents to home positions
 };

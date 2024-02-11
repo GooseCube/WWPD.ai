@@ -6,10 +6,6 @@ import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 
 // Local Module Helper Functions
 import {
-  findValidDiscussionPosition,
-  validateGridCollision,
-} from "../mapGridPositions/gridCollisionDetection";
-import {
   moveAgent,
   getRandomAudiencePosition,
   getRandomEmoji,
@@ -37,11 +33,8 @@ export const generateAgentResponses = async (
   aiModel,
   speechLocation
 ) => {
-  // Declare and initialize all local variables:
-  const MAX_DISTANCE = 2; // distance between agents for discussion
   let agentPrompt = ""; // prompt template: string
   let agentResponse = ""; // ai model response: string
-
 
   /**
    * AgentDiscussionPrompt: Create the prompt template that the agent will use to
@@ -52,33 +45,31 @@ export const generateAgentResponses = async (
    * FetchModelResponse: Now, fetch the agents response to the primary agent using the created
    *   agent prompt template from above
    */
-  // TESTING: uncomment after testing motion
-  // agentResponse = await fetchModelResponse(
-  //   aiModel,
-  //   agentDiscussionPrompt(
-  //     agent,
-  //     speech.primaryAgent,
-  //     speech.primaryAgentInitialIdea
-  //   )
-  // );
+  agentResponse = await fetchModelResponse(
+    aiModel,
+    agentDiscussionPrompt(
+      agent,
+      speech.primaryAgent,
+      speech.primaryAgentInitialIdea
+    )
+  );
 
   /**
    * Add the new information with agent and response to the ongoing
    * conversation
    */
-  // TESTING: uncomment after testing motion
-  // speech.conversations.push({
-  //   agent: agent,
-  //   agentPrompt: agentPrompt,
-  //   agentResponse: agentResponse,
-  // });
+  speech.conversations.push({
+    agent: agent,
+    agentPrompt: agentPrompt,
+    agentResponse: agentResponse,
+  });
 
   // Push update for agent to initiate a response to primary agent in text bubble
   await updateAgent(
     {
       ...agent,
       direction: faceDirectionOfOtherAgent(agent, speech.primaryAgent),
-      // momentResponse: agentResponse,
+      momentResponse: agentResponse,
     },
     setAgents
   );

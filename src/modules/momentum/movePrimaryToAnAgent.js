@@ -1,6 +1,13 @@
 import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
 import { moveAgent } from "./speechModules/helperFunctions";
 
+/**
+ * Use current agent { x, y } position to navigate the
+ * primary agent to a valid offset position relative to agent
+ * @param {object} agent
+ * @param {object} speech
+ * @param {context useState} setAgents
+ */
 export const movePrimaryAgentToAgentLocation = async (
   agent,
   speech,
@@ -12,9 +19,6 @@ export const movePrimaryAgentToAgentLocation = async (
     y: agent.y,
   };
 
-  findValidOffsetPosition(gridPoint, MAX_OFFSET)
-  // console.log("Agent x, y: ", "{", agent.x, ", ", agent.y, "}")
-  // console.log("gridPoints x, y: ", "{", gridPoint.x, ", ", gridPoint.y, "}")
-
+  findValidOffsetPosition(gridPoint, MAX_OFFSET);
   await moveAgent(speech.primaryAgent, gridPoint.x, gridPoint.y, setAgents);
 };

@@ -27,8 +27,9 @@ export async function traverseAgentPath(agent, path, setAgents) {
     // The 'await delay()' will slow down the agent to a normal speed
     await delay(30); // adjust up/down as needed for character movement
   }
-    agent.x = updatedAgent.x;
-    agent.y = updatedAgent.y;
-    agent.direction = updatedAgent.direction;
-    agent.frame = updatedAgent.frame;
+
+  // For now, necessary update to local agent ending grid position or the
+  // agent will move back to their original { x, y } coordinate position
+  agent.x = updatedAgent.x;
+  agent.y = updatedAgent.y;
 }

@@ -25,25 +25,36 @@ import "./styles/styles.css";
 // function ImageScreen({ overlayImages }) {
 function ImageScreen({ screenStyles, overlayStyles }) {
   const { moments } = useContext(AuthContext);
+  const [images, setImages] = useState([]);
   const [currentImage, setCurrentImage] = useState(null);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (moments && moments.images && moments.images.length > 0) {
-      setCurrentImage(moments.images[0]);
+    if (moments) {
+      const momentsArray = Object.values(moments);
+      const lastMoment = momentsArray[momentsArray.length - 1];
+      setImages(lastMoment.images);
+    }
+  }, [moments]);
+
+  useEffect(() => {
+    if (images && images.length > 0) {
+      setCurrentImage(images[0]);
       const timer = setInterval(() => {
-        setIndex((prevIndex) => (prevIndex + 1) % moments.images.length);
-        setCurrentImage(moments.images[index]);
+        setIndex((prevIndex) => {
+          const newIndex = (prevIndex + 1) % images.length;
+          setCurrentImage(images[newIndex]);
+          return newIndex;
+        });
       }, 3000);
 
       return () => clearInterval(timer);
     }
-  }, [moments, index]);
+  }, [images]);
 
   return (
-    moments &&
-    moments.images &&
-    moments.images.length > 0 && (
+    images &&
+    images.length > 0 && (
       <div className="image-screen" style={{ position: "relative" }}>
         <img
           className="screen"

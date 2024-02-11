@@ -42,6 +42,8 @@ function Sidebar() {
   const [showImageScreen, setShowImageScreen] = useState(false);
 
   // Begin agent conversation given the selected moment name
+  // And pass down the required ImageScreen objects to display
+  // the AI rendered images at the end of the moment
   const handleMomentConversation = async (event, moment) => {
     event.preventDefault();
 

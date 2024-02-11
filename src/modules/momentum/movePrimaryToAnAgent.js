@@ -17,5 +17,5 @@ export const movePrimaryAgentAndTalk = async (agent, speech, setAgents) => {
    * and relay paraphrased idea
    */
 
-  await generateSlideImage(speech.paraphrasedInitialIdea, speech)
+  await generateSlideImage(speech.paraphrasedInitialIdea, speech);
 };

@@ -23,7 +23,8 @@ export async function traverseAgentPath(agent, path, setAgents) {
     };
 
     await updateAgent(updatedAgent, setAgents);
+
     // The 'await delay()' will slow down the agent to a normal speed
-    // await delay(100); // adjust up/down as needed for character movement
+    await delay(30); // adjust up/down as needed for character movement
   }
 }

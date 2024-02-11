@@ -14,6 +14,7 @@ import { initializeAgents } from "./initializeAgents";
 import { initializePrimaryAgentIdea } from "./initPrimaryAgentIdea";
 import { generateAgentResponses } from "./generateAgentResponses";
 import { delay } from "./speechModules/helperFunctions";
+import { movePrimaryAgentToAgentLocation } from "./movePrimaryToAnAgent";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -76,21 +77,20 @@ export const momentumSpeech = async (
    * For each agent, traverse the primaryAgent to 'agent' position and share
    * paraphrased idea. Agent will then fetch an ai response
    */
-  await Promise.all(
-    speech.agentList.map(async (agent) => {
-      try {
-        await generateAgentResponses(
-          agent,
-          speech,
-          setAgents,
-          aiModel,
-          speechLocation
-        );
-      } catch (error) {
-        console.error("Error while generating agent responses\n", error);
-      }
-    })
-  );
+  for (const agent of speech.agentList) {
+    try {
+      await movePrimaryAgentToAgentLocation(agent, speech, setAgents);
+      await generateAgentResponses(
+        agent,
+        speech,
+        setAgents,
+        aiModel,
+        speechLocation
+      );
+    } catch (error) {
+      console.error("Error while generating agent responses\n", error);
+    }
+  }
 
   /**
    * At this point the primary agent is at the { x, y } of the last agent to share their idea with.

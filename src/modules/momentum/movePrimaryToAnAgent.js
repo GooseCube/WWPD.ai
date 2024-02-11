@@ -11,6 +11,7 @@ export const movePrimaryAgentAndTalk = async (agent, speech, setAgents) => {
   await moveAgent(speech.primaryAgent, agent.x, agent.y, setAgents);
 
   /**
+   * @ADAM
    * This is were the primary agent could introduce themselves to the 'agent'
    * and relay paraphrased idea
    */

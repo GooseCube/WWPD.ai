@@ -64,7 +64,7 @@ export const generateAgentResponses = async (
     setAgents
   );
 
-  await delay(300);
+  await delay(3000);
 
   /**
    * speechLocation object is selected by the user and set in the /Sidebar component.

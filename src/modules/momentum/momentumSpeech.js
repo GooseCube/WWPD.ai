@@ -37,6 +37,7 @@ export const momentumSpeech = async (
     updatedPrimaryAgent: {},
     agentList: [],
     conversations: [],
+    images: [],
   };
 
   /**
@@ -89,6 +90,7 @@ export const momentumSpeech = async (
         aiModel,
         speechLocation
       );
+
     } catch (error) {
       console.error("Error while generating agent responses\n", error);
     }

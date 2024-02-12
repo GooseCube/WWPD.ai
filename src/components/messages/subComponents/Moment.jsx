@@ -71,13 +71,13 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
             <div
               key={index}
               className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
-              <div className="primaryAgent fs-5">
+              <div className="primaryAgent fs-4">
                 {item.primaryAgent.name}: Initial Idea
               </div>
               {moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
-              <div className="agent initialResponse fs-5">
+              <div className="agent initialResponse fs-4">
                 <pre>{item.initialResponse}</pre>
               </div>
             </div>
@@ -88,10 +88,10 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
         else if (index === moment.conversation.length - 1) {
           return (
             <div key={index} className="agent">
-              <div className="header fs-5">
+              <div className="header fs-4">
                 <pre>{item.header}</pre>
               </div>
-              <div className="speech fs-5">
+              <div className="speech fs-4">
                 <pre>{item.speech}</pre>
               </div>
             </div>
@@ -101,12 +101,12 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
         // display each of the agents responses that participated in the moment
         else {
           return (
-            <div key={index} className={`agent ${item.agent.name} fs-5`}>
+            <div key={index} className={`agent ${item.agent.name} fs-4`}>
               {moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
-              <div className="agentName fs-5">{item.agent.name}:</div>
-              <div className="agentResponse fs-5">{item.agentResponse}</div>
+              <div className="agentName fs-4">{item.agent.name}:</div>
+              <div className="agentResponse fs-4">{item.agentResponse}</div>
             </div>
           );
         }

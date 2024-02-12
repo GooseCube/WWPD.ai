@@ -16,20 +16,26 @@ function Message({ id, message }) {
 
   return (
     <div key={id} className="message">
-      <div className="prompt">
+      <div className={`prompt ${message.agent.name}`}>
         <Trash
           className="delete-message-icon"
           onClick={() => removeMessage(id)}
         />{" "}
         {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
-        <pre>Prompt: {message.prompt}</pre>
+        <pre className="prompt">
+          {message.agent.name} Prompt: {message.prompt}
+        </pre>
       </div>
       {/* Dynamic class name using agent NAME allows custom background color styling for each agent message */}
       <div className={`response ${message.agent.name}`}>
-        {message.agent.name}:{" "}
+        {message.agent.name} Response:{" "}
         {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
         {isUrl(message.response) ? (
-          <img className="response-img" src={message.response} alt="huggingface image content" />
+          <img
+            className="response-img"
+            src={message.response}
+            alt="huggingface image content"
+          />
         ) : (
           <pre>{message.response}</pre>
         )}

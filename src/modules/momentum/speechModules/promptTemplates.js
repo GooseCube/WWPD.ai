@@ -22,3 +22,7 @@ export const agentDiscussionPrompt = (agent, primaryAgent, initialIdea) => {
   Context: ${primaryAgent.name} has asked you to review an idea which may require you to think outside the box to help.
   You are happing to help and will give your advice or perform a task to help make the idea happen. Use those special skills.`;
 };
+
+export const createImagePrompt = (response) => {
+  return `Generate an image that best represents the the following idea: ${response}`;
+};

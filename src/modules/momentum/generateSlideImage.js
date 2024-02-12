@@ -1,9 +1,7 @@
 import axios from "axios";
 import stabilityaiXLAPI from "../../modelAPI/stabilityaiXLAPI";
+import { createImagePrompt } from "./speechModules/promptTemplates";
 
-const createImagePrompt = (response) => {
-  return `Generate an image that best represents the the following idea: ${response}`;
-};
 
 /**
  * Use each agents response to the primary agent idea to generate

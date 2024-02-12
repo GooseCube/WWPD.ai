@@ -86,7 +86,7 @@
   font-size: 1.5em;
 }
 
-.prompt,
+/* .prompt, */
 .response {
   margin: 0.5em;
   padding: 0.5em;
@@ -94,7 +94,10 @@
 }
 
 .prompt {
+  padding-top: 0.5em;
+  margin: 0.5em;
   font-size: 1em;
+  border-radius: 8px;
 }
 
 .response {
@@ -131,7 +134,7 @@
 }
 
 .moment-toolbar {
-  margin-left: 0.5em;
+  margin-left: 1.25em;
 }
 
 .date-timestamp {
@@ -162,10 +165,20 @@
   color: green;
 }
 
+.primaryAgent,
+.agentImage,
+.intialResponse {
+
+  padding-left: 0.5em;
+}
+
 .agent {
-  margin: 0.5em;
   padding: 0.5em;
   border-radius: 10px;
+}
+
+.agentName {
+  margin-top: 1em;
 }
 
 .agent pre {
@@ -174,7 +187,7 @@
 }
 
 .agentImage {
-  width: 30%;
+  width: 40%;
   border-radius: 10px;
 }
 

@@ -71,15 +71,15 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
             <div
               key={index}
               className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
-              <div className="primaryAgent fs-4">
+              <div className="primaryAgent fs-3">
                 {item.primaryAgent.name}: Initial Idea
               </div>
               {moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
-              <div className="agent initialResponse fs-4">
-                <pre>{item.initialResponse}</pre>
-              </div>
+              <pre className="initialResponse fs-4">
+                {item.initialResponse}
+              </pre>
             </div>
           );
         }
@@ -92,7 +92,7 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
                 <pre>{item.header}</pre>
               </div>
               <div className="speech fs-4">
-                <pre>{item.speech}</pre>
+                <pre className="fs-4">{item.speech}</pre>
               </div>
             </div>
           );
@@ -101,11 +101,11 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
         // display each of the agents responses that participated in the moment
         else {
           return (
-            <div key={index} className={`agent ${item.agent.name} fs-4`}>
+            <div key={index} className={`agent ${item.agent.name} fs-3`}>
               {moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
-              <div className="agentName fs-4">{item.agent.name}:</div>
+              <div className="agentName fs-3">{item.agent.name}:</div>
               <div className="agentResponse fs-4">{item.agentResponse}</div>
             </div>
           );

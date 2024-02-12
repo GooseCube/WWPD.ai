@@ -26,10 +26,8 @@ function Message({ id, message }) {
           {message.agent.name} Prompt: {message.prompt}
         </pre>
       </div>
-      {/* Dynamic class name using agent NAME allows custom background color styling for each agent message */}
       <div className={`response ${message.agent.name}`}>
         {message.agent.name} Response:{" "}
-        {new Date(message.timestamp).toLocaleDateString("en-US")} <br />
         {isUrl(message.response) ? (
           <img
             className="response-img"

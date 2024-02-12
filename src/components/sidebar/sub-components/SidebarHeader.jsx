@@ -15,7 +15,9 @@ function SidebarHeader() {
         placement="right"
         overlay={
           <Tooltip id={"tooltip-top"} className="custom-tooltip">
-            <h3 className="border-bottom border-white">Generative Agent Moment Experience</h3>
+            <h3 className="border-bottom border-white">
+              Generative Agent Moment Experience
+            </h3>
             <p className="text-start">
               <strong>Interface:</strong> open/close the user interface to view
               moments or messages
@@ -31,7 +33,8 @@ function SidebarHeader() {
             </p>
             <p className="text-start">
               <strong>Agent Profile:</strong> overview of the agent persona you
-              have selected. Click on the profile to view, edit, or create new personas.
+              have selected. Click on the profile to view, edit, or create new
+              personas.
             </p>
           </Tooltip>
         }>

@@ -5,10 +5,7 @@
  * - question: what the model should do with the given context
  */
 
-import {pirateImages, financeImages} from "./momentImages";
-
 export const townSquare = {
-  images: Object.values(financeImages),
   title: "Town Square",
   initialPrompt: {
     instruction:
@@ -19,13 +16,12 @@ export const townSquare = {
   },
   finalPrompt: {
     instruction:
-      "Answser the question using the given context, personality and topic.",
+      "Answer the question using the given context, personality and topic.",
     context: `Given the following topic, choose one topic and write a short essay that introduces the topic, includes a thesis with at least three arguments and a conclusion.`,
   },
 };
 
 export const pirates = {
-  images: Object.values(pirateImages),
   title: "Colonial Pirates",
   initialPrompt: {
     instruction: "Answer the question using the given context and personality.",
@@ -36,7 +32,7 @@ export const pirates = {
   },
   finalPrompt: {
     instruction:
-      "Answser the question using the given context, personality and responses from others that want to be part of this play.",
+      "Answer the question using the given context, personality and responses from others that want to be part of this play.",
     context: `Write the script necessary to complete the given response and conversation between the other actors.
     Use the names given to create parts for each of the actors in this play.`,
   },

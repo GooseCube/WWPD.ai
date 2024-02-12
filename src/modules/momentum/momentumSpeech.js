@@ -9,7 +9,7 @@ import { initializeAgents } from "./initializeAgents";
 import { initializePrimaryAgentIdea } from "./initPrimaryAgentIdea";
 import { generateAgentResponses } from "./generateAgentResponses";
 import { movePrimaryAgentAndTalk } from "./movePrimaryToAnAgent";
-import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
+// import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
 
 /**
  * This function will play out the discussion of the primary agents moment.

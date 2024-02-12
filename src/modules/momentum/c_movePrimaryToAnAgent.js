@@ -1,4 +1,4 @@
-import { generateSlideImage } from "./generateSlideImage";
+import { generateSlideImage } from "./e_generateSlideImage";
 import { moveAgent } from "./speechModules/helperFunctions";
 
 /**

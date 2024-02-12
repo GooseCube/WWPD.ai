@@ -3,7 +3,7 @@ import { updateAgent } from "../../firebase/firebaseAgents";
 
 // AI Model API
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
-import { generateSlideImage } from "./generateSlideImage";
+import { generateSlideImage } from "./e_generateSlideImage";
 
 // Local Module Helper Functions
 import {
@@ -43,7 +43,7 @@ export const generateAgentResponses = async (
   );
 
   try {
-    // Fetch agent response to primaryAgent
+    // Fetch agent response to primaryAgent (use the SDK completion fetch)
     const agentResponse = await fetchModelResponse(aiModel, agentPrompt);
 
     /**

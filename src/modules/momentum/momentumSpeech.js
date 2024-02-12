@@ -5,11 +5,10 @@ import { moveAgent, sendAllAgentsHome } from "./speechModules/helperFunctions";
 import { finalMomentPrompt } from "./speechModules/promptTemplates";
 
 // ------------------New Imports for Refactor-------------------------------
-import { initializeAgents } from "./initializeAgents";
-import { initializePrimaryAgentIdea } from "./initPrimaryAgentIdea";
-import { generateAgentResponses } from "./generateAgentResponses";
-import { movePrimaryAgentAndTalk } from "./movePrimaryToAnAgent";
-// import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
+import { initializeAgents } from "./a_initializeAgents";
+import { initializePrimaryAgentIdea } from "./b_initPrimaryAgentIdea";
+import { generateAgentResponses } from "./d_generateAgentResponses";
+import { movePrimaryAgentAndTalk } from "./c_movePrimaryToAnAgent";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -69,6 +68,7 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
+  // import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
   // For each agent current position, set an offset { x, y } for
   // the primary agent destination location
   // for (const agent of speech.agentList) {

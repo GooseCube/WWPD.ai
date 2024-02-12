@@ -60,11 +60,12 @@ export const getRandomAudiencePosition = (audienceLocations) => {
  * @param {number} destX
  * @param {number} destY
  * @param {context setter} setAgents
+ * @param {number} MAX_OFFSET is the length of the path[index - MAX_OFFSET]
  */
-export const moveAgent = async (agent, destX, destY, setAgents) => {
+export const moveAgent = async (agent, destX, destY, setAgents, MAX_OFFSET = 0) => {
   let path = await agentPathfinder(agent, destX, destY);
   let filteredPath = path.map((node) => node.state);
-  await traverseAgentPath(agent, filteredPath, setAgents);
+  await traverseAgentPath(agent, filteredPath, setAgents, MAX_OFFSET);
 };
 
 /**
@@ -146,6 +147,10 @@ export const groupSpeechInteraction = (agents, updateAgent) => {
  */
 export const sendAllAgentsHome = async (agents, setAgents) => {
   agents.forEach(async (agent) => {
-    moveAgent(agent, agent.homePosition.x, agent.homePosition.y, setAgents);
+    const updatedAgent = {
+      ...agent,
+      momentResponse: null,
+    }
+    moveAgent(updatedAgent, agent.homePosition.x, agent.homePosition.y, setAgents);
   });
 };

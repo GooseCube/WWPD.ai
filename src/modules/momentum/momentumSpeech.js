@@ -68,45 +68,7 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
-  // import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
-  // For each agent current position, set an offset { x, y } for
-  // the primary agent destination location
-  // for (const agent of speech.agentList) {
-  //   const MAX_OFFSET = 2;
-  //   const gridPoint = {
-  //     x: agent.x,
-  //     y: agent.y,
-  //   };
-  //   console.log(
-  //     "gridPoint Before Call: { ",
-  //     gridPoint.x,
-  //     ", ",
-  //     gridPoint.y,
-  //     " }"
-  //   );
-  //   findValidOffsetPosition(gridPoint, MAX_OFFSET);
-  //   console.log(
-  //     "gridPoint After Call: { ",
-  //     gridPoint.x,
-  //     ", ",
-  //     gridPoint.y,
-  //     " }"
-  //   );
-  //   speech.primaryAgentGridLocations.push({ x: gridPoint.x, y: gridPoint.y });
-  // }
 
-  /**
-   * For each agent, traverse the primaryAgent to 'agent' position and share
-   * paraphrased idea. Agent will then fetch an ai response
-   */
-  // for (
-  //   let index = 0;
-  //   speech.agentList &&
-  //   speech.primaryAgentGridLocations &&
-  //   index < speech.agentList.length &&
-  //   index < speech.primaryAgentGridLocations.length;
-  //   ++index
-  // ) {
   for (const agent of speech.agentList) {
     try {
       await movePrimaryAgentAndTalk(agent, speech, setAgents);
@@ -169,10 +131,11 @@ export const momentumSpeech = async (
   // momentResponses to ensure no further text during game
   setTimeout(async () => {
     setShowImageScreen(false);
+    // await Promise.all(
+    //   agents.map(async (agent) => {
+    //     return await updateAgent({ ...agent, momentResponse: null }, setAgents);
+    //   })
+    // );
     await sendAllAgentsHome(agents, setAgents, updateAgent);
-
-    agents.forEach(async (agent) => {
-      updateAgent({ ...agent, momentResponse: null }, setAgents);
-    });
   }, 30000);
 };

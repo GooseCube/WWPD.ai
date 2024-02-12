@@ -1,7 +1,5 @@
 import { updateAgent } from "../../firebase/firebaseAgents";
-
-// Slows the movement from one position to the next
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { delay } from "../momentum/speechModules/helperFunctions";
 
 /**
  * Using the path obtained from agentPathfinder, moves the
@@ -13,6 +11,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function traverseAgentPath(agent, path, setAgents) {
   const NUMBER_OF_SPRITE_COLUMNS = 3;
   let updatedAgent = { ...agent };
+
   for (let index = 0; index < path.length; ++index) {
     let newDirection = path[index].direction;
     let newFrame = (updatedAgent.frame + 1) % NUMBER_OF_SPRITE_COLUMNS;
@@ -23,10 +22,14 @@ export async function traverseAgentPath(agent, path, setAgents) {
       direction: newDirection,
       frame: newFrame,
     };
-    await setAgents((prevAgents) =>
-      prevAgents.map((a) => (a.uid === updatedAgent.uid ? updatedAgent : a))
-    );
-    await updateAgent(updatedAgent);
-    await delay(100); // adjust up/down as needed for character movement
+
+    await updateAgent(updatedAgent, setAgents);
+    // The 'await delay()' will slow down the agent to a normal speed
+    await delay(30); // adjust up/down as needed for character movement
   }
+
+  // For now, necessary update to local agent ending grid position or the
+  // agent will move back to their original { x, y } coordinate position
+  agent.x = updatedAgent.x;
+  agent.y = updatedAgent.y;
 }

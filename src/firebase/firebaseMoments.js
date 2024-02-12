@@ -26,18 +26,19 @@ export const getUserMoments = async (setMoments) => {
  * @param {string} prompt
  * @param {string} response
  */
-export const pushNewMoment = async (conversation) => {
-  const moment = {
+export const pushNewMoment = async (speech) => {
+  const newMoment = {
     timestamp: Date.now(),
-    conversation: conversation,
+    conversation: [...speech.conversations],
+    images: [...speech.images],
   };
   const userId = auth.currentUser.uid;
   const momentsRef = ref(database, `users/${userId}/moments`);
   const newMomentsRef = push(momentsRef);
 
   try {
-    await set(newMomentsRef, moment);
-    console.log("New Moment Pushed to Firebase: ", moment);
+    await set(newMomentsRef, newMoment);
+    console.log("New Moment Pushed to Firebase: ", newMoment);
   } catch (error) {
     console.log("Unable to push new moment to Firebase: ", error);
   }

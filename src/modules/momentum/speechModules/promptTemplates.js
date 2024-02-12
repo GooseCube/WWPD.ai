@@ -16,9 +16,13 @@ export const finalMomentPrompt = (primaryAgent, finalPrompt, topic) => {
 
 // Primary Agent is meeting with others, this is a great way to explain what you would like them to think about
 // and get a constructive response
-export const agentDiscussionPrompt = (primaryAgent, agent, initalIdea) => {
+export const agentDiscussionPrompt = (agent, primaryAgent, initialIdea) => {
   return `Persona: ${agent.name}, ${agent.age}, ${agent.career}, ${agent.specialty}. ${agent.personality}
-  Idea: ${initalIdea} Instruction: Give advice or help using your persona, the idea you will review and the context.
+  Idea: ${initialIdea} Instruction: Give advice or help using your persona, the idea you will review and the context.
   Context: ${primaryAgent.name} has asked you to review an idea which may require you to think outside the box to help.
   You are happing to help and will give your advice or perform a task to help make the idea happen. Use those special skills.`;
+};
+
+export const createImagePrompt = (response) => {
+  return `Generate an image that best represents the the following idea: ${response}`;
 };

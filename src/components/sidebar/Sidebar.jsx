@@ -19,8 +19,8 @@ import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
 import { AuthContext } from "../contextProviders/AuthProvider";
-import * as moments from "../../modules/momentum/moments";
-import { momentumSpeech } from "../../modules/momentum/speech/momentumSpeech";
+import * as moments from "../../modules/momentum/speechModules/moments";
+import { momentumSpeech } from "../../modules/momentum/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";
 
 // CSS Styles for Sidebar
@@ -30,7 +30,7 @@ import "./styles/styles.css";
 import app_icon from "../../assets/sidebar/app_icon.png";
 import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
-import { getRandomMeetingPlace } from "../../modules/momentum/speech/helperFunctions";
+import { getRandomMeetingPlace } from "../../modules/momentum/speechModules/helperFunctions";
 
 function Sidebar() {
   const { show, dispatch } = useShow();
@@ -42,6 +42,8 @@ function Sidebar() {
   const [showImageScreen, setShowImageScreen] = useState(false);
 
   // Begin agent conversation given the selected moment name
+  // And pass down the required ImageScreen objects to display
+  // the AI rendered images at the end of the moment
   const handleMomentConversation = async (event, moment) => {
     event.preventDefault();
 

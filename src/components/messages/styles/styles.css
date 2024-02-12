@@ -173,6 +173,11 @@
   word-wrap: break-word;
 }
 
+.agentImage {
+  width: 10em;
+  border-radius: 10px;
+}
+
 /* TextInput | Sub-Component */
 
 .input-area {

@@ -46,7 +46,7 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
           <Envelope
             className="email-moment-icon"
             onClick={(e) => {
-              dispatch({ type: "SET_EMAIL_FORM", payload: !show.emailForm})
+              dispatch({ type: "SET_EMAIL_FORM", payload: !show.emailForm });
               handleEmail(e, moment);
             }}
           />
@@ -72,11 +72,11 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
               key={index}
               className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
               <div className="primaryAgent fs-5">
-                {item.primaryAgent.name} Initial Prompt:
+                {item.primaryAgent.name}: Initial Idea
               </div>
-              <div className="agent initialPrompt fs-5">
-                {item.initialPrompt.question}
-              </div>
+              {moment.images[index] && (
+                <img className="agentImage" src={moment.images[index]} />
+              )}
               <div className="agent initialResponse fs-5">
                 <pre>{item.initialResponse}</pre>
               </div>
@@ -102,6 +102,9 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
         else {
           return (
             <div key={index} className={`agent ${item.agent.name} fs-5`}>
+              {moment.images[index] && (
+                <img className="agentImage" src={moment.images[index]} />
+              )}
               <div className="agentName fs-5">{item.agent.name}:</div>
               <div className="agentResponse fs-5">{item.agentResponse}</div>
             </div>

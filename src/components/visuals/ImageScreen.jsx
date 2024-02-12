@@ -1,69 +1,92 @@
+/* eslint-disable react/prop-types */
 /**
- * The styles for the screen position are located in:
- * /modules/mapGridPositions/meetingPlaces.js
- * 
  * To quickly modify the screen {position, width, height}
- * copy/paste the return() to bottom of file and comment out
- * copy the first commented out code and place it in the imageScreen() function
+ * copy/paste the return() to the bottom of file and comment it out.
+ * Copy the other commented out code and place it in the imageScreen() function
  * and uncomment.
  * Then, uncomment the function ImageScreen({ overlayImages })
  * and comment out the other.
- * 
+ *
  * This should allow you to use the /styles/styles.css .screen & .overlay
- * to adjust position and sizing
+ * to adjust position and sizing of image screen and the images
  */
-import React, { useState, useEffect } from "react";
+// React
+import { useState, useEffect, useContext } from "react";
+
+// Context Providers
+import { AuthContext } from "../contextProviders/AuthProvider";
+
+// Image Assets
 import screenImage from "../../assets/art/pull_down_screen.png";
 
 import "./styles/styles.css";
 
+// Keep this commented ImageScreen() function DO NOT REMOVE
 // function ImageScreen({ overlayImages }) {
-function ImageScreen({ overlayImages, screenStyles, overlayStyles }) {
-  const [currentImage, setCurrentImage] = useState(overlayImages[0]);
+function ImageScreen({ screenStyles, overlayStyles }) {
+  const { moments } = useContext(AuthContext);
+  const [images, setImages] = useState([]);
+  const [currentImage, setCurrentImage] = useState(null);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % overlayImages.length);
-      setCurrentImage(overlayImages[index]);
-    }, 3000);
+    if (moments) {
+      const momentsArray = Object.values(moments);
+      const lastMoment = momentsArray[momentsArray.length - 1];
+      setImages(lastMoment.images);
+    }
+  }, [moments]);
 
-    return () => clearInterval(timer);
-  }, [overlayImages, index]);
+  useEffect(() => {
+    if (images && images.length > 0) {
+      setCurrentImage(images[0]);
+      const timer = setInterval(() => {
+        setIndex((prevIndex) => {
+          const newIndex = (prevIndex + 1) % images.length;
+          setCurrentImage(images[newIndex]);
+          return newIndex;
+        });
+      }, 3000);
+
+      return () => clearInterval(timer);
+    }
+  }, [images]);
 
   return (
-    <div className="image-screen" style={{ position: "relative" }}>
-      <img
-        className="screen"
-        src={screenImage}
-        alt="Projector Screen"
-        style={screenStyles}
-      />
-      <img
-        className="overlay"
-        src={currentImage}
-        alt="Overlay Image"
-        style={overlayStyles}
-      />
-    </div>
+    images &&
+    images.length > 0 && (
+      <div className="image-screen" style={{ position: "relative" }}>
+        <img
+          className="screen"
+          src={screenImage}
+          alt="Projector Screen"
+          style={screenStyles}
+        />
+        <img
+          className="overlay"
+          src={currentImage}
+          alt="Overlay Image"
+          style={overlayStyles}
+        />
+      </div>
+    )
   );
-
 }
 
 export default ImageScreen;
 
-
-  // return (
-  //   <div className="image-screen" style={{ position: "relative" }}>
-  //     <img
-  //       className="screen"
-  //       src={screenImage}
-  //       alt="Projector Screen"
-  //     />
-  //     <img
-  //       className="overlay"
-  //       src={currentImage}
-  //       alt="Overlay Image"
-  //     />
-  //   </div>
-  // );
+// To move image-screen, use this return in place of the current return() component
+// return (
+//   <div className="image-screen" style={{ position: "relative" }}>
+//     <img
+//       className="screen"
+//       src={screenImage}
+//       alt="Projector Screen"
+//     />
+//     <img
+//       className="overlay"
+//       src={currentImage}
+//       alt="Overlay Image"
+//     />
+//   </div>
+// );

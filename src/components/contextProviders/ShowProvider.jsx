@@ -14,7 +14,7 @@ const initialState = {
   isLoading: false,
 };
 
-// As the switch statement gets larger: 
+// As the switch statement gets larger:
 // move to separate file in /contextProvider/modules
 // with the 'initialState' object above
 function showReducer(state, action) {
@@ -48,8 +48,8 @@ export function ShowProvider({ children }) {
 
 /**
  * Pull down the global boolean flags for use in your component
- * Default: { interface: true, emailForm: false, agentCards: false, 
- * messages: true, inputArea: true, isLoading: false } 
+ * Default: { interface: true, emailForm: false, agentCards: false,
+ * messages: true, inputArea: true, isLoading: false }
  * FOR DETAILS -> README.md in "/src/components/contextProviders" for use example
  */
 export function useShow() {

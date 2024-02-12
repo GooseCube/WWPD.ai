@@ -4,7 +4,7 @@
 export const meetingPlaces = {
   groceryStore: {
     title: "Grocery Store",
-    primaryAgent: { x: 43, y: 25, direction: "down" },
+    primaryAgent: { x: 41, y: 27, direction: "down" },
     audiencePositions: [
       { x: 46, y: 27, direction: "left" },
       { x: 45, y: 29, direction: "left" },

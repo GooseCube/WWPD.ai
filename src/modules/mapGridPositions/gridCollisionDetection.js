@@ -15,7 +15,7 @@ export const validateGridCollision = (x, y) => {
  * - a valid offset destination { x, y } is found
  * - or no valid offset is found agent will use the original { x, y }
  * @param {object} gridPoint {x, y}
- * @param {number} MAX_OFFSET 
+ * @param {number} MAX_OFFSET
  */
 export const findValidOffsetPosition = (gridPoint, MAX_OFFSET) => {
   if (validateGridCollision(gridPoint.x, gridPoint.y - MAX_OFFSET)) {

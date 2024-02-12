@@ -9,7 +9,7 @@ import { initializeAgents } from "./initializeAgents";
 import { initializePrimaryAgentIdea } from "./initPrimaryAgentIdea";
 import { generateAgentResponses } from "./generateAgentResponses";
 import { movePrimaryAgentAndTalk } from "./movePrimaryToAnAgent";
-import { generateSlideImage } from "./generateSlideImage";
+import { findValidOffsetPosition } from "../mapGridPositions/gridCollisionDetection";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -36,6 +36,7 @@ export const momentumSpeech = async (
     paraphrasedInitialIdea: "",
     primaryAgent: {},
     updatedPrimaryAgent: {},
+    primaryAgentGridLocations: [],
     agentList: [],
     conversations: [],
     images: [],
@@ -68,19 +69,44 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
-  // -------------TODO
-  // agentList.map((agent) => {
-  //  locations.push(findValidOffsetLocation(speech, agent))
+  // For each agent current position, set an offset { x, y } for
+  // the primary agent destination location
+  // for (const agent of speech.agentList) {
+  //   const MAX_OFFSET = 2;
+  //   const gridPoint = {
+  //     x: agent.x,
+  //     y: agent.y,
+  //   };
+  //   console.log(
+  //     "gridPoint Before Call: { ",
+  //     gridPoint.x,
+  //     ", ",
+  //     gridPoint.y,
+  //     " }"
+  //   );
+  //   findValidOffsetPosition(gridPoint, MAX_OFFSET);
+  //   console.log(
+  //     "gridPoint After Call: { ",
+  //     gridPoint.x,
+  //     ", ",
+  //     gridPoint.y,
+  //     " }"
+  //   );
+  //   speech.primaryAgentGridLocations.push({ x: gridPoint.x, y: gridPoint.y });
   // }
-  // For each agent in List, find a valid offset position and push({x: valid, y: valid })
-  //  using this array in the next for loop to give the primary agent a definitive position offset
-  //  to the agent they are sharing their idea with
-  // -----------------
 
   /**
    * For each agent, traverse the primaryAgent to 'agent' position and share
    * paraphrased idea. Agent will then fetch an ai response
    */
+  // for (
+  //   let index = 0;
+  //   speech.agentList &&
+  //   speech.primaryAgentGridLocations &&
+  //   index < speech.agentList.length &&
+  //   index < speech.primaryAgentGridLocations.length;
+  //   ++index
+  // ) {
   for (const agent of speech.agentList) {
     try {
       await movePrimaryAgentAndTalk(agent, speech, setAgents);
@@ -138,8 +164,15 @@ export const momentumSpeech = async (
 
   await updateAgent({ ...speech.primaryAgent }, setAgents);
 
-  setTimeout(() => {
+  // After the set time (30000 === 30 seconds)
+  // send all agents to home position and clear their local
+  // momentResponses to ensure no further text during game
+  setTimeout(async () => {
     setShowImageScreen(false);
-    sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 9000); // wait 1-minute and send all agents to home positions
+    await sendAllAgentsHome(agents, setAgents, updateAgent);
+
+    agents.forEach(async (agent) => {
+      updateAgent({ ...agent, momentResponse: null }, setAgents);
+    });
+  }, 30000);
 };

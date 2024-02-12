@@ -10,6 +10,8 @@ import { moveAgent } from "./speechModules/helperFunctions";
  */
 export const movePrimaryAgentAndTalk = async (agent, speech, setAgents) => {
   try {
+    // console.log("Type of x && y: ", typeof gridLocation.x, " ", typeof gridLocation.y)
+    // await moveAgent(speech.primaryAgent, gridLocation.x, gridLocation.y, setAgents);
     await moveAgent(speech.primaryAgent, agent.x, agent.y, setAgents);
 
     /**

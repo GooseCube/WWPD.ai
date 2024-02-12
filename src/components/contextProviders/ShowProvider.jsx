@@ -12,6 +12,7 @@ const initialState = {
   messages: true,
   inputArea: true,
   isLoading: false,
+  documentation: false,
 };
 
 // As the switch statement gets larger:
@@ -31,6 +32,8 @@ function showReducer(state, action) {
       return { ...state, inputArea: action.payload };
     case "SET_IS_LOADING":
       return { ...state, isLoading: action.payload };
+    case "SET_SHOW_DOCUMENTATION":
+      return { ...state, documentation: action.payload };
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }

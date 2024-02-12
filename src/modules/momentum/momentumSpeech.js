@@ -131,11 +131,6 @@ export const momentumSpeech = async (
   // momentResponses to ensure no further text during game
   setTimeout(async () => {
     setShowImageScreen(false);
-    // await Promise.all(
-    //   agents.map(async (agent) => {
-    //     return await updateAgent({ ...agent, momentResponse: null }, setAgents);
-    //   })
-    // );
     await sendAllAgentsHome(agents, setAgents, updateAgent);
   }, 30000);
 };

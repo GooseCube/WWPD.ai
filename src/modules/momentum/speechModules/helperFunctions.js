@@ -6,6 +6,13 @@ import { agentEmojis } from "../../emoji/emojis";
 // Use to prevent the two agents showing discussion text at the same time
 export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * Based on the position of two agents, turn to the direction facing
+ * the observedAgent
+ * @param {object} primaryAgent
+ * @param {object} observedAgent
+ * @returns one string direction {"right" || "left" || "up" || "down"}
+ */
 export const faceDirectionOfOtherAgent = (primaryAgent, observedAgent) => {
   let x = primaryAgent.x - observedAgent.x;
   let y = primaryAgent.y - observedAgent.y;
@@ -14,18 +21,6 @@ export const faceDirectionOfOtherAgent = (primaryAgent, observedAgent) => {
   else if (x > 1) return "left";
   else if (x >= -1 && x <= 1 && y > -1) return "up";
   return "down";
-};
-
-/**
- * Choose a random agent from the array list and remove that
- * agent from the list.
- * @param {object array} agentList
- * @returns a single agent from the given list
- */
-export const getRandomAgent = (agentList) => {
-  const randomIndex = Math.floor(Math.random() * agentList.length);
-  const [selectedAgent] = agentList.splice(randomIndex, 1);
-  return selectedAgent;
 };
 
 /**
@@ -62,82 +57,22 @@ export const getRandomAudiencePosition = (audienceLocations) => {
  * @param {context setter} setAgents
  * @param {number} MAX_OFFSET is the length of the path[index - MAX_OFFSET]
  */
-export const moveAgent = async (agent, destX, destY, setAgents, MAX_OFFSET = 0) => {
+export const moveAgent = async (
+  agent,
+  destX,
+  destY,
+  setAgents,
+  MAX_OFFSET = 0
+) => {
   let path = await agentPathfinder(agent, destX, destY);
   let filteredPath = path.map((node) => node.state);
   await traverseAgentPath(agent, filteredPath, setAgents, MAX_OFFSET);
-};
-
-/**
- * Creates a copy of the agents updated state
- * @param {object} agent
- * @param {number} newX
- * @param {number} newY
- * @param {string} direction
- * @param {string} momentResponse
- * @returns copy of updated agent object
- */
-export const createUpdatedAgent = (
-  agent,
-  newX,
-  newY,
-  direction,
-  momentResponse
-) => {
-  agent.x = newX;
-  agent.y = newY;
-  agent.direction = direction;
-  agent.momentResponse = momentResponse;
-  return { ...agent };
-};
-
-/**
- * Set the agent global context state and update in Firebase
- * @param {context setter} setAgents
- * @param {firebase function} updateAgent
- * @param {object} agent
- */
-export const updateAgentState = async (setAgents, updateAgent, agent) => {
-  await setAgents((prevAgents) =>
-    prevAgents.map((a) => (a.uid === agent.uid ? agent : a))
-  );
-  await updateAgent(agent);
 };
 
 // Function to get a random emoji
 export const getRandomEmoji = () => {
   const emojis = Object.values(agentEmojis).flat();
   return emojis[Math.floor(Math.random() * emojis.length)];
-};
-
-/**
- * @TODO need to filter out agents that did not attend the speech
- * @TODO need to reduce the time between displaying the momentResponse
- * for emoji and the switch back to agent name in Agent/SpriteTextBubble
- *
- * During a moment, the agents that are not giving the speech
- * should display some interaction with the speaker
- * @param {object} agents
- * @param {firebase function} updateAgent
- */
-export const groupSpeechInteraction = (agents, updateAgent) => {
-  const nonPlayerAgents = agents.filter((agent) => !agent.playerControlled);
-
-  const intervalId = setInterval(() => {
-    nonPlayerAgents.forEach(async (agent) => {
-      const updatedAgent = {
-        ...agent,
-        momentResponse: getRandomEmoji() + getRandomEmoji(),
-      };
-      await updateAgent(updatedAgent);
-      // setAgents(prevAgents => prevAgents.map(a => a.uid === agent.uid ? updatedAgent : a));
-    });
-  }, 1000);
-
-  // Stop updating after one minute
-  setTimeout(() => {
-    clearInterval(intervalId);
-  }, 60000);
 };
 
 /**
@@ -150,7 +85,12 @@ export const sendAllAgentsHome = async (agents, setAgents) => {
     const updatedAgent = {
       ...agent,
       momentResponse: null,
-    }
-    moveAgent(updatedAgent, agent.homePosition.x, agent.homePosition.y, setAgents);
+    };
+    moveAgent(
+      updatedAgent,
+      agent.homePosition.x,
+      agent.homePosition.y,
+      setAgents
+    );
   });
 };

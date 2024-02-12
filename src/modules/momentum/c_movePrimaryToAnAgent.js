@@ -9,10 +9,9 @@ import { moveAgent } from "./speechModules/helperFunctions";
  * @param {context useState} setAgents
  */
 export const movePrimaryAgentAndTalk = async (agent, speech, setAgents) => {
-  const MAX_OFFSET = 2;
+  // Offset for primary agent when sharing idea with 'agent'
+  const MAX_OFFSET = 3;
   try {
-    // console.log("Type of x && y: ", typeof gridLocation.x, " ", typeof gridLocation.y)
-    // await moveAgent(speech.primaryAgent, gridLocation.x, gridLocation.y, setAgents);
     await moveAgent(speech.primaryAgent, agent.x, agent.y, setAgents, MAX_OFFSET);
 
     /**

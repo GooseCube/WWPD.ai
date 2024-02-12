@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { ButtonGroup, Dropdown, Image } from "react-bootstrap";
 
 /**

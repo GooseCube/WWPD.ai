@@ -28,7 +28,7 @@ function MessageInterface({ handleEmail }) {
     sidebar.aiModel && (
       <div className="message-interface-container">
         <Draggable handle=".interface">
-          <ResizableBox width={400} height={500} className="resizable-box">
+          <ResizableBox width={500} height={500} className="resizable-box">
             <div className="interface">
               <Toolbar
                 show={show}

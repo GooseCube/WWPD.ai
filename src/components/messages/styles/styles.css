@@ -11,8 +11,9 @@
   display: flex;
   flex-direction: column;
   border: 1px solid white;
-  border-radius: 16px;
   background-color: transparent;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .interface {
@@ -30,12 +31,10 @@
 }
 
 .message-container {
-  margin: 0.1em 0;
   width: 100%;
   flex-grow: 1;
   overflow-y: auto;
   background: #303030;
-  border-radius: 16px;
 }
 
 /* Toolbar | Sub-Component */
@@ -79,7 +78,7 @@
 /* Message Display | Sub-Component */
 
 .message {
-  padding: 0.25em;
+  margin: 1em;
   color: white;
 }
 
@@ -87,14 +86,18 @@
   font-size: 1.5em;
 }
 
-.prompt,
+/* .prompt, */
 .response {
-  padding: 0.25em;
+  margin: 0.5em;
+  padding: 0.5em;
   border-radius: 8px;
 }
 
 .prompt {
-  background-color: green;
+  padding-top: 0.5em;
+  margin: 0.5em;
+  font-size: 1em;
+  border-radius: 8px;
 }
 
 .response {
@@ -103,7 +106,7 @@
 
 .response-img {
   padding: 1em;
-  width: 60%;
+  width: 50%;
   height: auto;
   border-radius: 3em;
 }
@@ -131,7 +134,7 @@
 }
 
 .moment-toolbar {
-  margin-left: 0.5em;
+  margin-left: 1.25em;
 }
 
 .date-timestamp {
@@ -162,10 +165,20 @@
   color: green;
 }
 
+.primaryAgent,
+.agentImage,
+.intialResponse {
+
+  padding-left: 0.5em;
+}
+
 .agent {
-  margin: 0.5em;
   padding: 0.5em;
   border-radius: 10px;
+}
+
+.agentName {
+  margin-top: 1em;
 }
 
 .agent pre {
@@ -174,7 +187,7 @@
 }
 
 .agentImage {
-  width: 10em;
+  width: 40%;
   border-radius: 10px;
 }
 
@@ -185,8 +198,6 @@
   height: 10vh;
   background-color: black;
   color: white;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
   vertical-align: top;
   white-space: pre-wrap;
   font-size: 1.25em;

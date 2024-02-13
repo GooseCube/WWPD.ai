@@ -28,8 +28,9 @@ import "./styles/styles.css";
 
 // Asset Images (icons)
 import app_icon from "../../assets/sidebar/app_icon.png";
-import idea from "../../assets/sidebar/idea.png";
 import essay from "../../assets/sidebar/essay.png";
+import idea from "../../assets/sidebar/idea.png";
+import message from "../../assets/sidebar/message.png";
 import { getRandomMeetingPlace } from "../../modules/momentum/speechModules/helperFunctions";
 
 function Sidebar() {
@@ -104,15 +105,15 @@ function Sidebar() {
           show={showArrowButton}
           onHide={() => setShowArrowButton(!showArrowButton)}>
           <Offcanvas.Header closeButton>
-            <SidebarHeader />
+            <SidebarHeader icon={app_icon} />
           </Offcanvas.Header>
 
           <Offcanvas.Body className="d-flex flex-column">
             <ButtonSelection
               buttonText="Interface"
-              image={essay}
-              altText="input interface button"
-              show={show}
+              image={message}
+              altText="open message interface button"
+              show={show.interface}
               showProviderType="SET_INTERFACE"
               dispatch={dispatch}
             />
@@ -134,6 +135,14 @@ function Sidebar() {
                 { title: "Zephyr", type: "chat" },
                 { title: "StabilityXL", type: "txt2img" },
               ]}
+            />
+            <ButtonSelection
+              buttonText="Documentation"
+              image={essay}
+              altText="open documentation button"
+              show={show.documentation}
+              showProviderType="SET_SHOW_DOCUMENTATION"
+              dispatch={dispatch}
             />
             <AgentProfile agents={agents} show={show} dispatch={dispatch} />
           </Offcanvas.Body>

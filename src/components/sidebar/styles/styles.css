@@ -26,8 +26,8 @@
 
 
 .app-icon-img {
-  width: 3.5em;
-  height: 3.5em;
+  width: 4em;
+  height: 4em;
 }
 
 .sidebar-help-icon {
@@ -91,7 +91,7 @@
   background-color: var(--white);
   color: var(--black);
   font-size: 1.5em;
-  border-radius: 10px;
+  border-radius: 6px;
   box-shadow: 8px 8px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
@@ -112,6 +112,12 @@
 .dropdown-toggle-btn {
   height: 3.25em;
   width: 2.65em;
+}
+
+.sidebar-btn-title {
+  padding-top: 0.5em;
+  padding-left: 0.25em;
+  font-size: 1em;
 }
 
 .sidebar-button:hover,

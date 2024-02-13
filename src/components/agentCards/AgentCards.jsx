@@ -56,7 +56,6 @@ function AgentCards() {
         {agents && (
           <div className="cards-container">
             <Cards
-              show={show}
               agents={agents}
               setAgents={setAgents}
               cardIndex={cardIndex}

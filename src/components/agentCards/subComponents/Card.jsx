@@ -3,7 +3,7 @@
 import SpinnerAnimation from "../../loadAnimations/Spinner";
 
 // Builds a single agent card
-function Card({ show, agent, agentImage }) {
+function Card({ agent, agentImage }) {
   const animationAttributes = {
     className: "agent-loading-animation",
     animation: "grow", // you can also use "border" for circle
@@ -11,7 +11,7 @@ function Card({ show, agent, agentImage }) {
 
   return (
     <>
-      {show.isLoading ? (
+      {!agentImage ? (
         <SpinnerAnimation attributes={animationAttributes} />
       ) : (
         <div

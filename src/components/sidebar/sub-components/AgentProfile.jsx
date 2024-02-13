@@ -6,6 +6,9 @@ import { useState, useEffect } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Controller } from "react-bootstrap-icons";
 
+// Components
+import SpinnerAnimation from "../../loadAnimations/Spinner";
+
 /**
  * Display the current player controlled agents profile:
  * Image, Name, and Personality
@@ -30,8 +33,9 @@ function AgentProfile({ agents, show, dispatch }) {
   }, [agents]);
 
   return !sprite || !agent ? (
-    <div className="agent-profile-error agent-profile-container border rounded p-2">
+    <div className="agent-profile-error agent-profile-container border rounded p-2 text-center">
       Agent will be displayed in a moment
+      <SpinnerAnimation attributes={{className: "agent-loading-animation", animation: "grow"}} />
     </div>
   ) : (
     <OverlayTrigger

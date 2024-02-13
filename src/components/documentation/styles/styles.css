@@ -1,0 +1,73 @@
+/* local global variables */
+.documentation-container {
+  --white: #e9e9e9;
+  --black: #010409;
+  --red: red;
+  --green: #158222;
+}
+
+.documentation-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 550px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border-radius: 8px;
+  background-color: var(--black);
+}
+
+/* Documentation Title */
+
+.docs-title-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.close-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1em;
+  width: 2em;
+  height: 2em;
+  color: var(--white);
+}
+
+.close-icon:hover {
+  color: var(--green);
+  transform: scale(1.15);
+  transition: background-color 1.3s ease, color 0.3s ease;
+}
+
+.doc-title {
+  padding: 1em;
+  color: var(--white);
+}
+
+/* Nav Tabs */
+
+.nav-link {
+  background-color: darkslategrey;
+  color: var(--white);
+}
+
+.nav-link.active {
+  background-color: var(--green) !important;
+  color: var(--white) !important;
+}
+
+.nav-link:hover {
+  background-color: var(--black);
+  color: var(--white) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tab Items & Body */
+
+.tab-item {
+  font-size: 1.25em;
+  color: var(--white);
+}

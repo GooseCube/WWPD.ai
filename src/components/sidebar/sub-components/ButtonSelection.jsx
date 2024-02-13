@@ -11,12 +11,12 @@ function ButtonSelection({
 }) {
   return (
     <div
-      className="sidebar-button mb-3"
+      className="sidebar-button d-flex mb-3"
       onClick={() =>
-        dispatch({ type: showProviderType, payload: !show.interface })
+        dispatch({ type: showProviderType, payload: !show })
       }>
       <Image className="sidebar-btn-img" src={image} alt={altText} />{" "}
-      {buttonText}
+      <div className="sidebar-btn-title">{buttonText}</div>
     </div>
   );
 }

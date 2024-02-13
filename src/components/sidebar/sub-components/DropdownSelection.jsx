@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { ButtonGroup, Dropdown, Image } from "react-bootstrap";
 
 /**
@@ -16,7 +17,7 @@ function DropdownSelector({ buttonTitle, image, dropdownEvent, listItems }) {
           src={image}
           alt={`${buttonTitle} selector`}
         />{" "}
-        {buttonTitle}
+        <div className="sidebar-btn-title">{buttonTitle}</div>
         <Dropdown.Toggle
           className="dropdown-toggle-btn ms-auto"
           split

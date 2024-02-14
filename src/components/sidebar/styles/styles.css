@@ -36,7 +36,7 @@
 
 /* Used for sidebar header title animation */
 .animate-letter {
-  font-size: 3rem;
+  font-size: 2.75rem;
   display: inline-block;
   animation: growAndMove 0.3s ease forwards;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);

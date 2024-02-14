@@ -5,9 +5,9 @@ import { Image } from "react-bootstrap";
 import { delay } from "../../../modules/momentum/speechModules/helperFunctions";
 
 function SidebarHeader({ icon }) {
-  const gameTitle = "G . A . M . E .";
-  const animationTitle = ["", "G", ".", "A", ".", "M", ".", "E", ".", ""];
   const [title, setTitle] = useState(null);
+  const gameTitle = "What Would PDX Do ?";
+  const animationTitle = ["", "What", "Would", "PDX", "Do", "?", ""];
 
   /**
    * On render animation for the game title
@@ -44,7 +44,7 @@ function SidebarHeader({ icon }) {
 
   return (
     <div className="sidebar-title mx-5 w-75 d-flex justify-content-around align-items-center">
-      <Image className="app-icon-img" src={icon} />
+      {/* <Image className="app-icon-img" src={icon} /> */}
       {title ? (
         title
       ) : (

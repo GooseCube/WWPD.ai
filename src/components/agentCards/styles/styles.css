@@ -107,6 +107,10 @@
   font-size: 12px;
 }
 
+textarea {
+  padding: 0.25em;
+}
+
 .agent-edit-form .top-row {
   display: flex;
   justify-content: space-around;

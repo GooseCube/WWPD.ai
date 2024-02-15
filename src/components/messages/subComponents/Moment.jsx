@@ -66,20 +66,18 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
       </div>
       {moment.conversation.map((item, index) => {
         if (index === 0) {
-          // display the header with original prompt
+          // display the header with original prompt (primary agent)
           return (
             <div
               key={index}
               className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
-              <div className="primaryAgent fs-3">
-                {item.primaryAgent.name}: Initial Idea
-              </div>
               {moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
-              <pre className="initialResponse fs-4">
-                {item.initialResponse}
-              </pre>
+              <div className="primaryAgent fs-3">
+                {item.primaryAgent.name}: Initial Idea
+              </div>
+              <pre className="initialResponse fs-4">{item.initialResponse}</pre>
             </div>
           );
         }
@@ -88,11 +86,11 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
         else if (index === moment.conversation.length - 1) {
           return (
             <div key={index} className="agent">
-              <div className="header fs-4">
-                <pre>{item.header}</pre>
-              </div>
+              {moment.images[index] && (
+                <img className="agentImage" src={moment.images[index]} />
+              )}
               <div className="speech fs-4">
-                <pre className="fs-4">{item.speech}</pre>
+                <pre className="fs-4">{item.finalSpeech}</pre>
               </div>
             </div>
           );

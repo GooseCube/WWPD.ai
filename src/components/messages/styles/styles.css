@@ -58,7 +58,6 @@
 
 .toolbar-icon:hover {
   color: green;
-  transform: scale(1.1);
   transition: all 0.3s ease;
 }
 
@@ -152,7 +151,6 @@
 .delete-message-icon:hover,
 .email-moment-icon:hover,
 .download-moment-icon:hover {
-  transform: scale(1.25);
   transition: all 0.3s ease;
 }
 

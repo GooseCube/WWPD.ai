@@ -1,4 +1,6 @@
 export const agentEmojis = {
+  brainstorming:["🤔", "💭", "🤯"], 
+  idea: ["🌟", "🙌", "💡"],
   scroll: ["📃", "📜"],
   globe: ["🌎", "🌏"],
   temple: ["🏛", "🛕", "🕍"],

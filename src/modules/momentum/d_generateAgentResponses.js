@@ -11,7 +11,6 @@ import {
   getRandomAudiencePosition,
   getRandomEmoji,
   faceDirectionOfOtherAgent,
-  delay,
 } from "./speechModules/helperFunctions";
 import { agentDiscussionPrompt } from "./speechModules/promptTemplates";
 
@@ -44,7 +43,14 @@ export const generateAgentResponses = async (
 
   try {
     // Fetch agent response to primaryAgent (use the SDK completion fetch)
-    const agentResponse = await fetchModelResponse(aiModel, agentPrompt);
+    let agentResponse = await fetchModelResponse(aiModel, agentPrompt);
+
+    for (let index = 0; index < 4; ++index) {
+      agentResponse += await fetchModelResponse(
+        aiModel,
+        agentPrompt + "\n" + agentResponse
+      );
+    }
 
     /**
      * Add the new information with agent and response to the ongoing
@@ -69,7 +75,6 @@ export const generateAgentResponses = async (
     // Create an image based on agent response
     // which should also give the agent time to finish their text response
     await generateSlideImage(agentResponse, speech);
-    // await delay(3000);
 
     /**
      * speechLocation object is selected by the user and set in the /Sidebar component.

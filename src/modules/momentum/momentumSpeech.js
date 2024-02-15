@@ -9,6 +9,7 @@ import { initializeAgents } from "./a_initializeAgents";
 import { initializePrimaryAgentIdea } from "./b_initPrimaryAgentIdea";
 import { generateAgentResponses } from "./d_generateAgentResponses";
 import { movePrimaryAgentAndTalk } from "./c_movePrimaryToAnAgent";
+import { generateSlideImage } from "./e_generateSlideImage";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -52,7 +53,7 @@ export const momentumSpeech = async (
    * fetch the paraphrase of the initial idea
    */
   try {
-    await initializePrimaryAgentIdea(speech, aiModel, moment);
+    await initializePrimaryAgentIdea(speech, aiModel, moment, setAgents);
   } catch (error) {
     console.error("Error Initializing Primary Agent Idea\n", error);
   }
@@ -67,7 +68,6 @@ export const momentumSpeech = async (
     initialResponse: speech.primaryAgentInitialIdea,
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
-
 
   for (const agent of speech.agentList) {
     try {
@@ -102,12 +102,18 @@ export const momentumSpeech = async (
     )
   );
 
-  const finalSpeech = {
-    header: "---------- MOMENT: Final Speech ----------",
-    speech: speech.primaryAgentFinalSpeech,
-  };
+  for (let index = 0; index < 5; ++index) {
+    speech.primaryAgentFinalSpeech += await fetchModelResponse(
+      aiModel,
+      `${finalMomentPrompt(
+        speech.primaryAgent,
+        moment.finalPrompt,
+        speech.primaryAgentInitialIdea
+      )} ${speech.primaryAgentFinalSpeech}`
+    );
+  }
 
-  speech.conversations.push(finalSpeech);
+  speech.conversations.push({finalSpeech: speech.primaryAgentFinalSpeech});
 
   await moveAgent(
     speech.primaryAgent,
@@ -126,11 +132,13 @@ export const momentumSpeech = async (
 
   await updateAgent({ ...speech.primaryAgent }, setAgents);
 
-  // After the set time (30000 === 30 seconds)
+  await generateSlideImage(speech.primaryAgentFinalSpeech, speech)
+
+  // After the set time (60000 === 60 seconds || 1 minute)
   // send all agents to home position and clear their local
   // momentResponses to ensure no further text during game
   setTimeout(async () => {
     setShowImageScreen(false);
     await sendAllAgentsHome(agents, setAgents, updateAgent);
-  }, 30000);
+  }, 60000);
 };

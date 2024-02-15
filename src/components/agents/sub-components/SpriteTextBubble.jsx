@@ -47,9 +47,9 @@ function SpriteTextBubble({ agent }) {
   }, [currentIndex, textArray]);
 
   return displayName ? (
-    <div className="sprite-text-container">{`${agent.name}`}</div>
+    <div className={`sprite-text-container ${agent.name}`}>{`${agent.name}`}</div>
   ) : (
-    <div className="sprite-text-container">{textArray[currentIndex]}</div>
+    <div className={`sprite-text-container ${agent.name}`}>{textArray[currentIndex]}</div>
   );
 }
 

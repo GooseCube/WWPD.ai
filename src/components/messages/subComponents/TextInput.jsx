@@ -37,19 +37,11 @@ function TextInput({ show, dispatch, sidebar, agents }) {
         if (response) {
           let finalResponse = response;
 
-          // Check if the response is a URL
-          const isUrl = (str) => {
-            try {
-              new URL(str);
-              return true;
-            } catch (_) {
-              return false;
-            }
-          };
-
-          if (isUrl(response)) {
+          if (
+            response.startsWith("data:image") ||
+            response.startsWith("blob:http")
+          ) {
             finalResponse = await firebaseTxt2Img(response);
-            console.log("URL Test: ", isUrl(finalResponse))
           } else {
             response += await fetchModelResponse(
               sidebar.aiModel.title,

@@ -10,7 +10,6 @@ import Spinner from "react-bootstrap/Spinner";
  * @returns spinner animation element
  */
 function SpinnerAnimation({ attributes }) {
-  console.log("Spinner Attributes: ", attributes)
   return <Spinner {...attributes} />;
 }
 

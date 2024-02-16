@@ -1,4 +1,3 @@
-import axios from "axios";
 import stabilityaiXLAPI from "../../modelAPI/stabilityaiXLAPI";
 import { createImagePrompt } from "./speechModules/promptTemplates";
 
@@ -14,22 +13,12 @@ export const generateSlideImage = async (response, speech) => {
     const prompt = createImagePrompt(response);
     const image = await stabilityaiXLAPI(prompt);
 
-    const imageResponse = await axios.get(image, {
-      responseType: "blob",
-    });
-
-    const finalResponse = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(imageResponse.data);
-    });
-
-    // Ensure that a valid response is pushed
-    // and not 'null' or 'undefined'
-    if (finalResponse) {
-      speech.images.push(finalResponse);
+    if (!image) {
+      throw new Error(
+        `Unable to build the prompt image for agent\nPrompt: ${prompt}`
+      );
     }
+    speech.images.push(image);
   } catch (error) {
     throw new Error(
       `Unable to generate the requested slide image for ${response}: ${error}`

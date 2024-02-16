@@ -24,5 +24,5 @@ export const agentDiscussionPrompt = (agent, primaryAgent, initialIdea) => {
 };
 
 export const createImagePrompt = (response) => {
-  return `Generate an image that best represents the the following idea: ${response}`;
+  return `Generate an image that best represents the the following text: ${response}`;
 };

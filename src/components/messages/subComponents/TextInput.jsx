@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { pushNewMessage } from "../../../firebase/firebaseMessages";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
+import { firebaseTxt2Img } from "../../../modelAPI/modules/firebaseTxt2ImgURL";
 
 const buildPrompt = (agent, userPrompt) => {
   const instruction = `Instruction: Answer the following prompt using the given persona and prompt.
@@ -33,26 +34,42 @@ function TextInput({ show, dispatch, sidebar, agents }) {
           buildPrompt(agent, userPrompt)
         );
 
-        response += await fetchModelResponse(
-          sidebar.aiModel.title,
-          buildPrompt(agent, userPrompt) + "\n" + response
-        );
+        if (response) {
+          let finalResponse = response;
 
-        // Error handling for response
-        if (!response) {
+          // Check if the response is a URL
+          const isUrl = (str) => {
+            try {
+              new URL(str);
+              return true;
+            } catch (_) {
+              return false;
+            }
+          };
+
+          if (isUrl(response)) {
+            finalResponse = await firebaseTxt2Img(response);
+            console.log("URL Test: ", isUrl(finalResponse))
+          } else {
+            response += await fetchModelResponse(
+              sidebar.aiModel.title,
+              buildPrompt(agent, userPrompt) + "\n" + response
+            );
+          }
+
+          // Save to Firebase messages
+          await pushNewMessage(userPrompt, finalResponse, agent);
+          // Clear the input & reset isLoading
+          setUserPrompt("");
           dispatch({ type: "SET_IS_LOADING", payload: false });
-          throw new Error(
-            `Response is undefined for the text input.\nResponse: ${response}`
-          );
+        } else {
+          dispatch({ type: "SET_IS_LOADING", payload: false });
+          throw new Error(`Error handling text prompt fetch`);
         }
-
-        // Save to Firebase messages
-        await pushNewMessage(userPrompt, response, agent);
-        // Clear the input & reset isLoading
-        setUserPrompt("");
-        dispatch({ type: "SET_IS_LOADING", payload: false });
       } catch (error) {
-        console.error(`Unable to retrieve the AI Model response\n${error}`);
+        console.log(
+          `Text Input error ocurred while fetching response ${error}`
+        );
       }
     }
   };

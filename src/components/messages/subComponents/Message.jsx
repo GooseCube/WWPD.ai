@@ -3,18 +3,9 @@ import { removeMessage } from "../../../firebase/firebaseMessages";
 import { Trash } from "react-bootstrap-icons";
 
 function Message({ id, message }) {
-  // Check if the response is a URL
-  const isUrl = (str) => {
-    try {
-      new URL(str);
-      return true;
-    } catch (_) {
-      // the (_) indicates that error is not used in catch (ignored)
-      return false;
-    }
-  };
+  const errorMessage = "That didn't go as planned";
 
-  return (
+  return message ? (
     <div key={id} className="message">
       <div className={`prompt ${message.agent.name}`}>
         <Trash
@@ -26,9 +17,11 @@ function Message({ id, message }) {
           {message.agent.name} Prompt: {message.prompt}
         </pre>
       </div>
+
       <div className={`response ${message.agent.name}`}>
         {message.agent.name} Response:{" "}
-        {isUrl(message.response) ? (
+        {message.response?.startsWith("data:image") ||
+        message.response?.startsWith("blob:http") ? (
           <img
             className="response-img"
             src={message.response}
@@ -39,6 +32,8 @@ function Message({ id, message }) {
         )}
       </div>
     </div>
+  ) : (
+    <div className="message-error">{errorMessage}</div>
   );
 }
 

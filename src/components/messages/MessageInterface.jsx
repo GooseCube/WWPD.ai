@@ -6,7 +6,7 @@ import Draggable from "react-draggable";
 import { ResizableBox } from "react-resizable";
 
 // Global Context Providers
-import { AuthContext } from "../contextProviders/AuthProvider";
+import { FirebaseContext } from "../contextProviders/FirebaseProvider";
 import { useShow } from "../contextProviders/ShowProvider";
 
 // Messages Sub-Components
@@ -20,7 +20,7 @@ import "react-resizable/css/styles.css";
 import "./styles/styles.css";
 
 function MessageInterface({ handleEmail }) {
-  const { agents, messages, moments, sidebar } = useContext(AuthContext);
+  const { agents, messages, moments, sidebar } = useContext(FirebaseContext);
   const { show, dispatch } = useShow();
 
   return (

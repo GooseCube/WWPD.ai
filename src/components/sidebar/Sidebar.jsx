@@ -18,7 +18,7 @@ import ButtonSelection from "./sub-components/ButtonSelection";
 import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
-import { AuthContext } from "../contextProviders/AuthProvider";
+import { FirebaseContext } from "../contextProviders/FirebaseProvider";
 import * as moments from "../../modules/momentum/speechModules/moments";
 import { momentumSpeech } from "../../modules/momentum/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";
@@ -35,7 +35,7 @@ import { getRandomMeetingPlace } from "../../modules/momentum/speechModules/help
 
 function Sidebar() {
   const { show, dispatch } = useShow();
-  const { agents, sidebar, setAgents } = useContext(AuthContext);
+  const { agents, sidebar, setAgents } = useContext(FirebaseContext);
   const [showArrowButton, setShowArrowButton] = useState(true);
   const [overlayImages, setOverlayImages] = useState([]);
   const [screenStyles, setScreenStyles] = useState({});
@@ -50,7 +50,6 @@ function Sidebar() {
 
     if (sidebar.aiModel.title !== "StabilityXL") {
       const meetingPlace = getRandomMeetingPlace();
-      console.log("Meeting Place: ", meetingPlace);
 
       // Set the styles for Projector Screen
       setScreenStyles(meetingPlace.screenStyles);

@@ -3,7 +3,7 @@
 import { useContext, useState } from "react";
 
 // Context Providers
-import { AuthContext } from "../contextProviders/AuthProvider";
+import { FirebaseContext } from "../contextProviders/FirebaseProvider";
 import { useShow } from "../contextProviders/ShowProvider";
 
 // Sub Components
@@ -37,7 +37,7 @@ const goRight = function incrementCardIndex(
 };
 
 function AgentCards() {
-  const { agents, setAgents } = useContext(AuthContext);
+  const { agents, setAgents } = useContext(FirebaseContext);
   const { show, dispatch } = useShow();
   const [editAgent, setEditAgent] = useState(null);
   const [cardIndex, setCardIndex] = useState(0);

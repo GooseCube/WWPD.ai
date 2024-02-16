@@ -17,7 +17,7 @@ import { getUserMoments } from "../../firebase/firebaseMoments";
 import { getSidebarProperties } from "../../firebase/firebaseSidebar";
 
 // Auth
-import { AuthContext } from "../path-to-auth-provider"; // replace with actual path
+import { AuthContext } from "./AuthProvider";
 
 /**
  * context: {agents, setAgents, messages, moments, sidebar}
@@ -46,7 +46,7 @@ const FirebaseProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [user]); // add user as a dependency
+  }, [user]);
 
   return (
     <FirebaseContext.Provider

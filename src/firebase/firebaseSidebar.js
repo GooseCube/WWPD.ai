@@ -21,7 +21,6 @@ export const getSidebarProperties = async (setSidebar) => {
       updateSidebar(sidebar);
     }
     setSidebar(sidebar);
-    console.log("AI Model Set As: ", sidebar);
   });
 };
 

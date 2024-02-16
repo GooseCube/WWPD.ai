@@ -16,10 +16,10 @@ import { emailFormatting } from "./modules/emailFormatting";
 import "./styles/styles.css";
 
 /**
- * Uses the AuthContext 'moments' allowing a user to select
- * a moment from the list, and the email to send the 'moment' to
- * @param {context} show
- * @param {context} dispatch
+ * Provides the input form displaying the user selected moment
+ * and when an email is entered and submitted, the 'moment'
+ * will be formatted for delivery
+ * @param {object} moment
  * @returns the Email moment selector form
  */
 function EmailForm({ moment }) {
@@ -46,6 +46,7 @@ function EmailForm({ moment }) {
         publicKey
       );
       console.log("EmailJS Request Success: ", result.text);
+      alert(`Email was successfully sent to ${email}`);
     } catch (error) {
       console.log("EmailJS Request Error: ", error);
     }

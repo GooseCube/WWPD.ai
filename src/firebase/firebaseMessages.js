@@ -36,7 +36,6 @@ export const pushNewMessage = async (prompt, response, agent) => {
 
   try {
     await set(newMessageRef, message);
-    console.log("New Message Pushed to Firebase: ", message);
   } catch (error) {
     console.log("Unable to push new message to Firebase: ", error);
   }

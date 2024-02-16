@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, createContext } from "react";
+
+import { useState, useEffect, createContext, useContext } from "react";
 
 // Firebase Initial Configuration
 import { auth } from "../../firebase/firebaseConfig";
@@ -15,13 +16,16 @@ import { getUserMessages } from "../../firebase/firebaseMessages";
 import { getUserMoments } from "../../firebase/firebaseMoments";
 import { getSidebarProperties } from "../../firebase/firebaseSidebar";
 
+// Auth
+import { AuthContext } from "../path-to-auth-provider"; // replace with actual path
+
 /**
- * context: {user, agents, setAgents, messages, moments, sidebar}
+ * context: {agents, setAgents, messages, moments, sidebar}
  */
-export const AuthContext = createContext();
+export const FirebaseContext = createContext();
 
 const FirebaseProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const { user } = useContext(AuthContext);
   const [agents, setAgents] = useState([]);
   const [messages, setMessages] = useState([]);
   const [moments, setMoments] = useState([]);
@@ -29,7 +33,6 @@ const FirebaseProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
       if (user) {
         if (await isFirstAgentInitialization()) {
           await initializeAgentsFromPersonas(setAgents);
@@ -43,13 +46,13 @@ const FirebaseProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user]); // add user as a dependency
 
   return (
-    <AuthContext.Provider
-      value={{ user, agents, setAgents, messages, moments, sidebar }}>
+    <FirebaseContext.Provider
+      value={{ agents, setAgents, messages, moments, sidebar }}>
       {children}
-    </AuthContext.Provider>
+    </FirebaseContext.Provider>
   );
 };
 

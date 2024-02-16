@@ -14,7 +14,7 @@
 import { useState, useEffect, useContext } from "react";
 
 // Context Providers
-import { AuthContext } from "../contextProviders/AuthProvider";
+import { FirebaseContext } from "../contextProviders/FirebaseProvider";
 
 // Image Assets
 import screenImage from "../../assets/art/pull_down_screen.png";
@@ -24,7 +24,7 @@ import "./styles/styles.css";
 // Keep this commented ImageScreen() function DO NOT REMOVE
 // function ImageScreen({ overlayImages }) {
 function ImageScreen({ screenStyles, overlayStyles }) {
-  const { moments } = useContext(AuthContext);
+  const { moments } = useContext(FirebaseContext);
   const [images, setImages] = useState([]);
   const [currentImage, setCurrentImage] = useState(null);
   const [index, setIndex] = useState(0);

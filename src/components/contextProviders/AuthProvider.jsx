@@ -5,40 +5,26 @@ import { useState, useEffect, createContext } from "react";
 import { auth } from "../../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
-// Firebase
-import {
-  isFirstAgentInitialization,
-  initializeAgentsFromPersonas,
-  loadAgentsFromFirebase,
-} from "../../firebase/firebaseAgents";
-import { getUserMessages } from "../../firebase/firebaseMessages";
-import { getUserMoments } from "../../firebase/firebaseMoments";
-import { getSidebarProperties } from "../../firebase/firebaseSidebar";
-
 /**
- * context: {user, agents, setAgents, messages, moments, sidebar}
+ * context: {email, uid, displayName, photoURL}
  */
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [agents, setAgents] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [moments, setMoments] = useState([]);
-  const [sidebar, setSidebar] = useState([]);
+  const [email, setEmail] = useState(null);
+  const [uid, setUid] = useState(null);
+  const [displayName, setDisplayName] = useState(null);
+  // const [photoUrl, setPhotoURL] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       if (user) {
-        if (await isFirstAgentInitialization()) {
-          await initializeAgentsFromPersonas(setAgents);
-        } else {
-          await loadAgentsFromFirebase(agents, setAgents);
-        }
-        await getUserMessages(setMessages);
-        await getUserMoments(setMoments);
-        await getSidebarProperties(setSidebar);
+        setEmail(user.email);
+        setUid(user.uid);
+        setDisplayName(user.displayName);
+        // setPhotoURL(user.photoURL);
       }
     });
 
@@ -46,8 +32,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, agents, setAgents, messages, moments, sidebar }}>
+    <AuthContext.Provider value={{ user, email, uid, displayName }}>
       {children}
     </AuthContext.Provider>
   );

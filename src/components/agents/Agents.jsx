@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 
 // Global Context Providers
-import { AuthContext } from "../contextProviders/AuthProvider";
+import { FirebaseContext } from "../contextProviders/FirebaseProvider";
 
 // Firebase DB
 import { updateAgent } from "../../firebase/firebaseAgents";
@@ -16,7 +16,7 @@ import "./styles/styles.css";
 import gameBackgroundImage from "../../assets/StevenOchsBgImage.png";
 
 function Agents() {
-  const { agents, setAgents } = useContext(AuthContext);
+  const { agents, setAgents } = useContext(FirebaseContext);
   const [prevPlayerControlled, setPrevPlayerControlled] = useState([]);
 
   const changePlayerControlled = (agent) => {

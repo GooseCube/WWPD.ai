@@ -6,6 +6,8 @@ import { useState } from "react";
 import { auth } from "../../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+import Login from "./Login";
+
 // React Components
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -14,7 +16,7 @@ import Modal from "react-bootstrap/Modal";
 // Login CSS Styles
 import "./styles.css";
 
-function SignUp({ setSignUp }) {
+function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
@@ -46,7 +48,9 @@ function SignUp({ setSignUp }) {
     }
   };
 
-  return (
+  return !signUp ? (
+    <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+  ) : (
     <>
       <Modal show={showError} onHide={() => setShowError(false)}>
         <Modal.Header closeButton>

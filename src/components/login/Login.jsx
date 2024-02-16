@@ -10,7 +10,7 @@ import { auth } from "../../firebase/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 // Local Component
-// import SignUp from "./SignUp";
+import SignUp from "./SignUp";
 
 // CSS Styles
 import "./styles.css";
@@ -20,6 +20,7 @@ function Login({ loggedIn, setLoggedIn }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signUp, setSignUp] = useState(false);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -54,7 +55,14 @@ function Login({ loggedIn, setLoggedIn }) {
     }
   };
 
-  return (
+  return signUp ? (
+    <SignUp
+      loggedIn={loggedIn}
+      setLoggedIn={setLoggedIn}
+      signUp={signUp}
+      setSignUp={setSignUp}
+    />
+  ) : (
     <>
       <Modal show={showError} onHide={() => setShowError(false)}>
         <Modal.Header closeButton>

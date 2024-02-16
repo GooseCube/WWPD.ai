@@ -28,9 +28,14 @@ function TextInput({ show, dispatch, sidebar, agents }) {
       const agent = agents.find((a) => a.playerControlled === true);
 
       try {
-        const response = await fetchModelResponse(
+        let response = await fetchModelResponse(
           sidebar.aiModel.title,
           buildPrompt(agent, userPrompt)
+        );
+
+        response += await fetchModelResponse(
+          sidebar.aiModel.title,
+          buildPrompt(agent, userPrompt) + "\n" + response
         );
 
         // Error handling for response

@@ -27,14 +27,16 @@ function MessageInterface({ handleEmail }) {
     show.interface &&
     sidebar.aiModel && (
       <div className="message-interface-container">
-        <Draggable handle=".interface">
+        <Draggable handle=".toolbar-handle">
           <ResizableBox width={800} height={600} className="resizable-box">
             <div className="interface">
-              <Toolbar
-                show={show}
-                dispatch={dispatch}
-                aiModel={sidebar.aiModel}
-              />
+              <div className="toolbar-handle">
+                <Toolbar
+                  show={show}
+                  dispatch={dispatch}
+                  aiModel={sidebar.aiModel}
+                />
+              </div>
               {messages && show.messages && (
                 <div className="message-container">
                   {Object.entries(messages).map(([id, message]) => {

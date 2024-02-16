@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import axios from "axios";
 import { pushNewMessage } from "../../../firebase/firebaseMessages";
 import { fetchModelResponse } from "../../../modelAPI/fetchModelResponse";
 
@@ -27,33 +28,68 @@ function TextInput({ show, dispatch, sidebar, agents }) {
       dispatch({ type: "SET_IS_LOADING", payload: true });
       const agent = agents.find((a) => a.playerControlled === true);
 
-      try {
-        let response = await fetchModelResponse(
-          sidebar.aiModel.title,
-          buildPrompt(agent, userPrompt)
-        );
+      let response = await fetchModelResponse(
+        sidebar.aiModel.title,
+        buildPrompt(agent, userPrompt)
+      );
 
-        response += await fetchModelResponse(
-          sidebar.aiModel.title,
-          buildPrompt(agent, userPrompt) + "\n" + response
-        );
+      response += await fetchModelResponse(
+        sidebar.aiModel.title,
+        buildPrompt(agent, userPrompt) + "\n" + response
+      );
 
-        // Error handling for response
-        if (!response) {
-          dispatch({ type: "SET_IS_LOADING", payload: false });
-          throw new Error(
-            `Response is undefined for the text input.\nResponse: ${response}`
-          );
+      if (response) {
+        // Check if the response is a URL
+        const isUrl = (str) => {
+          try {
+            new URL(str);
+            return true;
+          } catch (_) {
+            return false;
+          }
+        };
+
+        let finalResponse = response;
+
+        if (isUrl(response)) {
+          // If the response is a URL, fetch the image and convert it to a Base64 string
+          const imageResponse = await axios.get(response, {
+            responseType: "blob",
+          });
+          const reader = new FileReader();
+          reader.readAsDataURL(imageResponse.data);
+          await new Promise((resolve) => {
+            reader.onloadend = () => {
+              finalResponse = reader.result;
+              resolve();
+            };
+          });
         }
 
         // Save to Firebase messages
-        await pushNewMessage(userPrompt, response, agent);
+        await pushNewMessage(userPrompt, finalResponse, agent);
         // Clear the input & reset isLoading
         setUserPrompt("");
         dispatch({ type: "SET_IS_LOADING", payload: false });
-      } catch (error) {
-        console.error(`Unable to retrieve the AI Model response\n${error}`);
+      } else {
+        dispatch({ type: "SET_IS_LOADING", payload: false });
       }
+
+      // Error handling for response
+      //   if (!response) {
+      //     dispatch({ type: "SET_IS_LOADING", payload: false });
+      //     throw new Error(
+      //       `Response is undefined for the text input.\nResponse: ${response}`
+      //     );
+      //   }
+
+      //   // Save to Firebase messages
+      //   await pushNewMessage(userPrompt, response, agent);
+      //   // Clear the input & reset isLoading
+      //   setUserPrompt("");
+      //   dispatch({ type: "SET_IS_LOADING", payload: false });
+      // } catch (error) {
+      //   console.error(`Unable to retrieve the AI Model response\n${error}`);
     }
   };
 

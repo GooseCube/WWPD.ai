@@ -10,20 +10,13 @@ export const firebaseTxt2Img = async (image) => {
     const imageResponse = await axios.get(image, {
       responseType: "blob",
     });
-
-    // Returns a data URL representing the image data
-    const finalResponse = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(imageResponse.data);
+    const reader = new FileReader();
+    reader.readAsDataURL(imageResponse.data);
+    const finalResponse = await new Promise((resolve) => {
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
     });
-
-    if (!finalResponse) {
-      throw new Error(
-        `firebaseTxt2Img was unable to convert the given image for Firebase ${finalResponse}`
-      );
-    }
     return finalResponse;
   } catch (error) {
     throw new Error(`Unable to convert the given image for Firebase ${error}`);

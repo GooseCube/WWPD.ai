@@ -1,4 +1,5 @@
 import axios from "axios";
+import { firebaseTxt2Img } from "./modules/firebaseTxt2ImgURL";
 
 async function stabilityaiXLAPI(prompt) {
   const HUGGINGFACE_API_TOKEN = import.meta.env.VITE_HUGGINGFACE_API_TOKEN;

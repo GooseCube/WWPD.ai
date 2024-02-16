@@ -8,6 +8,10 @@
   height: 90vh;
 }
 
+.sign-up {
+  background-color: #3a4075;
+}
+
 .form-container {
   margin: 0 auto;
   padding: 1em;

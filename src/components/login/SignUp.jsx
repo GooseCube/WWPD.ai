@@ -66,9 +66,9 @@ function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
 
       <div className="outer-form-container">
         <Form
-          className="col-6 bg-dark bordered form-container"
+          className="col-6 bordered form-container sign-up"
           onSubmit={handleSignUp}>
-          <Form.Text className="text-light form-text">Sign Up</Form.Text>
+          <Form.Text className="text-light form-text">Join Us</Form.Text>
           <Form.Group className="mb-3 form-group" controlId="formBasicEmail">
             <Form.Label className="form-email">Email address</Form.Label>
             <Form.Control
@@ -91,7 +91,7 @@ function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
 
           <div className="d-flex justify-content-center gap-3 form-selection-container">
             <Button variant="primary" type="submit">
-              Sign Up
+              Submit
             </Button>
             <Button variant="secondary" onClick={() => setSignUp(false)}>
               Back to Login

@@ -76,7 +76,7 @@ function Login({ loggedIn, setLoggedIn }) {
         </Modal.Footer>
       </Modal>
 
-      <div className="outer-form-container">
+      <div className="outer-form-container login">
         <Form
           className="col-6 bg-dark bordered form-container"
           onSubmit={handleLogin}>

@@ -1,5 +1,13 @@
 import axios from "axios";
 
+/**
+ * This call also requires that you use another function to
+ * allow persistence in Firebase:
+ * const response = stabilityaiXLAPI(prompt)
+ * const finalResponse = firebaseTxt2Img(response);
+ * @param {string} prompt , string prompt from user or AI Model generation
+ * @returns a URL.createObjectURL(blob) a temporary URL
+ */
 async function stabilityaiXLAPI(prompt) {
   const HUGGINGFACE_API_TOKEN = import.meta.env.VITE_HUGGINGFACE_API_TOKEN;
   const HUGGINGFACE_MISTRAL_URL =
@@ -22,7 +30,6 @@ async function stabilityaiXLAPI(prompt) {
     // create a Blob from the response data and create an object URL from the Blob
     const blob = new Blob([response.data], { type: "image/jpeg" });
     const url = URL.createObjectURL(blob);
-
     return url;
   } catch (error) {
     console.error(

@@ -6,7 +6,10 @@ import { useState } from "react";
 import { auth } from "../../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+// Libraries
+import emailjs from "@emailjs/browser";
 import Login from "./Login";
+import { welcomeEmail } from "./modules/welcomeEmail";
 
 // React Components
 import Button from "react-bootstrap/Button";
@@ -21,6 +24,9 @@ function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
+  const templateID = import.meta.env.VITE_EMAILJS_VERIFICATION_TEMPLATE;
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -29,7 +35,29 @@ function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
     if (!/\S+@\S+\.\S+/.test(email)) {
       setErrorMessage("Please enter a valid email address.");
       setShowError(true);
-      setEmail(""); // Clear the input field
+      setEmail(""); // Clears the input field
+      return;
+    }
+
+    try {
+      console.log("Email sent to: ", email)
+      const templateParams = welcomeEmail(email);
+      const emailVerification = await emailjs.send(
+        serviceID,
+        templateID,
+        templateParams,
+        publicKey
+      );
+      if (!emailVerification) {
+        throw new Error(emailVerification)
+      }
+    } catch (error) {
+      setErrorMessage(
+        "We were unable to verify the email given, please enter a valid email."
+      );
+      setShowError(true);
+      setEmail(""); // Clears the input field
+      console.error(`Email validation error: ${error}`)
       return;
     }
 

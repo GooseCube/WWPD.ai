@@ -12,7 +12,10 @@ import {
   getRandomEmoji,
   faceDirectionOfOtherAgent,
 } from "./speechModules/helperFunctions";
-import { agentDiscussionPrompt } from "./speechModules/promptTemplates";
+import {
+  agentDiscussionPrompt,
+  getEmojiPrompt,
+} from "./speechModules/promptTemplates";
 
 /**
  * Very explicit and delicate function that handles:
@@ -75,6 +78,11 @@ export const generateAgentResponses = async (
     // Create an image based on agent response
     // which should also give the agent time to finish their text response
     await generateSlideImage(agentResponse, speech);
+    const emojiPrompt = getEmojiPrompt(agentResponse);
+    const responseEmojis = await fetchModelResponse("Lllama", emojiPrompt, {
+      type: "chat",
+      params: "emojis",
+    });
 
     /**
      * speechLocation object is selected by the user and set in the /Sidebar component.
@@ -104,13 +112,12 @@ export const generateAgentResponses = async (
         agentAudiencePosition.y,
         setAgents
       );
-
       // update agents facing direction and give final text emoji
       await updateAgent(
         {
           ...agent,
           direction: agentAudiencePosition.direction,
-          momentResponse: getRandomEmoji() + getRandomEmoji(),
+          momentResponse: responseEmojis,
         },
         setAgents
       );
@@ -119,7 +126,7 @@ export const generateAgentResponses = async (
       await updateAgent(
         {
           ...agent,
-          momentResponse: getRandomEmoji() + getRandomEmoji(),
+          momentResponse: responseEmojis,
         },
         setAgents
       );

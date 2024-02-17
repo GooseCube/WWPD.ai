@@ -1,0 +1,19 @@
+{
+  "basic_generation": {
+    "return_full_text": false,
+    "max_new_tokens": 250
+  },
+  "emojis": {
+    "return_full_text": false,
+    "max_new_tokens": 10
+  },
+  "txt2img": {},
+  "location": {
+    "max_new_tokens": 10,
+    "return_full_text": false
+  },
+  "action": {
+    "max_new_tokens": 50,
+    "return_full_text": false
+  }
+}

@@ -1,4 +1,4 @@
-import stabilityaiXLAPI from "../../modelAPI/stabilityaiXLAPI";
+import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import { createImagePrompt } from "./speechModules/promptTemplates";
 import { firebaseTxt2Img } from "../../modelAPI/modules/firebaseTxt2ImgURL";
 
@@ -12,7 +12,10 @@ import { firebaseTxt2Img } from "../../modelAPI/modules/firebaseTxt2ImgURL";
 export const generateSlideImage = async (response, speech) => {
   try {
     const prompt = createImagePrompt(response);
-    const image = await stabilityaiXLAPI(prompt);
+    const image = await fetchModelResponse("StabilityXL", prompt, {
+      type: "txt2img",
+      params: "txt2img",
+    });
     if (!image) {
       throw new Error(`StabilityXL api fetch error\nPrompt: ${prompt}`);
     }

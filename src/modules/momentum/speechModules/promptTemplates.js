@@ -20,9 +20,14 @@ export const agentDiscussionPrompt = (agent, primaryAgent, initialIdea) => {
   return `Idea: ${initialIdea} Instruction: Give advice or help using your persona, the idea you will review and the context but most important keep the response short and complete. 
   Persona: ${agent.age}, ${agent.career}, ${agent.specialty}. ${agent.personality} 
   Context: You and ${primaryAgent.name} are discussing the idea they have and would like to know what you think? This may require you to think outside the box to give your thoughts on the idea.
-  Of course, you may or may not be in the mood or have time to give your advice but it would be great if you could help and use your special skills to outline your thoughts and perspective.`
+  Of course, you may or may not be in the mood or have time to give your advice but it would be great if you could help and use your special skills to outline your thoughts and perspective.`;
 };
 
 export const createImagePrompt = (response) => {
   return `Generate an image that best represents the the following text: ${response}`;
+};
+
+export const getEmojiPrompt = (idea) => {
+  const prompt = `Given the following Idea:\n Idea: Abigail wants to create a marketing campaign for her pirate ship to attract new crew members.\n\n  Yuriko's Advice:\n\n* Create a visually striking marketing flyer or campaign poster that highlights the excitement and adventure of being a pirate.\n* Use bold, eye-catching colors and images of pirate ships, treasure, and the open sea.\nReturn only 2 emojis that represent the statement.\n</instruct>\n<answer> 🏴‍☠️🖼️ </answer> Given the following Idea: ${idea} \nReturn only 2 emojis that represent the statement.\n</instruct>\n<answer> `;
+  return prompt;
 };

@@ -28,7 +28,7 @@ const options = {
  * Requires the model to be used and the a non-empty text string
  * @param {string} model
  * @param {string} prompt
- * @param {object: {type: string, params: 'string'}} config An object containing the type of model and inference parameters to use
+ * @param {object: {type: string, params: string}} config An object containing the type of model and inference parameters to use
  * @returns an awaited response from the specified ai model
  */
 export const fetchModelResponse = async (modelName, prompt, config = {}) => {

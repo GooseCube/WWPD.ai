@@ -29,10 +29,19 @@ function TextInput({ show, dispatch, sidebar, agents }) {
       const agent = agents.find((a) => a.playerControlled === true);
 
       try {
-        let response = await fetchModelResponse(
-          sidebar.aiModel.title,
-          buildPrompt(agent, userPrompt)
-        );
+        let response;
+        if (sidebar.aiModel.title === "StabilityXL") {
+          response = await fetchModelResponse(
+            sidebar.aiModel.title,
+            buildPrompt(agent, userPrompt),
+            { type: "txt2img", params: "txt2img" }
+          );
+        } else {
+          response = await fetchModelResponse(
+            sidebar.aiModel.title,
+            buildPrompt(agent, userPrompt)
+          );
+        }
 
         if (response) {
           let finalResponse = response;
@@ -43,7 +52,7 @@ function TextInput({ show, dispatch, sidebar, agents }) {
           ) {
             finalResponse = await firebaseTxt2Img(response);
           } else {
-            response += await fetchModelResponse(
+            finalResponse += await fetchModelResponse(
               sidebar.aiModel.title,
               buildPrompt(agent, userPrompt) + "\n" + response
             );

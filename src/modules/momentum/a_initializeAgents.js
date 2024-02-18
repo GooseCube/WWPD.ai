@@ -8,6 +8,7 @@ export const initializeAgents = (agents, speech) => {
   // Filter out all 'render: false' agents from the list
   const renderedAgents = agents.filter((agent) => agent.render === true);
 
+
   // Set the playerControlled: true to the speech.primaryAgent
   const playerControlledAgent = renderedAgents.find(
     (agent) => agent.playerControlled === true
@@ -15,6 +16,13 @@ export const initializeAgents = (agents, speech) => {
   if (playerControlledAgent) {
     speech.primaryAgent = playerControlledAgent;
   }
+
+  /**
+   * @ADAM
+   * At this point, the 'renderedAgents' could be split into groups:
+   * - speech.attendingAgents = randomFunction()
+   * - speech.notAttendingAgents = randomFunction()
+   */
 
   // Randomize all rendered agents
   renderedAgents.sort(() => Math.random() - 0.5);

@@ -37,6 +37,9 @@ export const momentumSpeech = async (
     primaryAgent: {},
     updatedPrimaryAgent: {},
     primaryAgentGridLocations: [],
+    // remove agentList and add:
+    // - attendingAgents: [],
+    // - notAttendingAgents: [],
     agentList: [],
     conversations: [],
     images: [],
@@ -47,6 +50,19 @@ export const momentumSpeech = async (
    * Creates a randomized list of the agents rendered to game
    */
   initializeAgents(agents, speech);
+
+  /**
+   * @ADAM
+   * Here is where a Promise.all() for the
+   * notAttendingAgents could kick off their own actions
+   * NOTE:
+   * - Check that actions take place anywhere but at the chosen
+   *    'speechLocation' and you can check the /mapGridPositions/meetingPlaces.js
+   * - Send all notAttendingAgents home (or, not)
+   * await or Promise.all():
+   *  create a new function that will send only the nonAttendingAgents()
+   *  back to their 'home' position {x: number, y: number, direction: string}
+   */
 
   /**
    * Fetch the initial idea based on user selected 'moment' and
@@ -69,6 +85,11 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
+  /**
+   * @ADAM
+   * Should be the only place that you will need to remove
+   * agentList and replace with attendingAgents[]
+   */
   for (const agent of speech.agentList) {
     try {
       await movePrimaryAgentAndTalk(agent, speech, setAgents);
@@ -83,14 +104,6 @@ export const momentumSpeech = async (
       console.error("Error while generating agent responses\n", error);
     }
   }
-
-  /**
-   * At this point the primary agent is at the { x, y } of the last agent to share their idea with.
-   * Their properties should be updated correctly to Firebase and local context.
-   * Next, set up and then deliver the final moment speech in front of those agents
-   * lucky enough to have attended.
-   * NOTE: Agents that are not attending could have other things to do during this time . . .
-   */
 
   // @prompt: Get final speech from AI Model
   speech.primaryAgentFinalSpeech = await fetchModelResponse(
@@ -113,7 +126,7 @@ export const momentumSpeech = async (
     );
   }
 
-  speech.conversations.push({finalSpeech: speech.primaryAgentFinalSpeech});
+  speech.conversations.push({ finalSpeech: speech.primaryAgentFinalSpeech });
 
   await moveAgent(
     speech.primaryAgent,
@@ -132,13 +145,20 @@ export const momentumSpeech = async (
 
   await updateAgent({ ...speech.primaryAgent }, setAgents);
 
-  await generateSlideImage(speech.primaryAgentFinalSpeech, speech)
+  await generateSlideImage(speech.primaryAgentFinalSpeech, speech);
 
   // After the set time (60000 === 60 seconds || 1 minute)
   // send all agents to home position and clear their local
   // momentResponses to ensure no further text during game
   setTimeout(async () => {
     setShowImageScreen(false);
+    /**
+     * @ADAM
+     * Need to add a check to sendAllAgentsHome that are
+     * either primaryAgent === true || part of the attendingAgents List
+     * This way, 'nonAttendingAgents' can continue their actions until
+     * completed.
+     */
     await sendAllAgentsHome(agents, setAgents, updateAgent);
   }, 60000);
 };

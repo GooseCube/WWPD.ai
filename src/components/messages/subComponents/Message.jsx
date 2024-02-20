@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { removeMessage } from "../../../firebase/firebaseMessages";
 import { Trash } from "react-bootstrap-icons";
+import TypeWriter from "../../typeWriter/TypeWriter";
 
 function Message({ id, message }) {
   const errorMessage = "That didn't go as planned";
@@ -28,7 +29,7 @@ function Message({ id, message }) {
             alt="huggingface image content"
           />
         ) : (
-          <pre>{message.response}</pre>
+          <pre><TypeWriter text={message.response} delay={20}/></pre>
         )}
       </div>
     </div>

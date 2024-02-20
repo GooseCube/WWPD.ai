@@ -5,6 +5,7 @@ import {
   push,
   set,
   onValue,
+  update,
 } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 
@@ -22,9 +23,53 @@ export const getUserMoments = async (setMoments) => {
 };
 
 /**
+ * Create a blank moment that can be continuously updated during agent speech generation.
+ */
+export const createBlankMoment = async () => {
+  const blankMoment = {
+    timestamp: Date.now(),
+    conversation: [],
+    images: [],
+  };
+
+  const userId = auth.currentUser.uid;
+  const momentsRef = ref(database, `users/${userId}/moments`);
+  const newMomentsRef = push(momentsRef);
+
+  try {
+    await set(newMomentsRef, blankMoment);
+    console.log("Blank Moment Pushed to Firebase: ", blankMoment);
+    return newMomentsRef;
+  } catch (error) {
+    console.log("Unable to push new moment to Firebase: ", error);
+    return "error"; //let's fix this later...
+  }
+};
+
+/**
+ * Push changes to an existing moment
+ * @param {*} momentsRefToUpdate 
+ * @param {*} speech 
+ */
+export const updateMoment = async(momentsRefToUpdate, speech) => {
+  const updatedMoment = {
+    conversation: [...speech.conversations], 
+    images: [...speech.images],
+  };
+
+  try {
+    await update(momentsRefToUpdate, updatedMoment);
+    console.log("New Moment Pushed to Firebase: ", updatedMoment);
+  } catch (error) {
+    console.log("Unable to push new moment to Firebase: ", error);
+  }
+}
+
+/**
  * Update firebase with a new 'moment' creation
  * @param {string} prompt
  * @param {string} response
+ * Currently no longer used, replaced by createBlankMoment and updateMoment
  */
 export const pushNewMoment = async (speech) => {
   const newMoment = {

@@ -49,7 +49,9 @@ function SpriteTextBubble({ agent }) {
   return displayName ? (
     <div className={`sprite-text-container ${agent.name}`}>{`${agent.name}`}</div>
   ) : (
-    <div className={`sprite-text-container ${agent.name}`}>{textArray[currentIndex]}</div>
+    //logic for displaying name/displaying "talking" being retained, but text box will contain an elipses rather than the moment speech
+    <div className={`sprite-text-container ${agent.name}`}>{`...`}</div>
+    //<div className={`sprite-text-container ${agent.name}`}>{textArray[currentIndex]}</div>  );
   );
 }
 

@@ -1,5 +1,5 @@
 import { updateAgent } from "../../firebase/firebaseAgents";
-import { pushNewMoment } from "../../firebase/firebaseMoments";
+import { createBlankMoment, updateMoment, pushNewMoment } from "../../firebase/firebaseMoments";
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import { moveAgent, sendAllAgentsHome } from "./speechModules/helperFunctions";
 import { finalMomentPrompt } from "./speechModules/promptTemplates";
@@ -50,6 +50,7 @@ export const momentumSpeech = async (
    * Creates a randomized list of the agents rendered to game
    */
   initializeAgents(agents, speech);
+  const newMomentRef = await createBlankMoment();
 
   try {
     const agentActions = await getAgentActions(speech.notAttendingAgents);
@@ -113,6 +114,7 @@ export const momentumSpeech = async (
     initialResponse: speech.primaryAgentInitialIdea,
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
+  await updateMoment(newMomentRef, speech);
 
   /**
    * @ADAM
@@ -129,6 +131,7 @@ export const momentumSpeech = async (
         aiModel,
         speechLocation
       );
+      await updateMoment(newMomentRef, speech);
     } catch (error) {
       console.error("Error while generating agent responses\n", error);
     }
@@ -164,7 +167,7 @@ export const momentumSpeech = async (
     setAgents
   );
 
-  await pushNewMoment(speech);
+  await updateMoment(newMomentRef, speech);
   setShowImageScreen(true);
 
   speech.primaryAgent.x = speechLocation.primaryAgent.x;

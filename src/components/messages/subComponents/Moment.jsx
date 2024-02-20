@@ -3,6 +3,7 @@ import { removeMoment } from "../../../firebase/firebaseMoments";
 import { saveAs } from "file-saver";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Envelope, Trash, Download } from "react-bootstrap-icons";
+import TypeWriter from "../../typeWriter/TypeWriter";
 
 /**
  * Save the moment as a .txt file with .json encoding
@@ -64,33 +65,33 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
           {new Date(moment.timestamp).toLocaleDateString("en-US")}
         </div>
       </div>
-      {moment.conversation.map((item, index) => {
+      {moment?.conversation?.map((item, index) => {
         if (index === 0) {
           // display the header with original prompt (primary agent)
           return (
             <div
               key={index}
               className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
-              {moment.images[index] && (
+              {moment.images && moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
               <div className="primaryAgent fs-3">
                 {item.primaryAgent.name}: Initial Idea
               </div>
-              <pre className="initialResponse fs-4">{item.initialResponse}</pre>
+              <pre className="initialResponse fs-4"><TypeWriter text={item.initialResponse} delay={15}/></pre>
             </div>
           );
         }
 
         // display the moment conclusion, always the last item in array
-        else if (index === moment.conversation.length - 1) {
+        else if (moment?.conversation && index === moment.conversation.length - 1) {
           return (
             <div key={index} className="agent">
-              {moment.images[index] && (
+              {moment.images && moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
               <div className="speech fs-4">
-                <pre className="fs-4">{item.finalSpeech}</pre>
+              <pre className="fs-4"><TypeWriter text={item.finalSpeech} delay={15}/></pre>
               </div>
             </div>
           );
@@ -104,7 +105,7 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
                 <img className="agentImage" src={moment.images[index]} />
               )}
               <div className="agentName fs-3">{item.agent.name}:</div>
-              <div className="agentResponse fs-4">{item.agentResponse}</div>
+              <div className="agentResponse fs-4"><TypeWriter text={item.agentResponse} delay={20}/></div>
             </div>
           );
         }

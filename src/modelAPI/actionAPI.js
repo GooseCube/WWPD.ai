@@ -5,35 +5,13 @@ import {
 } from "./modules/actions";
 import { filterEmojiResponse } from "./modules/filterResponse";
 import fetchModelResponse from "./fetchModelResponse";
-
-const accessToken = import.meta.env.VITE_HUGGINGFACE_API_TOKEN === "TRUE";
+import { meetingPlaces } from "../modules/mapGridPositions/meetingPlaces";
 
 const DEBUG = import.meta.env.VITE_DEBUG;
-
-const locationCoordinates = {
-  0: {
-    name: "the bedroom",
-    x: 10,
-    y: 5,
-  },
-  1: {
-    name: "the restaurant",
-    x: 24,
-    y: 5,
-  },
-  2: {
-    name: "work",
-    x: 40,
-    y: 30,
-  },
-  3: {
-    name: "the kitchen",
-    x: 20,
-    y: 29,
-  },
-};
-
-const model = "meta-llama/Llama-2-70b-chat-hf";
+const locationIndexMapping = {};
+Object.keys(meetingPlaces).forEach((key, index) => {
+  locationIndexMapping[index] = key;
+});
 
 /**
  *
@@ -44,7 +22,7 @@ const model = "meta-llama/Llama-2-70b-chat-hf";
  */
 const getInstruction = async (prompt, params, id) => {
   try {
-    return await fetchModelResponse(model, prompt, {
+    return await fetchModelResponse("Llama", prompt, {
       type: "chat",
       params,
     });
@@ -60,21 +38,19 @@ export const getLocation = async (params) => {
   return new Promise(async (resolve, reject) => {
     try {
       //temp for testing
-      const locations = Object.values(locationCoordinates).map(
-        (item) => item.name
-      );
+      const locations = Object.values(meetingPlaces).map((item) => item.title);
       const prompt = getLocationPrompt(persona, worldState, locations);
-      const { text, error } = await getInstruction(prompt, "location", id);
-      if (error) {
-        reject(error);
+      const response = await getInstruction(prompt, "location", id);
+      if (response.startsWith("Error:")) {
+        reject(response);
       }
-      const match = text.match(/\d+/);
+      const match = response.match(/\d+/);
       let locationNum = Math.floor(Math.random() * locations.length);
-      //temporarily only use random numbers so agents move to different locations
-      // if (match && match >= 0 && match < locations.length) {
-      //   locationNum = parseInt(match[0], 10);
-      // }
-      resolve({ ...locationCoordinates[locationNum] });
+      if (match && match >= 0 && match < locations.length) {
+        locationNum = parseInt(match[0], 10);
+      }
+      const actionLocation = locationIndexMapping[locationNum];
+      resolve({ ...meetingPlaces[actionLocation] });
     } catch (err) {
       reject(err);
     }
@@ -93,14 +69,14 @@ export const getActionDescription = async (
       const actionPrompt = await getActionPrompt(
         persona,
         worldState,
-        location.name
+        location.title
       );
-      const { text, error } = await getInstruction(actionPrompt, "action", id);
-      if (error) {
-        reject(error);
+      const response = await getInstruction(actionPrompt, "action", id);
+      if (response.startsWith("Error:")) {
+        reject(response);
       }
       //return first sentence of response
-      resolve(text.split(".")[0]);
+      resolve(response.split(".")[0]);
     } catch (err) {
       reject(err);
     }
@@ -111,11 +87,18 @@ export const getActionEmoji = async (persona, action, id) => {
   return new Promise(async (resolve, reject) => {
     try {
       //get emojis based on action descriptionconsole.logrompt, "emojis", id);
-      if (error) {
-        reject(error);
+      const response = await fetchModelResponse(
+        "Llama",
+        getEmojiPrompt(persona, action),
+        {
+          type: "chat",
+          params: "emojis",
+        }
+      );
+      if (response.startsWith("Error:")) {
+        reject(response);
       }
-      const emojis = filterEmojiResponse(text);
-      resolve(emojis);
+      resolve(response);
     } catch (err) {
       reject(err);
     }
@@ -126,20 +109,30 @@ export const getAgentActions = async (actions) => {
   return new Promise(async (resolve, reject) => {
     try {
       let agentActions = await Promise.all(
-        actions.map(async (act) => {
-          const { persona, worldState, id } = act;
-          const location = await getLocation({ persona, worldState, id });
+        actions.map(async (agent) => {
+          //const { persona, worldState=[], uid } = agent;
+          //const persona = agent.persona;
+          const id = agent.uid; //temp
+          const worldState = []; //temp
+          const persona = agent; //temp
+          const actionLocation = await getLocation({ persona, worldState, id });
+          const coordinate =
+            actionLocation.audiencePositions[
+              Math.floor(
+                Math.random() * actionLocation.audiencePositions.length
+              )
+            ];
           if (DEBUG) {
             console.log(
               `Location Prompt:\nPersona ${JSON.stringify(
                 persona
-              )}\n${worldState}\nLocation: ${location.name}`
+              )}\n${worldState}\nLocation: ${actionLocation.title}`
             );
           }
           const actionDescription = await getActionDescription(
             persona,
             worldState,
-            location,
+            actionLocation,
             id
           );
           if (DEBUG) {
@@ -149,7 +142,7 @@ export const getAgentActions = async (actions) => {
           if (DEBUG) {
             console.log(`Emojist: ${emojis}`);
           }
-          return { ...location, actionDescription, emojis };
+          return { agent, coordinate, actionDescription, emojis };
         })
       );
       resolve(agentActions);

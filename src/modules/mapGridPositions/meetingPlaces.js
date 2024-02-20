@@ -112,6 +112,7 @@ export const meetingPlaces = {
     },
   },
   bizarreStreet: {
+    title: "Bizarre Street",
     primaryAgent: { x: 41, y: 38, direction: "down" },
     audiencePositions: [
       { x: 32, y: 42, direction: "right" },

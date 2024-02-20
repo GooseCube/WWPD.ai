@@ -3,6 +3,7 @@ import { pushNewMoment } from "../../firebase/firebaseMoments";
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import { moveAgent, sendAllAgentsHome } from "./speechModules/helperFunctions";
 import { finalMomentPrompt } from "./speechModules/promptTemplates";
+import { getAgentActions } from "../../modelAPI/actionAPI";
 
 // ------------------New Imports for Refactor-------------------------------
 import { initializeAgents } from "./a_initializeAgents";
@@ -38,9 +39,8 @@ export const momentumSpeech = async (
     updatedPrimaryAgent: {},
     primaryAgentGridLocations: [],
     // remove agentList and add:
-    // - attendingAgents: [],
-    // - notAttendingAgents: [],
-    agentList: [],
+    attendingAgents: [],
+    notAttendingAgents: [],
     conversations: [],
     images: [],
   };
@@ -51,6 +51,20 @@ export const momentumSpeech = async (
    */
   initializeAgents(agents, speech);
 
+  try {
+    const agentActions = await getAgentActions(speech.notAttendingAgents);
+    agentActions.forEach(async (action) => {
+      const { agent, coordinate, actionDescription, emojis } = action;
+      console.log(`${agent.name} action: ${actionDescription} `);
+      agent.momentResponse = emojis;
+      await moveAgent(agent, coordinate.x, coordinate.y, setAgents);
+    });
+  } catch (error) {
+    console.error(
+      "Error while generating non attending agent responses\n",
+      error
+    );
+  }
   /**
    * @ADAM
    * Here is where a Promise.all() for the
@@ -63,6 +77,21 @@ export const momentumSpeech = async (
    *  create a new function that will send only the nonAttendingAgents()
    *  back to their 'home' position {x: number, y: number, direction: string}
    */
+
+  try {
+    const agentActions = await getAgentActions(speech.notAttendingAgents);
+    agentActions.forEach(async (action) => {
+      const { agent, coordinate, actionDescription, emojis } = agentActions;
+      console.log(`${agent.name} action: ${actionDescription} `);
+      agent.momentResponse = emojis;
+      await moveAgent(agent, coordinate.x, coordinate.y, setAgents);
+    });
+  } catch (error) {
+    console.error(
+      "Error while generating non attending agent responses\n",
+      error
+    );
+  }
 
   /**
    * Fetch the initial idea based on user selected 'moment' and
@@ -90,7 +119,7 @@ export const momentumSpeech = async (
    * Should be the only place that you will need to remove
    * agentList and replace with attendingAgents[]
    */
-  for (const agent of speech.agentList) {
+  for (const agent of speech.attendingAgents) {
     try {
       await movePrimaryAgentAndTalk(agent, speech, setAgents);
       await generateAgentResponses(

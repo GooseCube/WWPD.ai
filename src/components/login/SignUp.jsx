@@ -40,7 +40,7 @@ function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
     }
 
     try {
-      console.log("Email sent to: ", email)
+      console.log("Email sent to: ", email);
       const templateParams = welcomeEmail(email);
       const emailVerification = await emailjs.send(
         serviceID,
@@ -49,7 +49,7 @@ function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
         publicKey
       );
       if (!emailVerification) {
-        throw new Error(emailVerification)
+        throw new Error(emailVerification);
       }
     } catch (error) {
       setErrorMessage(
@@ -57,7 +57,7 @@ function SignUp({ loggedIn, setLoggedIn, signUp, setSignUp }) {
       );
       setShowError(true);
       setEmail(""); // Clears the input field
-      console.error(`Email validation error: ${error}`)
+      console.error(`Email validation error: ${error}`);
       return;
     }
 

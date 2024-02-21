@@ -11,7 +11,7 @@ import Agents from "./components/agents/Agents";
 import AgentCards from "./components/agentCards/AgentCards";
 import MessageInterface from "./components/messages/MessageInterface";
 import EmailForm from "./components/email/Email";
-import Documentation from "./components/documentation/Documentation";
+import MomentsEditor from "./components/momentsEditor/MomentsEditor"
 
 function App() {
   const { show } = useShow();
@@ -30,8 +30,7 @@ function App() {
       <EmailForm moment={moment} />
       <Agents />
       <AgentCards />
-
-      {show.documentation && <Documentation />}
+      {show.momentsEditor && <MomentsEditor />}
     </div>
   ) : (
     <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />

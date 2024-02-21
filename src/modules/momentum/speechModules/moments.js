@@ -105,3 +105,12 @@ export const townSquare = {
     context: `Given the following topic, choose one topic and write a short essay that introduces the topic, includes a thesis with at least three arguments and a conclusion.`,
   },
 };
+
+export const momentTemplates = {
+  digitalLiteracy,
+  healthyLiving,
+  pirates,
+  postApocalypticWorld,
+  sciFiMovie,
+  townSquare,
+};

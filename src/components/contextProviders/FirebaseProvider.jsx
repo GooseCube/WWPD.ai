@@ -18,6 +18,11 @@ import { getSidebarProperties } from "../../firebase/firebaseSidebar";
 
 // Auth
 import { AuthContext } from "./AuthProvider";
+import {
+  getMomentTemplates,
+  initializeMomentTemplatesFromFile,
+  momentTemplatesExist,
+} from "../../firebase/firebaseTemplates";
 
 /**
  * context: {agents, setAgents, messages, moments, sidebar}
@@ -30,6 +35,7 @@ const FirebaseProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [moments, setMoments] = useState([]);
   const [sidebar, setSidebar] = useState([]);
+  const [momentTemplates, setMomentTemplates] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -39,6 +45,13 @@ const FirebaseProvider = ({ children }) => {
         } else {
           await loadAgentsFromFirebase(agents, setAgents);
         }
+
+        if (await momentTemplatesExist()) {
+          await getMomentTemplates(setMomentTemplates);
+        } else {
+          await initializeMomentTemplatesFromFile(setMomentTemplates);
+        }
+
         await getUserMessages(setMessages);
         await getUserMoments(setMoments);
         await getSidebarProperties(setSidebar);
@@ -50,7 +63,14 @@ const FirebaseProvider = ({ children }) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ agents, setAgents, messages, moments, sidebar }}>
+      value={{
+        agents,
+        setAgents,
+        messages,
+        moments,
+        sidebar,
+        momentTemplates,
+      }}>
       {children}
     </FirebaseContext.Provider>
   );

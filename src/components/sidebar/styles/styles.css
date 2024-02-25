@@ -6,7 +6,7 @@
   --grey: #242424;
   --green: #849c3a;
   --gradient-green: #738833;
-  --button-width: 18rem;
+  --button-width: 20rem;
 }
 
 .sidebar-outer-container {
@@ -117,6 +117,11 @@
   box-shadow: 8px 8px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
+.sidebar-dropdown-button .dropdown-list {
+  max-height: 35em;
+  overflow-y: auto;
+}
+
 .sidebar-btn-img {
   margin-left: 0.25em;
   margin-right: 0.25em;
@@ -186,4 +191,10 @@
   width: 2em;
   height: 2em;
   color: var(--green);
+}
+
+/* SCROLLBAR CUSTOMIZATION | Chrome, Microsoft Edge */
+
+.sidebar-dropdown-button .dropdown-list {
+  scrollbar-width: thin;
 }

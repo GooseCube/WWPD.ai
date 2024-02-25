@@ -19,7 +19,7 @@ import AgentProfile from "./sub-components/AgentProfile";
 
 // Outside Component Imports
 import { FirebaseContext } from "../contextProviders/FirebaseProvider";
-import * as moments from "../../modules/momentum/speechModules/moments";
+// import * as moments from "../../modules/momentum/speechModules/moments";
 import { momentumSpeech } from "../../modules/momentum/momentumSpeech";
 import ImageScreen from "../visuals/ImageScreen";
 
@@ -35,7 +35,8 @@ import { getRandomMeetingPlace } from "../../modules/momentum/speechModules/help
 
 function Sidebar() {
   const { show, dispatch } = useShow();
-  const { agents, sidebar, setAgents } = useContext(FirebaseContext);
+  const { agents, sidebar, setAgents, momentTemplates } =
+    useContext(FirebaseContext);
   const [showArrowButton, setShowArrowButton] = useState(true);
   const [overlayImages, setOverlayImages] = useState([]);
   const [screenStyles, setScreenStyles] = useState({});
@@ -92,8 +93,7 @@ function Sidebar() {
         <Button
           className="arrow-button"
           // variant="success"
-          onClick={() => setShowArrowButton(!showArrowButton)}
-        >
+          onClick={() => setShowArrowButton(!showArrowButton)}>
           {showArrowButton ? (
             <ChevronDoubleLeft className="chevron-double-left" />
           ) : (
@@ -103,26 +103,35 @@ function Sidebar() {
         <Offcanvas
           className="offcanvas-container"
           show={showArrowButton}
-          onHide={() => setShowArrowButton(!showArrowButton)}
-        >
+          onHide={() => setShowArrowButton(!showArrowButton)}>
           <Offcanvas.Header closeButton>
             <SidebarHeader icon={app_icon} />
           </Offcanvas.Header>
 
           <Offcanvas.Body className="d-flex flex-column">
             <ButtonSelection
-              buttonText="Interface"
+              buttonText="Interface Viewer"
               image={message}
               altText="open message interface button"
               show={show.interface}
               showProviderType="SET_INTERFACE"
               dispatch={dispatch}
             />
+
             <DropdownSelector
-              buttonTitle="Moment"
+              buttonTitle="Play Moment"
               image={idea}
               dropdownEvent={handleMomentConversation}
-              listItems={Object.values(moments)}
+              listItems={Object.values(momentTemplates)}
+            />
+
+            <ButtonSelection
+              buttonText="Edit Moment"
+              image={essay}
+              altText="open model template editor"
+              show={show.momentsEditor}
+              showProviderType="SET_SHOW_MOMENTS_EDITOR"
+              dispatch={dispatch}
             />
 
             <DropdownSelector
@@ -138,14 +147,7 @@ function Sidebar() {
                 { title: "StabilityXL", type: "txt2img" },
               ]}
             />
-            <ButtonSelection
-              buttonText="Documentation"
-              image={essay}
-              altText="open documentation button"
-              show={show.documentation}
-              showProviderType="SET_SHOW_DOCUMENTATION"
-              dispatch={dispatch}
-            />
+
             <AgentProfile agents={agents} show={show} dispatch={dispatch} />
           </Offcanvas.Body>
         </Offcanvas>

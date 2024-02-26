@@ -167,7 +167,7 @@ export const momentumSpeech = async (
     setAgents
   );
 
-  await updateMoment(newMomentRef, speech);
+  await updateMoment(newMomentRef, speech, false);
   setShowImageScreen(true);
 
   speech.primaryAgent.x = speechLocation.primaryAgent.x;

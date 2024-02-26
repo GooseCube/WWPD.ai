@@ -29,7 +29,8 @@ function Message({ id, message }) {
             alt="huggingface image content"
           />
         ) : (
-          <pre><TypeWriter text={message.response} delay={20}/></pre>
+          <pre>{message.response}</pre>
+          //Typewriter component removed for now, but can be added back easily if desired.
         )}
       </div>
     </div>

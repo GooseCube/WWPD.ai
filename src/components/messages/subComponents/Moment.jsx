@@ -78,7 +78,11 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
               <div className="primaryAgent fs-3">
                 {item.primaryAgent.name}: Initial Idea
               </div>
+              {moment.messageInProgress ? (
               <pre className="initialResponse fs-4"><TypeWriter text={item.initialResponse} delay={15}/></pre>
+              ): 
+              <pre className="initialResponse fs-4">{item.initialResponse}</pre>
+              }
             </div>
           );
         }
@@ -91,7 +95,11 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
                 <img className="agentImage" src={moment.images[index]} />
               )}
               <div className="speech fs-4">
+              {moment.messageInProgress ? (
               <pre className="fs-4"><TypeWriter text={item.finalSpeech} delay={15}/></pre>
+              ):
+              <pre className="fs-4">{item.finalSpeech}</pre>
+              }
               </div>
             </div>
           );
@@ -105,7 +113,11 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
                 <img className="agentImage" src={moment.images[index]} />
               )}
               <div className="agentName fs-3">{item.agent.name}:</div>
+              {moment.messageInProgress ? (
               <div className="agentResponse fs-4"><TypeWriter text={item.agentResponse} delay={20}/></div>
+              ):
+              <div className="agentResponse fs-4">{item.agentResponse}</div>
+              }
             </div>
           );
         }

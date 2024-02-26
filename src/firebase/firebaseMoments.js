@@ -30,6 +30,7 @@ export const createBlankMoment = async () => {
     timestamp: Date.now(),
     conversation: [],
     images: [],
+    messageInProgress: true,
   };
 
   const userId = auth.currentUser.uid;
@@ -51,10 +52,11 @@ export const createBlankMoment = async () => {
  * @param {*} momentsRefToUpdate 
  * @param {*} speech 
  */
-export const updateMoment = async(momentsRefToUpdate, speech) => {
+export const updateMoment = async(momentsRefToUpdate, speech, messageOngoing = true) => {
   const updatedMoment = {
     conversation: [...speech.conversations], 
     images: [...speech.images],
+    messageInProgress: messageOngoing,
   };
 
   try {

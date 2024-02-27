@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { removeMessage } from "../../../firebase/firebaseMessages";
 import { Trash } from "react-bootstrap-icons";
+import TypeWriter from "../../typeWriter/TypeWriter";
 
 function Message({ id, message }) {
   const errorMessage = "That didn't go as planned";
@@ -29,6 +30,7 @@ function Message({ id, message }) {
           />
         ) : (
           <pre>{message.response}</pre>
+          //Typewriter component removed for now, but can be added back easily if desired.
         )}
       </div>
     </div>

@@ -65,16 +65,6 @@ export const generateAgentResponses = async (
       agentResponse: agentResponse,
     });
 
-    // Push update for agent to initiate a response to primary agent in text bubble
-    await updateAgent(
-      {
-        ...agent,
-        direction: faceDirectionOfOtherAgent(agent, speech.primaryAgent),
-        momentResponse: agentResponse,
-      },
-      setAgents
-    );
-
     // Create an image based on agent response
     // which should also give the agent time to finish their text response
     await generateSlideImage(agentResponse, speech);
@@ -83,55 +73,15 @@ export const generateAgentResponses = async (
       type: "chat",
       params: "emojis",
     });
-
-    /**
-     * speechLocation object is selected by the user and set in the /Sidebar component.
-     * The number of valid { x, y } positions available for agents is randomly selected in /Sidebar.
-     */
-    if (speechLocation.audiencePositions.length > 0) {
-      // Select an audience position for the agent
-      let agentAudiencePosition = getRandomAudiencePosition(
-        speechLocation.audiencePositions
-      );
-
-      // Find the selected audience position and remove it from the list
-      speechLocation.audiencePositions =
-        speechLocation.audiencePositions.filter(
-          (position) =>
-            position.x !== agentAudiencePosition.x &&
-            position.y !== agentAudiencePosition.y
-        );
-
-      /**
-       * Traverse the agent to the selected audience position { x, y }
-       * and set Firebase DB && local context state
-       */
-      await moveAgent(
-        agent,
-        agentAudiencePosition.x,
-        agentAudiencePosition.y,
-        setAgents
-      );
-      // update agents facing direction and give final text emoji
-      await updateAgent(
-        {
-          ...agent,
-          direction: agentAudiencePosition.direction,
-          momentResponse: responseEmojis,
-        },
-        setAgents
-      );
-    } else {
-      // update agents facing direction and give final text emoji
-      await updateAgent(
-        {
-          ...agent,
-          momentResponse: responseEmojis,
-        },
-        setAgents
-      );
-    }
+    // Push update for agent to initiate a response to primary agent in text bubble
+    await updateAgent(
+      {
+        ...agent,
+        momentResponse: responseEmojis,
+      },
+      setAgents
+    );
   } catch (error) {
-    throw new Error(`generate agent response error: ${error.message}`);
+    throw new Error(`generate agent response error: ${error}`);
   }
 };

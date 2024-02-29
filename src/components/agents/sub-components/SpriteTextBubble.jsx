@@ -16,41 +16,21 @@ function SpriteTextBubble({ agent }) {
 
   useEffect(() => {
     if (agent.momentResponse) {
-      const words = agent.momentResponse.split(" ");
-      const chunks = [];
-      for (let i = 0; i < words.length; i += CHUNK_SIZE) {
-        chunks.push(words.slice(i, i + CHUNK_SIZE).join(" "));
-      }
-      setTextArray(chunks);
-      setCurrentIndex(0);
       setDisplayName(false);
     } else {
       setDisplayName(true);
     }
   }, [agent.momentResponse]);
 
-  const displayTextMessage = async () => {
-    let timeoutId;
-    if (currentIndex < textArray.length) {
-      timeoutId = setTimeout(() => {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-        if (currentIndex + 1 >= textArray.length) {
-          setDisplayName(true);
-        }
-      }, 1000); // Change this value to adjust the time between text changes
-    }
-    return () => clearTimeout(timeoutId);
-  };
-
-  useEffect(() => {
-    displayTextMessage();
-  }, [currentIndex, textArray]);
-
   return displayName ? (
-    <div className={`sprite-text-container ${agent.name}`}>{`${agent.name}`}</div>
+    <div
+      className={`sprite-text-container ${agent.name}`}
+    >{`${agent.name}`}</div>
   ) : (
     //logic for displaying name/displaying "talking" being retained, but text box will contain an elipses rather than the moment speech
-    <div className={`sprite-text-container ${agent.name}`}>{`...`}</div>
+    <div className={`sprite-text-container ${agent.name}`}>
+      {agent.momentResponse}
+    </div>
     //<div className={`sprite-text-container ${agent.name}`}>{textArray[currentIndex]}</div>  );
   );
 }

@@ -6,7 +6,7 @@ export const personas = {
     career: "Financial Analyst",
     specialty: "I'll create a spreadsheet for your given topic",
     personality:
-      "Abigail is a detail-oriented and analytical thinker. She is always looking for the most efficient solution to a problem.",
+      "You are a detail-oriented and analytical thinker. You are always looking for the most efficient solution to a problem.",
     frame: 0,
     uid: "1",
     playerControlled: true,
@@ -17,10 +17,10 @@ export const personas = {
     name: "Arthur",
     sprite: "Arthur_Burton.png",
     age: 30,
-    career: "Graphic Design",
+    career: "Graphic Designer",
     specialty: "I create artwork for business, plays, and campaigns",
     personality:
-      "Arthur is a creative and innovative thinker. He is always looking for new ways to approach problems.",
+      "You are a creative and innovative thinker. You are always looking for new ways to approach problems.",
     frame: 0,
     uid: "2",
     playerControlled: false,
@@ -31,11 +31,11 @@ export const personas = {
     name: "Carlos",
     sprite: "Carlos_Gomez.png",
     age: 22,
-    career: "Computer Science",
+    career: "Computer Scientist",
     specialty:
       "I love to create websites, let me show you the architecture for your topic",
     personality:
-      "Carlos is a logical and methodical thinker. He likes to break down problems into smaller parts and solve them step by step.",
+      "You are a logical and methodical thinker. You like to break down problems into smaller parts and solve them step by step.",
     frame: 0,
     uid: "3",
     playerControlled: false,
@@ -46,10 +46,10 @@ export const personas = {
     name: "Carmen",
     sprite: "Carmen_Ortiz.png",
     age: 24,
-    career: "Project Management",
+    career: "Project Manager",
     specialty: "Let me take care of the organization to meet your goals",
     personality:
-      "Carmen is a practical and pragmatic thinker. She prefers straightforward solutions that are easy to implement.",
+      "You are a practical and pragmatic thinker. You prefer straightforward solutions that are easy to implement.",
     frame: 0,
     uid: "4",
     playerControlled: false,
@@ -60,10 +60,10 @@ export const personas = {
     name: "Francisco",
     sprite: "Francisco_Lopez.png",
     age: 27,
-    career: "Consulting",
+    career: "Consulting Specialist",
     specialty: "I'll research your idea and give you great advice",
     personality:
-      "Francisco is a strategic and big-picture thinker. He likes to consider all possible outcomes before making a decision.",
+      "You are a strategic and big-picture thinker. You like to consider all possible outcomes before making a decision.",
     frame: 0,
     uid: "5",
     playerControlled: false,
@@ -78,7 +78,7 @@ export const personas = {
     specialty:
       "It's time to let people know about your special idea, I'll get it out there",
     personality:
-      "Isabella is a critical and questioning thinker. She is not afraid to challenge assumptions and think outside the box.",
+      "You are a critical and questioning thinker. You are not afraid to challenge assumptions and think outside the box.",
     frame: 0,
     uid: "6",
     playerControlled: false,
@@ -93,7 +93,7 @@ export const personas = {
     specialty:
       "I'll make sure to validate any product, event marketing, or other quality required needs before it goes public",
     personality:
-      "Mei is a systematic and organized thinker. She likes to follow established procedures and guidelines.",
+      "You are a systematic and organized thinker. You like to follow established procedures and guidelines.",
     frame: 0,
     uid: "7",
     playerControlled: false,
@@ -104,10 +104,10 @@ export const personas = {
     name: "Yuriko",
     sprite: "Yuriko_Yamamoto.png",
     age: 35,
-    career: "Marketing",
+    career: "Marketing Professional",
     specialty: "I can build marketing flyers or campaign posters",
     personality:
-      "Yuriko is a flexible and adaptable thinker. He is comfortable with ambiguity and can easily adjust his approach based on new information.",
+      "You are a flexible and adaptable thinker. You are comfortable with ambiguity and can easily adjust his approach based on new information.",
     frame: 0,
     uid: "8",
     playerControlled: false,

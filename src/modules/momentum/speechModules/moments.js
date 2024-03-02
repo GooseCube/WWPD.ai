@@ -106,6 +106,71 @@ export const townSquare = {
   },
 };
 
+export const foodCarts = {
+  title: "Food Carts",
+  initialPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Context: You are going to the Portland, Oregon food carts with your friends for lunch.",
+    question: "Question: What food cart will you go to? What food will you get?",
+  },
+  finalPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Summarize the following Topic by listing the various food carts and food.",
+  },
+};
+
+export const voodooDoughnuts = {
+  title: "Voodoo Doughnuts",
+  initialPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Context: You are going to Voodoo Doughnuts in Portland, Oregon.",
+    question: "Question: What three doughnuts will you get? Conclude by asking your friends what they will get.",
+  },
+  finalPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Context: Summarize the following Topic by listing all the doughnuts that everyone chose.",
+  },
+};
+
+export const portlandPolitics = {
+  title: "Portland Politics",
+  initialPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Context: You are the mayor of Portland, Oregon. You are giving a speech at a press conference.",
+    question: "Question: Create a speech about how you feel about current politics in Portland.",
+  },
+  finalPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Context: Provide concluding remarks to the following Topic.",
+  },
+};
+
+export const portlandStartups = {
+  title: "Portland Startups",
+  initialPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Context: You are a journalist tasked with researching the best tech company startups in Portland, Oregon.",
+    question: "Question: Create an article featuring the best tech company startups in Portland, Oregon.",
+  },
+  finalPrompt: {
+    instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+    context: "Context: Conclude the following Topic by selecting your single favorite tech company startup in Portland, Oregon.",
+  },
+};
+
+// export const temp = {
+//   title: "Temp",
+//   initialPrompt: {
+//     instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+//     context: "Context: ...",
+//     question: "Question: ...",
+//   },
+//   finalPrompt: {
+//     instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
+//     context: "Context: ...",
+//   },
+// };
+
 export const momentTemplates = {
   digitalLiteracy,
   healthyLiving,
@@ -113,4 +178,8 @@ export const momentTemplates = {
   postApocalypticWorld,
   sciFiMovie,
   townSquare,
+  foodCarts,
+  voodooDoughnuts,
+  portlandPolitics,
+  portlandStartups,
 };

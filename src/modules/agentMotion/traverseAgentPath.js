@@ -26,7 +26,7 @@ export async function traverseAgentPath(agent, path, setAgents, MAX_OFFSET = 0) 
 
     await updateAgent(updatedAgent, setAgents);
     // The 'await delay()' will slow down the agent to a normal speed
-    await delay(30); // adjust up/down as needed for character movement
+    await delay(20); // adjust up/down as needed for character movement
   }
 
   // For now, necessary update to local agent ending grid position or the

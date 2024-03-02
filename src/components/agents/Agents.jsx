@@ -13,7 +13,8 @@ import Agent from "./sub-components/Agent";
 import "./styles/styles.css";
 
 // Assets: AI Generated background image by Steven Ochs
-import gameBackgroundImage from "../../assets/StevenOchsBgImage.png";
+//import gameBackgroundImage from "../../assets/StevenOchsBgImage.png";
+import gameBackgroundImage from "../../assets/StevenOchsBgImageNEW.jpg";
 
 function Agents() {
   const { agents, setAgents } = useContext(FirebaseContext);

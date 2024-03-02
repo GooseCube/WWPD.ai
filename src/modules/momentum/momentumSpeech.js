@@ -121,7 +121,7 @@ export const momentumSpeech = async (
     aiModel,
     finalMomentPrompt(
       speech.primaryAgent,
-      moment.finalPrompt,
+      moment.initialPrompt,
       speech.primaryAgentInitialIdea
     )
   );
@@ -131,7 +131,7 @@ export const momentumSpeech = async (
       aiModel,
       `${finalMomentPrompt(
         speech.primaryAgent,
-        moment.finalPrompt,
+        moment.initialPrompt,
         speech.primaryAgentInitialIdea
       )} ${primaryAgentFinalSpeech}`
     );

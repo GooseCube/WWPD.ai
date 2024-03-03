@@ -1,12 +1,5 @@
 // For a complete list of firebase sdk functions see "./README.md"
-import {
-  remove,
-  ref,
-  push,
-  set,
-  onValue,
-  update,
-} from "firebase/database";
+import { remove, ref, push, set, onValue, update } from "firebase/database";
 import { database, auth } from "./firebaseConfig";
 
 /**
@@ -23,7 +16,7 @@ export const getUserMoments = async (setMoments) => {
 };
 
 /**
- * Create a blank moment that can be continuously updated during agent speech generation.
+   As a financial analyst, I would approach this post-apocalyptic world with a logical and analytical mindset. I would first assess the current situation and resources available. One scenario I can imagine is scavenging for supplies and trading with other survivors. Another scenario could be forming a community and working together to rebuild society. Lastly, I could see myself using my financial analysis skh generation.
  */
 export const createBlankMoment = async () => {
   const blankMoment = {
@@ -49,23 +42,27 @@ export const createBlankMoment = async () => {
 
 /**
  * Push changes to an existing moment
- * @param {*} momentsRefToUpdate 
- * @param {*} speech 
+ * @param {*} momentsRefToUpdate
+ * @param {*} speech
  */
-export const updateMoment = async(momentsRefToUpdate, speech, messageOngoing = true) => {
+export const updateMoment = async (
+  momentsRefToUpdate,
+  speech,
+  messageOngoing = true
+) => {
   const updatedMoment = {
-    conversation: [...speech.conversations], 
+    conversation: [...speech.conversations],
     images: [...speech.images],
     messageInProgress: messageOngoing,
   };
 
   try {
     await update(momentsRefToUpdate, updatedMoment);
-    console.log("New Moment Pushed to Firebase: ", updatedMoment);
+    console.log("Moment updated in Firebase: ", updatedMoment);
   } catch (error) {
     console.log("Unable to push new moment to Firebase: ", error);
   }
-}
+};
 
 /**
  * Update firebase with a new 'moment' creation
@@ -101,4 +98,3 @@ export const removeMoment = async (id) => {
   const momentsRef = ref(database, `users/${userId}/moments/${id}`);
   await remove(momentsRef);
 };
-

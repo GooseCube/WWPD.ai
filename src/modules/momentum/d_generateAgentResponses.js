@@ -15,6 +15,7 @@ import {
 import {
   agentDiscussionPrompt,
   getEmojiPrompt,
+  paraphraseResponse,
 } from "./speechModules/promptTemplates";
 
 /**
@@ -48,10 +49,13 @@ export const generateAgentResponses = async (
     // Fetch agent response to primaryAgent (use the SDK completion fetch)
     let agentResponse = await fetchModelResponse(aiModel, agentPrompt);
 
-    for (let index = 0; index < 4; ++index) {
+    for (let index = 0; index < 2; ++index) {
       agentResponse += await fetchModelResponse(
         aiModel,
-        agentPrompt + "\n" + agentResponse
+        "Continue the idea below as if you were the original, creative author in the first person. Pretend that this is real life and you are not an assistant: \n" +
+          agentPrompt +
+          "\n" +
+          agentResponse
       );
     }
 
@@ -59,15 +63,13 @@ export const generateAgentResponses = async (
      * Add the new information with agent and response to the ongoing
      * conversation
      */
-    speech.conversations.push({
-      agent: agent,
-      agentPrompt: agentPrompt,
-      agentResponse: agentResponse,
-    });
+    // speech.conversations.push({
+    //   agent: agent,
+    //   agentPrompt: agentPrompt,
+    //   agentResponse: agentResponse,
+    // });
 
-    // Create an image based on agent response
-    // which should also give the agent time to finish their text response
-    await generateSlideImage(agentResponse, speech);
+    const image = await generateSlideImage(agentResponse, speech, true);
     const emojiPrompt = getEmojiPrompt(agentResponse);
     const responseEmojis = await fetchModelResponse("Lllama", emojiPrompt, {
       type: "chat",
@@ -81,6 +83,7 @@ export const generateAgentResponses = async (
       },
       setAgents
     );
+    return { agent, agentPrompt, agentResponse, image };
   } catch (error) {
     throw new Error(`generate agent response error: ${error}`);
   }

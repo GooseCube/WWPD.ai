@@ -17,7 +17,7 @@ export const initializePrimaryAgentIdea = async (
   moment,
   setAgents
 ) => {
-  speech.primaryAgent.momentResponse = agentEmojis.brainstorming.join(", ");
+  speech.primaryAgent.momentResponse = agentEmojis.brainstorming.join("");
 
   await updateAgent(
     {
@@ -31,15 +31,18 @@ export const initializePrimaryAgentIdea = async (
     initialMomentPrompt(speech.primaryAgent, moment.initialPrompt)
   );
 
-  for (let index = 0; index < 4; ++index) {
+  for (let index = 0; index < 2; ++index) {
     speech.primaryAgentInitialIdea += await fetchModelResponse(
       aiModel,
-      `${initialMomentPrompt(speech.primaryAgent, moment.initialPrompt)}
+      `Continue the idea below as if you were the original, creative author in the first person.. Pretend that this is real life and you are not an assistant: \n ${initialMomentPrompt(
+        speech.primaryAgent,
+        moment.initialPrompt
+      )}
       ${speech.primaryAgentInitialIdea}`
     );
   }
 
-  speech.primaryAgent.momentResponse = agentEmojis.idea.join(", ");
+  speech.primaryAgent.momentResponse = agentEmojis.idea.join("");
 
   await updateAgent(
     {
@@ -53,11 +56,11 @@ export const initializePrimaryAgentIdea = async (
     paraphraseResponse(speech.primaryAgentInitialIdea)
   );
 
-  for (let index = 0; index < 3; ++index) {
-    speech.paraphrasedInitialIdea += await fetchModelResponse(
-      aiModel,
-      `${paraphraseResponse(speech.primaryAgentInitialIdea)}
-      ${speech.paraphrasedInitialIdea}`
-    );
-  }
+  // for (let index = 0; index < 3; ++index) {
+  //   speech.paraphrasedInitialIdea += await fetchModelResponse(
+  //     aiModel,
+  //     `${paraphraseResponse(speech.primaryAgentInitialIdea)}
+  //     ${speech.paraphrasedInitialIdea}`
+  //   );
+  // }
 };

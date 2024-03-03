@@ -105,7 +105,14 @@ export const getActionEmoji = async (persona, action, id) => {
   });
 };
 
-export const getAgentActions = async (actions) => {
+const getRandomLocation = (speechLocation) => {
+  const keys = Object.keys(meetingPlaces).filter(
+    (place) => place !== speechLocation
+  );
+  return meetingPlaces[keys[(keys.length * Math.random()) << 0]];
+};
+
+export const getAgentActions = async (actions, speechLocation) => {
   return new Promise(async (resolve, reject) => {
     try {
       let agentActions = await Promise.all(
@@ -115,7 +122,8 @@ export const getAgentActions = async (actions) => {
           const id = agent.uid; //temp
           const worldState = []; //temp
           const persona = agent; //temp
-          const actionLocation = await getLocation({ persona, worldState, id });
+          //const actionLocation = await getLocation({ persona, worldState, id });
+          const actionLocation = getRandomLocation(speechLocation);
           const coordinate =
             actionLocation.audiencePositions[
               Math.floor(

@@ -9,7 +9,11 @@ import { firebaseTxt2Img } from "../../modelAPI/modules/firebaseTxt2ImgURL";
  * @param {string} response
  * @param {object} speech
  */
-export const generateSlideImage = async (response, speech) => {
+export const generateSlideImage = async (
+  response,
+  speech,
+  waitForImage = false
+) => {
   try {
     const prompt = createImagePrompt(response);
     const image = await fetchModelResponse("StabilityXL", prompt, {
@@ -26,7 +30,11 @@ export const generateSlideImage = async (response, speech) => {
         `Final image process error for text 2 image\nPrompt: ${prompt}`
       );
     }
-    speech.images.push(finalImage);
+    if (waitForImage === true) {
+      return finalImage;
+    } else {
+      speech.images.push(finalImage);
+    }
   } catch (error) {
     console.error("GenerateSlideImage fetch error");
     throw new Error(

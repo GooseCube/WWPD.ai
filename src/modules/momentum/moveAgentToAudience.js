@@ -1,4 +1,5 @@
 import { updateAgent } from "../../firebase/firebaseAgents";
+import { agentEmojis } from "../emoji/emojis";
 
 // Local Module Helper Functions
 import {
@@ -41,6 +42,7 @@ export const moveAgentToAudience = async (
       agentAudiencePosition.y,
       setAgents
     );
+    agent.momentResponse = agentEmojis.brainstorming.join("");
     // update agents facing direction and give final text emoji
     await updateAgent(
       {

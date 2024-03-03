@@ -14,10 +14,16 @@ Please provide constructive feedback to ${primaryAgent.name}'s initial TED talk 
 };
 
 // Primary Agent will wrap up the brainstorming and create the final moment
-export const finalMomentPrompt = (primaryAgent, initialPrompt, topic) => {
+export const finalMomentPrompt = (primaryAgent, initialPrompt, topic, conversations) => {
+  let responses = "";
+  for (const conversation of conversations) {
+    const {agent, agentResponse} = conversation;
+    responses += agent ? `${agent.name} says "${agentResponse}"\n` : "";
+  }
   return `You are ${primaryAgent.name}. You are ${primaryAgent.age} years old, and you are a ${primaryAgent.career}. ${primaryAgent.personality}
 Please create a complete TED talk in essay form using the following ideas as a starting point:
-"${topic}"`;
+"${topic}
+${responses}"`;
 /*
   return `You are ${primaryAgent.name}. You are ${primaryAgent.age} years old, and you are a ${primaryAgent.career}. ${primaryAgent.personality}
 Please create a complete TED talk using the following ideas as a starting point:

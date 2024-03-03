@@ -10,7 +10,7 @@ import {
   moveAgent,
   sendAllAgentsHome,
 } from "./speechModules/helperFunctions";
-import { finalMomentPrompt } from "./speechModules/promptTemplates";
+import { finalMomentPrompt, paraphraseResponse } from "./speechModules/promptTemplates";
 import { getAgentActions } from "../../modelAPI/actionAPI";
 
 // ------------------New Imports for Refactor-------------------------------
@@ -116,28 +116,6 @@ export const momentumSpeech = async (
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
 
-  // @prompt: Get final speech from AI Model
-  let primaryAgentFinalSpeech = await fetchModelResponse(
-    aiModel,
-    finalMomentPrompt(
-      speech.primaryAgent,
-      moment.initialPrompt,
-      speech.primaryAgentInitialIdea
-    )
-  );
-
-  for (let index = 0; index < 3; ++index) {
-    primaryAgentFinalSpeech += await fetchModelResponse(
-      aiModel,
-      `${finalMomentPrompt(
-        speech.primaryAgent,
-        moment.initialPrompt,
-        speech.primaryAgentInitialIdea
-      )} ${primaryAgentFinalSpeech}`
-    );
-  }
-
-  await generateSlideImage(primaryAgentFinalSpeech, speech);
   await updateMoment(newMomentRef, speech);
   /**
    * @ADAM
@@ -175,6 +153,34 @@ export const momentumSpeech = async (
     await updateMoment(newMomentRef, speech);
     await delay(detail.response.agentResponse.length * 5);
   }
+
+  // @prompt: Get final speech from AI Model
+  let primaryAgentFinalSpeech = await fetchModelResponse(
+    aiModel,
+    finalMomentPrompt(
+      speech.primaryAgent,
+      moment.initialPrompt,
+      speech.primaryAgentInitialIdea,
+      speech.conversations
+    )
+  );
+
+  for (let index = 0; index < 3; ++index) {
+    primaryAgentFinalSpeech += await fetchModelResponse(
+      aiModel,
+      `${finalMomentPrompt(
+        speech.primaryAgent,
+        moment.initialPrompt,
+        speech.primaryAgentInitialIdea,
+        speech.conversations
+      )} ${primaryAgentFinalSpeech}`
+    );
+  }
+
+  let paraphrase = paraphraseResponse(primaryAgentFinalSpeech);
+  paraphrase = await fetchModelResponse(aiModel, paraphrase);
+
+  await generateSlideImage(paraphrase, speech);
 
   speech.conversations.push({ finalSpeech: primaryAgentFinalSpeech });
 

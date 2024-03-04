@@ -10,7 +10,10 @@ import {
   moveAgent,
   sendAllAgentsHome,
 } from "./speechModules/helperFunctions";
-import { finalMomentPrompt, paraphraseResponse } from "./speechModules/promptTemplates";
+import {
+  finalMomentPrompt,
+  paraphraseResponse,
+} from "./speechModules/promptTemplates";
 import { getAgentActions } from "../../modelAPI/actionAPI";
 
 // ------------------New Imports for Refactor-------------------------------
@@ -63,21 +66,12 @@ export const momentumSpeech = async (
    */
   initializeAgents(agents, speech);
   const newMomentRef = await createBlankMoment();
-
-  await Promise.all([
-    moveAgent(
-      speech.primaryAgent,
-      speechLocation.primaryAgent.x,
-      speechLocation.primaryAgent.y,
-      setAgents
-    ),
-    Promise.all(
-      speech.attendingAgents.map(async (agent) => {
-        await moveAgentToAudience(agent, speech, setAgents, speechLocation);
-      })
-    ),
-    disperseAgents(speech.notAttendingAgents, setAgents, speechLocation.title),
-  ]);
+  await moveAgent(
+    speech.primaryAgent,
+    speechLocation.primaryAgent.x,
+    speechLocation.primaryAgent.y,
+    setAgents
+  );
 
   // try {
   //   await Promise.all(
@@ -122,6 +116,26 @@ export const momentumSpeech = async (
    * Should be the only place that you will need to remove
    * agentList and replace with attendingAgents[]
    */
+  const localSpeechLocation = JSON.parse(JSON.stringify(speechLocation));
+
+  await Promise.all([
+    Promise.all(
+      speech.attendingAgents.map(async (agent) => {
+        await moveAgentToAudience(
+          agent,
+          speech,
+          setAgents,
+          localSpeechLocation
+        );
+      })
+    ),
+    disperseAgents(
+      speech.notAttendingAgents,
+      setAgents,
+      localSpeechLocation.title
+    ),
+  ]);
+
   const momentDetails = [];
   try {
     await Promise.all(
@@ -166,7 +180,7 @@ export const momentumSpeech = async (
   );
 
   for (let index = 0; index < 3; ++index) {
-    primaryAgentFinalSpeech += await fetchModelResponse(
+    const additionalResponse = await fetchModelResponse(
       aiModel,
       `${finalMomentPrompt(
         speech.primaryAgent,
@@ -175,6 +189,11 @@ export const momentumSpeech = async (
         speech.conversations
       )} ${primaryAgentFinalSpeech}`
     );
+    const trimmedResponse = additionalResponse.trim().toLowerCase();
+    if (trimmedResponse && trimmedResponse.startsWith("confidence:")) {
+      break;
+    }
+    primaryAgentFinalSpeech += additionalResponse;
   }
 
   let paraphrase = paraphraseResponse(primaryAgentFinalSpeech);

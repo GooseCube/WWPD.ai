@@ -1,19 +1,30 @@
 {
   "basic_generation": {
     "return_full_text": false,
-    "max_new_tokens": 250
+    "max_new_tokens": 250,
+    "do_sample": true,
+    "temperature": 0.7,
+    "top_p": 0.85
   },
   "emojis": {
     "return_full_text": false,
-    "max_new_tokens": 10
+    "max_new_tokens": 10,
+    "temperature": 0.95,
+    "top_p": 0.85
   },
   "txt2img": {},
   "location": {
     "max_new_tokens": 10,
-    "return_full_text": false
+    "return_full_text": false,
+    "do_sample": true,
+    "temperature": 0.7,
+    "top_p": 0.85
   },
   "action": {
     "max_new_tokens": 50,
-    "return_full_text": false
+    "return_full_text": false,
+    "do_sample": true,
+    "temperature": 0.7,
+    "top_p": 0.85
   }
 }

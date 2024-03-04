@@ -50,13 +50,18 @@ export const generateAgentResponses = async (
     let agentResponse = await fetchModelResponse(aiModel, agentPrompt);
 
     for (let index = 0; index < 2; ++index) {
-      agentResponse += await fetchModelResponse(
+      const additionalResponse = await fetchModelResponse(
         aiModel,
         "Continue the idea below as if you were the original, creative author in the first person. Pretend that this is real life and you are not an assistant: \n" +
           agentPrompt +
           "\n" +
           agentResponse
       );
+      const trimmedResponse = additionalResponse.trim().toLowerCase();
+      if (trimmedResponse && trimmedResponse.startsWith("confidence:")) {
+        break;
+      }
+      agentResponse += additionalResponse;
     }
 
     /**

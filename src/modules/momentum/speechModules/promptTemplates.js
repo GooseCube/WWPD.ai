@@ -1,7 +1,7 @@
 // Primary Agent needs an idea to discuss with others, let's get it
 export const initialMomentPrompt = (primaryAgent, initialPrompt) => {
   return `You are ${primaryAgent.name}. You are ${primaryAgent.age} years old, and you are a ${primaryAgent.career}. ${primaryAgent.personality}
-Please create the overview & initial ideas for a TED talk about "${initialPrompt.instruction}".
+Please create the overview & initial ideas for a TED talk about "${initialPrompt.context}" \n ${initialPrompt.question}.
 Conclude by asking for feedback.`;
 };
 
@@ -14,17 +14,22 @@ Please provide constructive feedback to ${primaryAgent.name}'s initial TED talk 
 };
 
 // Primary Agent will wrap up the brainstorming and create the final moment
-export const finalMomentPrompt = (primaryAgent, initialPrompt, topic, conversations) => {
+export const finalMomentPrompt = (
+  primaryAgent,
+  initialPrompt,
+  topic,
+  conversations
+) => {
   let responses = "";
   for (const conversation of conversations) {
-    const {agent, agentResponse} = conversation;
+    const { agent, agentResponse } = conversation;
     responses += agent ? `${agent.name} says "${agentResponse}"\n` : "";
   }
   return `You are ${primaryAgent.name}. You are ${primaryAgent.age} years old, and you are a ${primaryAgent.career}. ${primaryAgent.personality}
 Please create a complete TED talk in essay form using the following ideas as a starting point:
 "${topic}
 ${responses}"`;
-/*
+  /*
   return `You are ${primaryAgent.name}. You are ${primaryAgent.age} years old, and you are a ${primaryAgent.career}. ${primaryAgent.personality}
 Please create a complete TED talk using the following ideas as a starting point:
 "${topic}"`;

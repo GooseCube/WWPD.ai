@@ -155,7 +155,7 @@ export const momentumSpeech = async (
   }
 
   // @prompt: Get final speech from AI Model
-  let primaryAgentFinalSpeech = await fetchModelResponse(
+  speech.primaryAgentFinalSpeech = await fetchModelResponse(
     aiModel,
     finalMomentPrompt(
       speech.primaryAgent,
@@ -166,23 +166,22 @@ export const momentumSpeech = async (
   );
 
   for (let index = 0; index < 3; ++index) {
-    primaryAgentFinalSpeech += await fetchModelResponse(
+    speech.primaryAgentFinalSpeech += await fetchModelResponse(
       aiModel,
       `${finalMomentPrompt(
         speech.primaryAgent,
         moment.initialPrompt,
         speech.primaryAgentInitialIdea,
         speech.conversations
-      )} ${primaryAgentFinalSpeech}`
+      )} ${speech.primaryAgentFinalSpeech}`
     );
   }
 
-  let paraphrase = paraphraseResponse(primaryAgentFinalSpeech);
+  let paraphrase = paraphraseResponse(speech.primaryAgentFinalSpeech);
   paraphrase = await fetchModelResponse(aiModel, paraphrase);
-
   await generateSlideImage(paraphrase, speech);
 
-  speech.conversations.push({ finalSpeech: primaryAgentFinalSpeech });
+  speech.conversations.push({ finalSpeech: speech.primaryAgentFinalSpeech });
 
   await updateMoment(newMomentRef, speech);
   setShowImageScreen(true);
@@ -190,7 +189,7 @@ export const momentumSpeech = async (
   speech.primaryAgent.x = speechLocation.primaryAgent.x;
   speech.primaryAgent.y = speechLocation.primaryAgent.y;
   speech.primaryAgent.direction = speechLocation.primaryAgent.direction;
-  const emojiPrompt = getEmojiPrompt(primaryAgentFinalSpeech);
+  const emojiPrompt = getEmojiPrompt(speech.primaryAgentFinalSpeech);
   const responseEmojis = await fetchModelResponse("Lllama", emojiPrompt, {
     type: "chat",
     params: "emojis",

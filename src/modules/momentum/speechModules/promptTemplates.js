@@ -22,13 +22,13 @@ Conclude by asking for feedback.`;
 export const agentDiscussionPrompt = (agent, primaryAgent, initialIdea, initialPrompt) => {
   let prompt = "";
   if ((initialPrompt.instruction === "" && initialPrompt.context === "") || (initialPrompt.instruction === "" && initialPrompt.question === "") || (initialPrompt.context === "" && initialPrompt.question === ""))
-    prompt = `You are ${agent.name}. You are a ${agent.career}. ${agent.personality}
+    prompt = `You are ${agent.name}. You are ${agent.age} years old, and you are a ${agent.career}. ${agent.personality}
 Please provide constructive feedback to ${primaryAgent.name}'s initial TED talk idea as follows:
 "${initialIdea}"`;
   else
     prompt = `Idea: ${initialIdea}
 Instruction: Give advice or help using your Persona, the Idea you will review, and the Context. Keep the response short and complete.
-Persona: You are ${agent.name}. You are a ${agent.career}. ${agent.personality}
+Persona: You are ${agent.name}. You are ${agent.age} years old, and you are a ${agent.career}. ${agent.personality}
 Context: You and ${primaryAgent.name} are discussing the idea they have and would like to know what you think? This may require you to think outside the box to give your thoughts on the idea.`;
   return prompt;
 };
@@ -42,7 +42,7 @@ export const finalMomentPrompt = (
   finalPrompt
 ) => {
   let responses = "";
-  let prompt = `You are ${primaryAgent.name}. You are a ${primaryAgent.career}. ${primaryAgent.personality}\n`;
+  let prompt = `You are ${primaryAgent.name}. You are ${primaryAgent.age} years old, and you are a ${primaryAgent.career}. ${primaryAgent.personality}\n`;
   let tedTalk = "";
 
   for (const conversation of paraphasedConversations) {

@@ -69,7 +69,7 @@ export const fetchModelResponse = async (modelName, prompt, config = {}) => {
       if (DEBUG === "TRUE") {
         console.log(`Response: ${text}`);
       }
-      return text;
+      return text.trimEnd();
     }
     default: {
       console.log(

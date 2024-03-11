@@ -32,13 +32,15 @@ export const initializePrimaryAgentIdea = async (
   );
 
   for (let index = 0; index < 2; ++index) {
+    let idea = speech.primaryAgentInitialIdea;
+    speech.primaryAgentInitialIdea = speech.primaryAgentInitialIdea?.trimEnd();
     speech.primaryAgentInitialIdea += await fetchModelResponse(
       aiModel,
       `Continue the idea below as if you were the original, creative author in the first person.. Pretend that this is real life and you are not an assistant: \n ${initialMomentPrompt(
         speech.primaryAgent,
         moment.initialPrompt
       )}
-      ${speech.primaryAgentInitialIdea}`
+      ${idea}`
     );
   }
 

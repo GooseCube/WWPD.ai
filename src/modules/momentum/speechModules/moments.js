@@ -158,18 +158,18 @@ export const portlandStartups = {
   },
 };
 
-// export const temp = {
-//   title: "Temp",
-//   initialPrompt: {
-//     instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
-//     context: "Context: ...",
-//     question: "Question: ...",
-//   },
-//   finalPrompt: {
-//     instruction: "Answer the question using the given context and persona but keep the response short and to the point.",
-//     context: "Context: ...",
-//   },
-// };
+export const buyCarTEDTalk = {
+  title: "Should I Buy A Car?",
+  initialPrompt: {
+    instruction: "Should I buy a car?",
+    context: "",
+    question: "",
+  },
+  finalPrompt: {
+    instruction: "",
+    context: "",
+  },
+};
 
 export const momentTemplates = {
   digitalLiteracy,
@@ -182,4 +182,5 @@ export const momentTemplates = {
   voodooDoughnuts,
   portlandPolitics,
   portlandStartups,
+  buyCarTEDTalk
 };

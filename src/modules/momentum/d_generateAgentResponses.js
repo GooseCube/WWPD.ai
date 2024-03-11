@@ -36,13 +36,15 @@ export const generateAgentResponses = async (
   speech,
   setAgents,
   aiModel,
-  speechLocation
+  speechLocation,
+  initialPrompt
 ) => {
   // Create the agents prompt template
   const agentPrompt = agentDiscussionPrompt(
     agent,
     speech.primaryAgent,
-    speech.primaryAgentInitialIdea
+    speech.primaryAgentInitialIdea,
+    initialPrompt
   );
 
   try {
@@ -61,8 +63,13 @@ export const generateAgentResponses = async (
       if (trimmedResponse && trimmedResponse.startsWith("confidence:")) {
         break;
       }
+      agentResponse = agentResponse.trimEnd();
       agentResponse += additionalResponse;
     }
+
+    const paraphrasePrompt = paraphraseResponse(agentResponse);
+    const paraphrase = await fetchModelResponse(aiModel, paraphrasePrompt);
+    speech.paraphrasedConversations.push(paraphrase);
 
     /**
      * Add the new information with agent and response to the ongoing
@@ -74,8 +81,8 @@ export const generateAgentResponses = async (
     //   agentResponse: agentResponse,
     // });
 
-    const image = await generateSlideImage(agentResponse, speech, true);
-    const emojiPrompt = getEmojiPrompt(agentResponse);
+    const image = await generateSlideImage(paraphrase, speech, true);
+    const emojiPrompt = getEmojiPrompt(paraphrase);
     const responseEmojis = await fetchModelResponse("Lllama", emojiPrompt, {
       type: "chat",
       params: "emojis",

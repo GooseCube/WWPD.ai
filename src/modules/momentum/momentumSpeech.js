@@ -57,6 +57,7 @@ export const momentumSpeech = async (
     attendingAgents: [],
     notAttendingAgents: [],
     conversations: [],
+    paraphrasedConversations: [],
     images: [],
   };
 
@@ -145,7 +146,8 @@ export const momentumSpeech = async (
           speech,
           setAgents,
           aiModel,
-          speechLocation
+          speechLocation,
+          moment.initialPrompt
         );
         const agentInfo = {
           agent: momentDetail.agent,
@@ -173,9 +175,10 @@ export const momentumSpeech = async (
     aiModel,
     finalMomentPrompt(
       speech.primaryAgent,
-      moment.initialPrompt,
       speech.primaryAgentInitialIdea,
-      speech.conversations
+      speech.paraphrasedConversations,
+      moment.initialPrompt,
+      moment.finalPrompt
     )
   );
 
@@ -184,15 +187,17 @@ export const momentumSpeech = async (
       aiModel,
       `${finalMomentPrompt(
         speech.primaryAgent,
-        moment.initialPrompt,
         speech.primaryAgentInitialIdea,
-        speech.conversations
+        speech.paraphrasedConversations,
+        moment.initialPrompt,
+        moment.finalPrompt
       )} ${primaryAgentFinalSpeech}`
     );
     const trimmedResponse = additionalResponse.trim().toLowerCase();
-    if (trimmedResponse && trimmedResponse.startsWith("confidence:")) {
+    if (trimmedResponse === "" || trimmedResponse.startsWith("confidence:")) {
       break;
     }
+    primaryAgentFinalSpeech = primaryAgentFinalSpeech.trimEnd();
     primaryAgentFinalSpeech += additionalResponse;
   }
 

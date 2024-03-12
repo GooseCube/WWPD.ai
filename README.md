@@ -1,10 +1,15 @@
 # Generative Agent Moment Experience (G.A.M.E.)
 
+Read the `Wiki` pages for details on how to use this unique game.
+
+Wiki Page Linked Here
+https://github.com/GooseCube/WWPD.ai/wiki/Documentation
+
 <div style="width: 55em; display: block; margin: 0 auto;">
-  <img src="./src/assets/readme/game_bg.png" style="width: 100%; height: auto;" />
+  <img src="./src/assets/readme/game_bg_2.png" style="width: 100%; height: auto;" />
 </div>
 
-A Portland State University (PSU) Undergrad Capstone Project for Computer Science.
+A Portland State University (PSU) Undergrad Capstone Project in Computer Science (2023-2024)
 
 This application is inspired by the Generative Agents program created by [Joon Sung Park PH.D. Student in Computer Science at Stanford](https://profiles.stanford.edu/joon-sung-park). His [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442) expresses the idea that "believable proxies of human behavior can empower interactive applications ranging from immersive environments to rehearsal spaces for interpersonal communication to prototyping tools". The original project can be viewed on [GitHub: Generative Agents](https://github.com/joonspk-research/generative_agents).
 
@@ -23,7 +28,7 @@ Create a limited version of the Generative Agent interactive experience using fr
 
 Don't 'git' me wrong. We love the original idea and Joon has laid the foundation for the various implementations I have already seen in the great wild of GitHub. We just want to have fun and let you enjoy some of the experiences that he outlined in a live mode where you get to participate in a meaningful way. This project attempts to further his directive to build those 'believable proxies of human behavior' while having fun.
 
-## G.A.M.E. Momentum
+## W.W.P.D. Momentum
 
 To achieve a live experience with agent interaction we have limited the program to `moments`. A `moment` is like the original Generative Agent `whisper` where an agent is given an idea to play out. When a `moment` is chosen by a user, a specified agent will initiate the `moment`. From there, each agent is given this `moment` and based on their persona, they will give feedback, advice, or help in some creative way to make that `moment` happen.
 
@@ -31,42 +36,9 @@ Several `moments` will be created for the user to choose from which should inspi
 
 Further, a message interface allows you to develop your skills in a one-on-one with a chosen agent and its persona. Write a few lines and see how it will resond, or try an entire `moment` and see if you can achieve a specific goal.
 
-## Agent Selection
 
-In the sidebar you have one agent profile card. This card changes as you select an agent in the game environment and becomes player controlled. If you click on the profile card you will open the agent selection profiles for all agents. Here, you can also select agents to be rendered in the game or taken out of the game environment. This will change the moment you create as only those rendered agents will take part in the moment.
 
-<div style="width: 55em; display: block; margin: 0 auto;">
-  <img src="./src/assets/readme/agent_selection.png" style="width: 100%; height: auto;" />
-</div>
 
-## User Interaction | Message Interface
-
-The `interface` allows you to test out various methods of prompting. When selecting an agent in the game, you take control of that character. When you open the `interface`, any input (prompt) that you create will have a response based on the persona of the character you have selected. In the sidebar you will see the profile of the agent, including their name, age, career, and personality.
-
-The `lightbulb` icon will switch the view to `moments`, allowing an easy method of viewing the entire conversation created for each `moment` that you have selected.
-
-<div style="width: 55em; display: block; margin: 0 auto;">
-  <img src="./src/assets/readme/interface.png" style="width: 100%; height: auto;" />
-</div>
-
-## Emailer | Capture the Moment
-
-From the sidebar or the message interface you can open the Emailer. Enter an email you want to send the moment to then select a created moment from the dropdown list and submit. The free version from [EmailJS](https://www.emailjs.com) allows 200 free emails a month.
-
-<div style="width: 55em; display: block; margin: 0 auto;">
-  <img src="./src/assets/readme/emailer.png" style="width: 100%; height: auto;" />
-</div>
-
-## Sidebar
-
-- Open / Close the message `interface`
-- Select and begin a `moment`
-- Change the Huggingface AI Model: ["Mistral Instruct", "Mixtral", "Zephyr"]
-- View the currently selected agent profile
-
-<div style="width: 55em; display: block; margin: 0 auto;">
-  <img src="./src/assets/readme/sidebar.png" style="width: 100%; height: auto;" />
-</div>
 
 ## Program Requirements | Environment Variables
 

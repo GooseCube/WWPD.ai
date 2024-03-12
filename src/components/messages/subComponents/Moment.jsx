@@ -34,7 +34,8 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
       <div className="moment-toolbar fs-5">
         <OverlayTrigger
           placement="top"
-          overlay={<Tooltip id={"tooltip-top"}>Download Moment</Tooltip>}>
+          overlay={<Tooltip id={"tooltip-top"}>Download Moment</Tooltip>}
+        >
           <Download
             className="download-moment-icon"
             onClick={() => downloadMoment(moment)}
@@ -43,7 +44,8 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
 
         <OverlayTrigger
           placement="top"
-          overlay={<Tooltip id={"tooltip-top"}>Email Moment</Tooltip>}>
+          overlay={<Tooltip id={"tooltip-top"}>Email Moment</Tooltip>}
+        >
           <Envelope
             className="email-moment-icon"
             onClick={(e) => {
@@ -55,7 +57,8 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
 
         <OverlayTrigger
           placement="top"
-          overlay={<Tooltip id={"tooltip-top"}>Delete Moment</Tooltip>}>
+          overlay={<Tooltip id={"tooltip-top"}>Delete Moment</Tooltip>}
+        >
           <Trash
             className="delete-message-icon"
             onClick={() => removeMoment(id)}
@@ -71,7 +74,8 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
           return (
             <div
               key={index}
-              className={`agent initial-prompt-container ${item.primaryAgent.name}`}>
+              className={`agent initial-prompt-container ${item.primaryAgent.name}`}
+            >
               {moment.images && moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
@@ -79,27 +83,36 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
                 {item.primaryAgent.name}: Initial Idea
               </div>
               {moment.messageInProgress ? (
-              <pre className="initialResponse fs-4"><TypeWriter text={item.initialResponse} delay={15}/></pre>
-              ): 
-              <pre className="initialResponse fs-4">{item.initialResponse}</pre>
-              }
+                <pre className="initialResponse fs-4">
+                  <TypeWriter text={item.initialResponse} delay={5} />
+                </pre>
+              ) : (
+                <pre className="initialResponse fs-4">
+                  {item.initialResponse}
+                </pre>
+              )}
             </div>
           );
         }
 
         // display the moment conclusion, always the last item in array
-        else if (moment?.conversation && index === moment.conversation.length - 1) {
+        else if (
+          moment?.conversation &&
+          index === moment.conversation.length - 1
+        ) {
           return (
             <div key={index} className="agent">
               {moment.images && moment.images[index] && (
                 <img className="agentImage" src={moment.images[index]} />
               )}
               <div className="speech fs-4">
-              {moment.messageInProgress ? (
-              <pre className="fs-4"><TypeWriter text={item.finalSpeech} delay={15}/></pre>
-              ):
-              <pre className="fs-4">{item.finalSpeech}</pre>
-              }
+                {moment.messageInProgress ? (
+                  <pre className="fs-4">
+                    <TypeWriter text={item.finalSpeech} delay={5} />
+                  </pre>
+                ) : (
+                  <pre className="fs-4">{item.finalSpeech}</pre>
+                )}
               </div>
             </div>
           );
@@ -114,10 +127,12 @@ function Moment({ id, moment, show, dispatch, handleEmail }) {
               )}
               <div className="agentName fs-3">{item.agent.name}:</div>
               {moment.messageInProgress ? (
-              <div className="agentResponse fs-4"><TypeWriter text={item.agentResponse} delay={20}/></div>
-              ):
-              <div className="agentResponse fs-4">{item.agentResponse}</div>
-              }
+                <div className="agentResponse fs-4">
+                  <TypeWriter text={item.agentResponse} delay={5} />
+                </div>
+              ) : (
+                <div className="agentResponse fs-4">{item.agentResponse}</div>
+              )}
             </div>
           );
         }

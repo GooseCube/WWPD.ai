@@ -1,6 +1,7 @@
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
 import { createImagePrompt } from "./speechModules/promptTemplates";
 import { firebaseTxt2Img } from "../../modelAPI/modules/firebaseTxt2ImgURL";
+import badImage from "./speechModules/badImage.jpeg";
 
 /**
  * Use each agents response to the primary agent idea to generate
@@ -9,9 +10,14 @@ import { firebaseTxt2Img } from "../../modelAPI/modules/firebaseTxt2ImgURL";
  * @param {string} response
  * @param {object} speech
  */
-export const generateSlideImage = async (response, speech) => {
+export const generateSlideImage = async (
+  response,
+  speech,
+  waitForImage = false
+) => {
   try {
-    const prompt = createImagePrompt(response);
+    const shortResponse = response.slice(0, 1000);
+    const prompt = createImagePrompt(shortResponse);
     const image = await fetchModelResponse("StabilityXL", prompt, {
       type: "txt2img",
       params: "txt2img",
@@ -26,11 +32,13 @@ export const generateSlideImage = async (response, speech) => {
         `Final image process error for text 2 image\nPrompt: ${prompt}`
       );
     }
-    speech.images.push(finalImage);
+    if (waitForImage === true) {
+      return finalImage;
+    } else {
+      speech.images.push(finalImage);
+    }
   } catch (error) {
     console.error("GenerateSlideImage fetch error");
-    throw new Error(
-      `Unable to generate the requested slide image for ${response}: ${error}`
-    );
+    speech.images.push(badImage);
   }
 };

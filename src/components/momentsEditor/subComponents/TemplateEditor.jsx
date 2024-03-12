@@ -37,14 +37,14 @@ function TemplateEditor({ template, blankTemplate, setTemplate }) {
         title: formData.title || template.title,
         initialPrompt: {
           instruction:
-            formData.initialInstruction || template.initialPrompt.instruction,
-          context: formData.initialContext || template.initialPrompt.context,
-          question: formData.initialQuestion || template.initialPrompt.question,
+            formData.initialInstruction || "",
+          context: formData.initialContext || "",
+          question: formData.initialQuestion || "",
         },
         finalPrompt: {
           instruction:
-            formData.finalInstruction || template.finalPrompt.instruction,
-          context: formData.finalContext || template.finalPrompt.context,
+            formData.finalInstruction || "",
+          context: formData.finalContext || "",
         },
       };
       console.log("Submitted New Template:\n", newTemplate);

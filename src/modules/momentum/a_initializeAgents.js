@@ -27,7 +27,7 @@ export const initializeAgents = (agents, speech) => {
 
   // Randomize all rendered agents
   renderedAgents.sort(() => Math.random() - 0.5);
-  const sliceIndex = Math.ceil(renderedAgents.length * 0.25) + 1;
+  const sliceIndex = Math.floor(renderedAgents.length * 0.25) + 1;
   const notAttendingAgents = renderedAgents.slice(0, sliceIndex);
   const attendingAgents = renderedAgents.slice(
     sliceIndex,

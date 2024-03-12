@@ -38,6 +38,7 @@ export const fetchModelResponse = async (modelName, prompt, config = {}) => {
   const parameters =
     typeof params === "string" ? generationParams[params] : params;
 
+  prompt += " ";
   const inferenceParams = {
     inputs: prompt,
     parameters,
@@ -68,7 +69,7 @@ export const fetchModelResponse = async (modelName, prompt, config = {}) => {
       if (DEBUG === "TRUE") {
         console.log(`Response: ${text}`);
       }
-      return text;
+      return text.trimEnd();
     }
     default: {
       console.log(

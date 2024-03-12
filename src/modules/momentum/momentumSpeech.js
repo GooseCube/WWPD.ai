@@ -1,8 +1,19 @@
 import { updateAgent } from "../../firebase/firebaseAgents";
-import { createBlankMoment, updateMoment, pushNewMoment } from "../../firebase/firebaseMoments";
+import {
+  createBlankMoment,
+  updateMoment,
+  pushNewMoment,
+} from "../../firebase/firebaseMoments";
 import { fetchModelResponse } from "../../modelAPI/fetchModelResponse";
-import { moveAgent, sendAllAgentsHome } from "./speechModules/helperFunctions";
-import { finalMomentPrompt } from "./speechModules/promptTemplates";
+import {
+  delay,
+  moveAgent,
+  sendAllAgentsHome,
+} from "./speechModules/helperFunctions";
+import {
+  finalMomentPrompt,
+  paraphraseResponse,
+} from "./speechModules/promptTemplates";
 import { getAgentActions } from "../../modelAPI/actionAPI";
 
 // ------------------New Imports for Refactor-------------------------------
@@ -11,6 +22,9 @@ import { initializePrimaryAgentIdea } from "./b_initPrimaryAgentIdea";
 import { generateAgentResponses } from "./d_generateAgentResponses";
 import { movePrimaryAgentAndTalk } from "./c_movePrimaryToAnAgent";
 import { generateSlideImage } from "./e_generateSlideImage";
+import { moveAgentToAudience } from "./moveAgentToAudience";
+import { disperseAgents } from "./actions";
+import { getEmojiPrompt } from "./speechModules/promptTemplates";
 
 /**
  * This function will play out the discussion of the primary agents moment.
@@ -39,9 +53,11 @@ export const momentumSpeech = async (
     updatedPrimaryAgent: {},
     primaryAgentGridLocations: [],
     // remove agentList and add:
+    agentList: [],
     attendingAgents: [],
     notAttendingAgents: [],
     conversations: [],
+    paraphrasedConversations: [],
     images: [],
   };
 
@@ -51,48 +67,22 @@ export const momentumSpeech = async (
    */
   initializeAgents(agents, speech);
   const newMomentRef = await createBlankMoment();
+  await moveAgent(
+    speech.primaryAgent,
+    speechLocation.primaryAgent.x,
+    speechLocation.primaryAgent.y,
+    setAgents
+  );
 
-  try {
-    const agentActions = await getAgentActions(speech.notAttendingAgents);
-    agentActions.forEach(async (action) => {
-      const { agent, coordinate, actionDescription, emojis } = action;
-      console.log(`${agent.name} action: ${actionDescription} `);
-      agent.momentResponse = emojis;
-      await moveAgent(agent, coordinate.x, coordinate.y, setAgents);
-    });
-  } catch (error) {
-    console.error(
-      "Error while generating non attending agent responses\n",
-      error
-    );
-  }
-  /**
-   * @ADAM
-   * Here is where a Promise.all() for the
-   * notAttendingAgents could kick off their own actions
-   * NOTE:
-   * - Check that actions take place anywhere but at the chosen
-   *    'speechLocation' and you can check the /mapGridPositions/meetingPlaces.js
-   * - Send all notAttendingAgents home (or, not)
-   * await or Promise.all():
-   *  create a new function that will send only the nonAttendingAgents()
-   *  back to their 'home' position {x: number, y: number, direction: string}
-   */
-
-  try {
-    const agentActions = await getAgentActions(speech.notAttendingAgents);
-    agentActions.forEach(async (action) => {
-      const { agent, coordinate, actionDescription, emojis } = agentActions;
-      console.log(`${agent.name} action: ${actionDescription} `);
-      agent.momentResponse = emojis;
-      await moveAgent(agent, coordinate.x, coordinate.y, setAgents);
-    });
-  } catch (error) {
-    console.error(
-      "Error while generating non attending agent responses\n",
-      error
-    );
-  }
+  // try {
+  //   await Promise.all(
+  //     speech.attendingAgents.map(async (agent) => {
+  //       await moveAgentToAudience(agent, speech, setAgents, speechLocation);
+  //     })
+  //   );
+  // } catch (error) {
+  //   console.error(error);
+  // }
 
   /**
    * Fetch the initial idea based on user selected 'moment' and
@@ -104,6 +94,12 @@ export const momentumSpeech = async (
     console.error("Error Initializing Primary Agent Idea\n", error);
   }
 
+  // await disperseAgents(
+  //   speech.notAttendingAgents,
+  //   setAgents,
+  //   speechLocation.title
+  // );
+
   /**
    * Conversation is used to track the entire conversation
    * which will be rendered to the message interface
@@ -114,75 +110,124 @@ export const momentumSpeech = async (
     initialResponse: speech.primaryAgentInitialIdea,
     paraphrasedResponse: speech.paraphrasedInitialIdea,
   });
-  await updateMoment(newMomentRef, speech);
 
+  await updateMoment(newMomentRef, speech);
   /**
    * @ADAM
    * Should be the only place that you will need to remove
    * agentList and replace with attendingAgents[]
    */
-  for (const agent of speech.attendingAgents) {
-    try {
-      await movePrimaryAgentAndTalk(agent, speech, setAgents);
-      await generateAgentResponses(
-        agent,
-        speech,
-        setAgents,
-        aiModel,
-        speechLocation
-      );
-      await updateMoment(newMomentRef, speech);
-    } catch (error) {
-      console.error("Error while generating agent responses\n", error);
-    }
+  const localSpeechLocation = JSON.parse(JSON.stringify(speechLocation));
+
+  await Promise.all([
+    Promise.all(
+      speech.attendingAgents.map(async (agent) => {
+        await moveAgentToAudience(
+          agent,
+          speech,
+          setAgents,
+          localSpeechLocation
+        );
+      })
+    ),
+    disperseAgents(
+      speech.notAttendingAgents,
+      setAgents,
+      localSpeechLocation.title
+    ),
+  ]);
+
+  const momentDetails = [];
+  try {
+    await Promise.all(
+      speech.attendingAgents.map(async (agent) => {
+        const momentDetail = await generateAgentResponses(
+          agent,
+          speech,
+          setAgents,
+          aiModel,
+          speechLocation,
+          moment.initialPrompt
+        );
+        const agentInfo = {
+          agent: momentDetail.agent,
+          agentPrompt: momentDetail.agentPrompt,
+          agentResponse: momentDetail.agentResponse,
+        };
+        const { image } = momentDetail;
+
+        momentDetails.push({ response: momentDetail, image });
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  for (const detail of momentDetails) {
+    speech.conversations.push(detail.response);
+    speech.images.push(detail.image);
+    await updateMoment(newMomentRef, speech);
+    await delay(detail.response.agentResponse.length * 5);
   }
 
   // @prompt: Get final speech from AI Model
-  speech.primaryAgentFinalSpeech = await fetchModelResponse(
+  let primaryAgentFinalSpeech = await fetchModelResponse(
     aiModel,
     finalMomentPrompt(
       speech.primaryAgent,
-      moment.finalPrompt,
-      speech.primaryAgentInitialIdea
+      speech.primaryAgentInitialIdea,
+      speech.paraphrasedConversations,
+      moment.initialPrompt,
+      moment.finalPrompt
     )
   );
 
-  for (let index = 0; index < 5; ++index) {
-    speech.primaryAgentFinalSpeech += await fetchModelResponse(
+  for (let index = 0; index < 3; ++index) {
+    const additionalResponse = await fetchModelResponse(
       aiModel,
       `${finalMomentPrompt(
         speech.primaryAgent,
-        moment.finalPrompt,
-        speech.primaryAgentInitialIdea
-      )} ${speech.primaryAgentFinalSpeech}`
+        speech.primaryAgentInitialIdea,
+        speech.paraphrasedConversations,
+        moment.initialPrompt,
+        moment.finalPrompt
+      )} ${primaryAgentFinalSpeech}`
     );
+    const trimmedResponse = additionalResponse.trim().toLowerCase();
+    if (trimmedResponse === "" || trimmedResponse.startsWith("confidence:")) {
+      break;
+    }
+    primaryAgentFinalSpeech = primaryAgentFinalSpeech.trimEnd();
+    primaryAgentFinalSpeech += additionalResponse;
   }
 
-  speech.conversations.push({ finalSpeech: speech.primaryAgentFinalSpeech });
+  let paraphrase = paraphraseResponse(primaryAgentFinalSpeech);
+  paraphrase = await fetchModelResponse(aiModel, paraphrase);
 
-  await moveAgent(
-    speech.primaryAgent,
-    speechLocation.primaryAgent.x,
-    speechLocation.primaryAgent.y,
-    setAgents
-  );
+  await generateSlideImage(paraphrase, speech);
 
-  await updateMoment(newMomentRef, speech, false);
+  speech.conversations.push({ finalSpeech: primaryAgentFinalSpeech });
+
+  await updateMoment(newMomentRef, speech);
   setShowImageScreen(true);
 
   speech.primaryAgent.x = speechLocation.primaryAgent.x;
   speech.primaryAgent.y = speechLocation.primaryAgent.y;
   speech.primaryAgent.direction = speechLocation.primaryAgent.direction;
-  speech.primaryAgent.momentResponse = speech.primaryAgentFinalSpeech;
+  const emojiPrompt = getEmojiPrompt(primaryAgentFinalSpeech);
+  const responseEmojis = await fetchModelResponse("Lllama", emojiPrompt, {
+    type: "chat",
+    params: "emojis",
+  });
+  speech.primaryAgent.momentResponse = responseEmojis;
 
   await updateAgent({ ...speech.primaryAgent }, setAgents);
-
-  await generateSlideImage(speech.primaryAgentFinalSpeech, speech);
 
   // After the set time (60000 === 60 seconds || 1 minute)
   // send all agents to home position and clear their local
   // momentResponses to ensure no further text during game
   setTimeout(async () => {
+    await updateMoment(newMomentRef, speech, false);
     setShowImageScreen(false);
     /**
      * @ADAM
@@ -191,6 +236,13 @@ export const momentumSpeech = async (
      * This way, 'nonAttendingAgents' can continue their actions until
      * completed.
      */
-    await sendAllAgentsHome(agents, setAgents, updateAgent);
+    await disperseAgents(
+      [
+        ...speech.attendingAgents,
+        ...speech.notAttendingAgents,
+        speech.primaryAgent,
+      ],
+      setAgents
+    );
   }, 60000);
 };

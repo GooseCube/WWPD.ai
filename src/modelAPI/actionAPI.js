@@ -9,7 +9,9 @@ import { meetingPlaces } from "../modules/mapGridPositions/meetingPlaces";
 
 const DEBUG = import.meta.env.VITE_DEBUG;
 const locationIndexMapping = {};
-Object.keys(meetingPlaces).forEach((key, index) => {
+//clone meeting places to prevent conflict
+const localMeetingPlaces = JSON.parse(JSON.stringify(meetingPlaces));
+Object.keys(localMeetingPlaces).forEach((key, index) => {
   locationIndexMapping[index] = key;
 });
 
@@ -38,7 +40,9 @@ export const getLocation = async (params) => {
   return new Promise(async (resolve, reject) => {
     try {
       //temp for testing
-      const locations = Object.values(meetingPlaces).map((item) => item.title);
+      const locations = Object.values(localMeetingPlaces).map(
+        (item) => item.title
+      );
       const prompt = getLocationPrompt(persona, worldState, locations);
       const response = await getInstruction(prompt, "location", id);
       if (response.startsWith("Error:")) {
@@ -50,7 +54,7 @@ export const getLocation = async (params) => {
         locationNum = parseInt(match[0], 10);
       }
       const actionLocation = locationIndexMapping[locationNum];
-      resolve({ ...meetingPlaces[actionLocation] });
+      resolve({ ...localMeetingPlaces[actionLocation] });
     } catch (err) {
       reject(err);
     }
@@ -105,7 +109,14 @@ export const getActionEmoji = async (persona, action, id) => {
   });
 };
 
-export const getAgentActions = async (actions) => {
+const getRandomLocation = (speechLocation) => {
+  const keys = Object.keys(localMeetingPlaces).filter(
+    (place) => localMeetingPlaces[place].title !== speechLocation.title
+  );
+  return localMeetingPlaces[keys[Math.floor(Math.random() * keys.length)]];
+};
+
+export const getAgentActions = async (actions, speechLocation) => {
   return new Promise(async (resolve, reject) => {
     try {
       let agentActions = await Promise.all(
@@ -115,13 +126,17 @@ export const getAgentActions = async (actions) => {
           const id = agent.uid; //temp
           const worldState = []; //temp
           const persona = agent; //temp
-          const actionLocation = await getLocation({ persona, worldState, id });
-          const coordinate =
-            actionLocation.audiencePositions[
-              Math.floor(
-                Math.random() * actionLocation.audiencePositions.length
-              )
-            ];
+          //const actionLocation = await getLocation({ persona, worldState, id });
+          const actionLocation = getRandomLocation(speechLocation);
+          const coordinate = JSON.parse(
+            JSON.stringify(
+              actionLocation.audiencePositions[
+                Math.floor(
+                  Math.random() * actionLocation.audiencePositions.length
+                )
+              ]
+            )
+          );
           if (DEBUG) {
             console.log(
               `Location Prompt:\nPersona ${JSON.stringify(

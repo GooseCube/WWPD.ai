@@ -15,6 +15,7 @@ import {
 import {
   agentDiscussionPrompt,
   getEmojiPrompt,
+  paraphraseResponse,
 } from "./speechModules/promptTemplates";
 
 /**
@@ -35,103 +36,67 @@ export const generateAgentResponses = async (
   speech,
   setAgents,
   aiModel,
-  speechLocation
+  speechLocation,
+  initialPrompt
 ) => {
   // Create the agents prompt template
   const agentPrompt = agentDiscussionPrompt(
     agent,
     speech.primaryAgent,
-    speech.primaryAgentInitialIdea
+    speech.primaryAgentInitialIdea,
+    initialPrompt
   );
 
   try {
     // Fetch agent response to primaryAgent (use the SDK completion fetch)
     let agentResponse = await fetchModelResponse(aiModel, agentPrompt);
 
-    for (let index = 0; index < 4; ++index) {
-      agentResponse += await fetchModelResponse(
+    for (let index = 0; index < 2; ++index) {
+      const additionalResponse = await fetchModelResponse(
         aiModel,
-        agentPrompt + "\n" + agentResponse
+        "Continue the idea below as if you were the original, creative author in the first person. Pretend that this is real life and you are not an assistant: \n" +
+          agentPrompt +
+          "\n" +
+          agentResponse
       );
+      const trimmedResponse = additionalResponse.trim().toLowerCase();
+      if (trimmedResponse && trimmedResponse.startsWith("confidence:")) {
+        break;
+      }
+      agentResponse = agentResponse.trimEnd();
+      agentResponse += additionalResponse;
     }
+
+    const paraphrasePrompt = paraphraseResponse(agentResponse);
+    const paraphrase = await fetchModelResponse(aiModel, paraphrasePrompt);
+    speech.paraphrasedConversations.push(paraphrase);
 
     /**
      * Add the new information with agent and response to the ongoing
      * conversation
      */
-    speech.conversations.push({
-      agent: agent,
-      agentPrompt: agentPrompt,
-      agentResponse: agentResponse,
-    });
+    // speech.conversations.push({
+    //   agent: agent,
+    //   agentPrompt: agentPrompt,
+    //   agentResponse: agentResponse,
+    // });
 
-    // Push update for agent to initiate a response to primary agent in text bubble
-    await updateAgent(
-      {
-        ...agent,
-        direction: faceDirectionOfOtherAgent(agent, speech.primaryAgent),
-        momentResponse: agentResponse,
-      },
-      setAgents
-    );
-
-    // Create an image based on agent response
-    // which should also give the agent time to finish their text response
-    await generateSlideImage(agentResponse, speech);
-    const emojiPrompt = getEmojiPrompt(agentResponse);
+    const image = await generateSlideImage(paraphrase, speech, true);
+    const emojiPrompt = getEmojiPrompt(paraphrase);
     const responseEmojis = await fetchModelResponse("Lllama", emojiPrompt, {
       type: "chat",
       params: "emojis",
     });
-
-    /**
-     * speechLocation object is selected by the user and set in the /Sidebar component.
-     * The number of valid { x, y } positions available for agents is randomly selected in /Sidebar.
-     */
-    if (speechLocation.audiencePositions.length > 0) {
-      // Select an audience position for the agent
-      let agentAudiencePosition = getRandomAudiencePosition(
-        speechLocation.audiencePositions
-      );
-
-      // Find the selected audience position and remove it from the list
-      speechLocation.audiencePositions =
-        speechLocation.audiencePositions.filter(
-          (position) =>
-            position.x !== agentAudiencePosition.x &&
-            position.y !== agentAudiencePosition.y
-        );
-
-      /**
-       * Traverse the agent to the selected audience position { x, y }
-       * and set Firebase DB && local context state
-       */
-      await moveAgent(
-        agent,
-        agentAudiencePosition.x,
-        agentAudiencePosition.y,
-        setAgents
-      );
-      // update agents facing direction and give final text emoji
-      await updateAgent(
-        {
-          ...agent,
-          direction: agentAudiencePosition.direction,
-          momentResponse: responseEmojis,
-        },
-        setAgents
-      );
-    } else {
-      // update agents facing direction and give final text emoji
-      await updateAgent(
-        {
-          ...agent,
-          momentResponse: responseEmojis,
-        },
-        setAgents
-      );
-    }
+    // Push update for agent to initiate a response to primary agent in text bubble
+    await updateAgent(
+      {
+        ...agent,
+        momentResponse: responseEmojis,
+      },
+      setAgents
+    );
+    return { agent, agentPrompt, agentResponse, image };
   } catch (error) {
-    throw new Error(`generate agent response error: ${error.message}`);
+    throw new Error(`generate agent response error: ${error}`);
   }
 };

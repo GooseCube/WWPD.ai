@@ -93,7 +93,8 @@ function Sidebar() {
         <Button
           className="arrow-button"
           // variant="success"
-          onClick={() => setShowArrowButton(!showArrowButton)}>
+          onClick={() => setShowArrowButton(!showArrowButton)}
+        >
           {showArrowButton ? (
             <ChevronDoubleLeft className="chevron-double-left" />
           ) : (
@@ -103,7 +104,8 @@ function Sidebar() {
         <Offcanvas
           className="offcanvas-container"
           show={showArrowButton}
-          onHide={() => setShowArrowButton(!showArrowButton)}>
+          onHide={() => setShowArrowButton(!showArrowButton)}
+        >
           <Offcanvas.Header closeButton>
             <SidebarHeader icon={app_icon} />
           </Offcanvas.Header>

@@ -4,8 +4,8 @@
   --blue: blue;
   --black: black;
   --grey: #242424;
-  --green: #849c3a;
-  --gradient-green: #738833;
+  --green: #709c3a;
+  --gradient-green:#619c3a;
   --button-width: 20rem;
 }
 
@@ -91,7 +91,7 @@
   background-color: var(--black);
   width: 3.5em;
   height: 3.5em;
-  border: 2px solid #849c3a;
+  border: 2px solid #679c3a;
 }
 
 .arrow-button:hover {

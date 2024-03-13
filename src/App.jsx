@@ -11,7 +11,7 @@ import Agents from "./components/agents/Agents";
 import AgentCards from "./components/agentCards/AgentCards";
 import MessageInterface from "./components/messages/MessageInterface";
 import EmailForm from "./components/email/Email";
-import MomentsEditor from "./components/momentsEditor/MomentsEditor"
+import MomentsEditor from "./components/momentsEditor/MomentsEditor";
 
 function App() {
   const { show } = useShow();
@@ -26,9 +26,11 @@ function App() {
   return loggedIn ? (
     <div className="app-container">
       <Sidebar />
-      <MessageInterface handleEmail={handleEmail} />
+      <div className="game-container">
+        <MessageInterface handleEmail={handleEmail} />
+        <Agents />
+      </div>
       <EmailForm moment={moment} />
-      <Agents />
       <AgentCards />
       {show.momentsEditor && <MomentsEditor />}
     </div>

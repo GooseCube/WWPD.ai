@@ -27,48 +27,44 @@ function MessageInterface({ handleEmail }) {
     show.interface &&
     sidebar.aiModel && (
       <div className="message-interface-container">
-        <Draggable handle=".toolbar-handle">
-          <ResizableBox width={800} height={600} className="resizable-box">
-            <div className="interface">
-              <div className="toolbar-handle">
-                <Toolbar
-                  show={show}
-                  dispatch={dispatch}
-                  aiModel={sidebar.aiModel}
-                />
-              </div>
-              {messages && show.messages && (
-                <div className="message-container">
-                  {Object.entries(messages).map(([id, message]) => {
-                    return <Message id={id} message={message} key={id} />;
-                  })}
-                </div>
-              )}
-              {moments && !show.messages && (
-                <div className="message-container">
-                  {Object.entries(moments).map(([id, moment]) => {
-                    return (
-                      <Moment
-                        id={id}
-                        moment={moment}
-                        key={id}
-                        show={show}
-                        dispatch={dispatch}
-                        handleEmail={handleEmail}
-                      />
-                    );
-                  })}
-                </div>
-              )}
-              <TextInput
-                show={show}
-                dispatch={dispatch}
-                sidebar={sidebar}
-                agents={agents}
-              />
+        <div className="interface">
+          <div className="toolbar-handle">
+            <Toolbar
+              show={show}
+              dispatch={dispatch}
+              aiModel={sidebar.aiModel}
+            />
+          </div>
+          {messages && show.messages && (
+            <div className="message-container">
+              {Object.entries(messages).map(([id, message]) => {
+                return <Message id={id} message={message} key={id} />;
+              })}
             </div>
-          </ResizableBox>
-        </Draggable>
+          )}
+          {moments && !show.messages && (
+            <div className="message-container">
+              {Object.entries(moments).map(([id, moment]) => {
+                return (
+                  <Moment
+                    id={id}
+                    moment={moment}
+                    key={id}
+                    show={show}
+                    dispatch={dispatch}
+                    handleEmail={handleEmail}
+                  />
+                );
+              })}
+            </div>
+          )}
+          <TextInput
+            show={show}
+            dispatch={dispatch}
+            sidebar={sidebar}
+            agents={agents}
+          />
+        </div>
       </div>
     )
   );

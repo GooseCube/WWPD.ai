@@ -51,17 +51,18 @@ This application requires the following accounts be created to run the program, 
 You will need to add a `.env` file to the /root of this repository and create the following environment variables which you will have after creating your accounts listed above:
 
 ```js
-VITE_HUGGINGFACE_API_TOKEN = "";
-VITE_FIREBASE_API_KEY = "";
-VITE_FIREBASE_AUTH_DOMAIN = "";
-VITE_FIREBASE_DB_URL = "";
-VITE_FIREBASE_PROJECT_ID = "";
-VITE_FIREBASE_STORAGE_BUCKET = "";
-VITE_FIREBASE_MESSAGING_SENDER_ID = "";
-VITE_FIREBASE_APP_ID = "";
-VITE_EMAILJS_API_KEY = "";
-VITE_EMAILJS_SERVICE_ID = "";
-VITE_EMAILJS_TEMPLATE_ID = "";
+VITE_HUGGINGFACE_API_TOKEN = ""
+VITE_FIREBASE_API_KEY = ""
+VITE_FIREBASE_AUTH_DOMAIN = ""
+VITE_FIREBASE_DB_URL = ""
+VITE_FIREBASE_PROJECT_ID = ""
+VITE_FIREBASE_STORAGE_BUCKET = ""
+VITE_FIREBASE_MESSAGING_SENDER_ID = ""
+VITE_FIREBASE_APP_ID = ""
+VITE_EMAILJS_USER_ID = ""
+VITE_EMAILJS_SERVICE_ID = ""
+VITE_EMAILJS_TEMPLATE_ID = ""
+VITE_EMAILJS_VERIFICATION_TEMPLATE = ""
 ```
 
 ## Download & Install Dependencies

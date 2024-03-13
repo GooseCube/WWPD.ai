@@ -24,7 +24,8 @@ function Toolbar({ show, dispatch, aiModel }) {
       {show.messages ? (
         <OverlayTrigger
           placement="top"
-          overlay={<Tooltip id={"tooltip-top"}>View Moments</Tooltip>}>
+          overlay={<Tooltip id={"tooltip-top"}>View Moments</Tooltip>}
+        >
           <Lightbulb
             className="toolbar-icon lightbulb"
             onClick={() => {
@@ -36,7 +37,8 @@ function Toolbar({ show, dispatch, aiModel }) {
       ) : (
         <OverlayTrigger
           placement="top"
-          overlay={<Tooltip id={"tooltip-top"}>View Messages</Tooltip>}>
+          overlay={<Tooltip id={"tooltip-top"}>View Messages</Tooltip>}
+        >
           <ChatDots
             className="toolbar-icon chat"
             onClick={() => {
@@ -51,37 +53,16 @@ function Toolbar({ show, dispatch, aiModel }) {
       {show.messages && show.isLoading ? (
         <SpinnerAnimation attributes={animationAttributes} />
       ) : (
-        show.messages && (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip id={"tooltip-top"}>Message Input</Tooltip>}>
-            <Keyboard
-              className="toolbar-icon keyboard"
-              onClick={() =>
-                dispatch({ type: "SET_INPUT_AREA", payload: !show.inputArea })
-              }
-            />
-          </OverlayTrigger>
-        )
+        show.messages
       )}
 
       <OverlayTrigger
         placement="top"
-        overlay={<Tooltip id={"tooltip-top"}>Selected AI Model</Tooltip>}>
+        overlay={<Tooltip id={"tooltip-top"}>Selected AI Model</Tooltip>}
+      >
         <div className="ai-model-name">
           {aiModel.title} ({aiModel.type})
         </div>
-      </OverlayTrigger>
-
-      <OverlayTrigger
-        placement="top"
-        overlay={<Tooltip id={"tooltip-top"}>Close</Tooltip>}>
-        <XCircleFill
-          className="toolbar-icon close"
-          onClick={() =>
-            dispatch({ type: "SET_INTERFACE", payload: !show.interface })
-          }
-        />
       </OverlayTrigger>
     </div>
   );
